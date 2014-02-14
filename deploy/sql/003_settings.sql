@@ -1,7 +1,7 @@
-INSERT INTO `phalcon`. `inserts` ( `name` , `created_at` )
+INSERT INTO `silentbarn`. `inserts` ( `name` , `created_at` )
 VALUES ( '003_settings', NOW( ) );
 
-CREATE TABLE IF NOT EXISTS `phalcon`.`settings` (
+CREATE TABLE IF NOT EXISTS `silentbarn`.`settings` (
   `object_id` int(10) unsigned NOT NULL,
   `object_type` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
   `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -9,5 +9,5 @@ CREATE TABLE IF NOT EXISTS `phalcon`.`settings` (
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE  `phalcon`.`settings` ADD UNIQUE ( `object_id` , `object_type` , `key` );
-ALTER TABLE `phalcon`. `settings` ADD INDEX (  `object_id` ,  `object_type` ) ;
+ALTER TABLE  `silentbarn`.`settings` ADD UNIQUE ( `object_id` , `object_type` , `key` );
+ALTER TABLE `silentbarn`.`settings` ADD INDEX (  `object_id` ,  `object_type` ) ;

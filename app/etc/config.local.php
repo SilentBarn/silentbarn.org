@@ -1,21 +1,30 @@
 <?php
 
-return array(
-    'app' => array(
+return [
+    'app' => [
         'environment' => 'local',
-        'responseMode' => 'view' ),
+        'responseMode' => 'view',
+        'modules' => [
+            'api' => 'Api' ]],
 
-    'cache' => array(
-        'adapter' => 'redis' ),
+    'cache' => [
+        'adapter' => 'redis' ],
 
-    'paths' => array(
-        'baseUri' => 'http://phalcon.dev/phalconbp/',
-        'assetUri' => 'http://phalcon.dev/phalconbp/',
-        'hostname' => 'phalcon.dev' ),
+    'database' => [
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => 'root',
+        'dbname' => 'silentbarn',
+        'persistent' => TRUE ],
 
-    'cookies' => array(
-        'secure' => TRUE ),
+    'paths' => [
+        'baseUri' => 'http://barn.dev/',
+        'assetUri' => 'http://barn.dev/',
+        'hostname' => 'barn.dev' ],
 
-    'profiling' => array(
+    'cookies' => [
+        'secure' => TRUE ],
+
+    'profiling' => [
         'query' => FALSE
-    ));
+    ]];

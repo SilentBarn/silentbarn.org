@@ -13,6 +13,6 @@ class IndexController extends \Base\Controller
 
     public function indexAction()
     {
-        $this->view->pick( 'main/index' );
+        $this->view->pick( 'home/index' );
     }
 }
