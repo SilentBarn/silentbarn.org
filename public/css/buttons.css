@@ -1,0 +1,11 @@
+/* Buttons
+ */
+a.button,
+input.button {
+    border-radius: 3px; border-top-width: 0; border-left-width: 0;
+    border-right-width: 0; border-bottom-width: 2px; border-style: solid;
+    padding: 5px 10px; cursor: pointer; }
+.button.blue {
+    background: #007db6; border-bottom-color: #00628f; color: #fff; }
+.button.blue.fontsize-18 {
+    padding: 6px 14px; }

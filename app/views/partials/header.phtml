@@ -4,7 +4,10 @@
         <!-- Logo -->
         <div id="logo">
             <a href="<?php echo $this->url->get( '' ); ?>">
-                <img src="<?php echo $this->url->get( 'img/logo_160w.png' ); ?>" width="160" alt="Silent Barn Logo" />
+                <img class="large transition-bottom" src="<?php echo $this->url->get( 'img/logo_160w.png' ); ?>"
+                    width="160" alt="Silent Barn Logo" />
+                <img class="small transition-opacity" src="<?php echo $this->url->get( 'img/logo_40w.png' ); ?>"
+                    width="40" alt="Silent Barn Logo" />
             </a>
         </div>
         <div id="photo-stream">
@@ -51,7 +54,7 @@
                 </li>
             </ul>
             <form id="search" method="post" action="">
-                <input type="text" name="query" value="" placeholder="Search..." />
+                <input type="text" name="query" value="" class="transition-width" placeholder="Search..." />
                 <a href="#">
                     <i class="fa fa-search"></i>
                 </a>

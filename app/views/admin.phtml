@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Silent Barn</title>
+        <title>Admin -- Silent Barn</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -15,15 +15,14 @@
     <body>
         <!-- Content -->
         <div id="content">
-<?php   $this->partial( 'partials/header' );
+<?php   $this->partial( 'partials/admin/header' );
         echo $this->getContent();
-        $this->partial( 'partials/footer' ); ?>
+        $this->partial( 'partials/admin/footer' ); ?>
         </div>
 
         <!-- JavaScripts -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="<?php echo $this->url->get( 'js/jquery.easing-1.3.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.filmroll.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/app.js' ); ?>"></script>
     </body>
 </html>

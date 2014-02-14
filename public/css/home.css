@@ -1,0 +1,62 @@
+/* Carousel
+ */
+#hero {
+    position: relative; }
+#hero-carousel {
+    height: 440px; overflow: hidden; }
+.hero-carousel div.slide {
+    -webkit-transition: opacity 1s ease-in-out;
+    -moz-transition: opacity 1s ease-in-out;
+    -o-transition: opacity 1s ease-in-out;
+    transition: opacity 1s ease-in-out; }
+.hero-carousel .film_roll_child {
+    opacity: 0.5; }
+.hero-carousel .film_roll_child.active {
+    opacity: 1; }
+.hero-carousel .blurb {
+    position: absolute; left: 5px; top: 20px; bottom: 0; }
+.hero-carousel .blurb h1 {
+    max-width: 500px; line-height: 38px; font-size: 36px;
+    background: rgba( 0, 0, 0, 0.6 ); padding: 10px 20px 10px 15px;
+    float: left; }
+.hero-carousel .blurb h1 span {
+    color: #fff; font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase; }
+.hero-carousel .blurb p {
+    max-width: 600px; background: rgba( 0, 0, 0, 0.6 );
+    padding: 10px 20px 10px 15px; float: left; font-size: 18px;
+    position: absolute; bottom: 40px; color: #fff; }
+#hero-nav {
+    width: 960px; margin: 0 auto; z-index: 2; position: relative;
+    top: -52px; font-size: 18px; text-align: right; }
+#hero-nav a {
+    text-decoration: none; display: block; padding: 5px 20px;
+    background: rgba( 0, 0, 0, 0.6 ); color: #fff; float: right; }
+#hero-nav a:hover {
+    background: rgba( 0, 0, 0, 0.9 ); }
+
+/* Vignettes
+ */
+#vignettes {
+    width: 960px; margin: 0 auto; }
+#vignettes .row {
+    margin-bottom: 40px; }
+#vignettes .row.flush {
+    margin: 0; }
+#vignettes .block {
+    float: left; width: 310px; margin-right: 15px; }
+#vignettes .block.heptagon {
+    min-height: 488px; position:relative; background: none !important; }
+#vignettes .block.heptagon img {
+    position: absolute; z-index: 1; bottom: 0; }
+#vignettes .row .block:last-child {
+    margin: 0; }
+#vignettes .block .categories span {
+    color: #a8a030; font-size: 14px; text-transform: uppercase; }
+#vignettes .block h3.title {
+    margin: 5px 0; }
+#vignettes .block .date {
+    font-size: 12px; text-transform: uppercase; color: #999;
+    margin-bottom: 10px; }
+#vignettes .block .description {
+    font-size: 14px; line-height: 20px; color: #666; }
