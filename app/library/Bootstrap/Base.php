@@ -42,7 +42,7 @@ abstract class Base
     /**
      * Bootstraps the application.
      */
-    public function run()
+    public function run( $args = array() )
     {
         // initialize our required services
         //
@@ -105,7 +105,7 @@ abstract class Base
             ));
         $loader->register();
 
-        $di[ 'loader' ] = $loader;
+        $this->di[ 'loader' ] = $loader;
     }
 
     protected function initRouter()

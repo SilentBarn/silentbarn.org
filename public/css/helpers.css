@@ -25,10 +25,15 @@
     -o-transition: opacity 200ms ease-in-out;
     transition: opacity 200ms ease-in-out; }
 .transition-bottom {
-    -webkit-transition: bottom 200ms ease-in-out;
-    -moz-transition: bottom 200ms ease-in-out;
-    -o-transition: bottom 200ms ease-in-out;
-    transition: bottom 200ms ease-in-out; }
+    -webkit-transition: bottom 250ms ease-out;
+    -moz-transition: bottom 250ms ease-out;
+    -o-transition: bottom 250ms ease-out;
+    transition: bottom 250ms ease-out; }
+.transition-top {
+    -webkit-transition: top 250ms ease-out;
+    -moz-transition: top 250ms ease-out;
+    -o-transition: top 250ms ease-out;
+    transition: top 250ms ease-out; }
 
 /* Fonts
  */

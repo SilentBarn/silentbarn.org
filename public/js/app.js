@@ -19,16 +19,25 @@ $( document ).ready( function () {
 
     // sticky nav on scroll
     //
-    var navOffset = 120;
+    var navOffset = 122,
+        logoOffset = 110,
+        $document = $( document ),
+        $body = $( 'body' );
 
     $( document ).bind( 'ready scroll', function () {
-        var docScroll = $( document ).scrollTop();
+        var docScroll = $document.scrollTop();
 
         if ( docScroll >= navOffset ) {
-            $( 'body' ).addClass( 'sticky' );
+            $body.addClass( 'sticky' )
+                .addClass( 'shiftlogo' );
+        }
+        else if ( docScroll >= logoOffset ) {
+            $body.removeClass( 'sticky' )
+                .addClass( 'shiftlogo' );
         }
         else {
-            $( 'body' ).removeClass( 'sticky' );
+            $body.removeClass( 'sticky' )
+                .removeClass( 'shiftlogo' );
         }
     });
 });
