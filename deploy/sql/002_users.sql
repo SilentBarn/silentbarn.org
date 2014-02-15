@@ -13,5 +13,5 @@ CREATE TABLE IF NOT EXISTS `silentbarn`.`users` (
 
 INSERT INTO `silentbarn`.`users` ( `id` , `email` , `password` , `name` , `created_at` )
 VALUES (
-    NULL ,  'mikegioia@gmail.com',  '$2a$10$4wtMMI613pcGWVzLlIFEbOCW/ni5RsSFoJ7Ygi6P18cc51gO4CUTC', 
+    NULL ,  'test@example.org',  '$2a$10$4wtMMI613pcGWVzLlIFEbOCW/ni5RsSFoJ7Ygi6P18cc51gO4CUTC', 
     'Johnny Test', NOW() );

@@ -2,7 +2,8 @@
 
 namespace Base;
 
-use Phalcon\Mvc\View;
+use Phalcon\Mvc\View,
+    \Phalcon\DI as DI;
 
 class Controller extends \Phalcon\Mvc\Controller
 {

@@ -18,12 +18,37 @@ class AdminController extends \Base\Controller
      */
     public function indexAction()
     {
+        // get all of the posts
+        //
+        $posts = \Db\Sql\Posts::getActive();
+        print_r($posts);exit;
     }
 
     /**
-     * Kill the session and login cookie
+     * Create a new post and redirect to the edit page.
+     */
+    public function newAction()
+    {
+        // create the post
+        //
+        $action = new \Actions\Posts\Post();
+        $id = $action->create();
+
+        // redirect
+        //
+        $this->redirect = "admin/edit/$id";
+    }
+
+    /**
+     * Edit a post
      */
     public function editAction( $id = "" )
     {
+        if ( ! valid( $id, INT ) )
+        {
+            $this->addMessage( "No post ID specified", INFO );
+            $this->redirect = 'admin';
+            return FALSE;
+        }
     }
 }
