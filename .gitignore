@@ -1,3 +1,4 @@
 app/config/config.local.ini
 composer.lock
 vendor/
+public/media

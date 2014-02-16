@@ -40,6 +40,6 @@ endforeach;
 //
 $bootstrap = new \Lib\Bootstrap\Cli([
     'router', 'url', 'profiler', 'db', 'mongo',
-    'collectionManager', 'dataCache', 'util',
-    'auth', 'validate', 'cache' ]);
+    'collectionManager', 'behaviors', 'dataCache',
+    'util', 'auth', 'validate', 'cache' ]);
 $bootstrap->run( $arguments );

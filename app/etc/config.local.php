@@ -23,7 +23,7 @@ return [
         'hostname' => 'barn.dev' ],
 
     'cookies' => [
-        'secure' => TRUE ],
+        'secure' => FALSE ],
 
     'profiling' => [
         'query' => FALSE

@@ -24,7 +24,7 @@ class Model extends \Phalcon\Mvc\Model
     /**
      * Adds a behavior in the model
      *
-     * @param $behavior
+     * @param string $behavior
      */
     function addBehavior( $behavior )
     {
@@ -37,9 +37,9 @@ class Model extends \Phalcon\Mvc\Model
 
         foreach ( $this->behaviors as $behavior => $active )
         {
-            if ( $active && $di->has( $behavior ) )
+            if ( $active && $di->has( 'behavior_'. $behavior ) )
             {
-                $di->get( $behavior )->beforeSave( $this );
+                $di->get( 'behavior_'. $behavior )->beforeSave( $this );
             }
         }
     }

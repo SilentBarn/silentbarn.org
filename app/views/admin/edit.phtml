@@ -1,0 +1,96 @@
+<div class="page">
+    <!-- Edit form -->
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/save' ); ?>" method="post">
+        <!-- Left col -->
+        <div class="left-col float-left">
+            <!-- General -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>General</h2>
+                </legend>
+                <div class="margin-bottom-20">
+                    <label>Title</label>
+                    <input class="w95p" type="text" name="title" value="<?php echo $post->title; ?>" />
+                </div>
+                <div>
+                    <label>Body/Content</label>
+                    <textarea class="w95p h150px" name="body"><?php echo $post->body; ?></textarea>
+                </div>
+            </fieldset>
+
+            <!-- Dates and Meta -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>Dates &amp; Meta</h2>
+                </legend>
+                <div class="clearfix">
+                    <div class="float-left w50p">
+                        <div class="margin-bottom-20">
+                            <label>Post Date (displays on site)</label>
+                            <input class="w150px datepicker" type="text" name="post_date"
+                                value="<?php echo date_str( $post->post_date, DATE_PICKER, TRUE ); ?>" />
+                        </div>
+                    </div>
+                    <div class="float-right w50p">
+                        <div>
+                            <label>Event Date (for searching events)</label>
+                            <input class="w150px datepicker" type="text" name="post_date"
+                                value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Images -->
+            <fieldset>
+                <legend>
+                    <h2>Photos</h2>
+                </legend>
+            </fieldset>
+        </div><!-- /left-col -->
+
+        <!-- Right col -->
+        <div class="right-col float-right">
+            <!-- Categories -->
+            <fieldset class="margin-bottom-20">
+                <legend>
+                    <h2>Categories</h2>
+                </legend>
+<?php   $selected = FALSE;
+        $catPicked = FALSE;
+        foreach ( $categories as $category ):
+            $selected = in_array( $category->slug, $postCategories );
+            $catPicked = $catPicked || $selected; ?>
+                <div class="margin-bottom-5">
+                    <label>
+                        <input type="radio" name="categories" value="<?php echo $category->slug; ?>"
+                            <?php echo ( $selected ) ? ' checked="checked"' : ''; ?>/>
+                        <span class="fontsize-16"><?php echo $category->name; ?></span>
+                    </label>
+                </div>
+<?php   endforeach; ?>
+                <div class="margin-bottom-5">
+                    <label>
+                        <input type="radio" name="categories" value=""
+                            <?php echo ( $catPicked ) ? '' : ' checked="checked"'; ?>/>
+                        <em class="fontsize-16">None</em>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- Tags -->
+            <fieldset class="margin-bottom-20">
+                <legend>
+                    <h2>Tags</h2>
+                </legend>
+            </fieldset>
+
+            <!-- Artists -->
+            <fieldset>
+                <legend>
+                    <h2>Artists</h2>
+                </legend>
+            </fieldset>
+        </div><!-- /right-col -->
+    </form>
+</div>

@@ -5,11 +5,14 @@
 @import 'helpers.css';
 @import 'forms.css';
 @import 'buttons.css';
+@import 'tables.css';
 
 /* Pages
  */
 @import 'home.css';
 @import 'auth.css';
+@import 'admin.css';
 
 /* Libraries
  */
+@import 'pikaday.css';

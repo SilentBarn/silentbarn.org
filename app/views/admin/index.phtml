@@ -1,0 +1,38 @@
+<div class="page">
+    <!-- Articles table -->
+    <h1>Articles</h1>
+    <table id="articles" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th class="lefted-text">Title</th>
+                <th class="lefted-text">Categories</th>
+                <th class="lefted-text">On HP?</th>
+                <th class="lefted-text">Post Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php   if ( count( $posts ) ):
+            foreach ( $posts as $post ): ?>
+
+            <tr>
+                <td class="centered-text"><?php echo $post->id; ?></td>
+                <td><?php echo $post->title; ?></td>
+                <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
+                <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : 'No'; ?></td>
+                <td><?php echo date_str( $post->post_date, DATE_MONTH_TIME_YEAR ); ?></td>
+                <td class="centered-text">
+                    <a class="" href="<?php echo $this->url->get( 'admin/edit/'. $post->id ); ?>">Edit</a>
+                </td>
+            </tr>
+
+<?php       endforeach;
+        else: ?>
+            <tr>
+                <td class="centered-text" colspan="6">No articles to display!</td>
+            </tr>
+<?php   endif; ?>
+        </tbody>
+    </table>
+</div>

@@ -11,12 +11,10 @@ abstract class UnitTestCase extends PhalconTestCase
     {
         // create a new DI container
         //
-        $bootstrap = new \Lib\Bootstrap\Unit(
-            array(
-                'url', 'cookies', 'session', 'profiler', 'db',
-                'mongo', 'collectionManager', 'dataCache',
-                'util', 'auth', 'validate', 'cache'
-            ));
+        $bootstrap = new \Lib\Bootstrap\Unit([
+            'url', 'cookies', 'session', 'profiler', 'db',
+            'mongo', 'collectionManager', 'behaviors',
+            'dataCache', 'util', 'auth', 'validate', 'cache' ]);
         $bootstrap->run();
 
         parent::setUp( $bootstrap->getDI() );

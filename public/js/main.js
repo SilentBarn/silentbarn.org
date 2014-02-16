@@ -1,7 +1,7 @@
 /**
- * Application JS (for now)
+ * Main application JS
  */
-$( document ).ready( function () {
+jQuery( function( $ ) {
     // set up homepage filmroll
     //
     if ( $( '#hero-carousel' ).length ) {

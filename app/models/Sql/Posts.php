@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Phalcon\Mvc\Model\Query;
+
 class Posts extends \Base\Model
 {
     public $id;
@@ -20,17 +22,13 @@ class Posts extends \Base\Model
     function initialize()
     {
         $this->setSource( 'posts' );
-
-        $this->hasMany( 'id', 'Categories', 'post_id' );
-        $this->hasMany( 'id', 'Tags', 'post_id' );
-        $this->hasMany( 'id', 'Artists', 'post_id' );
-        $this->hasMany( 'id', 'Images', 'post_id' );
+        $this->addBehavior( 'timestamp' );
     }
 
     /**
      * Get all active posts (not deleted)
      */
-    function getActive( $limit = 25, $offset = 0 )
+    static function getActive( $limit = 25, $offset = 0 )
     {
         return \Db\Sql\Posts::find([
             'is_deleted' => 0,
@@ -39,5 +37,65 @@ class Posts extends \Base\Model
                 'number' => $limit,
                 'offset' => $offset ]
             ]);
+    }
+
+    /**
+     * Retrieves categories for the post
+     */
+    function getCategories()
+    {
+        $phql = sprintf(
+            "select c.* from \Db\Sql\Categories as c ".
+            "inner join \Db\Sql\Relationships as r ".
+            "  on c.id = r.property_id and r.property_type = '%s' ".
+            "where r.object_id = :objectId: ".
+            "  and r.object_type = :objectType: ".
+            "order by c.name desc",
+            CATEGORY );
+        $query = new Query( $phql, $this->getDI() );
+
+        return $query->execute([
+            'objectId' => $this->id,
+            'objectType' => 'post' ]);
+    }
+
+    /**
+     * Retrieves tags for the post
+     */
+    function getTags()
+    {
+        $phql = sprintf(
+            "select t.* from \Db\Sql\Tags as t ".
+            "inner join \Db\Sql\Relationships as r ".
+            "  on t.id = r.property_id and r.property_type = '%s' ".
+            "where r.object_id = :objectId: ".
+            "  and r.object_type = :objectType: ".
+            "order by r.name desc",
+            TAG );
+        $query = new Query( $phql, $this->getDI() );
+
+        return $query->execute([
+            'objectId' => $this->id,
+            'objectType' => 'post' ]);
+    }
+
+    /**
+     * Retrieves artists for the post
+     */
+    function getArtists()
+    {
+        $phql = sprintf(
+            "select t.* from \Db\Sql\Artists as a ".
+            "inner join \Db\Sql\Relationships as r ".
+            "  on a.id = r.property_id and r.property_type = '%s' ".
+            "where r.object_id = :objectId: ".
+            "  and r.object_type = :objectType: ".
+            "order by r.name desc",
+            ARTIST );
+        $query = new Query( $phql, $this->getDI() );
+
+        return $query->execute([
+            'objectId' => $this->id,
+            'objectType' => 'post' ]);
     }
 }

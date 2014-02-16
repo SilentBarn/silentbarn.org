@@ -247,10 +247,19 @@ abstract class Base
     {
         $this->di->set(
             'collectionManager',
-            function(){
+            function () {
                 return new \Phalcon\Mvc\Collection\Manager();
             },
             TRUE );
+    }
+
+    protected function initBehaviors()
+    {
+        $this->di->set(
+            'behavior_timestamp',
+            function () {
+                return new \Db\Behaviors\Timestamp();
+            });
     }
 
     protected function initDataCache()
