@@ -30,13 +30,39 @@ class Posts extends \Base\Model
      */
     static function getActive( $limit = 25, $offset = 0 )
     {
-        return \Db\Sql\Posts::find([
-            'is_deleted' => 0,
-            'order' => 'created_at desc',
-            'limit' => [
-                'number' => $limit,
-                'offset' => $offset ]
+        return \Db\Sql\Posts::query()
+            ->where( 'is_deleted = 0' )
+            ->order( 'created_at desc' )
+            ->limit( $limit, $offset )
+            ->execute();
+    }
+
+    /**
+     * Returns the images for the post
+     */
+    function getImages()
+    {
+        return \Db\Sql\Images::query()
+            ->where( 'post_id = :postId:' )
+            ->andWhere( 'is_deleted = 0' )
+            ->bind([ 'postId' => $this->id ])
+            ->execute();
+    }
+
+    /**
+     * Returns one (primary) image for the post
+     */
+    function getImage()
+    {
+        $image = \Db\Sql\Images::findFirst([
+            'post_id = :postId: and is_deleted = 0',
+            'bind' => [
+                'postId' => $this->id ]
             ]);
+
+        return ( $image )
+            ? $image
+            : new \Db\Sql\Images();
     }
 
     /**

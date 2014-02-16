@@ -152,11 +152,11 @@ function map( $objects, $key = 'id', $listify = FALSE )
 /**
  * Outputs a date formatted string
  */
-function date_str( $datetime, $format = DATE_TABLE, $emptyOnNull = FALSE )
+function date_str( $datetime, $format = DATE_TABLE, $nullOnEmpty = FALSE )
 {
-    if ( ! $datetime && $emptyOnNull )
+    if ( ! $datetime && $nullOnEmpty )
     {
-        return '';
+        return NULL;
     }
 
     $timestamp = new \DateTime( $datetime );

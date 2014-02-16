@@ -1,6 +1,11 @@
 <div class="page">
     <!-- Edit form -->
-    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/save' ); ?>" method="post">
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/save' ); ?>"
+        method="post" enctype="multipart/form-data">
+        <div style="display:none;">
+            <input type="hidden" name="id" value="<?php echo $post->id; ?>" />
+        </div>
+
         <!-- Left col -->
         <div class="left-col float-left">
             <!-- General -->
@@ -12,9 +17,22 @@
                     <label>Title</label>
                     <input class="w95p" type="text" name="title" value="<?php echo $post->title; ?>" />
                 </div>
-                <div>
+                <div class="margin-bottom-20">
                     <label>Body/Content</label>
                     <textarea class="w95p h150px" name="body"><?php echo $post->body; ?></textarea>
+                </div>
+                <div>
+                    <label>Status</label>
+                    <div class="margin-bottom-5">
+                        <input type="radio" name="status" value="draft"
+                            <?php echo ( $post->status == 'draft' ) ? ' checked="checked"' : ''; ?> />
+                        <span>Draft</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="status" value="published"
+                            <?php echo ( $post->status == 'published' ) ? ' checked="checked"' : ''; ?> />
+                        <span>Published</span>
+                    </div>
                 </div>
             </fieldset>
 
@@ -23,7 +41,7 @@
                 <legend>
                     <h2>Dates &amp; Meta</h2>
                 </legend>
-                <div class="clearfix">
+                <div class="clearfix margin-bottom-20">
                     <div class="float-left w50p">
                         <div class="margin-bottom-20">
                             <label>Post Date (displays on site)</label>
@@ -34,9 +52,27 @@
                     <div class="float-right w50p">
                         <div>
                             <label>Event Date (for searching events)</label>
-                            <input class="w150px datepicker" type="text" name="post_date"
+                            <input class="w150px datepicker" type="text" name="event_date"
                                 value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>" />
                         </div>
+                    </div>
+                </div>
+                <div>
+                    <label>Display on Homepage?</label>
+                    <div class="margin-bottom-5">
+                        <input type="radio" name="homepage_location" value="hero"
+                            <?php echo ( $post->homepage_location == 'hero' ) ? ' checked="checked"' : ''; ?>/>
+                        <span>Hero Filmstrip</span>
+                    </div>
+                    <div class="margin-bottom-5">
+                        <input type="radio" name="homepage_location" value="boxes"
+                            <?php echo ( $post->homepage_location == 'boxes' ) ? ' checked="checked"' : ''; ?> />
+                        <span>Feature Boxes</span>
+                    </div>
+                    <div>
+                        <input type="radio" name="homepage_location" value=""
+                            <?php echo ( ! $post->homepage_location ) ? ' checked="checked"' : ''; ?> />
+                        <em>None</em>
                     </div>
                 </div>
             </fieldset>
@@ -46,6 +82,25 @@
                 <legend>
                     <h2>Photos</h2>
                 </legend>
+                <div class="clearfix">
+                    <div class="float-left">
+<?php   $image = $post->getImage();
+        if ( valid( $image->id ) ): ?>
+                        <div class="margin-bottom-5"><?php echo $image->filename_orig; ?></div>
+                        <div class="margin-bottom-5"><?php echo human_bytes( $image->size ); ?></div>
+                        <div class="margin-bottom-5"><?php echo $image->mime_type; ?></div>
+                        <div class="margin-bottom-25">Uploaded on <?php echo date_str( $image->created_at, DATE_DAY_NAME_YEAR ); ?></div>
+                        <input type="hidden" name="image" value="<?php echo $image->id; ?>" />
+                        <input name="image" type="file" id="image-input" />
+<?php   else: ?>
+                        <input name="image" type="file" id="image-input" />
+<?php   endif; ?>
+                    </div>
+                    <div class="float-right clearfix" id="image-preview">
+                        <img src="<?php echo $image->getPath(); ?>" />
+                        <span>No picture selected</span>
+                    </div>
+                </div>
             </fieldset>
         </div><!-- /left-col -->
 
@@ -86,11 +141,22 @@
             </fieldset>
 
             <!-- Artists -->
-            <fieldset>
+            <fieldset class="margin-bottom-40">
                 <legend>
                     <h2>Artists</h2>
                 </legend>
             </fieldset>
+
+            <!-- Delete -->
+            <div class="righted-text">
+                <a class="fontsize-18 red button" href="javascript:;" id="delete-post">
+                    Delete Article
+                </a>
+                <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/delete/{$post->id}" ); ?>"
+                    id="really-delete-post" style="display:none;">
+                    Click again to confirm
+                </a>
+            </div>
         </div><!-- /right-col -->
     </form>
 </div>

@@ -21,6 +21,11 @@ class Model extends \Phalcon\Mvc\Model
         return DI::getDefault()->get( $service );
     }
 
+    static function getStaticDI()
+    {
+        return DI::getDefault();
+    }
+
     /**
      * Adds a behavior in the model
      *

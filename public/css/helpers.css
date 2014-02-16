@@ -55,6 +55,10 @@
     font-size: 18px; }
 .font-mono {
     font-family: 'Share Tech Mono', monospace; }
+.color-333 {
+    color: #333; }
+.color-aaa {
+    color: #aaa; }
 
 /* Margins
  */

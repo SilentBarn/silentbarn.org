@@ -13,7 +13,9 @@ return array(
     'paths' => array(
         'baseUri' => 'http://phalcon.dev/',
         'assetUri' => 'http://phalcon.dev/',
-        'hostname' => 'phalcon.dev' ),
+        'hostname' => 'phalcon.dev',
+        'media' => '/var/www/media',
+        'mediaPublic' => 'http://phalcon.dev/public/media/' ),
 
     'session' => array(
         // can be 'redis' or 'files'

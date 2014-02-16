@@ -77,8 +77,8 @@ class AdminController extends \Base\Controller
         // edit the post
         //
         $data = $this->request->getPost();
-        $action = new \Actions\Posts\Post();
-        $post = $action->edit( $data );
+        $postAction = new \Actions\Posts\Post();
+        $post = $postAction->edit( $data );
 
         if ( ! $post )
         {
@@ -87,18 +87,48 @@ class AdminController extends \Base\Controller
         }
 
         // save any categories
+        //
+        $categoryAction = new \Actions\Posts\Category();
+        $categoryAction->saveToPost(
+            $post,
+            $this->request->getPost( 'category' ));
 
         // save any tags
+        //
+        $tagAction = new \Actions\Posts\Tag();
+        $tagAction->saveToPost(
+            $post,
+            $this->request->getPost( 'tags' ));
 
         // save any artists
         //
+        $artistAction = new \Actions\Posts\Artist();
+        $artistAction->saveToPost(
+            $post,
+            $this->request->getPost( 'artists' ));
 
         // save any images and do the resizing
         //
-
+        if ( $this->request->hasFiles() == TRUE )
+        {
+            $imageAction = new \Actions\Posts\Image();
+            $imageAction->deleteByPost( $post->id );
+            $imageAction->upload( $post->id, $this->request->getUploadedFiles() );
+        }
 
         // redirect
         //
-        $this->redirect = "admin/edit/$postId";
+        $this->redirect = "admin/edit/{$post->id}";
+    }
+
+    /**
+     * Delete a post
+     */
+    public function deleteAction( $id = "" )
+    {
+        $postAction = new \Actions\Posts\Post();
+        $post = $postAction->delete( $id );
+
+        $this->redirect = 'admin';
     }
 }

@@ -20,7 +20,9 @@ return [
     'paths' => [
         'baseUri' => 'http://barn.dev/',
         'assetUri' => 'http://barn.dev/',
-        'hostname' => 'barn.dev' ],
+        'hostname' => 'barn.dev',
+        'media' => '/home/mike/Projects/Silent-Barn/public/media',
+        'mediaPublic' => 'http://barn.dev/media/' ],
 
     'cookies' => [
         'secure' => FALSE ],

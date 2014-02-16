@@ -8,6 +8,7 @@
                 <th class="lefted-text">Title</th>
                 <th class="lefted-text">Categories</th>
                 <th class="lefted-text">On HP?</th>
+                <th class="lefted-text">Status</th>
                 <th class="lefted-text">Post Date</th>
                 <th>Actions</th>
             </tr>
@@ -20,8 +21,9 @@
                 <td class="centered-text"><?php echo $post->id; ?></td>
                 <td><?php echo $post->title; ?></td>
                 <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
-                <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : 'No'; ?></td>
-                <td><?php echo date_str( $post->post_date, DATE_MONTH_TIME_YEAR ); ?></td>
+                <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : '<span class="color-aaa">No</span>'; ?></td>
+                <td><?php echo ucfirst( $post->status ); ?></td>
+                <td><?php echo date_str( $post->post_date, DATE_TABLE ); ?></td>
                 <td class="centered-text">
                     <a class="" href="<?php echo $this->url->get( 'admin/edit/'. $post->id ); ?>">Edit</a>
                 </td>
