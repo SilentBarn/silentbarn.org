@@ -16,3 +16,6 @@ CREATE TABLE IF NOT EXISTS `silentbarn`.`posts` (
   `modified_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+ALTER TABLE  `silentbarn`.`posts` ADD  `slug` VARCHAR( 255 ) NULL DEFAULT NULL AFTER  `title` ,
+ADD UNIQUE ( `slug` );

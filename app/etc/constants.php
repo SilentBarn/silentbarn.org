@@ -33,6 +33,7 @@ define( 'DATE_PICKER', 'n/j/Y' );
 define( 'DATE_TIME', 'm/d/y g:ia' );
 define( 'DATE_MONTH_TIME', 'M j, g:ia' );
 define( 'DATE_MONTH_TIME_YEAR', 'M j, Y g:ia' );
+define( 'DATE_YEAR_MONTH_SLUG', 'Y/m' );
 define( 'DATE_DB_EMPTY', '0000-00-00 00:00:00' );
 
 // objec types

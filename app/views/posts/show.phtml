@@ -1,0 +1,9 @@
+<!-- Post -->
+<div id="post" class="page">
+    <h1><?php echo $post->title; ?></h1>
+    <div id="banner-wrap" class="margin-top-20 margin-bottom-20"
+        style="background-image: url( '<?php echo $post->getImage()->getPath( 960 ); ?>' );"></div>
+    <div id="body">
+        <?php echo $post->body; ?>
+    </div>
+</div>

@@ -64,6 +64,8 @@ class AdminController extends \Base\Controller
         $this->view->post = $post;
         $this->view->postCategories = map( $post->getCategories()->toArray(), 'slug' );
         $this->view->categories = \Db\Sql\Categories::find();
+        $this->view->tags = [];
+        $this->view->artists = [];
         $this->view->backPage = 'admin';
         $this->view->subPage = 'Edit Article';
         $this->view->buttons = [ 'save' ];
@@ -107,13 +109,17 @@ class AdminController extends \Base\Controller
             $post,
             $this->request->getPost( 'artists' ));
 
+        // check for $_FILES errors
+        //
+        $imageAction = new \Actions\Posts\Image();
+        $imageAction->checkFilesArrayErrors();
+
         // save any images and do the resizing
         //
         if ( $this->request->hasFiles() == TRUE )
         {
-            $imageAction = new \Actions\Posts\Image();
             $imageAction->deleteByPost( $post->id );
-            $imageAction->upload( $post->id, $this->request->getUploadedFiles() );
+            $imageAction->saveToPost( $post->id, $this->request->getUploadedFiles() );
         }
 
         // redirect

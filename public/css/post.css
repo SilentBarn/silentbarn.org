@@ -1,0 +1,6 @@
+/* Posts
+ */
+#post.page #banner-wrap {
+    overflow: hidden; width: 960px; height: 420px; background-size: cover; }
+#post.page #body {
+    line-height: 150%; }

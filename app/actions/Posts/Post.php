@@ -55,8 +55,9 @@ class Post extends \Base\Action
 
         // apply the data params to the post and save it
         //
-        $post->title = $filter->sanitize( get( $data, 'title' ), 'string' );
+        $post->title = $filter->sanitize( get( $data, 'title' ), 'striptags' );
         $post->body = $filter->sanitize( get( $data, 'body' ), 'striptags' );
+        $post->excerpt = $filter->sanitize( get( $data, 'excerpt' ), 'striptags' );
         $post->post_date = date_str(
             get( $data, 'post_date' ),
             DATE_DATABASE,
@@ -89,6 +90,14 @@ class Post extends \Base\Action
         $post->homepage_location = $filter->sanitize(
             get( $data, 'homepage_location' ),
             'homepageLocation' );
+
+        // set the slug if there isn't one
+        //
+        if ( ! valid( $post->slug, STRING )
+            && valid( $post->title, STRING ) )
+        {
+            $post->slug = $post->generateSlug();
+        }
 
         if ( ! $this->save( $post ) )
         {

@@ -4,7 +4,7 @@ body.admin {
     padding-top: 64px; }
 a {
     color: #6905cd; }
-.page {
+#admin.page {
     width: auto; margin: auto; padding: 50px 25px 25px;
     max-width: 1400px; }
 

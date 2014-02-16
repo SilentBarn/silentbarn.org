@@ -97,8 +97,7 @@ abstract class Base
                 'Controllers' => APP_PATH .'/controllers/',
                 'Db' => APP_PATH .'/models/',
                 'Lib' => APP_PATH .'/library/',
-                'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/',
-                'Suin' => VENDOR_PATH .'/suin/php-image-resizer/Source/Suin/'
+                'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/'
             ));
         $loader->registerClasses(
             array(

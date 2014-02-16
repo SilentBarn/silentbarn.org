@@ -5,10 +5,14 @@
 #hero-carousel {
     height: 440px; overflow: hidden; }
 .hero-carousel div.slide {
+    height: 420px; overflow: hidden; position: relative;
     -webkit-transition: opacity 1s ease-in-out;
     -moz-transition: opacity 1s ease-in-out;
     -o-transition: opacity 1s ease-in-out;
     transition: opacity 1s ease-in-out; }
+.hero-carousel div.slide a.link-overlay {
+    position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 1; }
 .hero-carousel .film_roll_child {
     opacity: 0.5; }
 .hero-carousel .film_roll_child.active {
@@ -41,10 +45,16 @@
     width: 960px; margin: 0 auto; }
 #vignettes .row {
     margin-bottom: 40px; }
-#vignettes .row.flush {
+#vignettes .row:last-child {
     margin: 0; }
 #vignettes .block {
     float: left; width: 310px; margin-right: 15px; }
+#vignettes .block .img-wrap {
+    overflow: hidden; height: 240px; }
+#vignettes .block .img-wrap a {
+    display: block; }
+#vignettes .block .img-wrap img {
+    min-height: 240px; min-width: 310px; }
 #vignettes .block.heptagon {
     min-height: 488px; position:relative; background: none !important; }
 #vignettes .block.heptagon img {

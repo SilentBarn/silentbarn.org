@@ -18,6 +18,10 @@
                     <input class="w95p" type="text" name="title" value="<?php echo $post->title; ?>" />
                 </div>
                 <div class="margin-bottom-20">
+                    <label>Excerpt/Subtitle</label>
+                    <textarea class="w95p h50px" name="excerpt"><?php echo $post->excerpt; ?></textarea>
+                </div>
+                <div class="margin-bottom-20">
                     <label>Body/Content</label>
                     <textarea class="w95p h150px" name="body"><?php echo $post->body; ?></textarea>
                 </div>
@@ -90,11 +94,8 @@
                         <div class="margin-bottom-5"><?php echo human_bytes( $image->size ); ?></div>
                         <div class="margin-bottom-5"><?php echo $image->mime_type; ?></div>
                         <div class="margin-bottom-25">Uploaded on <?php echo date_str( $image->created_at, DATE_DAY_NAME_YEAR ); ?></div>
-                        <input type="hidden" name="image" value="<?php echo $image->id; ?>" />
-                        <input name="image" type="file" id="image-input" />
-<?php   else: ?>
-                        <input name="image" type="file" id="image-input" />
 <?php   endif; ?>
+                        <input name="image" type="file" id="image-input" />
                     </div>
                     <div class="float-right clearfix" id="image-preview">
                         <img src="<?php echo $image->getPath(); ?>" />
