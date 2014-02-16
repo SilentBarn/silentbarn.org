@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'environment' => 'local',
+        'environment' => 'skullsgaard',
         'responseMode' => 'view',
         'modules' => []],
 
@@ -17,11 +17,11 @@ return [
         'persistent' => TRUE ],
 
     'paths' => [
-        'baseUri' => 'http://barn.dev/',
-        'assetUri' => 'http://barn.dev/',
-        'hostname' => 'barn.dev',
-        'media' => '/home/mike/Projects/Silent-Barn/public/media',
-        'mediaPublic' => 'http://barn.dev/media/' ],
+        'baseUri' => 'http://barn.shadowmere.net/',
+        'assetUri' => 'http://barn.shadowmere.net/',
+        'hostname' => 'barn.shadowmere.net',
+        'media' => '/home/mike/www/barn.shadowmere.net/www-data/media',
+        'mediaPublic' => 'http://barn.shadowmere.net/media/' ],
 
     'cookies' => [
         'secure' => FALSE ],

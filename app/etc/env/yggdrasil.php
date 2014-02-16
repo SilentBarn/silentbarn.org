@@ -2,7 +2,7 @@
 
 return [
     'app' => [
-        'environment' => 'local',
+        'environment' => 'yggdrasil',
         'responseMode' => 'view',
         'modules' => []],
 
