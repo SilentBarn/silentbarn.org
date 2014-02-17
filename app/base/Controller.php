@@ -121,8 +121,7 @@ class Controller extends \Phalcon\Mvc\Controller
             }
             else
             {
-                $this->response->redirect( 'login' );
-                return FALSE;
+                return $this->response->redirect( 'login' );
             }
         }
 
@@ -142,5 +141,18 @@ class Controller extends \Phalcon\Mvc\Controller
     public function addMessage( $message, $type = SUCCESS )
     {
         $this->messages[] = array( $type => $message );
+    }
+
+    public function quit( $message, $type = SUCCESS, $redirect = NULL, $code = NULL )
+    {
+        return $this->dispatcher->forward([
+            'controller' => 'error',
+            'action' => 'quit',
+            'params' => [
+                $message,
+                $type,
+                $redirect,
+                $code ]
+            ]);
     }
 }

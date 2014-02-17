@@ -15,6 +15,6 @@ class IndexController extends \Base\Controller
     {
         $this->view->pick( 'home/index' );
         $this->view->boxPosts = \Db\Sql\Posts::getByLocation( 'boxes', 5 );
-        $this->view->heroPosts = \Db\Sql\Posts::getByLocation( 'hero', 10 ); // max 10
+        $this->view->heroPosts = \Db\Sql\Posts::getByLocation( 'hero', 10 );
     }
 }

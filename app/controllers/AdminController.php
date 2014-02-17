@@ -47,18 +47,14 @@ class AdminController extends \Base\Controller
     {
         if ( ! valid( $postId, INT ) )
         {
-            $this->addMessage( "No post ID specified", INFO );
-            $this->redirect = 'admin';
-            return FALSE;
+            return $this->quit( "No post ID specified", INFO, 'admin' );
         }
 
         $post = \Db\Sql\Posts::findFirst( $postId );
 
         if ( ! $post )
         {
-            $this->addMessage( "That post doesn't exist!", INFO );
-            $this->redirect = 'admin';
-            return FALSE;
+            return $this->quit( "That post doesn't exist!", INFO, 'admin' );
         }
 
         $this->view->post = $post;
@@ -84,8 +80,7 @@ class AdminController extends \Base\Controller
 
         if ( ! $post )
         {
-            $this->redirect = 'admin';
-            return FALSE;
+            return $this->quit( "That post doesn't exist!", INFO, 'admin' );
         }
 
         // save any categories

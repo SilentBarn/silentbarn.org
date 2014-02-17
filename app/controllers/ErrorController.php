@@ -52,4 +52,19 @@ class ErrorController extends \Base\Controller
             $this->view->pick( 'errors/401' );
         }
     }
+
+    public function quitAction( $message = '', $status = SUCCESS, $redirect = NULL, $code = NULL )
+    {
+        $this->addMessage( $message, $status );
+
+        if ( $code )
+        {
+            $this->code = $code;
+        }
+
+        if ( $redirect )
+        {
+            $this->redirect = $redirect;
+        }
+    }
 }
