@@ -37,12 +37,33 @@ class Relationships extends \Base\Model
             "  and r.object_type = :objectType: ".
             "order by p.%s",
             $propModel,
-            CATEGORY,
+            $propType,
             $sort );
         $query = new Query( $phql, self::getStaticDI() );
 
         return $query->execute([
             'objectId' => $objectId,
             'objectType' => $objectType ]);
+    }
+
+    /**
+     * Get relationships for an object and property type
+     *
+     * @param integer $objectId
+     * @param string $objectType
+     * @param string $propertyType
+     * @return boolean
+     */
+    static function getByObjectAndPropertyType( $objectId, $objectType, $propertyType )
+    {
+        return \Db\Sql\Relationships::query()
+            ->where( 'object_id = :objectId:' )
+            ->andWhere( 'object_type = :objectType:' )
+            ->andWhere( 'property_type = :propertyType:' )
+            ->bind([
+                'objectId' => $objectId,
+                'objectType' => $objectType,
+                'propertyType' => $propertyType ])
+            ->execute();
     }
 }

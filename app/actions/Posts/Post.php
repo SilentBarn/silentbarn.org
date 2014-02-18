@@ -2,6 +2,8 @@
 
 namespace Actions\Posts;
 
+use \Db\Sql\Posts as Posts;
+
 class Post extends \Base\Action
 {
     /**
@@ -12,7 +14,8 @@ class Post extends \Base\Action
     public function create()
     {
         $auth = $this->getService( 'auth' );
-        $post = new \Db\Sql\Posts();
+        $post = new Posts();
+        $post->initialize();
         $post->user_id = $auth->getUserId();
         $post->is_deleted = 0;
         $post->status = 'draft';
@@ -45,7 +48,7 @@ class Post extends \Base\Action
             return FALSE;
         }
 
-        $post = \Db\Sql\Posts::findFirst( $data[ 'id' ] );
+        $post = Posts::findFirst( $data[ 'id' ] );
 
         if ( ! $post )
         {
@@ -113,7 +116,7 @@ class Post extends \Base\Action
     public function delete( $id )
     {
         $util = $this->getService( 'util' );
-        $post = \Db\Sql\Posts::findFirst( $id );
+        $post = Posts::findFirst( $id );
 
         if ( ! $post )
         {

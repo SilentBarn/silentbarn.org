@@ -140,6 +140,17 @@
                 <legend>
                     <h2>Tags</h2>
                 </legend>
+                <div class="margin-bottom-10">
+                    <input id="tag-ac" data-field="tags" type="text" value="" class="w90p" placeholder="Type, then hit <enter>..." />
+                </div>
+                <div class="slug-wrapper">
+<?php   foreach ( $post->getTags() as $tag ): ?>
+                    <span class="tag">
+                        <input type="hidden" name="tags[]" value="<?php echo $tag->name; ?>" />
+                        <?php echo $tag->name; ?><i class="fa fa-times remove-slug"></i>
+                    </span>
+<?php   endforeach; ?>
+                </div>
             </fieldset>
 
             <!-- Artists -->
@@ -147,6 +158,17 @@
                 <legend>
                     <h2>Artists</h2>
                 </legend>
+                <div class="margin-bottom-10">
+                    <input id="artist-ac" data-field="artists" type="text" value="" class="w90p" placeholder="Type, then hit <enter>..." />
+                </div>
+                <div class="slug-wrapper">
+<?php   foreach ( $post->getArtists() as $artist ): ?>
+                    <span class="tag">
+                        <input type="hidden" name="artists[]" value="<?php echo $artist->name; ?>" />
+                        <?php echo $artist->name; ?><i class="fa fa-times remove-slug"></i>
+                    </span>
+<?php   endforeach; ?>
+                </div>
             </fieldset>
 
             <!-- Delete -->
@@ -162,3 +184,17 @@
         </div><!-- /right-col -->
     </form>
 </div>
+
+<script>
+<?php   $tagObjects = [];
+        foreach ( $tags as $tag ):
+            $tagObjects[] = [ 'name' => $tag->name ];
+        endforeach; ?>
+    var tags = <?php echo json_encode( $tagObjects ); ?>;
+
+<?php   $artistObjects = [];
+        foreach ( $artists as $artist ):
+            $artistObjects[] = [ 'name' => $artist->name ];
+        endforeach; ?>
+    var artists = <?php echo json_encode( $artistObjects ); ?>;
+</script>

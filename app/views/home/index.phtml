@@ -55,7 +55,7 @@
                 </a>
             </div>
             <div class="categories font-mono">
-                <span>[CATEGORY]</span>
+                <span><?php echo map( $boxPost->getCategories()->toArray(), 'name', TRUE ); ?></span>
             </div>
             <h3 class="title font-mono">
                 <a href="<?php echo $boxPost->getPath(); ?>"><?php echo $boxPost->title; ?></a>

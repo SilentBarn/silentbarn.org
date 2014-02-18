@@ -2,7 +2,8 @@
 
 namespace Actions\Posts;
 
-use \Suin\ImageResizer\ImageResizer;
+use \Suin\ImageResizer\ImageResizer,
+    \Db\Sql\Images as Images;
 
 class Image extends \Base\Action
 {
@@ -45,7 +46,7 @@ class Image extends \Base\Action
      */
     public function deleteByPost( $postId )
     {
-        return \Db\Sql\Images::deleteByPost( $postId );
+        return Images::deleteByPost( $postId );
     }
 
     /**
@@ -119,7 +120,8 @@ class Image extends \Base\Action
 
             // save the record out to the database
             //
-            $image = new \Db\Sql\Images();
+            $image = new Images();
+            $image->initialize();
             $image->user_id = $this->getService( 'auth' )->getUserId();
             $image->post_id = $postId;
             $image->filename = $fileToken;
@@ -129,7 +131,6 @@ class Image extends \Base\Action
             $image->size = $file->getSize();
             $image->mime_type = $file->getRealType();
             $image->is_deleted = 0;
-            $image->created_at = date_str( NULL, DATE_DATABASE );
 
             if ( ! $image->save() )
             {

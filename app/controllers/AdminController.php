@@ -60,8 +60,8 @@ class AdminController extends \Base\Controller
         $this->view->post = $post;
         $this->view->postCategories = map( $post->getCategories()->toArray(), 'slug' );
         $this->view->categories = \Db\Sql\Categories::find();
-        $this->view->tags = [];
-        $this->view->artists = [];
+        $this->view->tags = \Db\Sql\Tags::find();
+        $this->view->artists = \Db\Sql\Artists::find();
         $this->view->backPage = 'admin';
         $this->view->subPage = 'Edit Article';
         $this->view->buttons = [ 'save' ];
@@ -88,7 +88,7 @@ class AdminController extends \Base\Controller
         $categoryAction = new \Actions\Posts\Category();
         $categoryAction->saveToPost(
             $post,
-            $this->request->getPost( 'category' ));
+            $this->request->getPost( 'categories' ));
 
         // save any tags
         //

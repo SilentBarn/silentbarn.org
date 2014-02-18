@@ -53,6 +53,16 @@ a {
 #image-preview img {
     z-index: 2; position: relative; max-width: 100%;
     float: left; }
+#tag-ac {
+    display: block !important; }
+
+/* Tags and Artists
+ */
+span.tag {
+    background: #007db6; color: #fff; padding: 4px 8px 5px;
+    border-radius: 2px; margin-right: 5px; font-size: 14px; }
+span.tag i.remove-slug {
+    margin-left: 10px; cursor: pointer; }
 
 /* Footer
  */
