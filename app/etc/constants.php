@@ -36,9 +36,14 @@ define( 'DATE_MONTH_TIME_YEAR', 'M j, Y g:ia' );
 define( 'DATE_YEAR_MONTH_SLUG', 'Y/m' );
 define( 'DATE_DB_EMPTY', '0000-00-00 00:00:00' );
 
-// objec types
+// object types
 //
 define( 'POST', 'post' );
 define( 'CATEGORY', 'category' );
 define( 'TAG', 'tag' );
 define( 'ARTIST', 'artist' );
+
+// categories types
+//
+define( 'EVENTS' , 'events' );
+define( 'EXHIBITIONS', 'exhibitions' );

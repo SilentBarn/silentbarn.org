@@ -38,6 +38,24 @@
 
         <div class="block clearfix heptagon">
             <img src="<?php echo $this->url->get( 'img/heptagon_yellow.png' ); ?>" alt="Heptagon" />
+            <?php /*
+            <h2 class="mono">Upcoming Events</h2>
+            <div class="event clearfix">
+                <h3 class="font-mono">
+                    <a href="#">Show title goes here -- Advaita playing</a>
+                </h3>
+            </div>
+            <div class="event clearfix">
+                <h3 class="font-mono">
+                    <a href="#">Dec 3: New time to go up Party Mansion playing live at the excalibur</a>
+                </h3>
+            </div>
+            <div class="event clearfix">
+                <h3 class="font-mono">
+                    <a href="#">Some more text here that's short</a>
+                </h3>
+            </div>
+            */ ?>
         </div>
 
 <?php       // pad blank boxes
@@ -57,7 +75,7 @@
             <div class="categories font-mono">
                 <span><?php echo map( $boxPost->getCategories()->toArray(), 'name', TRUE ); ?></span>
             </div>
-            <h3 class="title font-mono">
+            <h3 class="title uppercase font-mono">
                 <a href="<?php echo $boxPost->getPath(); ?>"><?php echo $boxPost->title; ?></a>
             </h3>
             <div class="date font-mono">

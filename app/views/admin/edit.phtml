@@ -47,18 +47,31 @@
                     <h2>Dates &amp; Meta</h2>
                 </legend>
                 <div class="clearfix margin-bottom-20">
-                    <div class="float-left w50p">
+                    <div class="float-left w33p">
                         <div class="margin-bottom-20">
                             <label>Post Date (displays on site)</label>
                             <input class="w150px datepicker" type="text" name="post_date"
                                 value="<?php echo date_str( $post->post_date, DATE_PICKER, TRUE ); ?>" />
                         </div>
                     </div>
-                    <div class="float-right w50p">
+                    <div class="float-right w67p">
                         <div>
                             <label>Event Date (for searching events)</label>
                             <input class="w150px datepicker" type="text" name="event_date"
-                                value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>" />
+                                value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>"
+                                placeholder="Event date..." />
+<?php   if ( valid( $post->event_date_end, DATE ) ): ?>
+                            <span>to</span>
+                            <input class="w150px datepicker" type="text" name="event_date_end"
+                                value="<?php echo date_str( $post->event_date_end, DATE_PICKER, TRUE ); ?>" />
+<?php   else: ?>
+                            <a href="javascript:;" id="set-event-end-date" class="margin-left-10">Set an ending date</a>
+                            <span style="display:none;">
+                                <span>to</span>
+                                <input class="w150px datepicker" type="text" name="event_date_end" value=""
+                                    placeholder="Ending date..." />
+                            </span>
+<?php   endif; ?>
                         </div>
                     </div>
                 </div>
@@ -170,19 +183,19 @@
 <?php   endforeach; ?>
                 </div>
             </fieldset>
-
-            <!-- Delete -->
-            <div class="righted-text">
-                <a class="fontsize-18 red button" href="javascript:;" id="delete-post">
-                    Delete Article
-                </a>
-                <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/delete/{$post->id}" ); ?>"
-                    id="really-delete-post" style="display:none;">
-                    Click again to confirm
-                </a>
-            </div>
         </div><!-- /right-col -->
     </form>
+
+    <!-- Delete -->
+    <div class="righted-text padding-top-30 margin-top-30">
+        <a class="fontsize-18 red button" href="javascript:;" id="delete-post">
+            Delete Article
+        </a>
+        <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/delete/{$post->id}" ); ?>"
+            id="really-delete-post" style="display:none;">
+            Click again to confirm
+        </a>
+    </div>
 </div>
 
 <script>

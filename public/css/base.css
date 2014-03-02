@@ -1,7 +1,7 @@
 /* Elements
  */
 body {
-    font-family: Candara, Calibri, Segoe, "Segoe UI", Optima, Arial, sans-serif;
+    font-family: Segoe, "Segoe UI", Optima, Arial, sans-serif;
     font-size: 16px; margin: 0; padding: 0; color: #555; }
 h1, h2, h3 {
     font-weight: normal; margin: 0 0 10px; }
@@ -24,3 +24,9 @@ fieldset legend h2 {
     margin: 25px auto 60px; width: 960px; }
 .error-page {
     margin: 25px auto 120px; width: 960px; }
+.page-nav {
+    position: relative; top: -18px; font-size: 13px; }
+.page-nav a {
+    margin-right: 15px; text-decoration: none; color: #777; }
+.page-nav a.on {
+    color: #6905cd; }

@@ -69,6 +69,10 @@ class Post extends \Base\Action
             get( $data, 'event_date' ),
             DATE_DATABASE,
             TRUE );
+        $post->event_date_end = date_str(
+            get( $data, 'event_date_end' ),
+            DATE_DATABASE,
+            TRUE );
 
         // set up status filter
         //

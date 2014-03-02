@@ -59,6 +59,21 @@
     min-height: 488px; position:relative; background: none !important; }
 #vignettes .block.heptagon img {
     position: absolute; z-index: 1; bottom: 0; }
+#vignettes .block.heptagon h2 {
+    font-size: 14px; margin: 0 0 20px; z-index: 2; text-align: center;
+    text-transform: uppercase; position: relative; }
+
+#vignettes .block.heptagon .event {
+    position: relative; z-index: 2; }
+#vignettes .block.heptagon .event h3 {
+    font-size: 16px; line-height: 22px; margin-bottom: 10px;
+    text-align: center; padding: 0 5px; }
+/*#vignettes .block.heptagon .event span:before,
+#vignettes .block.heptagon .event span::after { content: "\0000a0"; }*/
+#vignettes .block.heptagon .event a {
+    padding: 2px 0; background: rgba( 105, 5, 205, 0.2 );
+    color: #333; }
+
 #vignettes .row .block:last-child {
     margin: 0; }
 #vignettes .block .categories span {

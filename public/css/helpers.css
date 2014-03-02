@@ -59,6 +59,12 @@
     color: #333; }
 .color-aaa {
     color: #aaa; }
+.lineheight-20 {
+    line-height: 20px; }
+.uppercase {
+    text-transform: uppercase; }
+.smallcaps {
+    font-variant: small-caps; }
 
 /* Margins
  */
@@ -70,6 +76,8 @@
     margin-top: 15px; }
 .margin-top-20 {
     margin-top: 20px; }
+.margin-top-30 {
+    margin-top: 30px; }
 .margin-bottom-5 {
     margin-bottom: 5px; }
 .margin-bottom-10 {
@@ -166,8 +174,16 @@
     width: 250px; }
 .w25p {
     width: 25%; }
+.w33p {
+    width: 33%; }
+.w47p {
+    width: 47%; }
+.w48p {
+    width: 48%; }
 .w50p {
     width: 50%; }
+.w67p {
+    width: 67%; }
 .w75p {
     width: 75%; }
 .w90p {

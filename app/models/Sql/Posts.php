@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Phalcon\Mvc\Model\Query;
+
 class Posts extends \Base\Model
 {
     public $id;
@@ -14,6 +16,7 @@ class Posts extends \Base\Model
     public $is_deleted;
     public $post_date;
     public $event_date;
+    public $event_date_end;
     public $homepage_location;
     public $created_at;
     public $modified_at;
@@ -62,6 +65,84 @@ class Posts extends \Base\Model
                 'location' => $location,
                 'dateLimit' => date_str( NULL, DATE_DATABASE ) ])
             ->execute();
+    }
+
+    /**
+     * Returns posts between a given date range and for a given
+     * set of categories. You can optionally limit these results.
+     * The results are sorted by oldest first unless specified.
+     *
+     * @param array $params
+     * @return \Db\Sql\Posts
+     */
+    static function getByCategoryDateRange( $params = array() )
+    {
+        $defaults = [
+            'categories' => [ EVENTS, EXHIBITIONS ],
+            'startDate' => date( DATE_DATABASE, strtotime( 'now' ) ),
+            'endDate' => NULL,
+            'startOperand' => '>=',
+            'endOperand' => '<=',
+            'sort' => 'event_date asc',
+            'limit' => 9999,
+            'offset' => 0 ];
+        $options = array_merge( $defaults, $params );
+        $dateWhereClauses = [];
+
+        // create our date where clause
+        //
+        if ( ! is_null( $options[ 'startDate' ] ) )
+        {
+            $dateWhereClauses[] = sprintf(
+                "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )",
+                $options[ 'startOperand' ],
+                $options[ 'startOperand' ] );
+        }
+
+        if ( ! is_null( $options[ 'endDate' ] ) )
+        {
+            $dateWhereClauses[] = sprintf(
+                "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )",
+                $options[ 'endOperand' ],
+                $options[ 'endOperand' ] );
+        }
+
+        // create the SQL statement
+        //
+        $phql = sprintf(
+            "select p.* from \Db\Sql\Posts as p ".
+            "inner join \Db\Sql\Relationships as r ".
+            "  on p.id = r.object_id and r.object_type = '%s' ".
+            "inner join \Db\Sql\Categories as c ".
+            "  on c.id = r.property_id and r.property_type = '%s' ".
+            "where c.slug in ('%s') ".
+            "  and ( %s ) ".
+            "order by p.%s ".
+            "limit %s, %s",
+            POST,
+            CATEGORY,
+            implode( ',', $options[ 'categories' ] ),
+            implode( ' and ', $dateWhereClauses ),
+            $options[ 'sort' ],
+            $options[ 'offset' ],
+            $options[ 'limit' ] );
+        $query = new Query( $phql, self::getStaticDI() );
+
+        return $query->execute([
+            'startDate' => $options[ 'startDate' ],
+            'endDate' =>  $options[ 'endDate' ] ]);
+/*
+        SELECT p.*
+FROM `posts` as p
+INNER JOIN `relationships` r on p.id = r.object_id and r.object_type = 'post'
+INNER JOIN `categories` c on c.id = r.property_id and r.property_type = 'category'
+WHERE c.slug in ('exhibitions')
+and (
+  p.event_date >= '2014-03-01 00:00:00'
+    or
+  p.event_date_end < '2014-04-01 00:00:00'
+)
+*/
     }
 
     /**
