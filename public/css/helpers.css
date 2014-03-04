@@ -59,6 +59,8 @@
     font-size: 16px; }
 .fontsize-18 {
     font-size: 18px; }
+.font-asap {
+    font-family: 'Asap', sans-serif; }
 .font-mono {
     font-family: 'Share Tech Mono', monospace; }
 .color-333 {
@@ -71,6 +73,8 @@
     color: #aaa; }
 .lineheight-20 {
     line-height: 20px; }
+.lineheight-24 {
+    line-height: 24px; }
 .uppercase {
     text-transform: uppercase; }
 .smallcaps {

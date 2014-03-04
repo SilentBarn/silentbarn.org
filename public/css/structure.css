@@ -42,7 +42,7 @@ body.sticky #header-wrap #logo {
 #header-wrap #logo img.small {
     position: absolute; top: -50px; left: 0; }
 #header-wrap #logo img.large {
-    position: absolute; bottom: 5px; }
+    position: absolute; bottom: 8px; }
 body.shiftlogo #header-wrap header #logo img.large {
     bottom: 60px; }
 body.shiftlogo #header-wrap header #logo img.small {
