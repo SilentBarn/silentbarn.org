@@ -1,0 +1,33 @@
+<?php   if ( count( $events ) ):
+            foreach ( $events as $event ):
+                $event_date = strtotime( $event->event_date ); ?>
+
+<div class="archive-event position-relative">
+    <a class="blocked banner-wrap margin-bottom-15" href="<?php echo $event->getPath(); ?>"
+        style="background-image: url( '<?php echo $event->getImage()->getPath( 960 ); ?>' );"></a>
+    <h2 class="font-mono uppercase margin-bottom-10">
+        <a href="<?php echo $event->getPath(); ?>" class="color-333 hover-underline"><?php echo $event->title; ?></a>
+    </h2>
+    <div class="date fontsize-15 color-999">
+        <?php echo date( DATE_DAY_NAME_YEAR, $event_date ); ?>
+<?php           if ( valid( $event->event_date_end, DATE ) ): ?>
+        &mdash;
+        <?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date_end ) ); ?>
+<?php           endif; ?>
+    </div>
+<?php           if ( valid( $event->event_time, STRING ) ): ?>
+    <div class="date fontsize-15 color-999 margin-top-5">
+        <span class="margin-left-1"><?php echo $event->getShortTime(); ?></span>
+    </div>
+<?php           endif; ?>
+    <div class="margin-top-10">
+        <?php echo ( strlen( $event->excerpt ) ) ? $event->excerpt : substr( $event->body, 0, 120 ); ?>
+    </div>
+</div>
+
+<?php       endforeach;
+        else: ?>
+<div class="color-aaa">
+    There is nothing in ye archives
+</div>
+<?php   endif; ?>

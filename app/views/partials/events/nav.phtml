@@ -1,0 +1,17 @@
+<!-- Events page nav -->
+<div id="page-nav-wrap">
+    <div class="page-nav">
+        <a class="<?php echo ( $page === 'upcoming' ) ? ' on' : ''; ?>"
+            href="<?php echo $this->url->get( 'events/upcoming' ); ?>">
+            <span>Upcoming Performances</span>
+        </a>
+        <a class="<?php echo ( $page === 'exhibitions' ) ? ' on' : ''; ?>"
+            href="<?php echo $this->url->get( 'events/exhibitions' ); ?>">
+            <span>Current Exhibitions</span>
+        </a>
+        <a class="<?php echo ( $page === 'archives' ) ? ' on' : ''; ?>"
+            href="<?php echo $this->url->get( 'events/archives' ); ?>">
+            <span>Archives</span>
+        </a>
+    </div>
+</div>

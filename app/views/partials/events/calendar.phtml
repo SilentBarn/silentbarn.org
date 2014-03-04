@@ -1,0 +1,51 @@
+<div id="full-clndr" class="cal clearfix">
+    <script type="text/template" id="full-clndr-template">
+        <div class="clndr-grid">
+            <div class="clndr-controls">
+                <div class="clndr-previous-button">&lsaquo;</div>
+                <div class="month font-mono"><%= month %></div>
+                <div class="clndr-next-button">&rsaquo;</div>
+            </div>
+            <div class="days-of-the-week font-mono clearfix">
+                <% _.each(daysOfTheWeek, function(day) { %>
+                    <div class="header-day"><%= day %></div>
+                <% }); %>
+            </div>
+            <div class="days font-mono clearfix">
+                <% _.each(days, function(day) { %>
+                    <div class="<%= day.classes %>" id="<%= day.id %>"><span class="day-number"><%= day.day %></span></div>
+                <% }); %>
+            </div>
+        </div>
+        <div class="event-listing">
+            <div class="event-listing-title font-mono">Events This Month</div>
+            <% if ( ! eventsThisMonth.length ) { %>
+                <div class="no-events fontsize-14">No events for <%= month %> <%= year %></div>
+            <% } else { %>
+            <%     _.each( eventsThisMonth, function( event ) { %>
+                <div class="event-item margin-bottom-15">
+                    <div class="event-item-name margin-bottom-5 font-mono uppercase">
+                        <a href="<%= event.url %>"><%= event.title %></a>
+                    </div>
+                    <div class="event-item-date fontsize-13"><%= event.date %></div>
+                </div>
+            <%     }); %>
+            <% } %>
+        </div>
+    </script>
+    <script type="text/javascript">
+        var calendarEvents = [
+<?php   $total = count( $events );
+        $i = 0;
+        foreach ( $events as $event ): ?>
+            {
+                title: '<?php echo $event->title; ?>', 
+                date: '<?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ); ?>',
+                url: '<?php echo $event->getPath(); ?>',
+                image: '<?php echo $event->getImage()->getPath( 310 ); ?>'
+            }<?php echo ++$i < $total ? ',' : ''; ?>
+
+<?php   endforeach; ?>
+        ];
+    </script>
+</div>

@@ -1,0 +1,11 @@
+<!-- Archives Page -->
+<div class="page">
+    <!-- Header -->
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Archives</h1>
+
+    <div class="clearfix">
+<?php   $this->partial(
+            'partials/events/list_archive',
+            [ 'events' => $events ]); ?>
+    </div>
+</div>

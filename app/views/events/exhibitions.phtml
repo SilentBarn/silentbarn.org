@@ -1,0 +1,33 @@
+<!-- Current Exhibitions Page -->
+<div class="page">
+    <!-- Header -->
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Current Exhibitions</h1>
+
+    <div class="clearfix">
+        <!-- Current exhibitions -->
+        <div id="upcoming" class="events w67p float-left">
+<?php   $this->partial(
+            'partials/events/list_full',
+            [
+                'events' => $currentExhibitions,
+                'suppressSideDate' => TRUE,
+                'noneKeyword' => 'exhibitions'
+            ]); ?>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="w33p float-right">
+            <div class="padding-left-20">
+                <h3 class="font-mono uppercase fontsize-16 color-555">
+                    Past Exhibitions
+                </h3>
+<?php   $this->partial(
+            'partials/events/list_side',
+            [
+                'events' => $pastExhibitions,
+                'noneKeyword' => 'exhibitions'
+            ]); ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<?php   if ( count( $events ) ):
+            foreach ( $events as $event ):
+                $event_date = strtotime( $event->event_date ); ?>
+
+<div class="side-event margin-bottom-20 position-relative round">
+    <a class="blocked banner-wrap margin-bottom-10 round" href="<?php echo $event->getPath(); ?>"
+        style="background-image: url( '<?php echo $event->getImage()->getPath( 310 ); ?>' );"></a>
+    <h2 class="font-mono uppercase margin-bottom-5">
+        <a href="<?php echo $event->getPath(); ?>" class="color-333 hover-underline"><?php echo $event->title; ?></a>
+    </h2>
+    <div class="date fontsize-15 color-999">
+        <?php echo date( DATE_DAY_NAME_YEAR, $event_date ); ?>
+<?php           if ( valid( $event->event_date_end, DATE ) ): ?>
+        to
+        <?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date_end ) ); ?>
+<?php           endif; ?>
+    </div>
+<?php           if ( valid( $event->event_time, STRING ) ): ?>
+    <div class="date fontsize-15 color-999 margin-top-5">
+        <span class="margin-left-1"><?php echo $event->getShortTime(); ?></span>
+    </div>
+<?php           endif; ?>
+</div>
+
+<?php       endforeach;
+        else: ?>
+<div class="color-aaa">
+    There are no upcoming <?php echo ( isset( $noneKeyword ) ) ? $noneKeyword : 'events'; ?>
+</div>
+<?php   endif; ?>

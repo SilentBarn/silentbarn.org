@@ -1,0 +1,23 @@
+<!-- Upcoming Events Page -->
+<div class="page">
+    <!-- Header -->
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Upcoming Performances</h1>
+
+    <div class="clearfix">
+        <!-- Upcoming events -->
+        <div id="upcoming" class="events w67p float-left">
+<?php   $this->partial(
+            'partials/events/list_full',
+            [ 'events' => $upcomingEvents ]); ?>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="w33p float-right">
+            <div class="padding-left-20">
+<?php   $this->partial(
+            'partials/events/calendar',
+            [ 'events' => $calendarEvents ]); ?>
+            </div>
+        </div>
+    </div>
+</div>
