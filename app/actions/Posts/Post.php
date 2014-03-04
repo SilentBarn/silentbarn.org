@@ -74,6 +74,17 @@ class Post extends \Base\Action
             DATE_DATABASE,
             TRUE );
 
+        // save the times if they came in
+        //
+        $post->event_time = date_str(
+            get( $data, 'event_time' ),
+            DATE_TIME_DATABASE,
+            TRUE );
+        $post->event_time_end = date_str(
+            get( $data, 'event_time_end' ),
+            DATE_TIME_DATABASE,
+            TRUE );
+
         // set up status filter
         //
         $filter->add(

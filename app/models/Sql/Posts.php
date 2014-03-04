@@ -17,6 +17,8 @@ class Posts extends \Base\Model
     public $post_date;
     public $event_date;
     public $event_date_end;
+    public $event_time;
+    public $event_time_end;
     public $homepage_location;
     public $created_at;
     public $modified_at;
@@ -83,28 +85,38 @@ class Posts extends \Base\Model
             'endDate' => NULL,
             'startOperand' => '>=',
             'endOperand' => '<=',
+            'ongoing' => FALSE,
             'sort' => 'event_date asc',
             'limit' => 9999,
             'offset' => 0 ];
         $options = array_merge( $defaults, $params );
         $dateWhereClauses = [];
+        $bindings = [];
 
         // create our date where clause
         //
         if ( ! is_null( $options[ 'startDate' ] ) )
         {
+            $string = ( $options[ 'ongoing' ] )
+                ? "( p.event_date %s :startDate: )"
+                : "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )";
             $dateWhereClauses[] = sprintf(
-                "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )",
+                $string,
                 $options[ 'startOperand' ],
                 $options[ 'startOperand' ] );
+            $bindings[ 'startDate' ] = $options[ 'startDate' ];
         }
 
         if ( ! is_null( $options[ 'endDate' ] ) )
         {
+            $string = ( $options[ 'ongoing' ] )
+                ? "( p.event_date_end %s :endDate: )"
+                : "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )";
             $dateWhereClauses[] = sprintf(
-                "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )",
+                $string,
                 $options[ 'endOperand' ],
                 $options[ 'endOperand' ] );
+            $bindings[ 'endDate' ] = $options[ 'endDate' ];
         }
 
         // create the SQL statement
@@ -128,21 +140,7 @@ class Posts extends \Base\Model
             $options[ 'limit' ] );
         $query = new Query( $phql, self::getStaticDI() );
 
-        return $query->execute([
-            'startDate' => $options[ 'startDate' ],
-            'endDate' =>  $options[ 'endDate' ] ]);
-/*
-        SELECT p.*
-FROM `posts` as p
-INNER JOIN `relationships` r on p.id = r.object_id and r.object_type = 'post'
-INNER JOIN `categories` c on c.id = r.property_id and r.property_type = 'category'
-WHERE c.slug in ('exhibitions')
-and (
-  p.event_date >= '2014-03-01 00:00:00'
-    or
-  p.event_date_end < '2014-04-01 00:00:00'
-)
-*/
+        return $query->execute( $bindings );
     }
 
     /**
@@ -292,5 +290,32 @@ and (
         while ( ! $slugOkay );
 
         return $slug;
+    }
+
+    /**
+     * Return a shortened version of the event's start and stop time
+     */
+    function getShortTime( $html = TRUE )
+    {
+        if ( ! valid( $this->event_time, STRING ) )
+        {
+            return "";
+        }
+
+        $shortTime = ( substr( $this->event_time, 3, 2 ) == '00' )
+            ? date( 'ga', strtotime( $this->event_time ) )
+            : date( 'g:ia', strtotime( $this->event_time ) );
+
+        if ( ! valid( $this->event_time_end, STRING ) )
+        {
+            return $shortTime;
+        }
+
+        $shortTime .= ( $html ) ? " &ndash; " : ' - ';
+        $shortTime .= ( substr( $this->event_time_end, 3, 2 ) == '00' )
+            ? date( 'ga', strtotime( $this->event_time_end ) )
+            : date( 'g:ia', strtotime( $this->event_time_end ) );
+
+        return $shortTime;
     }
 }

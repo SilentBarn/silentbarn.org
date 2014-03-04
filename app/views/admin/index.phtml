@@ -26,6 +26,7 @@
                 <td><?php echo date_str( $post->post_date, DATE_TABLE ); ?></td>
                 <td class="centered-text">
                     <a class="" href="<?php echo $this->url->get( 'admin/edit/'. $post->id ); ?>">Edit</a>
+                    <a class="margin-left-10" href="<?php echo $post->getPath(); ?>">View</a>
                 </td>
             </tr>
 

@@ -35,3 +35,10 @@ input.button {
     background: #333; border-bottom-color: #111; color: #eee; }
 .button.black:hover {
     background: #111; border-bottom-color: #000; color: #fff; }
+
+/* Links
+ */
+a.hover-underline {
+    text-decoration: none; }
+a.hover-underline:hover {
+    text-decoration: underline; }

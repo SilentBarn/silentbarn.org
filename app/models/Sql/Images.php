@@ -24,6 +24,12 @@ class Images extends \Base\Model
         $this->addBehavior( 'timestamp' );
     }
 
+    /**
+     * Get the path for an image.
+     *
+     * @param integer $size 960 or 310
+     * @return string
+     */
     function getPath( $size = 960 )
     {
         if ( ! valid( $this->filename, STRING ) )

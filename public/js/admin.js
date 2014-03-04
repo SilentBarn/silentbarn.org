@@ -12,6 +12,12 @@ jQuery( function( $ ) {
             });
         },
 
+        // set up timepickers
+        //
+        timepickers: function () {
+            $( '.timepicker' ).timepicker({});
+        },
+
         // handle image previewing
         //
         imagePreview: function () {
@@ -145,10 +151,16 @@ jQuery( function( $ ) {
             });
         },
 
-        // show the end event date input
+        // show the end event date/time inputs
         //
         eventDates: function () {
             $( '#set-event-end-date' ).on( 'click', function () {
+                var $this = $( this );
+                $this.hide();
+                $this.next().show().focus();
+            });
+
+            $( '.set-time' ).on( 'click', function () {
                 var $this = $( this );
                 $this.hide();
                 $this.next().show().focus();
@@ -159,6 +171,7 @@ jQuery( function( $ ) {
     // call our page functions
     //
     AdminPage.datepickers();
+    AdminPage.timepickers();
     AdminPage.imagePreview();
     AdminPage.postActions();
     AdminPage.slugs();

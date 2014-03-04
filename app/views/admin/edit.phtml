@@ -55,22 +55,62 @@
                         </div>
                     </div>
                     <div class="float-right w67p">
-                        <div>
+                        <div class="clearfix margin-bottom-20">
                             <label>Event Date (for searching events)</label>
-                            <input class="w150px datepicker" type="text" name="event_date"
-                                value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>"
-                                placeholder="Event date..." />
-<?php   if ( valid( $post->event_date_end, DATE ) ): ?>
-                            <span>to</span>
-                            <input class="w150px datepicker" type="text" name="event_date_end"
-                                value="<?php echo date_str( $post->event_date_end, DATE_PICKER, TRUE ); ?>" />
+                            <div class="float-left">
+                                <input class="w150px datepicker" type="text" name="event_date"
+                                    value="<?php echo date_str( $post->event_date, DATE_PICKER, TRUE ); ?>"
+                                    placeholder="Event date..." />
+                                <br />
+<?php   if ( valid( $post->event_time, STRING ) ): ?>
+                                <input class="w150px timepicker" type="text" name="event_time"
+                                    value="<?php echo date_str( $post->event_time, DATE_TIME_PICKER, TRUE ); ?>"
+                                    placeholder="Start time..." />
 <?php   else: ?>
-                            <a href="javascript:;" id="set-event-end-date" class="margin-left-10">Set an ending date</a>
-                            <span style="display:none;">
-                                <span>to</span>
-                                <input class="w150px datepicker" type="text" name="event_date_end" value=""
-                                    placeholder="Ending date..." />
-                            </span>
+                                <a href="javascript:;" class="fontsize-13 set-time">Set time</a>
+                                <input class="w150px timepicker" type="text" name="event_time" value=""
+                                    style="display:none;" placeholder="Start time..." />
+<?php   endif; ?>
+                            </div>
+<?php   if ( valid( $post->event_date_end, DATE )
+            || valid( $post->event_time_end, STRING ) ): ?>
+                            <div class="float-left margin-left-10 margin-right-10 padding-top-10">to</div>
+                            <div class="float-left">
+                                <input class="w150px datepicker" type="text" name="event_date_end"
+                                    value="<?php echo date_str( $post->event_date_end, DATE_PICKER, TRUE ); ?>" />
+                                <br />
+<?php       if ( valid( $post->event_time_end, STRING ) ): ?>
+                                <input class="w150px timepicker" type="text" name="event_time_end"
+                                    value="<?php echo date_str( $post->event_time_end, DATE_TIME_PICKER, TRUE ); ?>"
+                                    placeholder="End time..." />
+<?php       else: ?>
+                                <a href="javascript:;" class="fontsize-13 set-time">Set time</a>
+                                <input class="w150px timepicker" type="text" name="event_time_end" value=""
+                                    style="display:none;" placeholder="End time..." />
+<?php       endif; ?>
+                            </div>
+<?php   else: ?>
+                            <div class="float-left">
+                                <a href="javascript:;" id="set-event-end-date"
+                                    class="float-left blocked margin-left-10 margin-top-10">Set an ending date or time</a>
+                                <div style="display:none;" class="clearfix">
+                                    <div class="float-left margin-left-10 margin-right-10 padding-top-10">to</div>
+                                    <div class="float-left">
+                                        <input class="w150px datepicker" type="text" name="event_date_end" value=""
+                                            placeholder="Ending date..." />
+                                        <br />
+<?php       if ( valid( $post->event_time_end, STRING ) ): ?>
+                                        <input class="w150px timepicker" type="text" name="event_time_end"
+                                            value="<?php echo date_str( $post->event_time_end, DATE_TIME_PICKER, TRUE ); ?>"
+                                            placeholder="End time..." />
+<?php       else: ?>
+                                        <a href="javascript:;" class="fontsize-13 set-time">Set time</a>
+                                        <input class="w150px timepicker" type="text" name="event_time_end" value=""
+                                            style="display:none;" placeholder="End time..." />
+<?php       endif; ?>
+                                    </div>
+                                </div>
+                            </div>
 <?php   endif; ?>
                         </div>
                     </div>
@@ -117,6 +157,17 @@
                     </div>
                 </div>
             </fieldset>
+
+            <!-- Delete -->
+            <div class="lefted-text padding-top-30 margin-top-30">
+                <a class="fontsize-18 red button" href="javascript:;" id="delete-post">
+                    Delete Article
+                </a>
+                <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/delete/{$post->id}" ); ?>"
+                    id="really-delete-post" style="display:none;">
+                    Click again to confirm
+                </a>
+            </div>
         </div><!-- /left-col -->
 
         <!-- Right col -->
@@ -185,17 +236,6 @@
             </fieldset>
         </div><!-- /right-col -->
     </form>
-
-    <!-- Delete -->
-    <div class="righted-text padding-top-30 margin-top-30">
-        <a class="fontsize-18 red button" href="javascript:;" id="delete-post">
-            Delete Article
-        </a>
-        <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/delete/{$post->id}" ); ?>"
-            id="really-delete-post" style="display:none;">
-            Click again to confirm
-        </a>
-    </div>
 </div>
 
 <script>

@@ -22,22 +22,30 @@ jQuery( function( $ ) {
     var navOffset = 122,
         logoOffset = 110,
         $document = $( document ),
-        $body = $( 'body' );
+        $body = $( 'body' ),
+        pageNavClass = ( $( '#page-nav-wrap' ).length ) ? ' pagenav' : '';
 
     $( document ).bind( 'ready scroll', function () {
         var docScroll = $document.scrollTop();
 
         if ( docScroll >= navOffset ) {
-            $body.addClass( 'sticky' )
+            $body.addClass( 'sticky' + pageNavClass )
                 .addClass( 'shiftlogo' );
         }
         else if ( docScroll >= logoOffset ) {
-            $body.removeClass( 'sticky' )
+            $body.removeClass( 'sticky' + pageNavClass )
                 .addClass( 'shiftlogo' );
         }
         else {
-            $body.removeClass( 'sticky' )
+            $body.removeClass( 'sticky' + pageNavClass )
                 .removeClass( 'shiftlogo' );
         }
     });
+
+    if ( $( '#full-clndr' ).length ) {
+        $( '#full-clndr' ).clndr({
+            template: $('#full-clndr-template').html(),
+            events: calendarEvents
+        });
+    }
 });

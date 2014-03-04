@@ -68,7 +68,7 @@
                 <li>
                     <a href="javascript:;">Get Involved</a>
                     <ul class="sub-menu">
-                        <li><a href="<?php echo $this->url->get( 'donate' ); ?>">Donate</a></li>
+                        <li><a href="http://silentbarn.org/donate">Donate</a></li>
                         <li><a href="<?php echo $this->url->get( 'about/volunteer' ); ?>">Volunteer</a></li>
                         <li><a href="<?php echo $this->url->get( 'about/contact' ); ?>">Contact</a></li>
                     </ul>
@@ -83,3 +83,10 @@
         </nav>
     </header>
 </div>
+<?php   if ( isset( $pageNav ) ):
+            $this->partial(
+                $pageNav[ 'partial' ],
+                [
+                    'page' => $pageNav[ 'page' ]
+                ]);
+        endif; ?>
