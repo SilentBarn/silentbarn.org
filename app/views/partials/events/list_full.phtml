@@ -5,14 +5,14 @@
 <div class="full-event padding-bottom-20 margin-bottom-20 position-relative">
 <?php           if ( ! isset( $suppressSideDate ) ): ?>
     <div class="position-absolute side-date">
-        <div class="day-name color-999 uppercase font-mono">
+        <div class="day-name uppercase font-mono">
             <?php echo date( "l", $event_date ); ?>
         </div>
         <div class="day-month">
             <?php echo date( "n/j", $event_date ); ?>
         </div>
 <?php               if ( valid( $event->event_time, STRING ) ): ?>
-        <div class="time color-999 fontsize-13">
+        <div class="time fontsize-13">
             <?php echo $event->getShortTime(); ?>
         </div>
 <?php               endif; ?>

@@ -20,3 +20,7 @@
 @import 'pikaday.css';
 @import 'typeahead.css';
 @import 'timepicker.css';
+
+/* Extras
+ */
+@import 'media.css';

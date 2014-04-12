@@ -48,24 +48,24 @@ jQuery( function( $ ) {
         postActions: function () {
             // save button
             //
-            $( '#save-article' ).on( 'click', function () {
+            $( '#save-object' ).on( 'click', function () {
                 $( 'form#edit-form' ).submit();
             });
 
             // delete button
             //
-            $( '#delete-post' ).on( 'click', function () {
+            $( '#delete-object' ).on( 'click', function () {
                 var $this = $( this );
                 $this.hide();
                 $this.next().show();
 
                 var revert = function () {
-                    var $reallyDelete = $( '#really-delete-post' );
+                    var $reallyDelete = $( '#really-delete-object' );
                     $reallyDelete.hide();
                     $reallyDelete.prev().show();
                 };
 
-                var timeoutId = window.setTimeout( revert, 5000 );
+                var timeoutId = window.setTimeout( revert, 3000 );
             });
         },
 

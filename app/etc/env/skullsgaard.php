@@ -4,7 +4,8 @@ return [
     'app' => [
         'environment' => 'skullsgaard',
         'responseMode' => 'view',
-        'modules' => [],
+        'modules' => [
+            'admin' => 'Admin' ],
         'jsEnvironment' => 'development' ],
 
     'cache' => [

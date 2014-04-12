@@ -23,22 +23,22 @@ a {
 
 /* Heading Nav
  */
-h1.with-nav {
-    border-bottom: 1px solid #ddd; padding-bottom: 4px; }
-h1.with-nav span {
-    padding: 6px 15px 6px; margin-right: 20px; border: 1px solid #ddd;
+h2.with-nav {
+    border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+h2.with-nav span {
+    padding: 10px 16px 8px; margin-right: 20px; border: 1px solid #ddd;
     border-radius: 4px 4px 0 0; border-bottom: 0; line-height: 1px;
     background: #fff; }
-h1.with-nav a {
-    font-weight: normal; text-decoration: none; }
-h1.with-nav a:hover {
+h2.with-nav a {
+    font-weight: normal; text-decoration: none; margin-right: 20px; }
+h2.with-nav a:hover {
     text-decoration: underline; }
 
 
 /* Messages
  */
 #admin-messages {
-    margin: 25px auto 0; max-width: 1400px; }
+    margin: 25px auto 0; max-width: 1400px; padding: 0 25px; }
 #admin-messages .message {
     margin-bottom: 10px; padding: 10px; color: #fff;
     border-radius: 3px; }

@@ -21,6 +21,9 @@
     width: 150px; left: -170px; text-align: right; }
 .full-event .side-date .day-month {
     font-weight: bold; font-size: 28px; margin-bottom: 2px; }
+.full-event .side-data .day-name,
+.full-event .side-data .time {
+    color: #999; }
 
 .side-event {
     background: #eee; padding: 10px; border-radius: 4px; }

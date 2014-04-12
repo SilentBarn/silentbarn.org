@@ -158,7 +158,7 @@ class Post extends \Base\Action
         {
             $util = $this->getService( 'util' );
             $util->addMessage(
-                "There was a problem creating your post.",
+                "There was a problem saving your post.",
                 INFO );
 
             foreach ( $post->getMessages() as $message )

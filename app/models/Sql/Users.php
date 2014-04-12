@@ -8,6 +8,10 @@ class Users extends \Base\Model
     public $email;
     public $password;
     public $name;
+    public $access_users;
+    public $access_members;
+    public $access_press;
+    public $is_deleted;
     public $created_at;
 
     function initialize()

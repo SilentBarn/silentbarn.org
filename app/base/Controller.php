@@ -148,6 +148,7 @@ class Controller extends \Phalcon\Mvc\Controller
         return $this->dispatcher->forward([
             'controller' => 'error',
             'action' => 'quit',
+            'namespace' => 'Controllers',
             'params' => [
                 $message,
                 $type,

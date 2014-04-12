@@ -55,7 +55,10 @@ class ErrorController extends \Base\Controller
 
     public function quitAction( $message = '', $status = SUCCESS, $redirect = NULL, $code = NULL )
     {
-        $this->addMessage( $message, $status );
+        if ( valid( $message, STRING ) )
+        {
+            $this->addMessage( $message, $status );
+        }
 
         if ( $code )
         {

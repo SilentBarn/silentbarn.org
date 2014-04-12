@@ -11,11 +11,17 @@
             </a>
 <?php   if ( isset( $buttons ) ):
             foreach ( $buttons as $button ):
-                if ( $button == 'new' ): ?>
-            <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/new' ); ?>">New Article</a>
+                if ( $button == 'newArticle' ): ?>
+            <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/articles/new' ); ?>">New Article</a>
 <?php           endif;
-                if ( $button == 'save' ): ?>
-            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-article">Save Article</a>
+                if ( $button == 'saveArticle' ): ?>
+            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Article</a>
+<?php           endif;
+                if ( $button == 'newUser' ): ?>
+            <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/users/new' ); ?>">New User</a>
+<?php           endif;
+                if ( $button == 'saveUser' ): ?>
+            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save User</a>
 <?php           endif;
             endforeach;
         endif; ?>
