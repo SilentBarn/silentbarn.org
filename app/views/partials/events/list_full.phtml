@@ -30,13 +30,19 @@
         <?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date_end ) ); ?>
 <?php           endif; ?>
     </div>
-<?php           if ( valid( $event->event_time, STRING ) ): ?>
+<?php           if ( valid( $event->event_time, STRING )
+                    || valid( $event->location, STRING ) ): ?>
     <div class="date fontsize-15 color-999 margin-top-5">
-        <span class="margin-left-1"><?php echo $event->getShortTime(); ?></span>
+        <span class="margin-left-1"><?php echo $event->getShortTime( TRUE, TRUE ); ?></span>
     </div>
 <?php           endif; ?>
     <div class="body margin-top-10 lineheight-24">
-        <?php echo ( strlen( $event->excerpt ) ) ? $event->excerpt : substr( $event->body, 0, 120 ); ?>
+        <?php echo ( strlen( $event->excerpt ) )
+                ? $event->excerpt
+                : substr(
+                    strip_tags( $event->getHtmlBody() ),
+                    0,
+                    120 ); ?>
     </div>
 </div>
 

@@ -1,9 +1,18 @@
+<?php   $imagePath = $post->getImage()->getPath( 960 ); ?>
 <!-- Post -->
 <div id="post" class="page">
     <h1><?php echo $post->title; ?></h1>
+<?php   if ( valid( $imagePath, STRING ) ): ?>
     <div id="banner-wrap" class="margin-top-20 margin-bottom-20"
-        style="background-image: url( '<?php echo $post->getImage()->getPath( 960 ); ?>' );"></div>
+        style="background-image: url( '<?php $imagePath; ?>' );"></div>
+<?php   endif; ?>
+<?php   if ( valid( $post->event_time, STRING )
+            || valid( $post->location, STRING ) ): ?>
+    <h4 class="margin-bottom-10">
+        <?php echo $post->getShortTime( TRUE, TRUE ); ?>
+    </h4>
+<?php   endif; ?>
     <div id="body">
-        <?php echo $post->body; ?>
+        <?php echo $post->getHtmlBody(); ?>
     </div>
 </div>

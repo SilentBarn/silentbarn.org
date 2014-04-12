@@ -30,7 +30,7 @@
 
 .archive-event {
     width: 31%; margin-right: 3.5%; float: left; margin-bottom: 50px; }
-.archive-event:nth-child(3) {
+.archive-event:nth-child(3n) {
     margin: 0; }
 .archive-event .banner-wrap {
     width: 100%; height: 200px; background-size: cover; }
@@ -88,3 +88,11 @@
 #sidebar .cal .event-image {
     width: 100%; overflow: hidden; max-height: 135px;
     background-size: cover; }
+
+/* ASCII page
+ */
+pre.ascii {
+    font-family: "courier new", monospace; font-size: 12px;
+    line-height: 100%; color: #000; }
+#ascii-wrap {
+    width: 980px; margin: 0 auto; }

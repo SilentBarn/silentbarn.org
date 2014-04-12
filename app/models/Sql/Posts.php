@@ -3,6 +3,7 @@
 namespace Db\Sql;
 
 use Phalcon\Mvc\Model\Query;
+use Michelf\Markdown;
 
 class Posts extends \Base\Model
 {
@@ -12,6 +13,8 @@ class Posts extends \Base\Model
     public $slug;
     public $excerpt;
     public $body;
+    public $location;
+    public $external_url;
     public $status;
     public $is_deleted;
     public $post_date;
@@ -252,6 +255,14 @@ class Posts extends \Base\Model
     }
 
     /**
+     * Get the Markdown version of the body text
+     */
+    function getHtmlBody()
+    {
+        return Markdown::defaultTransform( $this->body );
+    }
+
+    /**
      * Generate a slug based on the title
      */
     function generateSlug()
@@ -295,7 +306,7 @@ class Posts extends \Base\Model
     /**
      * Return a shortened version of the event's start and stop time
      */
-    function getShortTime( $html = TRUE )
+    function getShortTime( $html = TRUE, $withLocation = FALSE )
     {
         if ( ! valid( $this->event_time, STRING ) )
         {
@@ -308,7 +319,9 @@ class Posts extends \Base\Model
 
         if ( ! valid( $this->event_time_end, STRING ) )
         {
-            return $shortTime;
+            return ( $withLocation && valid( $this->location, STRING ) )
+                ? trim( $shortTime ." @ ". $this->location )
+                : $shortTime;
         }
 
         $shortTime .= ( $html ) ? " &ndash; " : ' - ';
@@ -316,6 +329,8 @@ class Posts extends \Base\Model
             ? date( 'ga', strtotime( $this->event_time_end ) )
             : date( 'g:ia', strtotime( $this->event_time_end ) );
 
-        return $shortTime;
+        return ( $withLocation && valid( $this->location, STRING ) )
+            ? trim( $shortTime ." @ ". $this->location )
+            : $shortTime;
     }
 }

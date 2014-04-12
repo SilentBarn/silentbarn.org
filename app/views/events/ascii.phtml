@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Silent Barn ASCII Calendar</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Style Sheets -->
+        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href="http://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="<?php echo $this->url->get( 'css/app.css' ); ?>">
+    </head>
+    <body class="main">
+        <!-- Content -->
+        <div id="content">
+            <pre class="centered-text ascii">
+▄▄▄█████▓ ██░ ██ ▓█████      ██████  ██▓ ██▓    ▓█████ ███▄    █ ▄▄▄█████▓    ▄▄▄▄    ▄▄▄       ██▀███   ███▄    █ 
+▓  ██▒ ▓▒▓██░ ██▒▓█   ▀    ▒██    ▒ ▓██▒▓██▒    ▓█   ▀ ██ ▀█   █ ▓  ██▒ ▓▒   ▓█████▄ ▒████▄    ▓██ ▒ ██▒ ██ ▀█   █ 
+▒ ▓██░ ▒░▒██▀▀██░▒███      ░ ▓██▄   ▒██▒▒██░    ▒███  ▓██  ▀█ ██▒▒ ▓██░ ▒░   ▒██▒ ▄██▒██  ▀█▄  ▓██ ░▄█ ▒▓██  ▀█ ██▒
+░ ▓██▓ ░ ░▓█ ░██ ▒▓█  ▄      ▒   ██▒░██░▒██░    ▒▓█  ▄▓██▒  ▐▌██▒░ ▓██▓ ░    ▒██░█▀  ░██▄▄▄▄██ ▒██▀▀█▄  ▓██▒  ▐▌██▒
+  ▒██▒ ░ ░▓█▒░██▓░▒████▒   ▒██████▒▒░██░░██████▒░▒████▒██░   ▓██░  ▒██▒ ░    ░▓█  ▀█▓ ▓█   ▓██▒░██▓ ▒██▒▒██░   ▓██░
+  ▒ ░░    ▒ ░░▒░▒░░ ▒░ ░   ▒ ▒▓▒ ▒ ░░▓  ░ ▒░▓  ░░░ ▒░ ░ ▒░   ▒ ▒   ▒ ░░      ░▒▓███▀▒ ▒▒   ▓▒█░░ ▒▓ ░▒▓░░ ▒░   ▒ ▒ 
+    ░     ▒ ░▒░ ░ ░ ░  ░   ░ ░▒  ░ ░ ▒ ░░ ░ ▒  ░ ░ ░  ░ ░░   ░ ▒░    ░       ▒░▒   ░   ▒   ▒▒ ░  ░▒ ░ ▒░░ ░░   ░ ▒░
+  ░       ░  ░░ ░   ░      ░  ░  ░   ▒ ░  ░ ░      ░     ░   ░ ░   ░          ░    ░   ░   ▒     ░░   ░    ░   ░ ░ 
+          ░  ░  ░   ░  ░         ░   ░      ░  ░   ░  ░        ░              ░            ░  ░   ░              ░ 
+                                                                                   ░                               
+            </pre>
+            <div class="color-000 font-courier centered-text" id="ascii-wrap">
+                <h1 class="uppercase margin-bottom-30 margin-top-0">
+                    <u>Upcoming Events</u>
+                </h1>
+<?php   foreach ( $events as $event ): ?>
+                <div class="event padding-top-5 padding-bottom-10">
+                    <h4 class="uppercase fontsize-19 margin-bottom-0 margin-top-10">
+                        <?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ); ?>
+                    </h4>
+                    <div class="margin-bottom-0 uppercase fontsize-19">
+                        <a href=""><?php echo $event->title; ?></a>
+                    </div>
+<?php       if ( valid( $event->event_time, STRING )
+                || valid( $event->location, STRING ) ): ?>
+                    <div class="uppercase fontsize-19">(<?php echo $event->getShortTime( TRUE, TRUE ); ?>)</div>
+<?php       endif; ?>
+                </div>
+<?php   endforeach; ?>
+            </div>
+        </div>
+    </body>
+</html>

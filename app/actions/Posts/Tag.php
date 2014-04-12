@@ -32,7 +32,7 @@ class Tag extends \Base\Action
         //
         $tags = array();
 
-        foreach ( $names as $name )
+        foreach ( (array) $names as $name )
         {
             $tag = Tags::findFirstBySlug( Tags::slugify( $name ) );
 

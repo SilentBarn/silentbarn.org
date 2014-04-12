@@ -82,6 +82,17 @@ class EventsController extends \Base\Controller
     }
 
     /**
+     * List all events by month (last 3 months) in ASCII format
+     */
+    public function asciiAction()
+    {
+        $action = new \Actions\Posts\Event();
+        $this->view->events = $action->getByDateRange([
+            'categories' => [ EVENTS ] ]);
+        $this->view->setRenderLevel( \Phalcon\Mvc\View::LEVEL_ACTION_VIEW );
+    }
+
+    /**
      * json call to fetch month's events for calendar
      */
     public function getbymonthAction()

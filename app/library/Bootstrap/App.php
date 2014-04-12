@@ -47,7 +47,8 @@ class App extends \Lib\Bootstrap\Base
                 'Db' => APP_PATH .'/models/',
                 'Lib' => APP_PATH .'/library/',
                 'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/',
-                'Suin' => VENDOR_PATH .'/suin/php-image-resizer/Source/Suin/'
+                'Suin' => VENDOR_PATH .'/suin/php-image-resizer/Source/Suin/',
+                'Michelf' => VENDOR_PATH .'/michelf/php-markdown/Michelf/'
             ));
         $loader->registerClasses(
             array(

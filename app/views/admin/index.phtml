@@ -1,6 +1,9 @@
 <div id="admin" class="page">
     <!-- Articles table -->
-    <h1>Articles</h1>
+    <h1 class="with-nav">
+        <span>Articles</span>
+        <a href="">Members</a>
+    </h1>
     <table id="articles" cellspacing="0">
         <thead>
             <tr>
@@ -9,7 +12,7 @@
                 <th class="lefted-text">Categories</th>
                 <th class="lefted-text">On HP?</th>
                 <th class="lefted-text">Status</th>
-                <th class="lefted-text">Post Date</th>
+                <th class="lefted-text">Event Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,7 +26,7 @@
                 <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
                 <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : '<span class="color-aaa">No</span>'; ?></td>
                 <td><?php echo ucfirst( $post->status ); ?></td>
-                <td><?php echo date_str( $post->post_date, DATE_TABLE ); ?></td>
+                <td><?php echo date_str( $post->event_date, DATE_TABLE ); ?></td>
                 <td class="centered-text">
                     <a class="" href="<?php echo $this->url->get( 'admin/edit/'. $post->id ); ?>">Edit</a>
                     <a class="margin-left-10" href="<?php echo $post->getPath(); ?>">View</a>
@@ -38,4 +41,8 @@
 <?php   endif; ?>
         </tbody>
     </table>
+
+    <div id="ascii" class="padding-top-30 righted-text">
+        <a href="<?php echo $this->url->get( 'events/ascii' ); ?>" class="font-mono">View Monthly ASCII Calendar</a>
+    </div>
 </div>

@@ -60,6 +60,8 @@ class Post extends \Base\Action
         //
         $post->title = $filter->sanitize( get( $data, 'title' ), 'striptags' );
         $post->body = $filter->sanitize( get( $data, 'body' ), 'striptags' );
+        $post->location = $filter->sanitize( get( $data, 'location' ), 'striptags' );
+        $post->external_url = $filter->sanitize( get( $data, 'external_url' ), 'striptags' );
         $post->excerpt = $filter->sanitize( get( $data, 'excerpt' ), 'striptags' );
         $post->post_date = date_str(
             get( $data, 'post_date' ),

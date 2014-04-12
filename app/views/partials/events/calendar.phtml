@@ -39,7 +39,7 @@
         $i = 0;
         foreach ( $events as $event ): ?>
             {
-                title: '<?php echo $event->title; ?>', 
+                title: '<?php echo str_replace( "'", "\'", $event->title ); ?>', 
                 date: '<?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ); ?>',
                 url: '<?php echo $event->getPath(); ?>',
                 image: '<?php echo $event->getImage()->getPath( 310 ); ?>'

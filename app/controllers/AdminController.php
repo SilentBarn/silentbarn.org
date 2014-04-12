@@ -116,6 +116,12 @@ class AdminController extends \Base\Controller
             $imageAction->deleteByPost( $post->id );
             $imageAction->saveToPost( $post->id, $this->request->getUploadedFiles() );
         }
+        // check if a URL came in
+        elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) )
+        {
+            $imageAction->deleteByPost( $post->id );
+            $imageAction->saveUrlToPost( $post->id, $this->request->getPost( 'image_url' ) );
+        }
 
         // redirect
         //

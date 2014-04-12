@@ -49,6 +49,8 @@
 
 /* Fonts
  */
+.fontsize-12 {
+    font-size: 12px; }
 .fontsize-13 {
     font-size: 13px; }
 .fontsize-14 {
@@ -59,18 +61,24 @@
     font-size: 16px; }
 .fontsize-18 {
     font-size: 18px; }
+.fontsize-19 {
+    font-size: 19px; }
 .font-asap {
     font-family: 'Asap', sans-serif; }
 .font-mono {
     font-family: 'Share Tech Mono', monospace; }
+.font-courier {
+    font-family: 'Courier New', monospace; }
+.color-000 {
+    color: #000 !important; }
 .color-333 {
-    color: #333; }
+    color: #333 !important; }
 .color-555 {
-    color: #555; }
+    color: #555 !important; }
 .color-999 {
-    color: #999; }
+    color: #999 !important; }
 .color-aaa {
-    color: #aaa; }
+    color: #aaa !important; }
 .lineheight-20 {
     line-height: 20px; }
 .lineheight-24 {
@@ -92,6 +100,8 @@
     margin-top: 20px; }
 .margin-top-30 {
     margin-top: 30px; }
+.margin-bottom-0 {
+    margin-bottom: 0px; }
 .margin-bottom-5 {
     margin-bottom: 5px; }
 .margin-bottom-10 {

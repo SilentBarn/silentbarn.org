@@ -3,7 +3,8 @@
 namespace Actions\Posts;
 
 use \Suin\ImageResizer\ImageResizer,
-    \Db\Sql\Images as Images;
+    \Db\Sql\Images as Images,
+    \Lib\Mocks\File as MockFile;
 
 class Image extends \Base\Action
 {
@@ -140,5 +141,26 @@ class Image extends \Base\Action
         }
 
         return TRUE;
+    }
+
+    /**
+     * Uploads a picture from a URL
+     *
+     * @param string $url
+     */
+    function saveUrlToPost( $postId, $url )
+    {
+        $file = new MockFile();
+
+        if ( ! $file->download( $url ) )
+        {
+            $util->addMessage( 'There was a problem downloading that image.', ERROR );
+            return FALSE;
+        }
+
+        $saved = $this->saveToPost( $postId, [ $file ] );
+        $file->deleteTemp();
+
+        return $saved;
     }
 }

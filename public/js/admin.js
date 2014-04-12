@@ -151,9 +151,9 @@ jQuery( function( $ ) {
             });
         },
 
-        // show the end event date/time inputs
+        // show the end event date/time inputs, location input
         //
-        eventDates: function () {
+        meta: function () {
             $( '#set-event-end-date' ).on( 'click', function () {
                 var $this = $( this );
                 $this.hide();
@@ -165,6 +165,12 @@ jQuery( function( $ ) {
                 $this.hide();
                 $this.next().show().focus();
             });
+
+            $( '#set-location' ).on( 'click', function () {
+                var $this = $( this );
+                $this.hide();
+                $this.next().show().find( 'input' ).focus();
+            });
         }
     };
 
@@ -175,5 +181,5 @@ jQuery( function( $ ) {
     AdminPage.imagePreview();
     AdminPage.postActions();
     AdminPage.slugs();
-    AdminPage.eventDates();
+    AdminPage.meta();
 });
