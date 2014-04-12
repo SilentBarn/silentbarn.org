@@ -1,0 +1,47 @@
+<div id="admin" class="page">
+    <!-- Articles table -->
+<?php   $this->partial(
+            'partials/admin/nav',
+            [ 'adminNavPage' => 'articles' ]); ?>
+    <table id="articles" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th class="lefted-text">Title</th>
+                <th class="lefted-text">Categories</th>
+                <th class="lefted-text">On HP?</th>
+                <th class="lefted-text">Status</th>
+                <th class="lefted-text">Event Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php   if ( count( $posts ) ):
+            foreach ( $posts as $post ): ?>
+
+            <tr>
+                <td class="centered-text"><?php echo $post->id; ?></td>
+                <td><?php echo $post->title; ?></td>
+                <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
+                <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : '<span class="color-aaa">No</span>'; ?></td>
+                <td><?php echo ucfirst( $post->status ); ?></td>
+                <td><?php echo date_str( $post->event_date, DATE_TABLE ); ?></td>
+                <td class="centered-text">
+                    <a class="" href="<?php echo $this->url->get( 'admin/articles/edit/'. $post->id ); ?>">Edit</a>
+                    <a class="margin-left-10" href="<?php echo $post->getPath(); ?>">View</a>
+                </td>
+            </tr>
+
+<?php       endforeach;
+        else: ?>
+            <tr>
+                <td class="centered-text" colspan="7">No articles to display!</td>
+            </tr>
+<?php   endif; ?>
+        </tbody>
+    </table>
+
+    <div id="ascii" class="padding-top-30 righted-text">
+        <a href="<?php echo $this->url->get( 'events/ascii' ); ?>" class="font-mono">View Monthly ASCII Calendar</a>
+    </div>
+</div>
