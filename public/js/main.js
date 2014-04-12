@@ -42,10 +42,30 @@ jQuery( function( $ ) {
         }
     });
 
+    // set up clndr
     if ( $( '#full-clndr' ).length ) {
-        $( '#full-clndr' ).clndr({
-            template: $('#full-clndr-template').html(),
-            events: calendarEvents
+        // stores whether we've requested a month's events
+        var monthLog = [];
+        // ajax call to request events
+        var getMonthEvents = function ( date ) {
+            if ( _.has( monthLog, date ) ) {
+                return true;
+            }
+
+            $.ajax({
+                
+            });
+        };
+        // store clndr reference
+        var clndr = $( '#full-clndr' ).clndr({
+            template: $( '#full-clndr-template' ).html(),
+            events: calendarEvents,
+            clickEvents: {
+                // when the month changes, get the events
+                onMonthChange: function( month ) {
+                    getMonthEvents( month.format( 'MM/DD/YYYY' ) );
+                }
+            }
         });
     }
 });

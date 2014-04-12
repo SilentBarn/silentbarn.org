@@ -4,7 +4,7 @@
     <h1><?php echo $post->title; ?></h1>
 <?php   if ( valid( $imagePath, STRING ) ): ?>
     <div id="banner-wrap" class="margin-top-20 margin-bottom-20"
-        style="background-image: url( '<?php $imagePath; ?>' );"></div>
+        style="background-image: url( '<?php echo $imagePath; ?>' );"></div>
 <?php   endif; ?>
 <?php   if ( valid( $post->event_time, STRING )
             || valid( $post->location, STRING ) ): ?>

@@ -8,7 +8,9 @@ return array(
         'responseMode' => 'api',
         // router namespace modules
         'modules' => array(
-            'api' => 'Api' )),
+            'api' => 'Api' ),
+        'jsEnvironment' => 'development',
+        'jsVersion' => 1 ),
 
     'paths' => array(
         'baseUri' => 'http://phalcon.dev/',

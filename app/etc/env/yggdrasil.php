@@ -4,7 +4,8 @@ return [
     'app' => [
         'environment' => 'yggdrasil',
         'responseMode' => 'view',
-        'modules' => []],
+        'modules' => [],
+        'jsEnvironment' => 'production' ],
 
     'cache' => [
         'adapter' => 'redis' ],
