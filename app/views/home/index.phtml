@@ -85,7 +85,7 @@
 <?php           if ( valid( $boxPost->excerpt, STRING ) ): ?>
                 <?php echo $boxPost->excerpt; ?>
 <?php           else:
-                    $body = $boxPost->getHtmlBody(); ?>
+                    $body = strip_tags( $boxPost->getHtmlBody() ); ?>
                 <?php echo ( strlen( $body ) > 150 ) ? substr( $body, 0, 150 ) . "&hellip;" : $body; ?>
 <?php           endif; ?>
             </div>
