@@ -84,8 +84,9 @@
             <div class="description">
 <?php           if ( valid( $boxPost->excerpt, STRING ) ): ?>
                 <?php echo $boxPost->excerpt; ?>
-<?php           else: ?>
-                <?php echo ( strlen( $boxPost->body ) > 150 ) ? substr( $boxPost->body, 0, 150 ) . "&hellip;" : $boxPost->body; ?>
+<?php           else:
+                    $body = $boxPost->getHtmlBody(); ?>
+                <?php echo ( strlen( $body ) > 150 ) ? substr( $body, 0, 150 ) . "&hellip;" : $body; ?>
 <?php           endif; ?>
             </div>
         </div><!-- /block -->
