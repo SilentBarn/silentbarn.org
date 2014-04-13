@@ -30,7 +30,8 @@ class PostsController extends \Base\Controller
                 'action' => 'show404' ]);
         }
 
-        $this->view->post = $post;
+        $this->data->post = $post;
+        $this->data->pageTitle = $post->title;
         $this->view->pick( 'posts/show' );
     }
 }

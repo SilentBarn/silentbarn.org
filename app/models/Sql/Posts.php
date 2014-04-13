@@ -84,7 +84,7 @@ class Posts extends \Base\Model
     {
         $defaults = [
             'categories' => [ EVENTS, EXHIBITIONS ],
-            'startDate' => date( DATE_DATABASE, strtotime( 'now' ) ),
+            'startDate' => date( DATE_DATABASE, mktime( 0, 0, 0 ) ),
             'endDate' => NULL,
             'startOperand' => '>=',
             'endOperand' => '<=',

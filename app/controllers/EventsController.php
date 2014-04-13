@@ -39,6 +39,7 @@ class EventsController extends \Base\Controller
             'partial' => 'partials/events/nav',
             'page' => 'upcoming' ];
         $this->data->limit = $limit;
+        $this->data->pageTitle = "Upcoming Events";
         $this->view->pick( 'events/upcoming' );
 
         // if an offset came in, return the API response
@@ -74,6 +75,7 @@ class EventsController extends \Base\Controller
         $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'archives' ];
+        $this->data->pageTitle = "Event Archives";
         $this->view->pick( 'events/archives' );
 
         // if an offset came in, return the API response
@@ -112,6 +114,7 @@ class EventsController extends \Base\Controller
         $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'exhibitions' ];
+        $this->data->pageTitle = "Exhibitions";
 
         $this->view->pick( 'events/exhibitions' );
     }
@@ -124,6 +127,7 @@ class EventsController extends \Base\Controller
         $action = new \Actions\Posts\Event();
         $this->data->events = $action->getByDateRange([
             'categories' => [ EVENTS ] ]);
+        $this->data->pageTitle = "ASCII Calendar";
         $this->view->setRenderLevel( \Phalcon\Mvc\View::LEVEL_ACTION_VIEW );
     }
 
@@ -157,6 +161,7 @@ class EventsController extends \Base\Controller
 
     public function bookingAction()
     {
+        $this->data->pageTitle = "Performance Booking";
         $this->view->pick( 'events/booking' );
     }
 }

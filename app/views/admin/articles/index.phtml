@@ -21,7 +21,7 @@
 
             <tr>
                 <td class="centered-text"><?php echo $post->id; ?></td>
-                <td><?php echo $post->title; ?></td>
+                <td><?php echo ( strlen( $post->title ) > 80 ) ? substr( $post->title, 0, 80 ) . "&hellip;" : $post->title; ?></td>
                 <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
                 <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : '<span class="color-aaa">No</span>'; ?></td>
                 <td><?php echo ucfirst( $post->status ); ?></td>
