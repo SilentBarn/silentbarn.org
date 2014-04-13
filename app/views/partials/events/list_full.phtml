@@ -1,6 +1,7 @@
 <?php   if ( count( $events ) ):
             foreach ( $events as $event ):
-                $event_date = strtotime( $event->event_date ); ?>
+                $event_date = strtotime( $event->event_date );
+                $imagePath = $event->getImage()->getPath( 960 ); ?>
 
 <div class="full-event padding-bottom-20 margin-bottom-20 position-relative">
 <?php           if ( ! isset( $suppressSideDate ) ): ?>
@@ -17,9 +18,11 @@
         </div>
 <?php               endif; ?>
     </div>
-<?php           endif; ?>
+<?php           endif;
+                if ( valid( $imagePath, STRING ) ): ?>
     <a class="blocked banner-wrap margin-bottom-15" href="<?php echo $event->getPath(); ?>"
-        style="background-image: url( '<?php echo $event->getImage()->getPath( 960 ); ?>' );"></a>
+        style="background-image: url( '<?php echo $imagePath; ?>' );"></a>
+<?php           endif; ?>
     <h2 class="font-mono uppercase margin-bottom-10">
         <a href="<?php echo $event->getPath(); ?>" class="color-333 hover-underline"><?php echo $event->title; ?></a>
     </h2>
