@@ -27,7 +27,10 @@ class MembersController extends \Base\Controller
         // get all of the posts
         //
         $this->view->pick( 'admin/members/index' );
-        $this->view->members = \Db\Sql\Members::find([ 'is_deleted = 0' ]);
+        $this->data->members = \Db\Sql\Members::find([
+            'is_deleted = 0',
+            "order" => "name"
+        ]);
         $this->view->backPage = '';
         $this->view->buttons = [ 'newMember' ];
     }

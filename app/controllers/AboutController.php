@@ -34,7 +34,8 @@ class AboutController extends \Base\Controller
     public function communityAction()
     {
         $this->view->pick( 'about/community' );
-        $this->view->members = \Db\Sql\Members::find([
+        $this->data->title = "Community";
+        $this->data->members = \Db\Sql\Members::find([
             'is_deleted = 0',
             "order" => "name"
         ]);
