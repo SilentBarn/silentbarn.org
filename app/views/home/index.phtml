@@ -7,7 +7,7 @@
             <div class="blurb">
                 <div class="clearfix">
                     <h1>
-                        <span><?php echo $heroPost->title; ?></span>
+                        <span><?php echo ( strlen( $heroPost->title ) > 96 ) ? substr( $heroPost->title, 0, 96 ) . "&hellip;" : $heroPost->title; ?></span>
                     </h1>
                 </div>
 <?php       if ( valid( $heroPost->excerpt, STRING ) ): ?>

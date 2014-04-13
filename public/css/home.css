@@ -20,7 +20,7 @@
 .hero-carousel .blurb {
     position: absolute; left: 5px; top: 20px; bottom: 0; }
 .hero-carousel .blurb h1 {
-    max-width: 500px; line-height: 38px; font-size: 36px;
+    max-width: 650px; line-height: 38px; font-size: 36px;
     background: rgba( 0, 0, 0, 0.6 ); padding: 10px 20px 10px 15px;
     float: left; }
 .hero-carousel .blurb h1 span {
