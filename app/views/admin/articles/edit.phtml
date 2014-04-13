@@ -165,7 +165,7 @@
                     <div class="float-left">
 <?php   $image = $post->getImage();
         if ( valid( $image->id ) ): ?>
-                        <div class="margin-bottom-5"><?php echo $image->filename_orig; ?></div>
+                        <div class="margin-bottom-5"><?php echo substr( $image->filename_orig, 0, 32 ); ?></div>
                         <div class="margin-bottom-5"><?php echo human_bytes( $image->size ); ?></div>
                         <div class="margin-bottom-5"><?php echo $image->mime_type; ?></div>
                         <div class="margin-bottom-25">Uploaded on <?php echo date_str( $image->created_at, DATE_DAY_NAME_YEAR ); ?></div>
