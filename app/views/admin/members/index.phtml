@@ -1,0 +1,47 @@
+<div id="admin" class="page">
+    <!-- Users table -->
+<?php   $this->partial(
+            'partials/admin/nav',
+            [ 'adminNavPage' => 'members' ]); ?>
+    <table id="members" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th class="lefted-text">Name</th>
+                <th class="lefted-text">Email</th>
+                <th>Chef?</th>
+                <th>Resident?</th>
+                <th>Stewdio?</th>
+                <th>Pic?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php   if ( count( $members ) ):
+            foreach ( $members as $member ): ?>
+
+            <tr>
+                <td class="centered-text"><?php echo $member->id; ?></td>
+                <td><?php echo $member->name; ?></td>
+                <td><?php echo $member->email; ?></td>
+                <td class="centered-text"><?php echo ( $member->is_chef ) ? 'Yes' : 'No'; ?></td>
+                <td class="centered-text"><?php echo ( $member->is_resident ) ? 'Yes' : 'No'; ?></td>
+                <td class="centered-text"><?php echo ( $member->is_stewdio ) ? 'Yes' : 'No'; ?></td>
+                <td class="centered-text"><?php echo ( valid( $member->image_filename, STRING ) ) ? 'Yes' : 'No'; ?></td>
+                <td class="centered-text">
+                    <a class="" href="<?php echo $this->url->get( 'admin/members/edit/'. $member->id ); ?>">Edit</a>
+                </td>
+            </tr>
+
+<?php       endforeach;
+        else: ?>
+
+            <tr>
+                <td colspan="7" class="centered-text">There are no members</td>
+            </tr>
+
+<?php   endif; ?>
+
+        </tbody>
+    </table>
+</div>

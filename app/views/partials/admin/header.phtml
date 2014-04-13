@@ -23,6 +23,12 @@
                 if ( $button == 'saveUser' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save User</a>
 <?php           endif;
+                if ( $button == 'newMember' ): ?>
+            <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/members/new' ); ?>">New Member</a>
+<?php           endif;
+                if ( $button == 'saveMember' ): ?>
+            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Member</a>
+<?php           endif;
             endforeach;
         endif; ?>
         </div>

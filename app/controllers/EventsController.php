@@ -22,19 +22,37 @@ class EventsController extends \Base\Controller
     public function upcomingAction()
     {
         // fetch the events for the next two weeks, and the events
-        // for the current month's calendar.
+        // for the current month's calendar
         //
         $action = new \Actions\Posts\Event();
-        $this->view->upcomingEvents = $action->getByDateRange([
+        $limit = 10;
+        $offset = $this->request->getPost( 'offset' );
+        $offset = ( valid( $offset ) ) ? $offset : 0;
+        $this->data->upcomingEvents = $action->getByDateRange([
+            'limit' => $limit,
+            'offset' => $offset,
             'categories' => [ EVENTS ] ]);
-        $this->view->calendarEvents = $action->getByMonth(
+        $this->data->calendarEvents = $action->getByMonth(
             'today',
             [ EVENTS ]);
-        $this->view->pageNav = [
+        $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'upcoming' ];
-
+        $this->data->limit = $limit;
         $this->view->pick( 'events/upcoming' );
+
+        // if an offset came in, return the API response
+        //
+        if ( valid( $offset ) )
+        {
+            $this->responseMode = 'api';
+            $this->data->count = count( $this->data->upcomingEvents );
+            $this->data->html = $this->renderPartial(
+                'partials/events/list_full', [
+                    'events' => $this->data->upcomingEvents,
+                    'offset' => $offset
+                ]);
+        }
     }
 
     public function archivesAction()
@@ -42,17 +60,34 @@ class EventsController extends \Base\Controller
         // fetch the last month of events
         //
         $action = new \Actions\Posts\Event();
-        $this->view->events = $action->getByDateRange([
+        $limit = 9;
+        $offset = $this->request->getPost( 'offset' );
+        $offset = ( valid( $offset ) ) ? $offset : 0;
+        $this->data->events = $action->getByDateRange([
             'categories' => [ EVENTS ],
             'startDate' => NULL,
             'endDate' => 'today',
             'sort' => 'event_date desc',
-            'limit' => 10 ]);
-        $this->view->pageNav = [
+            'limit' => $limit,
+            'offset' => $offset ]);
+        $this->data->limit = $limit;
+        $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'archives' ];
-
         $this->view->pick( 'events/archives' );
+
+        // if an offset came in, return the API response
+        //
+        if ( valid( $offset ) )
+        {
+            $this->responseMode = 'api';
+            $this->data->count = count( $this->data->events );
+            $this->data->html = $this->renderPartial(
+                'partials/events/list_archive', [
+                    'events' => $this->data->events,
+                    'offset' => $offset
+                ]);
+        }
     }
 
     public function exhibitionsAction()
@@ -61,20 +96,20 @@ class EventsController extends \Base\Controller
         // exhibitions.
         //
         $action = new \Actions\Posts\Event();
-        $this->view->currentExhibitions = $action->getByDateRange([
+        $this->data->currentExhibitions = $action->getByDateRange([
             'categories' => [ EXHIBITIONS ],
             'ongoing' => TRUE,
             'startDate' => 'today',
             'endDate' => 'today',
             'startOperand' => '<=',
             'endOperand' => '>=' ]);
-        $this->view->pastExhibitions = $action->getByDateRange([
+        $this->data->pastExhibitions = $action->getByDateRange([
             'categories' => [ EXHIBITIONS ],
             'ongoing' => TRUE,
             'startDate' => NULL,
             'endDate' => 'today',
             'limit' => 5 ]);
-        $this->view->pageNav = [
+        $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'exhibitions' ];
 
@@ -87,7 +122,7 @@ class EventsController extends \Base\Controller
     public function asciiAction()
     {
         $action = new \Actions\Posts\Event();
-        $this->view->events = $action->getByDateRange([
+        $this->data->events = $action->getByDateRange([
             'categories' => [ EVENTS ] ]);
         $this->view->setRenderLevel( \Phalcon\Mvc\View::LEVEL_ACTION_VIEW );
     }
@@ -97,7 +132,27 @@ class EventsController extends \Base\Controller
      */
     public function getbymonthAction()
     {
+        $this->responseMode = 'api';
+        $date = $this->request->getPost( 'date' );
 
+        // get the events for the month by the date given
+        //
+        $action = new \Actions\Posts\Event();
+        $events = $action->getByMonth(
+            $date,
+            [ EVENTS ]);
+        $jsonEvents = array();
+
+        foreach ( $events as $event )
+        {
+            $jsonEvents[] = [
+                'title' => str_replace( "'", "\'", $event->title ), 
+                'date' => date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ),
+                'url' => $event->getPath(),
+                'image' => $event->getImage()->getPath( 310 ) ];
+        }
+
+        $this->data->events = $jsonEvents;
     }
 
     public function bookingAction()

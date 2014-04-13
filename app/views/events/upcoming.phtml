@@ -6,9 +6,19 @@
     <div class="clearfix">
         <!-- Upcoming events -->
         <div id="upcoming" class="events w67p float-left">
+            <div id="upcoming-wrap">
 <?php   $this->partial(
             'partials/events/list_full',
             [ 'events' => $upcomingEvents ]); ?>
+            </div>
+<?php   if ( count( $upcomingEvents ) >= $limit ): ?>
+            <!-- Load More -->
+            <div id="load-more" class="centered-text">
+                <a href="javascript:;" id="load-more-button" data-url="events/upcoming"
+                    data-limit="<?php echo $limit; ?>" data-offset="<?php echo $limit; ?>"
+                    data-container="#upcoming-wrap" class="gray button">Load More</a>
+            </div>
+<?php   endif; ?>
         </div>
 
         <!-- Sidebar -->

@@ -9,6 +9,13 @@ class UsersController extends \Base\Controller
         $this->checkLoggedIn = TRUE;
         $this->view->setMainView( 'admin' );
 
+        // check if they have access
+        //
+        if ( ! $this->auth->user[ 'access_users' ] )
+        {
+            return $this->quit( "You don't have access to users!", INFO, 'admin/articles' );
+        }
+
         return parent::beforeExecuteRoute();
     }
 
@@ -17,13 +24,6 @@ class UsersController extends \Base\Controller
      */
     public function indexAction()
     {
-        // check if they have access
-        //
-        if ( ! $this->auth->user[ 'access_users' ] )
-        {
-            return $this->quit( "You don't have access to users!", INFO, 'admin/users' );
-        }
-
         // get all of the posts
         //
         $this->view->pick( 'admin/users/index' );

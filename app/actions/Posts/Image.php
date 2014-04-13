@@ -55,6 +55,7 @@ class Image extends \Base\Action
      * to the media directory. This also saves a few different
      * sizes of the image.
      *
+     * @param integer $postId
      * @param \Phalcon\Http\Request\File array $files
      * @return boolean
      */
@@ -162,5 +163,104 @@ class Image extends \Base\Action
         $file->deleteTemp();
 
         return $saved;
+    }
+
+    /**
+     * Deletes a photo for a particular member.
+     *
+     * @param \Db\Sql\Members $member
+     * @return boolean
+     */
+    function deleteByMember( &$member )
+    {
+        if ( ! valid( $member->image_filename, STRING ) )
+        {
+            return TRUE;
+        }
+
+        @unlink( $member->getImagePath( FALSE ) );
+        $util = $this->getService( 'util' );
+        $member->image_filename = NULL;
+
+        if ( ! $member->save() )
+        {
+            $util->addMessage( 'There was a problem saving the image.', ERROR );
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+
+    /**
+     * Saves an array of \Phalcon\Http\Request\File objects
+     * to the media/members directory.
+     *
+     * @param \Db\Sql\Members $member
+     * @param \Phalcon\Http\Request\File array $files
+     * @return boolean
+     */
+    function saveToMember( $member, $files )
+    {
+        $util = $this->getService( 'util' );
+        $config = $this->getService( 'config' );
+
+        if ( ! is_array( $files )
+            || ! count( $files ) )
+        {
+            $util->addMessage( "No photos were uploaded.", INFO );
+            return FALSE;
+        }
+
+        foreach ( $files as $file )
+        {
+            // check the width is > 310
+            //
+            $tempName = $file->getTempName();
+            $ext = pathinfo( $file->getName(), PATHINFO_EXTENSION );
+            list( $width, $height, $type, $attr ) = getimagesize( $tempName );
+
+            if ( $width < 310 || $height < 310 )
+            {
+                $util->addMessage(
+                    "Please upload square images at least 310px wide and 310px tall.",
+                    INFO );
+                return FALSE;
+            }
+
+            // generate the file hash and path
+            //
+            $authAction = new \Actions\Users\Auth();
+            $fileToken = $authAction->generateRandomToken();
+
+            // save the temporary image to the media directory
+            //
+            $fullPath = $config->paths->media .'/members';
+            $fileName = $fileToken .'.'. $ext;
+            @mkdir( $fullPath, 0755, TRUE );
+            $file->moveTo( $fullPath .'/'. $fileName );
+
+            // resize the image to 310
+            //
+            $resizer310 = new ImageResizer( $fullPath .'/'. $fileName );
+
+            if ( ! $resizer310->maxWidth( 310 )->resize() )
+            {
+                @unlink( $fullPath .'/'. $fileName );
+                $util->addMessage( "There was a problem resizing your photo.", ERROR );
+                return FALSE;
+            }
+
+            // save the record out to the database
+            //
+            $member->image_filename = $fileName;
+
+            if ( ! $member->save() )
+            {
+                $util->addMessage( 'There was a problem saving the image.', ERROR );
+                return FALSE;
+            }
+        }
+
+        return TRUE;
     }
 }

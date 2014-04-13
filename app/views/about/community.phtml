@@ -1,5 +1,31 @@
 <!-- Community Page -->
 <div class="page clearfix">
     <h1 class="margin-bottom-25 font-mono uppercase">Community</h1>
-    Coming Soon
+    
+    <!-- Members list -->
+    <div id="members" class="clearfix">
+<?php   if ( ! count( $members ) ): ?>
+
+        <div class="color-aaa">
+            There are no active members :(
+        </div>
+
+<?php   else:
+            foreach ( $members as $member ):
+                $image = ( valid( $member->image_filename, STRING ) )
+                    ? $member->getImagePath()
+                    : $this->url->get( 'img/heptagon_placeholder_231.png' );
+                $bio = ( strlen( trim( $member->bio ) ) > 140 )
+                    ? substr( $member->bio, 0, 140 ) . "&hellip;"
+                    : $member->bio; ?>
+
+        <div class="member float-left">
+            <img src="<?php echo $image; ?>" width="231" />
+            <h3><strong><?php echo $member->name; ?></strong></h3>
+            <div class="bio"><?php echo $bio; ?></div>
+        </div>
+
+<?php       endforeach;
+        endif; ?>
+    </div>
 </div>

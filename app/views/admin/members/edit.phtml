@@ -1,0 +1,77 @@
+
+<div id="admin" class="page">
+    <!-- Edit form -->
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/members/save' ); ?>"
+        method="post" enctype="multipart/form-data">
+        <div style="display:none;">
+            <input type="hidden" name="id" value="<?php echo $member->id; ?>" />
+        </div>
+
+        <!-- Left col -->
+        <div class="left-col float-left">
+            <!-- General -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>General</h2>
+                </legend>
+                <div class="margin-bottom-20">
+                    <label>Name</label>
+                    <input class="w95p" type="text" name="name" value="<?php echo $member->name; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Email</label>
+                    <input class="w95p" type="text" name="email" value="<?php echo $member->email; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Short Bio</label>
+                    <textarea class="w95p h50px" name="bio"><?php echo $member->bio; ?></textarea>
+                </div>
+                <div>
+                    <label>Type</label>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_chef" value="1"
+                            <?php echo ( $member->is_chef ) ? ' checked="checked"' : ''; ?> />
+                        <span>Chef / Sous Chef</span>
+                    </div>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_resident" value="1"
+                            <?php echo ( $member->is_resident ) ? ' checked="checked"' : ''; ?> />
+                        <span>Resident</span>
+                    </div>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_stewdio" value="1"
+                            <?php echo ( $member->is_stewdio ) ? ' checked="checked"' : ''; ?> />
+                        <span>Stewdio Member</span>
+                    </div>
+                </div>
+            </fieldset>
+        </div><!-- /left-col -->
+
+        <!-- Right col -->
+        <div class="right-col float-right">
+            <!-- Images -->
+            <fieldset>
+                <legend>
+                    <h2>Picture</h2>
+                </legend>
+                <div class="margin-bottom-15">
+                    <input name="image" type="file" id="image-input" />
+                </div>
+                <div class="clearfix member" id="image-preview"
+                    style="background-image:url('<?php echo $member->getImagePath(); ?>');">
+                </div>
+            </fieldset>
+        </div><!-- /right-col -->
+    </form>
+
+    <!-- Delete -->
+    <div class="righted-text padding-top-30 margin-top-30" id="delete-wrapper">
+        <a class="fontsize-18 red button" href="javascript:;" id="delete-object">
+            Delete Member
+        </a>
+        <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/members/delete/{$member->id}" ); ?>"
+            id="really-delete-object" style="display:none;">
+            Click again to confirm
+        </a>
+    </div>
+</div>

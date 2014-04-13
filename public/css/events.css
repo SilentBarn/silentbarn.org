@@ -42,7 +42,7 @@
 /* Calendar
  */
 #sidebar .cal {
-    margin: 0 auto; }
+    margin: 0 auto; position: relative; }
 #sidebar .cal .clndr .clndr-controls {
     display: block; width: 100%; height: 32px; line-height: 32px;
     background: #e2db66; color: #7E7825; text-transform: uppercase; }
@@ -91,6 +91,16 @@
 #sidebar .cal .event-image {
     width: 100%; overflow: hidden; max-height: 135px;
     background-size: cover; }
+
+#sidebar .cal .clndr-overlay {
+    position: absolute; top: 0; left: 0; width: 100%;
+    background: rgba( 255, 255, 255, 0.66 ); bottom: 0;
+    text-align: center; display: none; }
+#sidebar .cal .clndr-overlay.on {
+    display: block; }
+#sidebar .cal .clndr-overlay span {
+    color: #555; display: inline-block; margin-top: 10px;
+    background: #fff; padding: 5px 10px; }
 
 /* ASCII page
  */

@@ -90,6 +90,13 @@ class Controller extends \Phalcon\Mvc\Controller
         }
         else
         {
+            // set any data as view vars
+            //
+            foreach ( $this->data as $varName => $val )
+            {
+                $this->view->$varName = $val;
+            }
+
             $util->setFlash( $this->messages );
 
             if ( ! is_null( $this->redirect ) )
@@ -141,6 +148,20 @@ class Controller extends \Phalcon\Mvc\Controller
     public function addMessage( $message, $type = SUCCESS )
     {
         $this->messages[] = array( $type => $message );
+    }
+
+    /**
+     * Using output buffering for more targetted partial view
+     * rendering.
+     */
+    public function renderPartial( $viewPath, $data )
+    {
+        ob_start();
+        $this->view->partial( $viewPath, $data );
+        $contents = ob_get_contents();
+        ob_end_clean();
+
+        return $contents;
     }
 
     public function quit( $message, $type = SUCCESS, $redirect = NULL, $code = NULL )

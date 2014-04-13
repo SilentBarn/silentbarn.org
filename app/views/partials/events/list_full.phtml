@@ -49,6 +49,6 @@
 <?php       endforeach;
         else: ?>
 <div class="color-aaa">
-    There are no upcoming <?php echo ( isset( $noneKeyword ) ) ? $noneKeyword : 'events'; ?>
+    There are no <?php echo ( isset( $offset ) && $offset ) ? 'more ' : ''; ?>upcoming <?php echo ( isset( $noneKeyword ) ) ? $noneKeyword : 'events'; ?>
 </div>
 <?php   endif; ?>

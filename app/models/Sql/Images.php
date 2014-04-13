@@ -38,7 +38,6 @@ class Images extends \Base\Model
         }
 
         $config = $this->getService( 'config' );
-        $url = $this->getService( 'url' );
 
         return sprintf(
             "%s%s/%s_%s.%s",
