@@ -175,6 +175,7 @@ var MainPage = {
         });
         // hide everything when overlay is clicked
         $overlay.on( 'click', function () {
+            $members.find( '.member' ).removeClass( 'callout' );
             $overlay.fadeOut( 250 );
             $callout.fadeOut( 150 );
             $callout.find( 'div' ).html( '' );
