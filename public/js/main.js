@@ -140,7 +140,17 @@ var MainPage = {
         });
     },
 
-    // masonry on community page
+    // show more links
+    showMore: function () {
+        $( 'a.show-more' ).on( 'click', function () {
+            var $this = $( this ),
+                $target = $( $this.data( 'target' ) );
+            $target.show();
+            $this.parent().hide();
+        });
+    },
+
+    // chefs page
     community: function () {
         var $members = $( '#members' );
         if ( ! $members.length ) {
@@ -187,6 +197,7 @@ MainPage.carousel();
 MainPage.stickyNav();
 MainPage.calendar();
 MainPage.loadMore();
+MainPage.showMore();
 MainPage.community();
 
 });
