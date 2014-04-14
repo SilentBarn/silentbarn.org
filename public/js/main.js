@@ -158,7 +158,7 @@ var MainPage = {
             // remove callout from all members
             $members.find( '.member' ).removeClass( 'callout' );
             // if this index is 4th or 5th, change display mode
-            if ( index % 4 == 0 || index % 5 == 0 ) {
+            if ( index >= 4 ) {
                 $callout.addClass( 'right-align' );
             }
             else {

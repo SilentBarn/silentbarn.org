@@ -11,14 +11,13 @@
         </div>
 
 <?php   else:
-            $i = 0;
+            $i = 1;
             foreach ( $members as $member ):
-                $i++;
                 $image = ( valid( $member->image_filename, STRING ) )
                     ? $member->getImagePath()
                     : $this->url->get( 'img/heptagon_placeholder_231.png' ); ?>
 
-        <div class="member float-left transition-all" data-index="<?php echo $i; ?>">
+        <div class="member float-left transition-all" data-index="<?php echo $i++; ?>">
             <div class="img-wrap">
                 <img src="<?php echo $image; ?>" />
                 <h3 class="name"><?php echo $member->name; ?></h3>
@@ -28,7 +27,10 @@
             </div>
         </div>
 
-<?php       endforeach;
+<?php           if ( $i >= 5 ):
+                    $i = 1;
+                endif;
+            endforeach;
         endif; ?>
     </div>
 
