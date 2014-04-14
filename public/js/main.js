@@ -185,10 +185,10 @@ var MainPage = {
         });
         // hide everything when overlay is clicked
         $overlay.on( 'click', function () {
-            $members.find( '.member' ).removeClass( 'callout' );
             $overlay.fadeOut( 250 );
-            $callout.fadeOut( 150 );
+            $callout.hide();
             $callout.find( 'div' ).html( '' );
+            $members.find( '.member' ).removeClass( 'callout' );
         });
     }
 }; // Page object
