@@ -147,9 +147,37 @@ var MainPage = {
             return;
         }
 
-        $members.masonry({
-            columnWidth: 240,
-            itemSelector: '.member'
+        // get the elements
+        var $callout = $( '#member-callout' ),
+            $overlay = $( '#member-overlay' ),
+            $page = $( '#page' );
+        // on member click show the callout/overlay
+        $members.on( 'click', '.member:not(".callout")', function () {
+            var $this = $( this ),
+                index = $this.data( 'index' );
+            // remove callout from all members
+            $members.find( '.member' ).removeClass( 'callout' );
+            // if this index is 4th or 5th, change display mode
+            if ( index % 4 == 0 || index % 5 == 0 ) {
+                $callout.addClass( 'right-align' );
+            }
+            else {
+                $callout.removeClass( 'right-align' );
+            }
+            // detach the callout, fade it in, fade overlay in
+            $callout.detach().prependTo( $this ).fadeIn( 250 );
+            $overlay.fadeIn( 250 );
+            // apply callout to this member
+            $this.addClass( 'callout' );
+            // set the name/bio
+            $callout.find( '.name' ).text( $this.find( '.name' ).text() );
+            $callout.find( '.bio' ).text( $this.find( '.bio' ).text() );
+        });
+        // hide everything when overlay is clicked
+        $overlay.on( 'click', function () {
+            $overlay.fadeOut( 250 );
+            $callout.fadeOut( 150 );
+            $callout.find( 'div' ).html( '' );
         });
     }
 }; // Page object

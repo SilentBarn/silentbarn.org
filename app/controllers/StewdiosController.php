@@ -33,9 +33,4 @@ class StewdiosController extends \Base\Controller
     {
         $this->view->pick( 'stewdios/apply' );
     }
-
-    public function aboutAction()
-    {
-        $this->view->pick( 'stewdios/about' );
-    }
 }

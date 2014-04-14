@@ -23,29 +23,34 @@
     position: absolute; }
 .transition-bg {
     -webkit-transition: background 0.5s ease-in-out;
-    -moz-transition: background 0.5s ease-in-out;
-    -o-transition: background 0.5s ease-in-out;
-    transition: background 0.5s ease-in-out; }
+       -moz-transition: background 0.5s ease-in-out;
+         -o-transition: background 0.5s ease-in-out;
+            transition: background 0.5s ease-in-out; }
 .transition-width {
     -webkit-transition: width 0.5s ease-in-out;
-    -moz-transition: width 0.5s ease-in-out;
-    -o-transition: width 0.5s ease-in-out;
-    transition: width 0.5s ease-in-out; }
+       -moz-transition: width 0.5s ease-in-out;
+         -o-transition: width 0.5s ease-in-out;
+            transition: width 0.5s ease-in-out; }
 .transition-opacity {
     -webkit-transition: opacity 200ms ease-in-out;
-    -moz-transition: opacity 200ms ease-in-out;
-    -o-transition: opacity 200ms ease-in-out;
-    transition: opacity 200ms ease-in-out; }
+       -moz-transition: opacity 200ms ease-in-out;
+         -o-transition: opacity 200ms ease-in-out;
+            transition: opacity 200ms ease-in-out; }
 .transition-bottom {
     -webkit-transition: bottom 250ms ease-out;
-    -moz-transition: bottom 250ms ease-out;
-    -o-transition: bottom 250ms ease-out;
-    transition: bottom 250ms ease-out; }
+       -moz-transition: bottom 250ms ease-out;
+         -o-transition: bottom 250ms ease-out;
+            transition: bottom 250ms ease-out; }
 .transition-top {
     -webkit-transition: top 250ms ease-out;
-    -moz-transition: top 250ms ease-out;
-    -o-transition: top 250ms ease-out;
-    transition: top 250ms ease-out; }
+       -moz-transition: top 250ms ease-out;
+         -o-transition: top 250ms ease-out;
+            transition: top 250ms ease-out; }
+.transition-all {
+    -webkit-transition: all 0.3s ease-out;
+       -moz-transition: all 0.3s ease-out;
+         -o-transition: all 0.3s ease-out;
+            transition: all 0.3s ease-out; }
 
 /* Fonts
  */
