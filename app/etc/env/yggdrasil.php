@@ -6,7 +6,7 @@ return [
         'responseMode' => 'view',
         'modules' => [
             'admin' => 'Admin' ],
-        'jsEnvironment' => 'production' ],
+        'jsEnvironment' => 'development' ],
 
     'cache' => [
         'adapter' => 'redis' ],
