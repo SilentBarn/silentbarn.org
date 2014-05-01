@@ -4,3 +4,7 @@
     overflow: hidden; width: 960px; height: 420px; background-size: cover; }
 #post.page #body {
     line-height: 150%; }
+div.external-url a {
+    vertical-align: middle; }
+div.external-url i.fa-facebook-square {
+    color: #3b5998; vertical-align: middle; }

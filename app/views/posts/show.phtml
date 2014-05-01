@@ -11,6 +11,12 @@
     <h4 class="margin-bottom-10">
         <?php echo $post->getShortTime( TRUE, TRUE ); ?>
     </h4>
+<?php   endif;
+        if ( $post->external_url ): ?>
+    <div class="external-url margin-bottom-10">
+        <i class="fa fa-facebook-square"></i>
+        <a class="fontsize-13" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
+    </div>
 <?php   endif; ?>
     <div id="body">
         <?php echo $post->getHtmlBody(); ?>

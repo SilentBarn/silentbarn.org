@@ -2,6 +2,8 @@
  */
 .blocked {
     display: block; }
+.break-word {
+    word-break: break-word; }
 .centered-text {
     text-align: center; }
 .lefted-text {
