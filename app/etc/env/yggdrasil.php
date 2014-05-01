@@ -19,11 +19,11 @@ return [
         'persistent' => TRUE ],
 
     'paths' => [
-        'baseUri' => 'http://barn.silentbarn.com/',
-        'assetUri' => 'http://barn.silentbarn.com/',
-        'hostname' => 'barn.silentbarn.com',
+        'baseUri' => 'http://beta.silentbarn.com/',
+        'assetUri' => 'http://beta.silentbarn.com/',
+        'hostname' => 'beta.silentbarn.com',
         'media' => '/home/mike/www/barn.shadowmere.net/www-data/media',
-        'mediaPublic' => 'http://barn.silentbarn.com/media/' ],
+        'mediaPublic' => 'http://beta.silentbarn.com/media/' ],
 
     'cookies' => [
         'secure' => FALSE ],
