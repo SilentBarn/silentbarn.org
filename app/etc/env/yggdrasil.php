@@ -14,7 +14,7 @@ return [
     'database' => [
         'host' => 'localhost',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '##SQLPASSWORD##',
         'dbname' => 'silentbarn',
         'persistent' => TRUE ],
 
