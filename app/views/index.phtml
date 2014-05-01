@@ -38,7 +38,7 @@
         <script src="<?php echo $this->url->get( 'js/clndr.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/main.js' ); ?>"></script>
 <?php   else: ?>
-        <script src="<?php echo $this->url->get( 'js/build/app.<?php echo $this->config->app->jsVersion; ?>.js' ); ?>"></script>
+        <script src="<?php echo $this->url->get( 'js/build/app.'. $this->config->app->jsVersion .'.js' ); ?>"></script>
 <?php   endif; ?>
     </body>
 </html>
