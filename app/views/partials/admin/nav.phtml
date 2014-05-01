@@ -17,5 +17,12 @@
 <?php       else: ?>
     <a href="<?php echo $this->url->get( 'admin/members' ); ?>">Members</a>
 <?php       endif;
+        endif;
+        if ( $this->auth->user[ 'access_press' ] ):
+            if ( $adminNavPage == 'press' ): ?>
+    <span>Press</span>
+<?php       else: ?>
+    <a href="<?php echo $this->url->get( 'admin/press' ); ?>">Press</a>
+<?php       endif;
         endif; ?>
 </h2>
