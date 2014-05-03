@@ -51,18 +51,38 @@ class Instagram extends \Base\Library
     }
 
     /**
-     * Save the cached media into the SQL store
-     */
-    public function save()
-    {
-
-    }
-
-    /**
      * Get the recent instagram photos from the SQL store
      */
-    public function get()
+    public static function get()
     {
+        // check if there's an entry in the settings table. if it's
+        // more than hour old, fetch a new copy from instagram and
+        // update them in the database.
+        $setting = Settings::get(
+            0,
+            'app',
+            'instagram',
+            [ 'first' => TRUE ]);
+        $oneHourAgo = strtotime( '1 hour ago' );
 
+        // if there's no setting create a new one
+        if ( ! $setting )
+        {
+            $setting = new Settings();
+            $setting->object_id = 0;
+            $setting->object_type = 'app';
+            $setting->key = 'instagram';
+        }
+
+        // if it's older than an hour, update the photos
+        if ( ! $setting->created_at
+            || strtotime( $setting->created_at ) - $oneHourAgo > 3600 )
+        {
+            $photos = self::getMedia( 4 );
+            $setting->value = serialize( $photos );
+            $setting->save();
+        }
+
+        return unserialize( $setting->value );
     }
 }

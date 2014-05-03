@@ -59,9 +59,8 @@ if [[ -f "${apppath}/etc/secret.ini" ]] ; then
         replace=${ARR[1]}
         sed -i "s/##${ARR[0]}##/${ARR[1]}/g" ${apppath}/etc/config.local.php
     done < "${apppath}/etc/secret.ini"
-    #sqlFind="##SQLPASSWORD##"
-    #sed -i "s/${sqlFind}/${sqlReplace}/g" ${apppath}/etc/config.local.php
-
+else
+    touch "${apppath}/etc/secret.ini"
 fi
 
 echo ''
