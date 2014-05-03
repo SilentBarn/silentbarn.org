@@ -24,16 +24,18 @@ body.sticky #header-wrap header {
 #social-icons {
     position: absolute; top: 100px; right: 0; }
 #social-icons a {
-    margin-left: 2px; text-decoration: none; color: #666; }
-#social-icons a.facebook {
+    margin-left: 2px; text-decoration: none; }
+.social-icons a {
+    text-decoration: none; }
+.social-icons a.facebook {
     color: #3b5998; }
-#social-icons a.twitter {
+.social-icons a.twitter {
     color: #00aced; }
-#social-icons a.tumblr {
+.social-icons a.tumblr {
     color: #32506d; }
-#social-icons a.instagram {
+.social-icons a.instagram {
     color: #517fa4; }
-#social-icons a.youtube {
+.social-icons a.youtube {
     color: #bb0000; }   
 body.sticky #header-wrap #photo-stream {
     display: none; }

@@ -16,15 +16,38 @@ class Press extends \Base\Action
     {
         $util = $this->getService( 'util' );
         $filter = $this->getService( 'filter' );
+        $page = \Db\Sql\Pages::findFirstByName( 'press' );
 
-        // set up the 3 fields -- static content, links, video embed code
-        //
+        // read in content from admin page
+        $content[ 'about' ] = $filter->sanitize( get( $data, 'about' ), 'striptags' );
+        $content[ 'video' ] = $filter->sanitize( get( $data, 'video' ), 'striptags' );
 
-        // serialize them and store in pages table
-        //
-        $content[ 'name' ] = $filter->sanitize( get( $data, 'name' ), 'striptags' );
-        $content[ 'email' ] = $filter->sanitize( get( $data, 'email' ), 'striptags' );
-        $content[ 'bio' ] = $filter->sanitize( get( $data, 'bio' ), 'striptags' );
+        // process the video. this comes in as a URL and we need
+        // to write out an embed object based on the URL that comes
+        // in.
+        if ( strpos( $content[ 'video' ], 'youtube.com' ) )
+        {
+            // get the code
+            $pieces = explode( 'watch?v=', $content[ 'video' ] );
+
+            if ( count( $pieces ) < 2 )
+            {
+                $util->addMessage(
+                    "You didn't enter a valid YouTube URL",
+                    ERROR );
+                return FALSE;
+            }
+
+            $content[ 'embed' ] = sprintf(
+                '<iframe width="%s" height="%s" src="%s/%s" frameborder="0"></iframe>',
+                560,
+                315,
+                "//www.youtube.com/embed/",
+                get( $pieces, 1 ));
+        }
+
+        // serialize everything
+        $page->content = serialize( $content );
 
         if ( ! $this->save( $page ) )
         {

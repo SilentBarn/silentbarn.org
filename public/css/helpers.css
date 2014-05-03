@@ -54,7 +54,7 @@
          -o-transition: all 0.3s ease-out;
             transition: all 0.3s ease-out; }
 
-/* Fonts
+/* Fonts and Colors
  */
 .fontsize-12 {
     font-size: 12px; }
@@ -70,6 +70,10 @@
     font-size: 18px; }
 .fontsize-19 {
     font-size: 19px; }
+.fontsize-20 {
+    font-size: 20px; }
+.fontsize-24 {
+    font-size: 24px; }
 .font-asap {
     font-family: 'Asap', sans-serif; }
 .font-mono {
@@ -94,6 +98,8 @@
     text-transform: uppercase; }
 .smallcaps {
     font-variant: small-caps; }
+.background-eee {
+    background-color: #eee; }
 
 /* Margins
  */
@@ -144,6 +150,8 @@
 
 /* Paddings
  */
+.padding-all-10 {
+    padding: 10px; }
 .padding-top-5 {
     padding-top: 5px; }
 .padding-top-10 {
@@ -207,12 +215,16 @@
     width: 25%; }
 .w33p {
     width: 33%; }
+.w40p {
+    width: 40%; }
 .w47p {
     width: 47%; }
 .w48p {
     width: 48%; }
 .w50p {
     width: 50%; }
+.w60p {
+    width: 60%; }
 .w67p {
     width: 67%; }
 .w75p {

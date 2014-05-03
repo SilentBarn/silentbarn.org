@@ -1,5 +1,46 @@
 <!-- Press Page -->
-<div class="page clearfix">
+<div class="static page clearfix">
     <h1 class="margin-bottom-25 font-mono uppercase">Press</h1>
-    Coming Soon
+
+    <!-- 2 columns, static content on left and video on right -->
+    <div class="clearfix margin-bottom-40">
+        <div class="float-left w40p">
+            <div class="margin-bottom-30">
+                <?php echo $pageContent->getHtmlVar( 'about' ); ?>
+            </div>
+            <div class="social-icons fontsize-24">
+                <a class="facebook" href="https://www.facebook.com/silentbarn">
+                    <i class="fa fa-facebook-square"></i>
+                </a>
+                <a class="twitter" href="https://twitter.com/theSilentBarn">
+                    <i class="fa fa-twitter-square"></i>
+                </a>
+                <a class="tumblr" href="http://thesilentbarn.tumblr.com/">
+                    <i class="fa fa-tumblr-square"></i>
+                </a>
+                <a class="instagram" href="http://instagram.com/silentbarn">
+                    <i class="fa fa-instagram"></i>
+                </a>
+                <a class="youtube" href="http://thesilentbarn.tumblr.com/">
+                    <i class="fa fa-youtube-square"></i>
+                </a>
+            </div>
+        </div>
+        <div class="float-left w60p">
+            <?php echo $pageContent->getContentVar( 'embed' ); ?>
+        </div>
+    </div>
+
+<?php   if ( count( $recentPosts ) ): ?>
+    <!-- Most recent 3 press articles in single row -->
+    <h2 class="margin-bottom-10">Recent Press</h2>
+    <div class="clearfix padding-all-10 background-eee">
+<?php       $this->partial(
+                'partials/events/list_archive',
+                [
+                    'events' => $recentPosts,
+                    'hideDate' => TRUE
+                ]); ?>
+    </div>
+<?php   endif; ?>
 </div>

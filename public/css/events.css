@@ -37,6 +37,8 @@
     margin: 0; }
 .archive-event .banner-wrap {
     width: 100%; height: 200px; background-size: cover; }
+.static.page .archive-event {
+    margin-bottom: 0; }
 
 
 /* Calendar

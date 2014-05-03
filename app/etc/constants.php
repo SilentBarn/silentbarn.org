@@ -51,3 +51,4 @@ define( 'ARTIST', 'artist' );
 //
 define( 'EVENTS' , 'events' );
 define( 'EXHIBITIONS', 'exhibitions' );
+define( 'PRESS', 'press' );

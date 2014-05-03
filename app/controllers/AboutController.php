@@ -47,6 +47,11 @@ class AboutController extends \Base\Controller
     public function pressAction()
     {
         $this->data->pageTitle = "Press";
+        $this->data->pageContent = \Db\Sql\Pages::findFirstByName( 'press' );
+        $this->data->recentPosts = \Db\Sql\Posts::getByCategoryDateRange([
+            'categories' => [ PRESS ],
+            'startDate' => date( DATE_DATABASE, 0 ),
+            'limit' => 3 ]);
         $this->view->pick( 'about/press' );
     }
 

@@ -27,7 +27,8 @@ class PressController extends \Base\Controller
         // get all of the posts
         //
         $this->view->pick( 'admin/press/index' );
-        $this->view->backPage = '';
+        $this->view->pageContent = \Db\Sql\Pages::findFirstByName( 'press' );
+        $this->view->backPage = 'admin/articles';
         $this->view->buttons = [ 'savePress' ];
     }
 
@@ -36,33 +37,14 @@ class PressController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the member
+        // edit the page content
         //
         $data = $this->request->getPost();
-        $memberAction = new \Actions\Users\Member();
-        $member = $memberAction->edit( $data );
-        $memberId = $this->request->getPost( 'id' );
-
-        if ( ! $member )
-        {
-            return ( valid( $memberId ) )
-                ? $this->quit( "", INFO, "admin/members/edit/{$memberId}" )
-                : $this->quit( "", INFO, 'admin/members' );
-        }
-
-        // check for $_FILES errors
-        //
-        $imageAction = new \Actions\Posts\Image();
-        $imageAction->checkFilesArrayErrors();
-
-        if ( $this->request->hasFiles() == TRUE )
-        {
-            $imageAction->deleteByMember( $member );
-            $imageAction->saveToMember( $member, $this->request->getUploadedFiles() );
-        }
+        $pressAction = new \Actions\Pages\Press();
+        $page = $pressAction->edit( $data );
 
         // redirect
         //
-        $this->redirect = "admin/members/edit/{$member->id}";
+        $this->redirect = "admin/press";
     }
 }

@@ -19,18 +19,22 @@
         <h2 class="font-mono uppercase margin-bottom-10 break-word">
             <a href="<?php echo $event->getPath(); ?>" class="color-333 hover-underline"><?php echo $event->title; ?></a>
         </h2>
+
+<?php           if ( ! isset( $hideDate ) || $hideDate == FALSE ): ?>
         <div class="date fontsize-15 color-999">
             <?php echo date( DATE_DAY_NAME_YEAR, $eventDate ); ?>
-<?php           if ( valid( $event->event_date_end, DATE ) ): ?>
+<?php               if ( valid( $event->event_date_end, DATE ) ): ?>
             &mdash;
             <?php echo date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date_end ) ); ?>
-<?php           endif; ?>
+<?php               endif; ?>
         </div>
-<?php           if ( valid( $event->event_time, STRING ) ): ?>
+<?php               if ( valid( $event->event_time, STRING ) ): ?>
         <div class="date fontsize-15 color-999 margin-top-5">
             <span class="margin-left-1"><?php echo $event->getShortTime(); ?></span>
         </div>
-<?php           endif; ?>
+<?php               endif;
+                endif; ?>
+
         <div class="margin-top-10 padding-bottom-10 lineheight-24">
             <?php echo ( strlen( $event->excerpt ) )
                     ? $event->excerpt

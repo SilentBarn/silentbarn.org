@@ -1,0 +1,30 @@
+
+<div id="admin" class="page">
+    <!-- Edit form -->
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/press/save' ); ?>"
+        method="post">
+        <!-- Left col -->
+        <div class="left-col float-left">
+            <!-- General -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>Press Page</h2>
+                </legend>
+                <div class="margin-bottom-20">
+                    <label>Content on the Left</label>
+                    <textarea class="w95p h200px" name="about"><?php echo $pageContent->getContentVar( 'about' ); ?></textarea>
+                </div>
+                <div class="">
+                    <label>Video URL</label>
+                    <input type="text" name="video" class="w95p"
+                        placeholder="https://youtube.com/watch?v=blah..."
+                        value="<?php echo $pageContent->getContentVar( 'video' ); ?>" />
+                </div>
+            </fieldset>
+        </div><!-- /left-col -->
+
+        <!-- Right col -->
+        <div class="right-col float-right">
+        </div><!-- /right-col -->
+    </form>
+</div>

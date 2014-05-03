@@ -31,7 +31,7 @@ class MembersController extends \Base\Controller
             'is_deleted = 0',
             "order" => "name"
         ]);
-        $this->view->backPage = '';
+        $this->view->backPage = 'admin/articles';
         $this->view->buttons = [ 'newMember' ];
     }
 
