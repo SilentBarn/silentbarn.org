@@ -32,7 +32,8 @@ class Unit extends \Lib\Bootstrap\Base
                 'Controllers' => APP_PATH .'/controllers/',
                 'Db' => APP_PATH .'/models/',
                 'Lib' => APP_PATH .'/library/',
-                'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/'
+                'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/',
+                'Httpful' => VENDOR_PATH .'/nategood/httpful/src/Httpful/'
             ));
         $loader->registerClasses(
             array(

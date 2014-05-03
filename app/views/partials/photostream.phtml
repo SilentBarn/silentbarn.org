@@ -1,0 +1,13 @@
+
+<div id="photo-stream">
+
+<?php   // get the photos from the Instagram library
+        foreach ( \Lib\Instagram::getMedia( 4 ) as $photo ): ?>
+
+    <a class="photo" href="<?php echo $photo->link; ?>" target="_blank" class="margin-right-10">
+        <img src="<?php echo $photo->image; ?>" width="80" height="80" />
+    </a>
+
+<?php   endforeach; ?>
+    
+</div>

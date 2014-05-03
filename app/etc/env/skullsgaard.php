@@ -14,7 +14,7 @@ return [
     'database' => [
         'host' => 'localhost',
         'username' => 'root',
-        'password' => 'root',
+        'password' => '##SQLPASSWORD##',
         'dbname' => 'silentbarn',
         'persistent' => TRUE ],
 
@@ -29,5 +29,10 @@ return [
         'secure' => FALSE ],
 
     'profiling' => [
-        'query' => FALSE
+        'query' => FALSE ],
+
+    'instagram' => [
+        'userId' => '500398575',
+        'mediaUrl' => 'https://api.instagram.com/v1/users/%s/media/recent/?client_id=%s&count=%s',
+        'clientId' => '##INSTAGRAMCLIENTID##'
     ]];
