@@ -79,10 +79,10 @@ class Image extends \Base\Action
             $ext = pathinfo( $file->getName(), PATHINFO_EXTENSION );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
-            if ( $width < 960 || $height < 310 )
+            if ( $width < 310 || $height < 310 )
             {
                 $util->addMessage(
-                    "Please upload images at least 960px wide and 310px tall.",
+                    "Please upload images at least 310px wide and 310px tall.",
                     INFO );
                 return FALSE;
             }
