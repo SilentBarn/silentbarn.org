@@ -50,7 +50,6 @@ class User extends \Base\Action
         $filter = $this->getService( 'filter' );
 
         // check the user ID and verify that this user exists
-        //
         if ( ! isset( $data[ 'id' ] )
             || ! valid( $data[ 'id' ], INT ) )
         {
@@ -67,7 +66,6 @@ class User extends \Base\Action
         }
 
         // check for an email
-        //
         if ( ! isset( $data[ 'email' ] )
             || ! valid( $data[ 'email' ], STRING ) )
         {
@@ -76,7 +74,6 @@ class User extends \Base\Action
         }
 
         // check if new email already exists and isn't the same
-        //
         $emailUser = Users::findFirstByEmail( $data[ 'email' ] );
 
         if ( $emailUser
@@ -88,7 +85,6 @@ class User extends \Base\Action
 
         // if a password came in, make sure it's at least 6 characters long.
         // if so, hash it and update the user object.
-        //
         if ( isset( $data[ 'password' ] )
             && valid( $data[ 'password' ], STRING ) )
         {
@@ -116,7 +112,6 @@ class User extends \Base\Action
 
         // add any of the permissions; unset the access_users permission
         // if the edited user is the same as the logged in one.
-        //
         if ( int_eq( $user->id, $this->auth->userId ) )
         {
             unset( $data[ 'access_users' ] );
@@ -129,7 +124,15 @@ class User extends \Base\Action
         $user->access_members = ( get( $data, 'access_members' ) ) ? 1 : 0;
         $user->access_press = ( get( $data, 'access_press' ) ) ? 1 : 0;
 
-        if ( ! $this->save( $user ) )
+        // read in the article category permissions and set those too
+        $category_access = $user->getCategoryAccess();
+        $category_access->object_id = $user->id;
+        $category_access->object_type = USER;
+        $category_access->value = serialize(
+            get( $data, 'category_access', array() ));
+
+        if ( ! $this->save( $category_access )
+            || ! $this->save( $user ) )
         {
             return FALSE;
         }

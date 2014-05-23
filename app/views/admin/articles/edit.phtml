@@ -195,7 +195,8 @@
         $catPicked = FALSE;
         foreach ( $categories as $category ):
             $selected = in_array( $category->slug, $postCategories );
-            $catPicked = $catPicked || $selected; ?>
+            $catPicked = $catPicked || $selected;
+            if ( $this->auth->getUserObj()->canAccessCategory( $category->id ) ): ?>
                 <div class="margin-bottom-5">
                     <label>
                         <input type="radio" name="categories" value="<?php echo $category->slug; ?>"
@@ -203,7 +204,8 @@
                         <span class="fontsize-16"><?php echo $category->name; ?></span>
                     </label>
                 </div>
-<?php   endforeach; ?>
+<?php       endif;
+        endforeach; ?>
                 <div class="margin-bottom-5">
                     <label>
                         <input type="radio" name="categories" value=""

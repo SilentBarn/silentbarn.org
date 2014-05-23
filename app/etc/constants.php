@@ -46,6 +46,7 @@ define( 'POST', 'post' );
 define( 'CATEGORY', 'category' );
 define( 'TAG', 'tag' );
 define( 'ARTIST', 'artist' );
+define( 'USER', 'user' );
 
 // categories types
 //

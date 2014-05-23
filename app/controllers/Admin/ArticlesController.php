@@ -58,6 +58,15 @@ class ArticlesController extends \Base\Controller
             return $this->quit( "That post doesn't exist!", INFO, 'admin/articles' );
         }
 
+        // check if the user can access this post's category
+        if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) )
+        {
+            return $this->quit( 
+                "You're not allowed to edit that article.",
+                INFO,
+                "admin/articles" );
+        }
+
         $this->view->pick( 'admin/articles/edit' );
         $this->view->post = $post;
         $this->view->postCategories = map( $post->getCategories()->toArray(), 'slug' );

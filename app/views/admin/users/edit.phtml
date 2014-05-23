@@ -46,6 +46,24 @@
                     </div>
                 </div>
             </fieldset>
+
+            <!-- Article Permissions -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>Article Permissions</h2>
+                </legend>
+                <div>
+                    <label>User can add/edit posts in these categories</label>
+<?php   // iterate through categories
+        foreach ( $categories as $category ): ?>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="category_access[<?php echo $category->id; ?>]" value="1"
+                            <?php echo ( $user->canAccessCategory( $category->id ) ) ? ' checked="checked"' : ''; ?> />
+                        <span><?php echo $category->name; ?></span>
+                    </div>
+<?php   endforeach; ?>
+                </div>
+            </fieldset>
         </div><!-- /left-col -->
 
         <!-- Right col -->

@@ -28,6 +28,7 @@ class Posts extends \Base\Model
 
     private $images;
     private $image;
+    private $categories;
 
     function initialize()
     {
@@ -209,11 +210,30 @@ class Posts extends \Base\Model
      */
     function getCategories()
     {
-        return \Db\Sql\Relationships::getProperties(
+        if ( ! is_null( $this->categories ) )
+        {
+            return $this->categories;
+        }
+        
+        $this->categories = \Db\Sql\Relationships::getProperties(
             '\Db\Sql\Categories',
             CATEGORY,
             $this->id,
             POST );
+
+        return $this->categories;
+    }
+
+    function getCategoryIds()
+    {
+        $ids = [];
+
+        foreach ( $this->getCategories() as $category )
+        {
+            $ids[] = $category->id;
+        }
+
+        return $ids;
     }
 
     /**

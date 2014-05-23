@@ -27,8 +27,10 @@
                 <td><?php echo ucfirst( $post->status ); ?></td>
                 <td><?php echo date_str( $post->event_date, DATE_TABLE ); ?></td>
                 <td class="centered-text">
-                    <a class="" href="<?php echo $this->url->get( 'admin/articles/edit/'. $post->id ); ?>">Edit</a>
-                    <a class="margin-left-10" href="<?php echo $post->getPath(); ?>">View</a>
+<?php           if ( $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) ): ?>
+                    <a class="margin-right-10" href="<?php echo $this->url->get( 'admin/articles/edit/'. $post->id ); ?>">Edit</a>
+<?php           endif; ?>
+                    <a class="" href="<?php echo $post->getPath(); ?>">View</a>
                 </td>
             </tr>
 

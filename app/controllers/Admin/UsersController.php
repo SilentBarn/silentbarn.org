@@ -66,6 +66,7 @@ class UsersController extends \Base\Controller
 
         $this->view->pick( 'admin/users/edit' );
         $this->view->user = $user;
+        $this->view->categories = \Db\Sql\Categories::find();
         $this->view->backPage = 'admin/users';
         $this->view->subPage = 'Edit User';
         $this->view->buttons = [ 'saveUser' ];
