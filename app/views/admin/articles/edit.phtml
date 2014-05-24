@@ -176,6 +176,12 @@
                             <label>Or enter an image URL:</label>
                             <input class="w90p" type="text" name="image_url" value="">
                         </div>
+
+<?php   if ( valid( $image->id ) ): ?>
+                        <div class="margin-top-30">
+                            <a class="button gray" href="javascript:;" id="open-cropper">Crop Image</a>
+                        </div>
+<?php   endif; ?>
                     </div>
                     <div class="float-right clearfix" id="image-preview"
                         style="background-image:url('<?php echo $image->getPath(); ?>');">
@@ -251,6 +257,49 @@
                 </div>
             </fieldset>
         </div><!-- /right-col -->
+
+        <!-- Clearing div -->
+        <div class="clearboth"></div>
+
+        <!-- Image cropper -->
+        <div id="cropper" class="margin-top-40" style="display:none;">
+            <fieldset>
+                <legend>
+                    <h2>Crop Image</h2>
+                </legend>
+                <div class="clearfix position-relative">
+                    <!-- Floated left -->
+                    <div id="image-crop-wrap">
+                        <img id="image-crop" src="<?php echo $image->getPath(); ?>" />
+                    </div>
+                    <!-- Floated right -->
+                    <div id="image-crop-tools">
+                        <!-- Cancel the cropper -->
+                        <div class="margin-bottom-40">
+                            <a class="red button" href="javascript:;" id="cancel-cropper">Cancel Cropping</a>
+                        </div>
+                        <div class="margin-bottom-20">
+                            <em>Recommended minimum is <strong>960px</strong> wide by <strong>310px</strong> high!!!</em>
+                        </div>
+                        <div class="margin-bottom-10">
+                            <span>Width:</span>
+                            <strong id="ic_w"></strong>
+                        </div>
+                        <div>
+                            <span>Height:</span>
+                            <strong id="ic_h"></strong>
+                        </div>
+                        <!-- Hidden crop coordinates -->
+                        <div style="display:none;">
+                            <input id="ic_x1" type="hidden" name="crop_x1" value="" />
+                            <input id="ic_x2" type="hidden" name="crop_x2" value="" />
+                            <input id="ic_y1" type="hidden" name="crop_y1" value="" />
+                            <input id="ic_y2" type="hidden" name="crop_y2" value="" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
     </form>
 
     <!-- Delete -->

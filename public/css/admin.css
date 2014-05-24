@@ -82,6 +82,16 @@ span.tag {
 span.tag i.remove-slug {
     margin-left: 10px; cursor: pointer; }
 
+/* Cropper
+ */
+
+#image-crop-wrap {
+    box-sizing: border-box; padding-right: 220px;
+    width: 100%; }
+#image-crop-tools {
+    position: absolute; right: 0; top: 0;
+    width: 220px; }
+
 /* Footer
  */
 #admin-footer {

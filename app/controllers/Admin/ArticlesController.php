@@ -84,7 +84,6 @@ class ArticlesController extends \Base\Controller
     public function saveAction()
     {
         // edit the post
-        //
         $data = $this->request->getPost();
         $postAction = new \Actions\Posts\Post();
         $post = $postAction->edit( $data );
@@ -95,33 +94,28 @@ class ArticlesController extends \Base\Controller
         }
 
         // save any categories
-        //
         $categoryAction = new \Actions\Posts\Category();
         $categoryAction->saveToPost(
             $post,
             $this->request->getPost( 'categories' ));
 
         // save any tags
-        //
         $tagAction = new \Actions\Posts\Tag();
         $tagAction->saveToPost(
             $post,
             $this->request->getPost( 'tags' ));
 
         // save any artists
-        //
         $artistAction = new \Actions\Posts\Artist();
         $artistAction->saveToPost(
             $post,
             $this->request->getPost( 'artists' ));
 
         // check for $_FILES errors
-        //
         $imageAction = new \Actions\Posts\Image();
         $imageAction->checkFilesArrayErrors();
 
         // save any images and do the resizing
-        //
         if ( $this->request->hasFiles() == TRUE )
         {
             $imageAction->deleteByPost( $post->id );
@@ -135,7 +129,6 @@ class ArticlesController extends \Base\Controller
         }
 
         // redirect
-        //
         $this->redirect = "admin/articles/edit/{$post->id}";
     }
 

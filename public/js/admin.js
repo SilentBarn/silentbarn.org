@@ -5,7 +5,6 @@ jQuery( function( $ ) {
 
 var AdminPage = {
     // set up datepickers
-    //
     datepickers: function () {
         $( '.datepicker' ).pikaday({
             format: 'M/D/YYYY'
@@ -13,13 +12,11 @@ var AdminPage = {
     },
 
     // set up timepickers
-    //
     timepickers: function () {
         $( '.timepicker' ).timepicker({});
     },
 
     // handle image previewing
-    //
     imagePreview: function () {
         var $imageInput = $( '#image-input' );
 
@@ -46,8 +43,51 @@ var AdminPage = {
         }
     },
 
+    // handle image cropping
+    imageCrop: function () {
+        var $imageCrop = $( '#image-crop' );
+        if ( ! $imageCrop.length ) return;
+
+        // update the coordinates in the form, and display
+        // the height and width for the user
+        function updateCoords( c ) {
+            $( '#ic_x1' ).val( c.x );
+            $( '#ic_x2' ).val( c.x2 );
+            $( '#ic_y1' ).val( c.y );
+            $( '#ic_y2' ).val( c.y2 );
+            $( '#ic_w' ).text( c.w + 'px' );
+            $( '#ic_h' ).text( c.h + 'px' );
+        };
+
+        // instantiate the cropper
+        var $cropper = $( '#cropper' ),
+            jcrop;
+        $imageCrop.Jcrop({
+            onChange: updateCoords,
+            onSelect: updateCoords,
+            minSize: [ 310, 310 ],
+            setSelect: [ 0, 0, 310, 310 ]
+        }, function () {
+            jcrop = this;
+        });
+
+        // set up onclick event to open cropper
+        $( '#open-cropper' ).on( 'click', function () {
+            $cropper.show();
+            $.scrollTo( $cropper.position().top - 50 );
+            jcrop.setSelect( [ 0, 0, 310, 310 ] );
+        });
+
+        $( '#cancel-cropper' ).on( 'click', function () {
+            $cropper.hide();
+            $( '#ic_x1' ).val( '' );
+            $( '#ic_x2' ).val( '' );
+            $( '#ic_y1' ).val( '' );
+            $( '#ic_y2' ).val( '' );
+        })
+    },
+
     // post actions: save/delete
-    //
     postActions: function () {
         // save button
         //
@@ -73,7 +113,6 @@ var AdminPage = {
     },
 
     // artist, tag, grant slug handlers
-    //
     slugs: function () {
         if ( ! $( '#tag-ac' ).length ) {
             return;
@@ -112,9 +151,9 @@ var AdminPage = {
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             local: tags
         });
-     
+
         tagSource.initialize();
-     
+
         $( '#tag-ac' ).typeahead( null, {
             displayKey: 'name',
             source: tagSource.ttAdapter()
@@ -136,9 +175,9 @@ var AdminPage = {
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             local: artists
         });
-     
+
         artistSource.initialize();
-     
+
         $( '#artist-ac' ).typeahead( null, {
             displayKey: 'name',
             source: artistSource.ttAdapter()
@@ -159,7 +198,6 @@ var AdminPage = {
     },
 
     // show the end event date/time inputs, location input
-    //
     meta: function () {
         $( '#set-event-end-date' ).on( 'click', function () {
             var $this = $( this );
@@ -186,6 +224,7 @@ var AdminPage = {
 AdminPage.datepickers();
 AdminPage.timepickers();
 AdminPage.imagePreview();
+AdminPage.imageCrop();
 AdminPage.postActions();
 AdminPage.slugs();
 AdminPage.meta();
