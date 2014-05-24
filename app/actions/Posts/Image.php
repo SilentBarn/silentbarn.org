@@ -216,7 +216,7 @@ class Image extends \Base\Action
             // check the width is > 310
             //
             $tempName = $file->getTempName();
-            $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) )
+            $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
             if ( $width < 310 || $height < 310 )
@@ -255,6 +255,103 @@ class Image extends \Base\Action
             $member->image_filename = $fileName;
 
             if ( ! $member->save() )
+            {
+                $util->addMessage( 'There was a problem saving the image.', ERROR );
+                return FALSE;
+            }
+        }
+
+        return TRUE;
+    }
+
+    /**
+     * Deletes a photo for a particular space.
+     *
+     * @param \Db\Sql\Spaces $space
+     * @return boolean
+     */
+    function deleteBySpace( &$space )
+    {
+        if ( ! valid( $space->image_filename, STRING ) )
+        {
+            return TRUE;
+        }
+
+        @unlink( $space->getImagePath( FALSE ) );
+        $util = $this->getService( 'util' );
+        $space->image_filename = NULL;
+
+        if ( ! $space->save() )
+        {
+            $util->addMessage( 'There was a problem saving the image.', ERROR );
+            return FALSE;
+        }
+
+        return TRUE;
+    }
+
+    /**
+     * Saves an array of \Phalcon\Http\Request\File objects
+     * to the media/spaces directory.
+     *
+     * @param \Db\Sql\Spaces $space
+     * @param \Phalcon\Http\Request\File array $files
+     * @return boolean
+     */
+    function saveToSpace( $space, $files )
+    {
+        $util = $this->getService( 'util' );
+        $config = $this->getService( 'config' );
+
+        if ( ! is_array( $files )
+            || ! count( $files ) )
+        {
+            $util->addMessage( "No photos were uploaded.", INFO );
+            return FALSE;
+        }
+
+        foreach ( $files as $file )
+        {
+            // check the width is > 310
+            $tempName = $file->getTempName();
+            $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
+            list( $width, $height, $type, $attr ) = getimagesize( $tempName );
+
+            if ( $width < 310 || $height < 310 )
+            {
+                $util->addMessage(
+                    "Please upload square images at least 310px wide and 310px tall.",
+                    INFO );
+                return FALSE;
+            }
+
+            // generate the file hash and path
+            $authAction = new \Actions\Users\Auth();
+            $fileToken = $authAction->generateRandomToken();
+
+            // save the temporary image to the media directory
+            //
+            $fullPath = $config->paths->media .'/spaces';
+            $fileName = $fileToken .'.'. $ext;
+            @mkdir( $fullPath, 0755, TRUE );
+            $file->moveTo( $fullPath .'/'. $fileName );
+
+            // resize the image to 310
+            //
+            $resizer310 = new ImageResizer( $fullPath .'/'. $fileName );
+
+            if ( ! $resizer310->maxWidth( 310 )->resize() )
+            {
+                @unlink( $fullPath .'/'. $fileName );
+                $util->addMessage( "There was a problem resizing your photo.", ERROR );
+                return FALSE;
+            }
+
+            // save the record out to the database
+            //
+            $space->image_filename = $fileName;
+
+            if ( ! $space->save() )
             {
                 $util->addMessage( 'There was a problem saving the image.', ERROR );
                 return FALSE;

@@ -1,0 +1,49 @@
+<div id="admin" class="page">
+    <!-- Users table -->
+<?php   $this->partial(
+            'partials/admin/nav',
+            [ 'adminNavPage' => 'spaces' ]); ?>
+    <table id="spaces" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th class="lefted-text">Name</th>
+                <th class="lefted-text">Email</th>
+                <th>Residence?</th>
+                <th>Stewdio?</th>
+                <th>Gallery?</th>
+                <th>Pic?</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php   if ( count( $spaces ) ):
+            $yes = 'Yes';
+            $no = '<span class="color-ccc">No</span>';
+            foreach ( $spaces as $space ): ?>
+
+            <tr>
+                <td class="centered-text"><?php echo $space->id; ?></td>
+                <td><?php echo $space->name; ?></td>
+                <td><?php echo $space->email; ?></td>
+                <td class="centered-text"><?php echo ( $space->is_residence ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $space->is_stewdio ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $space->is_gallery ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $space->hasImage() ) ? $yes : $no; ?></td>
+                <td class="centered-text">
+                    <a class="" href="<?php echo $this->url->get( 'admin/spaces/edit/'. $space->id ); ?>">Edit</a>
+                </td>
+            </tr>
+
+<?php       endforeach;
+        else: ?>
+
+            <tr>
+                <td colspan="8" class="centered-text">There are no spaces</td>
+            </tr>
+
+<?php   endif; ?>
+
+        </tbody>
+    </table>
+</div>

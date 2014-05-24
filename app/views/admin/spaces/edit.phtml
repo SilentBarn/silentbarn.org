@@ -1,0 +1,92 @@
+
+<div id="admin" class="page">
+    <!-- Edit form -->
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/spaces/save' ); ?>"
+        method="post" enctype="multipart/form-data">
+        <div style="display:none;">
+            <input type="hidden" name="id" value="<?php echo $space->id; ?>" />
+        </div>
+
+        <!-- Left col -->
+        <div class="left-col float-left">
+            <!-- General -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>General</h2>
+                </legend>
+                <div class="margin-bottom-20">
+                    <label>Name</label>
+                    <input class="w95p" type="text" name="name" value="<?php echo $space->name; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Subtitle</label>
+                    <input class="w95p" type="text" name="subtitle" value="<?php echo $space->subtitle; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Email</label>
+                    <input class="w50p" type="text" name="email" value="<?php echo $space->email; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Website</label>
+                    <input class="w50p" type="text" name="website" value="<?php echo $space->website; ?>" />
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Short Bio</label>
+                    <textarea class="w95p h50px" name="bio"><?php echo $space->bio; ?></textarea>
+                </div>
+                <div class="margin-bottom-20">
+                    <label>Active?</label>
+                    <input type="radio" name="is_active" value="1"
+                        <?php echo ( $space->is_active ) ? ' checked="checked"' : ''; ?> />
+                </div>
+                <div>
+                    <label>Type</label>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_residence" value="1"
+                            <?php echo ( $space->is_residence ) ? ' checked="checked"' : ''; ?> />
+                        <span>Residence</span>
+                    </div>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_stewdio" value="1"
+                            <?php echo ( $space->is_stewdio ) ? ' checked="checked"' : ''; ?> />
+                        <span>Stewdio</span>
+                    </div>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="is_gallery" value="1"
+                            <?php echo ( $space->is_gallery ) ? ' checked="checked"' : ''; ?> />
+                        <span>Gallery (Barn Art)</span>
+                    </div>
+                </div>
+            </fieldset>
+        </div><!-- /left-col -->
+
+        <!-- Right col -->
+        <div class="right-col float-right">
+            <!-- Images -->
+            <fieldset>
+                <legend>
+                    <h2>Picture</h2>
+                </legend>
+                <div class="margin-bottom-15">
+                    <input name="image" type="file" id="image-input" />
+                </div>
+                <div class="member clearfix" id="image-preview-wrap">
+                    <img id="image-preview" src="<?php echo $space->getImagePath(); ?>"
+                        style="<?php echo ( $space->hasImage() ) ? '' : 'display:none;'; ?>" />
+                    <div id="image-none" style="<?php echo ( $space->hasImage() ) ? 'display:none;' : ''; ?>">No image</div>
+                </div>
+            </fieldset>
+        </div><!-- /right-col -->
+    </form>
+
+    <!-- Delete -->
+    <div class="righted-text padding-top-30 margin-top-30" id="delete-wrapper">
+        <a class="fontsize-18 red button" href="javascript:;" id="delete-object">
+            Delete Space
+        </a>
+        <a class="fontsize-18 black button" href="<?php echo $this->url->get( "admin/spaces/delete/{$space->id}" ); ?>"
+            id="really-delete-object" style="display:none;">
+            Click again to confirm
+        </a>
+    </div>
+</div>

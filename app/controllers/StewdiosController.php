@@ -21,6 +21,13 @@ class StewdiosController extends \Base\Controller
 
     public function livingAction()
     {
+        // get the residence spaces
+        $this->data->spaces = \Db\Sql\Spaces::find([
+            'is_deleted = 0',
+            'is_active = 1',
+            "order" => "name"
+        ]);
+        $this->data->pageTitle = "Living Stewdios";
         $this->view->pick( 'stewdios/living' );
     }
 

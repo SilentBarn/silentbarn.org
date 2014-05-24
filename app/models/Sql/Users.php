@@ -11,6 +11,7 @@ class Users extends \Base\Model
     public $access_users;
     public $access_members;
     public $access_press;
+    public $access_spaces;
     public $is_deleted;
     public $created_at;
 

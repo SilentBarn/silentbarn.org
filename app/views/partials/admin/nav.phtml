@@ -1,9 +1,13 @@
 <h2 class="with-nav">
-<?php   if ( $adminNavPage == 'articles' ): ?>
+
+<?php   // Articles
+        if ( $adminNavPage == 'articles' ): ?>
     <span>Articles</span>
 <?php   else: ?>
     <a href="<?php echo $this->url->get( 'admin/articles' ); ?>">Articles</a>
 <?php   endif;
+
+        // Users
         if ( $this->auth->user[ 'access_users' ] ):
             if ( $adminNavPage == 'users' ): ?>
     <span>Users</span>
@@ -11,6 +15,8 @@
     <a href="<?php echo $this->url->get( 'admin/users' ); ?>">Users</a>
 <?php       endif;
         endif;
+
+        // Members
         if ( $this->auth->user[ 'access_members' ] ):
             if ( $adminNavPage == 'members' ): ?>
     <span>Members</span>
@@ -18,11 +24,23 @@
     <a href="<?php echo $this->url->get( 'admin/members' ); ?>">Members</a>
 <?php       endif;
         endif;
+
+        // Press
         if ( $this->auth->user[ 'access_press' ] ):
             if ( $adminNavPage == 'press' ): ?>
     <span>Press</span>
 <?php       else: ?>
     <a href="<?php echo $this->url->get( 'admin/press' ); ?>">Press</a>
 <?php       endif;
+        endif;
+
+        // Spaces
+        if ( $this->auth->user[ 'access_spaces' ] ):
+            if ( $adminNavPage == 'spaces' ): ?>
+    <span>Spaces</span>
+<?php       else: ?>
+    <a href="<?php echo $this->url->get( 'admin/spaces' ); ?>">Spaces</a>
+<?php       endif;
         endif; ?>
+
 </h2>

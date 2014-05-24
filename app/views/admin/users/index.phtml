@@ -12,20 +12,24 @@
                 <th>Users?</th>
                 <th>Members?</th>
                 <th>Press?</th>
+                <th>Spaces?</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
 <?php   if ( count( $users ) ):
+            $yes = 'Yes';
+            $no = '<span class="color-ccc">No</span>';
             foreach ( $users as $user ): ?>
 
             <tr>
                 <td class="centered-text"><?php echo $user->id; ?></td>
                 <td><?php echo $user->name; ?></td>
                 <td><?php echo $user->email; ?></td>
-                <td class="centered-text"><?php echo ( $user->access_users ) ? 'Yes' : 'No'; ?></td>
-                <td class="centered-text"><?php echo ( $user->access_members ) ? 'Yes' : 'No'; ?></td>
-                <td class="centered-text"><?php echo ( $user->access_press ) ? 'Yes' : 'No'; ?></td>
+                <td class="centered-text"><?php echo ( $user->access_users ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $user->access_members ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $user->access_press ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $user->access_spaces ) ? $yes : $no; ?></td>
                 <td class="centered-text">
                     <a class="" href="<?php echo $this->url->get( 'admin/users/edit/'. $user->id ); ?>">Edit</a>
                 </td>

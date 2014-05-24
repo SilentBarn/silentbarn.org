@@ -32,6 +32,12 @@
                 if ( $button == 'savePress' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Press</a>
 <?php           endif;
+                if ( $button == 'newSpace' ): ?>
+            <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/spaces/new' ); ?>">New Space</a>
+<?php           endif;
+                if ( $button == 'saveSpace' ): ?>
+            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Space</a>
+<?php           endif;
             endforeach;
         endif; ?>
         </div>

@@ -123,6 +123,7 @@ class User extends \Base\Action
 
         $user->access_members = ( get( $data, 'access_members' ) ) ? 1 : 0;
         $user->access_press = ( get( $data, 'access_press' ) ) ? 1 : 0;
+        $user->access_spaces = ( get( $data, 'access_spaces' ) ) ? 1 : 0;
 
         // read in the article category permissions and set those too
         $category_access = $user->getCategoryAccess();
