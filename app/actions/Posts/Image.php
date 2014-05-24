@@ -216,7 +216,7 @@ class Image extends \Base\Action
             // check the width is > 310
             //
             $tempName = $file->getTempName();
-            $ext = pathinfo( $file->getName(), PATHINFO_EXTENSION );
+            $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) )
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
             if ( $width < 310 || $height < 310 )

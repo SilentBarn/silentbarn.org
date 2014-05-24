@@ -21,17 +21,15 @@ var AdminPage = {
         var $imageInput = $( '#image-input' );
 
         if ( $imageInput.length ) {
-            var $imagePreview = $( '#image-preview' );
+            var $imagePreview = $( '#image-preview' ),
+                $noImageNote = $( '#image-none' );
 
             function readURL ( input ) {
                 if ( input.files && input.files[ 0 ] ) {
                     var reader = new FileReader();
                     reader.onload = function ( e ) {
-                        $imagePreview.css({
-                            'background' : 'url(' + e.target.result + ') no-repeat',
-                            'background-size' : 'cover'
-                        });
-                        $imagePreview.find( 'span' ).hide();
+                        $imagePreview.attr( 'src', e.target.result ).show();
+                        $noImageNote.hide();
                     }
                     reader.readAsDataURL( input.files[ 0 ] );
                 }

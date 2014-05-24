@@ -57,8 +57,10 @@
                 <div class="margin-bottom-15">
                     <input name="image" type="file" id="image-input" />
                 </div>
-                <div class="clearfix member" id="image-preview"
-                    style="background-image:url('<?php echo $member->getImagePath(); ?>');">
+                <div class="member clearfix" id="image-preview-wrap">
+                    <img id="image-preview" src="<?php echo $member->getImagePath(); ?>"
+                        style="<?php echo ( $member->hasImage() ) ? '' : 'display:none;'; ?>" />
+                    <div id="image-none" style="<?php echo ( $member->hasImage() ) ? 'display:none;' : ''; ?>">No image</div>
                 </div>
             </fieldset>
         </div><!-- /right-col -->

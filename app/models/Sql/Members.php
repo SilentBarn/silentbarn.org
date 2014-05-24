@@ -26,7 +26,7 @@ class Members extends \Base\Model
      */
     function getImagePath( $public = TRUE )
     {
-        if ( ! valid( $this->image_filename, STRING ) )
+        if ( ! $this->hasImage() )
         {
             return "";
         }
@@ -40,5 +40,10 @@ class Members extends \Base\Model
                 : $config->paths->media,
             "members",
             $this->image_filename );
+    }
+
+    function hasImage()
+    {
+        return valid( $this->image_filename, STRING );
     }
 }

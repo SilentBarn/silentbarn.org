@@ -183,8 +183,10 @@
                         </div>
 <?php   endif; ?>
                     </div>
-                    <div class="float-right clearfix" id="image-preview"
-                        style="background-image:url('<?php echo $image->getPath(); ?>');">
+                    <div class="float-right clearfix" id="image-preview-wrap">
+                        <img id="image-preview" src="<?php echo $image->getPath(); ?>"
+                            style="<?php echo ( valid( $image->id ) ) ? '' : 'display:none;'; ?>" />
+                        <div id="image-none" style="<?php echo ( valid( $image->id ) ) ? 'display:none;' : ''; ?>">No image</div>
                     </div>
                 </div>
             </fieldset>
