@@ -263,4 +263,55 @@ class Image extends \Base\Action
 
         return TRUE;
     }
+
+    /**
+     * Crops an image based on the passed in coordinates
+     *
+     * @param \Db\Sql\Images $image
+     * @param array $coords
+     */
+    function crop( $image, $coords )
+    {
+        if ( ! $image || ! valid( $image->id ) )
+        {
+            return FALSE;
+        }
+
+        // for messages
+        $util = $this->getService( 'util' );
+
+        // check if coords exist and x2/y2 are non-zero
+        $x1 = get( $coords, 'crop_x1', 0 );
+        $y1 = get( $coords, 'crop_y1', 0 );
+        $x2 = get( $coords, 'crop_x2', 0 );
+        $y2 = get( $coords, 'crop_y2', 0 );
+
+        if ( ! valid( $x2 ) || ! valid( $y2 ) )
+        {
+            return FALSE;
+        }
+
+        // check if the width or height is < 310
+        if ( $x2 - $x1 < 310 || $y2 - $y1 < 310 )
+        {
+            $util->addMessage( "Images must be a minimum of 310px by 310px!", ERROR );
+            return FALSE;
+        }
+
+        // instantiate new cropping class
+        $newImage = new \Zebra_Image();
+        $newImage->source_path = $image->getFilePath( 960 );
+        $newImage->target_path = $image->getFilePath( 960 );
+
+        // crop the image        
+        if ( ! $newImage->crop( $x1, $y1, $x2, $y2 ) )
+        {
+            $util->addMessage(
+                'There was a problem cropping the image (code: '. $newImage->error .')',
+                ERROR );
+            return FALSE;
+        }
+
+        return TRUE;
+    }
 }

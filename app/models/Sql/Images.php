@@ -48,6 +48,39 @@ class Images extends \Base\Model
             $this->ext );
     }
 
+    /**
+     * Get the file path for the image.
+     *
+     * @param integer $size (optional)
+     * @return string
+     */
+    function getFilePath( $size = NULL )
+    {
+        if ( ! valid( $this->filename, STRING ) )
+        {
+            return '';
+        }
+
+        $config = $this->getService( 'config' );
+        $sizeString = ( $size )
+            ? "_$size"
+            : "";
+
+        return sprintf(
+            "%s/%s/%s%s.%s",
+            $config->paths->media,
+            $this->date_path,
+            $this->filename,
+            $sizeString,
+            $this->ext );
+    }
+
+    /**
+     * Delete an image by post ID
+     *
+     * @param integer $postId
+     * @return boolean
+     */
     static function deleteByPost( $postId )
     {
         $phql = "update \Db\Sql\Images set is_deleted = 1 where post_id = :postId:";

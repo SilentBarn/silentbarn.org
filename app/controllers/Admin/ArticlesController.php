@@ -19,7 +19,6 @@ class ArticlesController extends \Base\Controller
     public function indexAction()
     {
         // get all of the posts
-        //
         $this->view->pick( 'admin/articles/index' );
         $this->view->posts = \Db\Sql\Posts::getActive();
         $this->view->backPage = '';
@@ -32,12 +31,10 @@ class ArticlesController extends \Base\Controller
     public function newAction()
     {
         // create the post
-        //
         $action = new \Actions\Posts\Post();
         $postId = $action->create();
 
         // redirect
-        //
         $this->redirect = "admin/articles/edit/$postId";
     }
 
@@ -126,6 +123,12 @@ class ArticlesController extends \Base\Controller
         {
             $imageAction->deleteByPost( $post->id );
             $imageAction->saveUrlToPost( $post->id, $this->request->getPost( 'image_url' ) );
+        }
+        // if resize coordinates came in, resize the existing image
+        else
+        {
+            // data contains coordinate params
+            $imageAction->crop( $post->getImage(), $data );
         }
 
         // redirect

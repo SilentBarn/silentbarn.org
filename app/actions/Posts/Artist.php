@@ -32,7 +32,7 @@ class Artist extends \Base\Action
         //
         $artists = array();
 
-        foreach ( $names as $name )
+        foreach ( (array) $names as $name )
         {
             $artist = Artists::findFirstBySlug( Artists::slugify( $name ) );
 
@@ -50,7 +50,7 @@ class Artist extends \Base\Action
 
         // save new artist relationships to the post
         //
-        foreach ( $artists as $artist )
+        foreach ( (array) $artists as $artist )
         {
             $rel = new Relationships();
             $rel->initialize();
