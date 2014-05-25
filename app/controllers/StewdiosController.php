@@ -23,9 +23,8 @@ class StewdiosController extends \Base\Controller
     {
         // get the residence spaces
         $this->data->spaces = \Db\Sql\Spaces::find([
-            'is_deleted = 0',
-            'is_active = 1',
-            "order" => "name"
+            'is_deleted = 0 and is_active = 1 and is_residence = 1',
+            'order' => 'name'
         ]);
         $this->data->pageTitle = "Living Stewdios";
         $this->view->pick( 'stewdios/living' );
@@ -33,6 +32,11 @@ class StewdiosController extends \Base\Controller
 
     public function workingAction()
     {
+        $this->data->spaces = \Db\Sql\Spaces::find([
+            'is_deleted = 0 and is_active = 1 and is_stewdio = 1',
+            'order' => 'name'
+        ]);
+        $this->data->pageTitle = "Working Stewdios";
         $this->view->pick( 'stewdios/working' );
     }
 

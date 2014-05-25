@@ -1,0 +1,42 @@
+
+<?php   if ( count( $spaces ) ):
+            foreach ( $spaces as $space ): ?>
+
+<div class="full-space padding-bottom-20 margin-bottom-20 clearfix position-relative">
+    <img src="<?php echo $space->getImagePath( 310 ); ?>" width="310" />
+    <div class="info">
+        <!-- Name -->
+        <h2><?php echo $space->name; ?></h2>
+        <!-- Subtitle -->
+<?php   if ( valid( $space->subtitle, STRING ) ): ?>
+        <h4><?php echo $space->subtitle; ?></h4>
+<?php   endif; ?>
+        <!-- Bio -->
+        <div class="padding-top-15 lineheight-24 margin-bottom-20">
+            <?php echo ( valid( $space->bio, STRING ) ) ? $space->bio : 'Nothing to see here&hellip;'; ?>
+        </div>
+<?php   if ( valid( $space->email, STRING ) ): ?>
+        <!-- Email -->
+        <div class="margin-bottom-5 fontsize-13">
+            <i class="fa fa-envelope margin-right-5 color-aaa"></i>
+            <a href="mailto:<?php echo $space->email; ?>"><?php echo $space->email; ?></a>
+        </div>
+<?php   endif;
+        if ( valid( $space->website, STRING ) ): ?>
+        <!-- Website -->
+        <div class="margin-bottom-5 fontsize-13">
+            <i class="fa fa-external-link  margin-right-5 color-aaa"></i>
+            <a href="<?php echo $space->website; ?>" target="_blank"><?php echo $space->website; ?></a>
+        </div>
+<?php   endif; ?>
+    </div>
+</div>
+
+<?php       endforeach;
+        else: ?>
+
+<div class="color-aaa">
+    There are no <?php echo $noneNoun; ?>
+</div>
+
+<?php   endif; ?>

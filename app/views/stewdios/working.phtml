@@ -1,5 +1,9 @@
 <!-- Working Stewdios Page -->
 <div class="page clearfix">
     <h1 class="margin-bottom-25 font-mono uppercase">Working Stewdios</h1>
-    Coming Soon
+    <?php   $this->partial(
+            'partials/spaces/list_full', [
+                'spaces' => $spaces,
+                'noneNoun' => 'working stewdios'
+            ]); ?>
 </div>

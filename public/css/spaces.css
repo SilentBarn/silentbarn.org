@@ -1,0 +1,14 @@
+/* Spaces pages
+ */
+.full-space {
+    border-bottom: 1px solid #eee; }
+.full-space:last-child {
+    border-bottom: none; }
+.full-space img {
+    float: left; }
+.full-space .info {
+    padding-left: 340px; }
+.full-space h2 {
+    margin: 0 0 10px; }
+.full-space h4 {
+    margin: 0 0 10px; }

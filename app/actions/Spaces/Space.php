@@ -16,6 +16,7 @@ class Space extends \Base\Action
         $space = new Spaces();
         $space->initialize();
         $space->is_deleted = 0;
+        $space->is_active = 1;
 
         if ( ! $this->save( $space ) )
         {

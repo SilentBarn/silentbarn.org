@@ -57,7 +57,11 @@ class AboutController extends \Base\Controller
 
     public function galleryAction()
     {
-        $this->data->pageTitle = "Gallery";
+        $this->data->spaces = \Db\Sql\Spaces::find([
+            'is_deleted = 0 and is_active = 1 and is_gallery = 1',
+            'order' => 'name'
+        ]);
+        $this->data->pageTitle = "Barn Art";
         $this->view->pick( 'about/gallery' );
     }
 }

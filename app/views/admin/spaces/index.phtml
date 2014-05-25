@@ -13,6 +13,7 @@
                 <th>Stewdio?</th>
                 <th>Gallery?</th>
                 <th>Pic?</th>
+                <th>Active?</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -20,17 +21,21 @@
 <?php   if ( count( $spaces ) ):
             $yes = 'Yes';
             $no = '<span class="color-ccc">No</span>';
-            foreach ( $spaces as $space ): ?>
+            foreach ( $spaces as $space ):
+                $inactive = ( $space->is_active )
+                    ? ''
+                    : ' color-ccc'; ?>
 
             <tr>
-                <td class="centered-text"><?php echo $space->id; ?></td>
-                <td><?php echo $space->name; ?></td>
-                <td><?php echo $space->email; ?></td>
-                <td class="centered-text"><?php echo ( $space->is_residence ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo ( $space->is_stewdio ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo ( $space->is_gallery ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo ( $space->hasImage() ) ? $yes : $no; ?></td>
-                <td class="centered-text">
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo $space->id; ?></td>
+                <td class="<?php echo $inactive; ?>"><?php echo $space->name; ?></td>
+                <td class="<?php echo $inactive; ?>"><?php echo $space->email; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_residence ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_stewdio ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_gallery ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->hasImage() ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_active ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>">
                     <a class="" href="<?php echo $this->url->get( 'admin/spaces/edit/'. $space->id ); ?>">Edit</a>
                 </td>
             </tr>
@@ -39,7 +44,7 @@
         else: ?>
 
             <tr>
-                <td colspan="8" class="centered-text">There are no spaces</td>
+                <td colspan="9" class="centered-text">There are no spaces</td>
             </tr>
 
 <?php   endif; ?>
