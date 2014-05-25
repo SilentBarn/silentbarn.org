@@ -324,33 +324,58 @@ class Posts extends \Base\Model
     }
 
     /**
-     * Return a shortened version of the event's start and stop time
+     * Generate a short date string for the event's start and end date
      */
-    function getShortTime( $html = TRUE, $withLocation = FALSE )
+    function getShortDate( $html = TRUE )
     {
-        if ( ! valid( $this->event_time, STRING ) )
+        if ( ! valid( $this->event_date, STRING ) )
         {
             return "";
         }
 
-        $shortTime = ( substr( $this->event_time, 3, 2 ) == '00' )
-            ? date( 'ga', strtotime( $this->event_time ) )
-            : date( 'g:ia', strtotime( $this->event_time ) );
+        $startTime = strtotime( $this->event_date );
+        $dateFormat = ( date( 'Y', $startTime ) == date( 'Y' ) )
+            ? DATE_SHORT_DAY_NAME_YEAR
+            : DATE_SHORT_DAY_NAME;
+        $string = date( $dateFormat, $startTime );
 
-        if ( ! valid( $this->event_time_end, STRING ) )
+        if ( valid( $this->event_date_end, STRING ) )
         {
-            return ( $withLocation && valid( $this->location, STRING ) )
-                ? trim( $shortTime ." @ ". $this->location )
-                : $shortTime;
+            $string .= ( $html ) ? " &ndash; " : ' - ';
+            $string .= date( $dateFormat, strtotime( $this->event_date_end ) );
         }
 
-        $shortTime .= ( $html ) ? " &ndash; " : ' - ';
-        $shortTime .= ( substr( $this->event_time_end, 3, 2 ) == '00' )
-            ? date( 'ga', strtotime( $this->event_time_end ) )
-            : date( 'g:ia', strtotime( $this->event_time_end ) );
+        return $string;
+    }
 
-        return ( $withLocation && valid( $this->location, STRING ) )
-            ? trim( $shortTime ." @ ". $this->location )
-            : $shortTime;
+    /**
+     * Return a shortened version of the event's start and stop time
+     */
+    function getShortTime( $html = TRUE, $withLocation = FALSE )
+    {
+        $string = "";
+
+        if ( valid( $this->event_time, STRING ) )
+        {
+            $string = ( substr( $this->event_time, 3, 2 ) == '00' )
+                ? date( 'ga', strtotime( $this->event_time ) )
+                : date( 'g:ia', strtotime( $this->event_time ) );
+
+            if ( valid( $this->event_time_end, STRING ) )
+            {
+                $string .= ( $html ) ? " &ndash; " : ' - ';
+                $string .= ( substr( $this->event_time_end, 3, 2 ) == '00' )
+                    ? date( 'ga', strtotime( $this->event_time_end ) )
+                    : date( 'g:ia', strtotime( $this->event_time_end ) );
+            }
+        }
+
+        // add location if specified
+        if ( $withLocation && valid( $this->location, STRING ) )
+        {
+            $string = trim( $string ." @ ". $this->location );
+        }
+
+        return $string;
     }
 }

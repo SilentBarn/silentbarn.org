@@ -28,6 +28,8 @@ define( 'DATE_TIME_DATABASE', 'H:i:s' );
 define( 'DATE_TABLE', "j M 'y" );
 define( 'DATE_DAY_NAME', 'l, M j' );
 define( 'DATE_DAY_NAME_YEAR', 'l, M j, Y' );
+define( 'DATE_SHORT_DAY_NAME', 'D, F j' );
+define( 'DATE_SHORT_DAY_NAME_YEAR', "D, F j 'y" );
 define( 'DATE_DAY_NAME_TIME', 'l, M j \\a\\t g:ia' );
 define( 'DATE_USER_LOGIN', 'M j, Y \\a\\t g:ia (l)' );
 define( 'DATE_STANDARD', 'M j, Y' );

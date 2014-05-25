@@ -1,24 +1,41 @@
 <?php   $imagePath = $post->getImage()->getPath( 960 ); ?>
 <!-- Post -->
 <div id="post" class="page">
+    <!-- Title -->
     <h1><?php echo $post->title; ?></h1>
+
+    <!-- Banner image -->
 <?php   if ( valid( $imagePath, STRING ) ): ?>
     <div id="banner-wrap" class="margin-top-20 margin-bottom-20"
         style="background-image: url( '<?php echo $imagePath; ?>' );"></div>
 <?php   endif; ?>
+
+    <!-- Event date -->
+<?php   if ( valid( $post->event_date, STRING ) ): ?>
+    <h4 class="margin-bottom-5">
+        <?php echo $post->getShortDate( TRUE ); ?>
+    </h4>
+<?php   endif; ?>
+
+    <!-- Event time and location -->
 <?php   if ( valid( $post->event_time, STRING )
             || valid( $post->location, STRING ) ): ?>
-    <h4 class="margin-bottom-10">
+    <h4 class="margin-top-0 margin-bottom-5">
         <?php echo $post->getShortTime( TRUE, TRUE ); ?>
     </h4>
-<?php   endif;
-        if ( $post->external_url ): ?>
-    <div class="external-url margin-bottom-10">
+<?php   endif; ?>
+
+    <!-- External URL -->
+
+<?php   if ( $post->external_url ): ?>
+    <div class="external-url margin-bottom-5 padded-top-5">
         <i class="fa fa-facebook-square"></i>
-        <a class="fontsize-13" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
+        <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
     </div>
 <?php   endif; ?>
-    <div id="body">
+
+    <!-- Body content -->
+    <div id="body" class="padding-top-10">
         <?php echo $post->getHtmlBody(); ?>
     </div>
 </div>
