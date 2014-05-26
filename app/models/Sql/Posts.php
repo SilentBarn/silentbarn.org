@@ -14,6 +14,7 @@ class Posts extends \Base\Model
     public $excerpt;
     public $body;
     public $location;
+    public $price;
     public $external_url;
     public $status;
     public $is_deleted;
