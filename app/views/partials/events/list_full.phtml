@@ -36,7 +36,7 @@
 <?php           if ( valid( $event->event_time, STRING )
                     || valid( $event->location, STRING ) ): ?>
     <div class="date fontsize-15 color-999 margin-top-5">
-        <span class="margin-left-1"><?php echo $event->getShortTime( TRUE, TRUE ); ?></span>
+        <span class="margin-left-1"><?php echo $event->getShortTime( TRUE, TRUE, TRUE ); ?></span>
     </div>
 <?php           endif; ?>
     <div class="body margin-top-10 lineheight-24">

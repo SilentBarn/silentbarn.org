@@ -352,7 +352,7 @@ class Posts extends \Base\Model
     /**
      * Return a shortened version of the event's start and stop time
      */
-    function getShortTime( $html = TRUE, $withLocation = FALSE )
+    function getShortTime( $html = TRUE, $withLocation = FALSE, $withPrice = FALSE )
     {
         $string = "";
 
@@ -362,19 +362,39 @@ class Posts extends \Base\Model
                 ? date( 'ga', strtotime( $this->event_time ) )
                 : date( 'g:ia', strtotime( $this->event_time ) );
 
+            if ( $html )
+            {
+                $string = '<span class="eventtime">'. $string .'</span>';
+            }
+
             if ( valid( $this->event_time_end, STRING ) )
             {
                 $string .= ( $html ) ? " &ndash; " : ' - ';
-                $string .= ( substr( $this->event_time_end, 3, 2 ) == '00' )
+                $endTime = ( substr( $this->event_time_end, 3, 2 ) == '00' )
                     ? date( 'ga', strtotime( $this->event_time_end ) )
                     : date( 'g:ia', strtotime( $this->event_time_end ) );
+                $string .= ( $html )
+                    ? '<span class="eventtime">'. $endTime .'</span>'
+                    : $endTime;
             }
         }
 
         // add location if specified
         if ( $withLocation && valid( $this->location, STRING ) )
         {
-            $string = trim( $string ." @ ". $this->location );
+            $string = ( $html )
+                ? trim( $string .' @ <span class="location">'. $this->location .'</span>' )
+                : trim( $string ." @ ". $this->location );
+        }
+
+        // add price id specified
+        if ( $withPrice
+            && valid( $this->price, STRING )
+            && $this->price != 0 )
+        {
+            $string = ( $html )
+                ? trim( '<span class="price">$'. $this->price .'</span>'. $string )
+                : trim( $this->price .", ". $string );
         }
 
         return $string;

@@ -219,6 +219,8 @@
 
 /* Widths
  */
+.w50px {
+    width: 50px; }
 .w100px {
     width: 100px; }
 .w150px {

@@ -135,12 +135,14 @@
                         </div>
                     </div>
                     <div class="float-right w67p">
+                        <!-- External URL -->
                         <div class="margin-bottom-20">
                             <label>Facebook/External URL</label>
                             <input class="w95p" type="text" name="external_url" value="<?php echo $post->external_url; ?>"
                                 placeholder="http://..." />
                         </div>
-                        <div>
+                        <!-- Event location -->
+                        <div class="clearfix margin-bottom-10">
 <?php   if ( ! valid( $post->location, STRING ) ): ?>
                             <a href="javascript:;" id="set-location"
                                 class="float-left blocked fontsize-13">Set specific event location (i.e. Pleasure Jail)</a>
@@ -150,6 +152,19 @@
 <?php   endif; ?>
                                 <label>Event Location</label>
                                 <input class="w50p" type="text" name="location" value="<?php echo $post->location; ?>" />
+                            </div>
+                        </div>
+                        <!-- Event Price -->
+                        <div class="clearfix">
+<?php   if ( ! valid( $post->price, STRING ) ): ?>
+                            <a href="javascript:;" id="set-price"
+                                class="float-left blocked fontsize-13">Set ticket price</a>
+                            <div style="display:none;">
+<?php   else: ?>
+                            <div>
+<?php   endif; ?>
+                                <label>Price</label>
+                                <input class="w50px" type="text" name="price" value="<?php echo $post->price; ?>" />
                             </div>
                         </div>
                     </div>

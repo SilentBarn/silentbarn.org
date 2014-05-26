@@ -21,7 +21,7 @@
 <?php   if ( valid( $post->event_time, STRING )
             || valid( $post->location, STRING ) ): ?>
     <h4 class="margin-top-0 margin-bottom-5">
-        <?php echo $post->getShortTime( TRUE, TRUE ); ?>
+        <?php echo $post->getShortTime( TRUE, TRUE, TRUE ); ?>
     </h4>
 <?php   endif; ?>
 

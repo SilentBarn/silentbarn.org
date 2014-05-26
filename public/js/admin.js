@@ -43,12 +43,14 @@ var AdminPage = {
 
     // handle image cropping
     imageCrop: function () {
-        var $imageCrop = $( '#image-crop' );
+        var $imageCrop = $( '#image-crop' ),
+            CROP_ENABLED = false;
         if ( ! $imageCrop.length ) return;
 
         // update the coordinates in the form, and display
         // the height and width for the user
         function updateCoords( c ) {
+            if ( ! CROP_ENABLED ) return;
             $( '#ic_x1' ).val( c.x );
             $( '#ic_x2' ).val( c.x2 );
             $( '#ic_y1' ).val( c.y );
@@ -71,12 +73,14 @@ var AdminPage = {
 
         // set up onclick event to open cropper
         $( '#open-cropper' ).on( 'click', function () {
+            CROP_ENABLED = true;
             $cropper.show();
             $.scrollTo( $cropper.position().top - 50 );
             jcrop.setSelect( [ 0, 0, 310, 310 ] );
         });
 
         $( '#cancel-cropper' ).on( 'click', function () {
+            CROP_ENABLED = false;
             $cropper.hide();
             $( '#ic_x1' ).val( '' );
             $( '#ic_x2' ).val( '' );
@@ -210,6 +214,12 @@ var AdminPage = {
         });
 
         $( '#set-location' ).on( 'click', function () {
+            var $this = $( this );
+            $this.hide();
+            $this.next().show().find( 'input' ).focus();
+        });
+
+        $( '#set-price' ).on( 'click', function () {
             var $this = $( this );
             $this.hide();
             $this.next().show().find( 'input' ).focus();
