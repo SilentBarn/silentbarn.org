@@ -1,0 +1,11 @@
+{
+  "name": "Silent-Barn",
+  "description": "Silent Barn's Website",
+  "author": "Mike Gioia <mike@silentbarn.org>",
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-minify-css": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*"
+  }
+}

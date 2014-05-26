@@ -3,3 +3,4 @@ app/etc/secret.ini
 composer.lock
 vendor/
 public/media
+node_modules/
