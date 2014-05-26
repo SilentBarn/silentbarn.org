@@ -10,7 +10,9 @@ return array(
         'modules' => array(
             'api' => 'Api' ),
         'jsEnvironment' => 'development',
-        'jsVersion' => 1 ),
+        'jsVersion' => 1,
+        'cssEnvironment' => 'development',
+        'cssVersion' => 1 ),
 
     'paths' => array(
         'baseUri' => 'http://phalcon.dev/',

@@ -6,6 +6,7 @@
     "gulp": "*",
     "gulp-minify-css": "*",
     "gulp-concat": "*",
-    "gulp-uglify": "*"
+    "gulp-uglify": "*",
+    "yargs": "*"
   }
 }

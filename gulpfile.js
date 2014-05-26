@@ -1,24 +1,42 @@
-var gulp = require( 'gulp' );
-var minifyCSS = require( 'gulp-minify-css' );
-var concat = require( 'gulp-concat' );
-var uglify  = require( 'gulp-uglify' );
+var gulp = require( 'gulp' )
+  , minifyCSS = require( 'gulp-minify-css' )
+  , concat = require( 'gulp-concat' )
+  , uglify  = require( 'gulp-uglify' )
+  , argv = require( 'yargs' ).argv;
+
+// get the asset version from the CLI
+var jsVersion = argv.jsversion
+  , cssVersion = argv.cssversion;
+
+if ( ! jsVersion ) {
+    jsVersion = 1;
+}
+
+if ( ! cssVersion ) {
+    cssVersion = 1;
+}
 
 // minify CSS to build.css
 gulp.task( 'build-css', function () {
 
     var cssFiles = [
         './public/css/base.css',
+        './public/css/structure.css',
         './public/css/helpers.css',
         './public/css/forms.css',
         './public/css/buttons.css',
         './public/css/tables.css',
-        './public/css/auth.css',
         './public/css/home.css',
-        './public/css/posts.css',
+        './public/css/auth.css',
+        './public/css/post.css',
         './public/css/admin.css',
-        './public/css/font-awesome.css',
+        './public/css/events.css',
+        './public/css/spaces.css',
+        './public/css/about.css',
         './public/css/pikaday.css',
+        './public/css/typeahead.css',
         './public/css/timepicker.css',
+        './public/css/jcrop.css',
         './public/css/media.css'
     ];
 
@@ -27,27 +45,50 @@ gulp.task( 'build-css', function () {
     };
 
     gulp.src( cssFiles )
-        .pipe( concat( 'build.css' ) )
+        .pipe( concat( 'build.' + cssVersion + '.css' ) )
         .pipe( minifyCSS( opts ) )
         .pipe( gulp.dest( './public/css/' ) );
 
 });
 
-// minify vendor JS into build.js
-gulp.task( 'build-js', function () {
+// minify main app JS into main.js
+gulp.task( 'build-js-main', function () {
 
     var jsFiles = [
-        './public/js/vendor/jquery.js',
-        './public/js/vendor/jquery.scrollTo.js',
-        './public/js/vendor/jquery.timepicker.js',
-        './public/js/vendor/pikaday.js',
-        './public/js/vendor/jquery.pikaday.js',
-        './public/js/vendor/underscore.js',
-        './public/js/vendor/markdown.js'
+        './public/js/jquery.js',
+        './public/js/jquery.easing-1.3.js',
+        './public/js/jquery.filmroll.js',
+        './public/js/jquery.scrollTo.js',
+        './public/js/moment.js',
+        './public/js/underscore.js',
+        './public/js/clndr.js'
     ];
 
     gulp.src( jsFiles )
-      .pipe( concat( 'build.js' ) )
+      .pipe( concat( 'main.' + jsVersion + '.js' ) )
+      .pipe( uglify() )
+      .pipe( gulp.dest( './public/js/dist/' ) );
+
+});
+
+// minify admin JS into admin.js
+gulp.task( 'build-js-admin', function () {
+
+    var jsFiles = [
+        './public/js/jquery.js',
+        './public/js/pikaday.js',
+        './public/js/jquery.pikaday.js',
+        './public/js/jquery.timepicker.js',
+        './public/js/jquery.typeahead.js',
+        './public/js/jquery.jcrop.js',
+        './public/js/jquery.scrollTo.js',
+        './public/js/moment.js',
+        './public/js/underscore.js',
+        './public/js/clndr.js'
+    ];
+
+    gulp.src( jsFiles )
+      .pipe( concat( 'admin.' + jsVersion + '.js' ) )
       .pipe( uglify() )
       .pipe( gulp.dest( './public/js/dist/' ) );
 

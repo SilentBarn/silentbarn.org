@@ -10,7 +10,11 @@
         <!-- Style Sheets -->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet" type="text/css">
+<?php   if ( $this->config->app->cssEnvironment == 'production' ): ?>
+        <link rel="stylesheet" href="<?php echo $this->url->get( 'css/build.'. $this->config->app->cssVersion .'.css' ); ?>">
+<?php   else: ?>
         <link rel="stylesheet" href="<?php echo $this->url->get( 'css/app.css' ); ?>">
+<?php   endif; ?>
     </head>
     <body class="admin">
         <!-- Content -->
@@ -21,7 +25,10 @@
         </div>
 
         <!-- JavaScripts -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<?php   if ( $this->config->app->jsEnvironment == 'production' ): ?>
+        <script src="<?php echo $this->url->get( 'js/dist/admin.'. $this->config->app->jsVersion .'.js' ); ?>"></script>
+<?php   else: ?>
+        <script src="<?php echo $this->url->get( 'js/jquery.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/underscore.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/pikaday.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/jquery.pikaday.js' ); ?>"></script>
@@ -29,6 +36,7 @@
         <script src="<?php echo $this->url->get( 'js/jquery.typeahead.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/jquery.jcrop.js' ); ?>"></script>
         <script src="<?php echo $this->url->get( 'js/jquery.scrollTo.js' ); ?>"></script>
+<?php   endif; ?>
         <script src="<?php echo $this->url->get( 'js/admin.js' ); ?>"></script>
     </body>
 </html>
