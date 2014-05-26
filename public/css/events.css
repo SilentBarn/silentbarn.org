@@ -24,6 +24,8 @@
 .full-event .side-data .day-name,
 .full-event .side-data .time {
     color: #999; }
+.full-event .price {
+    margin-right: 5px; background: #eee; padding: 2px 5px; }
 
 .side-event {
     background: #eee; padding: 10px; border-radius: 4px; }
