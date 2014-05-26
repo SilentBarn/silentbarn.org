@@ -33,7 +33,7 @@
         </script>
         <!-- JavaScripts -->
 <?php   if ( $this->config->app->jsEnvironment == 'production' ): ?>
-        <script src="<?php echo $this->url->get( 'js/dist/build.'. $this->config->app->jsVersion .'.js' ); ?>"></script>
+        <script src="<?php echo $this->url->get( 'js/dist/main.'. $this->config->app->jsVersion .'.js' ); ?>"></script>
 <?php   else: ?>
         <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
         <script src="<?php echo $this->url->get( 'js/jquery.js' ); ?>"></script>
