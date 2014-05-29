@@ -76,7 +76,9 @@ class Auth extends \Base\Service
 
     public function getUserObj()
     {
-        return $this->userObj;
+        return ( $this->userObj )
+            ? $this->userObj
+            : new \Db\Sql\Users();
     }
 
     /**
