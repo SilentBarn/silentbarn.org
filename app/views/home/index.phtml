@@ -79,7 +79,8 @@
                 <a href="<?php echo $boxPost->getPath(); ?>"><?php echo $boxPost->title; ?></a>
             </h3>
             <div class="date font-mono">
-                Posted: <?php echo date_str( $boxPost->post_date, DATE_DAY_NAME ); ?>
+                <!-- Posted: <?php echo date_str( $boxPost->post_date, DATE_DAY_NAME ); ?> -->
+                <?php echo $boxPost->getShortDate( TRUE, TRUE ); ?>
             </div>
             <div class="description">
 <?php           if ( valid( $boxPost->excerpt, STRING ) ): ?>

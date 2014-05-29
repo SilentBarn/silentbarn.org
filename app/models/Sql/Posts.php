@@ -65,12 +65,10 @@ class Posts extends \Base\Model
             ->where( 'is_deleted = 0' )
             ->andWhere( "status = 'published'" )
             ->andWhere( "homepage_location = :location:" )
-            ->andWhere( "post_date <= :dateLimit:" )
-            ->order( 'post_date desc' )
+            ->order( 'event_date desc, post_date desc' )
             ->limit( $limit )
             ->bind([
-                'location' => $location,
-                'dateLimit' => date_str( NULL, DATE_DATABASE ) ])
+                'location' => $location ])
             ->execute();
     }
 
@@ -327,15 +325,17 @@ class Posts extends \Base\Model
     /**
      * Generate a short date string for the event's start and end date
      */
-    function getShortDate( $html = TRUE )
+    function getShortDate( $html = TRUE, $defaultToPostDate = FALSE )
     {
         if ( ! valid( $this->event_date, STRING ) )
         {
-            return "";
+            return ( $defaultToPostDate )
+                ? date( DATE_SHORT_DAY_NAME, strtotime( $this->post_date ) )
+                : "";
         }
 
         $startTime = strtotime( $this->event_date );
-        $dateFormat = ( date( 'Y', $startTime ) == date( 'Y' ) )
+        $dateFormat = ( date( 'Y', $startTime ) != date( 'Y' ) )
             ? DATE_SHORT_DAY_NAME_YEAR
             : DATE_SHORT_DAY_NAME;
         $string = date( $dateFormat, $startTime );
