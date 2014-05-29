@@ -102,9 +102,8 @@ class EventsController extends \Base\Controller
             'categories' => [ EXHIBITIONS ],
             'ongoing' => TRUE,
             'startDate' => 'today',
-            'endDate' => 'today',
-            'startOperand' => '<=',
-            'endOperand' => '>=' ]);
+            'endDate' => NULL,
+            'startOperand' => '>=' ]);
         $this->data->pastExhibitions = $action->getByDateRange([
             'categories' => [ EXHIBITIONS ],
             'ongoing' => TRUE,
