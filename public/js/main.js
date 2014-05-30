@@ -127,7 +127,8 @@ var MainPage = {
                         return;
                     }
                     // if we recieved less items than the limit, hide loadMore
-                    if ( response.data.count < paging.limit ) {
+                    if ( response.data.count < paging.limit
+                        || ! response.data.html ) {
                         $loadMore.hide();
                     }
                     // insert items before loadMore
