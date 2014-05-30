@@ -47,6 +47,7 @@ class Posts extends \Base\Model
     {
         return \Db\Sql\Posts::query()
             ->where( 'is_deleted = 0' )
+            ->where( 'status = "published"' )
             ->order( 'created_at desc' )
             ->limit( $limit, $offset )
             ->execute();
@@ -132,6 +133,7 @@ class Posts extends \Base\Model
             "  on c.id = r.property_id and r.property_type = '%s' ".
             "where c.slug in ('%s') ".
             "  and ( %s ) ".
+            "  and p.is_deleted = 0 and p.status = 'published' ".
             "order by p.%s ".
             "limit %s, %s",
             POST,
