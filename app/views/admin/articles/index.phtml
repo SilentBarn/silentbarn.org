@@ -43,6 +43,12 @@
         </tbody>
     </table>
 
+<?php   if ( count( $pages ) > 1 ):
+            $this->partial(
+                'partials/admin/pagination',
+                [ 'pages' => $pages ]);
+        endif; ?>
+
     <div id="ascii" class="padding-top-30 righted-text">
         <a href="<?php echo $this->url->get( 'events/ascii' ); ?>" class="font-mono">View Monthly ASCII Calendar</a>
     </div>

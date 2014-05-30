@@ -8,7 +8,8 @@
         "suin/php-image-resizer": ">=1.0.0",
         "stefangabos/zebra_image": "dev-master",
         "michelf/php-markdown": "*",
-        "nategood/httpful": "*"
+        "nategood/httpful": "*",
+        "kilte/pagination": "*"
     },
     "require-dev" : {
         "phpunit/phpunit": "3.7.*"

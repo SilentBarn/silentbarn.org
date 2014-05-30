@@ -2,6 +2,8 @@
 
 namespace Controllers\Admin;
 
+use \Kilte\Pagination\Pagination as Pagination;
+
 class ArticlesController extends \Base\Controller
 {
     public function beforeExecuteRoute()
@@ -18,11 +20,28 @@ class ArticlesController extends \Base\Controller
      */
     public function indexAction()
     {
+        // get the curent page
+        $currentPage = $this->request->getQuery( 'page' );
+        $currentPage = ( valid( $currentPage ) )
+            ? abs( $currentPage )
+            : 1;
+        $limit = 25;
+        $offset = abs( ( $currentPage - 1 ) * $limit );
+
         // get all of the posts
         $this->view->pick( 'admin/articles/index' );
-        $this->view->posts = \Db\Sql\Posts::getActive();
+        $this->view->posts = \Db\Sql\Posts::getActive( $limit, $offset );
         $this->view->backPage = '';
         $this->view->buttons = [ 'newArticle' ];
+
+        // set up the pagination
+        $totalPosts = \Db\Sql\Posts::count( 'is_deleted = 0' );
+        $pagination = new Pagination(
+            $totalPosts,
+            $currentPage,
+            $limit,
+            $neighbors = 4 );
+        $this->view->pages = $pagination->build();
     }
 
     /**

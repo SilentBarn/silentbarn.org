@@ -49,7 +49,8 @@ class App extends \Lib\Bootstrap\Base
                 'Phalcon' => VENDOR_PATH .'/phalcon/incubator/Library/Phalcon/',
                 'Suin' => VENDOR_PATH .'/suin/php-image-resizer/Source/Suin/',
                 'Michelf' => VENDOR_PATH .'/michelf/php-markdown/Michelf/',
-                'Httpful' => VENDOR_PATH .'/nategood/httpful/src/Httpful/'
+                'Httpful' => VENDOR_PATH .'/nategood/httpful/src/Httpful/',
+                'Kilte' => VENDOR_PATH .'/kilte/pagination/src/Kilte/'
             ));
         $loader->registerClasses(
             array(
