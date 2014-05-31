@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Michelf\Markdown;
+
 class Spaces extends \Base\Model
 {
     public $id;
