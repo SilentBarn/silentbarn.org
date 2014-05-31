@@ -3,7 +3,11 @@
             foreach ( $spaces as $space ): ?>
 
 <div class="full-space padding-bottom-20 margin-bottom-20 clearfix position-relative">
+
+<?php   if ( $space->hasImage() ): ?>
     <img src="<?php echo $space->getImagePath( 310 ); ?>" width="310" />
+<?php   endif; ?>
+
     <div class="info">
         <!-- Name -->
         <h2><?php echo $space->name; ?></h2>
@@ -13,7 +17,7 @@
 <?php   endif; ?>
         <!-- Bio -->
         <div class="padding-top-15 lineheight-24 margin-bottom-20">
-            <?php echo ( valid( $space->bio, STRING ) ) ? $space->bio : 'Nothing to see here&hellip;'; ?>
+            <?php echo ( valid( $space->bio, STRING ) ) ? $space->getHtmlBio() : 'Nothing to see here&hellip;'; ?>
         </div>
 <?php   if ( valid( $space->email, STRING ) ): ?>
         <!-- Email -->

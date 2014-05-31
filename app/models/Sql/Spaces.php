@@ -49,4 +49,12 @@ class Spaces extends \Base\Model
     {
         return valid( $this->image_filename, STRING );
     }
+
+    /**
+     * Get the Markdown version of the body text
+     */
+    function getHtmlBio()
+    {
+        return Markdown::defaultTransform( nl2br( $this->bio ) );
+    }
 }
