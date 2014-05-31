@@ -57,6 +57,6 @@ class Spaces extends \Base\Model
      */
     function getHtmlBio()
     {
-        return Markdown::defaultTransform( nl2br( $this->bio ) );
+        return Markdown::defaultTransform( $this->bio );
     }
 }
