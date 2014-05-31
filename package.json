@@ -2,6 +2,9 @@
   "name": "Silent-Barn",
   "description": "Silent Barn's Website",
   "author": "Mike Gioia <mike@silentbarn.org>",
+  "scripts": {
+    "build": "gulp build-css build-js-main build-js-admin"
+  },
   "devDependencies": {
     "gulp": "*",
     "gulp-minify-css": "*",

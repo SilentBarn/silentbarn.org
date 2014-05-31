@@ -1,5 +1,7 @@
 /* Helpers
  */
+.border-box {
+    box-sizing: border-box; }
 .blocked {
     display: block; }
 .break-word {
@@ -82,6 +84,8 @@
     font-family: 'Share Tech Mono', monospace; }
 .font-courier {
     font-family: 'Courier New', monospace; }
+.bg-eee {
+    background-color: #eee !important; }
 .color-000 {
     color: #000 !important; }
 .color-333 {
@@ -166,6 +170,8 @@
 
 /* Paddings
  */
+.padding-all-1p {
+    padding: 1%; }
 .padding-all-10 {
     padding: 10px; }
 .padding-top-5 {
