@@ -102,8 +102,8 @@ class Posts extends \Base\Model
         if ( ! is_null( $options[ 'startDate' ] ) )
         {
             $string = ( $options[ 'ongoing' ] )
-                ? "( p.event_date %s :startDate: )"
-                : "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )";
+                ? "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )"
+                : "( p.event_date %s :startDate: )";
             $dateWhereClauses[] = sprintf(
                 $string,
                 $options[ 'startOperand' ],
@@ -114,8 +114,8 @@ class Posts extends \Base\Model
         if ( ! is_null( $options[ 'endDate' ] ) )
         {
             $string = ( $options[ 'ongoing' ] )
-                ? "( p.event_date_end %s :endDate: )"
-                : "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )";
+                ? "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )"
+                : "( p.event_date_end %s :endDate: or p.event_date_end is null )";
             $dateWhereClauses[] = sprintf(
                 $string,
                 $options[ 'endOperand' ],
