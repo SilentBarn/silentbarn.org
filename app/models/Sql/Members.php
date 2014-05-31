@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Michelf\Markdown;
+
 class Members extends \Base\Model
 {
     public $id;
@@ -45,5 +47,13 @@ class Members extends \Base\Model
     function hasImage()
     {
         return valid( $this->image_filename, STRING );
+    }
+
+    /**
+     * Get the Markdown version of the body text
+     */
+    function getHtmlBio()
+    {
+        return Markdown::defaultTransform( $this->bio );
     }
 }

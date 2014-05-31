@@ -6,8 +6,8 @@ return [
         'responseMode' => 'view',
         'modules' => [
             'admin' => 'Admin' ],
-        'jsEnvironment' => 'development',
-        'cssEnvironment' => 'development' ],
+        'assetVersion' => 1,
+        'assetMode' = 'development' ],
 
     'cache' => [
         'adapter' => 'redis' ],

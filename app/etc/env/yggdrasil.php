@@ -6,10 +6,8 @@ return [
         'responseMode' => 'view',
         'modules' => [
             'admin' => 'Admin' ],
-        'jsEnvironment' => 'production',
-        'jsVersion' => 1,
-        'cssEnvironment' => 'production',
-        'cssVersion' => 1 ],
+        'assetVersion' => 2,
+        'assetMode' = 'production' ],
 
     'cache' => [
         'adapter' => 'redis' ],
@@ -23,7 +21,7 @@ return [
 
     'paths' => [
         'baseUri' => 'http://beta.silentbarn.com/',
-        'assetUri' => 'http://beta.silentbarn.com/',
+        'assetUri' => 'http://beta.silentbarn.com/assets/%s/',
         'hostname' => 'beta.silentbarn.com',
         'media' => '/home/mike/www/barn.shadowmere.net/www-data/media',
         'mediaPublic' => 'http://beta.silentbarn.com/media/' ],

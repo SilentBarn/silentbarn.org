@@ -9,10 +9,8 @@ return array(
         // router namespace modules
         'modules' => array(
             'api' => 'Api' ),
-        'jsEnvironment' => 'development',
-        'jsVersion' => 1,
-        'cssEnvironment' => 'development',
-        'cssVersion' => 1 ),
+        'assetVersion' => 1,
+        'assetMode' = 'development' ),
 
     'paths' => array(
         'baseUri' => 'http://phalcon.dev/',

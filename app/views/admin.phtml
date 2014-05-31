@@ -10,10 +10,11 @@
         <!-- Style Sheets -->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet" type="text/css">
-<?php   if ( $this->config->app->cssEnvironment == 'production' ): ?>
-        <link rel="stylesheet" href="<?php echo $this->url->get( 'css/build.'. $this->config->app->cssVersion .'.css' ); ?>">
+
+<?php   if ( $this->config->app->assetMode == 'production' ): ?>
+        <link rel="stylesheet" href="<?php echo $this->url->getStatic( 'css/build.css' ); ?>">
 <?php   else: ?>
-        <link rel="stylesheet" href="<?php echo $this->url->get( 'css/app.css' ); ?>">
+        <link rel="stylesheet" href="<?php echo $this->url->getStatic( 'css/app.css' ); ?>">
 <?php   endif; ?>
     </head>
     <body class="admin">
@@ -25,18 +26,18 @@
         </div>
 
         <!-- JavaScripts -->
-<?php   if ( $this->config->app->jsEnvironment == 'production' ): ?>
-        <script src="<?php echo $this->url->get( 'js/dist/admin.'. $this->config->app->jsVersion .'.js' ); ?>"></script>
+<?php   if ( $this->config->app->assetMode == 'production' ): ?>
+        <script src="<?php echo $this->url->getStatic( 'js/dist/admin.js' ); ?>"></script>
 <?php   else: ?>
-        <script src="<?php echo $this->url->get( 'js/jquery.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/underscore.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/pikaday.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.pikaday.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.timepicker.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.typeahead.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.jcrop.js' ); ?>"></script>
-        <script src="<?php echo $this->url->get( 'js/jquery.scrollTo.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/underscore.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/pikaday.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.pikaday.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.timepicker.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.typeahead.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.jcrop.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/jquery.scrollTo.js' ); ?>"></script>
 <?php   endif; ?>
-        <script src="<?php echo $this->url->get( 'js/admin.js' ); ?>"></script>
+        <script src="<?php echo $this->url->getStatic( 'js/admin.js' ); ?>"></script>
     </body>
 </html>

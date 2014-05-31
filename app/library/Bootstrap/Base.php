@@ -127,8 +127,22 @@ abstract class Base
         $this->di->set(
             'url',
             function () use ( $config ) {
+                // instantiate new url resolver and set base path
                 $url = new UrlResolver();
                 $url->setBaseUri( $config->paths->baseUri );
+
+                // if asset versioning is enabled for this profile, use
+                // that in the static URI
+                if ( $config->app->assetMode == 'production' ):
+                    $url->setStaticBaseUri(
+                        sprintf(
+                            $config->paths->assetUri,
+                            $config->app->assetVersion
+                        ));
+                else:
+                    $url->setStaticBaseUri( $config->paths->assetUri );
+                endif;
+
                 return $url;
             },
             TRUE );

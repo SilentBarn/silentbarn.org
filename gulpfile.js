@@ -4,18 +4,6 @@ var gulp = require( 'gulp' )
   , uglify  = require( 'gulp-uglify' )
   , argv = require( 'yargs' ).argv;
 
-// get the asset version from the CLI
-var jsVersion = argv.jsversion
-  , cssVersion = argv.cssversion;
-
-if ( ! jsVersion ) {
-    jsVersion = 1;
-}
-
-if ( ! cssVersion ) {
-    cssVersion = 1;
-}
-
 // minify CSS to build.css
 gulp.task( 'build-css', function () {
 
@@ -45,7 +33,7 @@ gulp.task( 'build-css', function () {
     };
 
     gulp.src( cssFiles )
-        .pipe( concat( 'build.' + cssVersion + '.css' ) )
+        .pipe( concat( 'build.css' ) )
         .pipe( minifyCSS( opts ) )
         .pipe( gulp.dest( './public/css/' ) );
 
@@ -65,7 +53,7 @@ gulp.task( 'build-js-main', function () {
     ];
 
     gulp.src( jsFiles )
-      .pipe( concat( 'main.' + jsVersion + '.js' ) )
+      .pipe( concat( 'main.js' ) )
       .pipe( uglify() )
       .pipe( gulp.dest( './public/js/dist/' ) );
 
@@ -88,7 +76,7 @@ gulp.task( 'build-js-admin', function () {
     ];
 
     gulp.src( jsFiles )
-      .pipe( concat( 'admin.' + jsVersion + '.js' ) )
+      .pipe( concat( 'admin.js' ) )
       .pipe( uglify() )
       .pipe( gulp.dest( './public/js/dist/' ) );
 
