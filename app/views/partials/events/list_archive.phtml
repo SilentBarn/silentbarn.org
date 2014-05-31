@@ -5,7 +5,7 @@
                 $eventDate = strtotime( $event->event_date );
                 $imagePath = $event->getImage()->getPath( 310 );
                 if ( ! valid( $imagePath, STRING ) ):
-                    $imagePath = $this->url->get( 'img/heptagon_placeholder.png' );
+                    $imagePath = $this->url->getStatic( 'img/heptagon_placeholder.png' );
                 endif;
                 // open a new row div on 0, 3, 6,... but don't open one
                 // if there are no more items left

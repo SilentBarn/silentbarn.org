@@ -38,7 +38,7 @@
             foreach ( $members as $member ):
                 $image = ( valid( $member->image_filename, STRING ) )
                     ? $member->getImagePath()
-                    : $this->url->get( 'img/heptagon_placeholder_231.png' ); ?>
+                    : $this->url->getStatic( 'img/heptagon_placeholder_231.png' ); ?>
 
         <div class="member float-left transition-all" data-index="<?php echo $i++; ?>">
             <div class="img-wrap">
