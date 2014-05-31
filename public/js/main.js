@@ -181,8 +181,8 @@ var MainPage = {
             // apply callout to this member
             $this.addClass( 'callout' );
             // set the name/bio
-            $callout.find( '.name' ).text( $this.find( '.name' ).text() );
-            $callout.find( '.bio' ).text( $this.find( '.bio' ).text() );
+            $callout.find( '.name' ).text( $this.find( '.img-wrap .name' ).text() );
+            $callout.find( '.bio' ).html( $this.find( '.more-info .bio' ).html() );
         });
         // hide everything when overlay is clicked
         $overlay.on( 'click', function () {

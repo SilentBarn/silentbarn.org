@@ -23,6 +23,8 @@
     display: none; }
 #members .member .bio {
     font-size: 14px; line-height: 20px; }
+#members .member.callout .bio a {
+    color: #c790ff; }
 
 #member-overlay {
     position: fixed; display: none; top: 0; bottom: 0;

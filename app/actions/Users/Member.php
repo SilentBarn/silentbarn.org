@@ -92,6 +92,7 @@ class Member extends \Base\Action
         $member->is_chef = ( get( $data, 'is_chef' ) ) ? 1 : 0;
         $member->is_resident = ( get( $data, 'is_resident' ) ) ? 1 : 0;
         $member->is_stewdio = ( get( $data, 'is_stewdio' ) ) ? 1 : 0;
+        $member->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
 
         if ( ! $this->save( $member ) )
         {

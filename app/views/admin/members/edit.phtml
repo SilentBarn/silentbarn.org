@@ -26,6 +26,12 @@
                     <label>Short Bio</label>
                     <textarea class="w95p h150px" name="bio"><?php echo $member->bio; ?></textarea>
                 </div>
+                <div class="margin-bottom-20">
+                    <label>Active?</label>
+                    <input type="checkbox" name="is_active" value="1"
+                        <?php echo ( $member->is_active ) ? ' checked="checked"' : ''; ?> />
+                    <span>Show on website</span>
+                </div>
                 <div>
                     <label>Type</label>
                     <div class="margin-bottom-5">

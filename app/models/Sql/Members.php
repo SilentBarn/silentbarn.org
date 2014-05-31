@@ -14,6 +14,7 @@ class Members extends \Base\Model
     public $is_chef;
     public $is_resident;
     public $is_stewdio;
+    public $is_active;
     public $is_deleted;
     public $created_at;
 

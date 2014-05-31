@@ -20,17 +20,20 @@
 <?php   if ( count( $members ) ):
             $yes = 'Yes';
             $no = '<span class="color-ccc">No</span>';
-            foreach ( $members as $member ): ?>
+            foreach ( $members as $member ):
+                $inactive = ( $member->is_active )
+                    ? ''
+                    : ' color-ccc'; ?>
 
             <tr>
-                <td class="centered-text"><?php echo $member->id; ?></td>
-                <td><?php echo $member->name; ?></td>
-                <td><?php echo $member->email; ?></td>
-                <td class="centered-text"><?php echo ( $member->is_chef ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo ( $member->is_resident ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo ( $member->is_stewdio ) ? $yes : $no; ?></td>
-                <td class="centered-text"><?php echo (  $member->hasImage() ) ? $yes : $no; ?></td>
-                <td class="centered-text">
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo $member->id; ?></td>
+                <td class="<?php echo $inactive; ?>"><?php echo $member->name; ?></td>
+                <td class="<?php echo $inactive; ?>"><?php echo $member->email; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_chef ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_resident ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_stewdio ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->hasImage() ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>">
                     <a class="" href="<?php echo $this->url->get( 'admin/members/edit/'. $member->id ); ?>">Edit</a>
                 </td>
             </tr>

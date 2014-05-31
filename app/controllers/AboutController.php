@@ -39,7 +39,7 @@ class AboutController extends \Base\Controller
         $this->view->pick( 'about/chefs' );
         $this->data->pageTitle = "Chefs";
         $this->data->members = \Db\Sql\Members::find([
-            'is_deleted = 0 and is_chef = 1',
+            'is_deleted = 0 and is_chef = 1 and is_active = 1',
             "order" => "name"
         ]);
     }
