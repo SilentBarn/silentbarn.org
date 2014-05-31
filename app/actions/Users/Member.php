@@ -19,6 +19,7 @@ class Member extends \Base\Action
         $member = new Members();
         $member->initialize();
         $member->is_deleted = 0;
+        $member->is_active = 1;
         // save a temporary email
         $member->email = $authAction->generateRandomToken();
 
