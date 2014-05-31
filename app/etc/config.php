@@ -10,7 +10,7 @@ return array(
         'modules' => array(
             'api' => 'Api' ),
         'assetVersion' => 1,
-        'assetMode' = 'development' ),
+        'assetMode' => 'development' ),
 
     'paths' => array(
         'baseUri' => 'http://phalcon.dev/',

@@ -7,7 +7,7 @@ return [
         'modules' => [
             'admin' => 'Admin' ],
         'assetVersion' => 1,
-        'assetMode' = 'development' ],
+        'assetMode' => 'development' ],
 
     'cache' => [
         'adapter' => 'redis' ],
