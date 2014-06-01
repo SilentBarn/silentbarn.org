@@ -15,7 +15,7 @@
 
 /* Space blocks */
 #spaces .space {
-    width: 310px; margin-bottom: 5px; cursor: pointer;
+    width: 230px; margin-bottom: 5px; cursor: pointer;
     padding: 5px; position: relative; }
 #spaces .space:hover {
     background: #F4EFA6; }
