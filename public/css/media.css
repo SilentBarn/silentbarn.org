@@ -1,6 +1,6 @@
 /* Media Queries
  */
-@media ( max-width: 1160px ) {
+@media (max-width: 1160px) {
     .full-event .side-date {
         color: #000; width: auto; left: 0px; text-align: left;
         top: 10px; background: rgba( 255,255,255,0.66 ); padding: 5px; }
@@ -10,7 +10,7 @@
 }
 
 /* Small Screenz */
-@media only screen and ( max-width: 320px ) {
+@media only screen and (max-width: 400px) {
 
     #header-wrap {
         border-bottom: 1px solid #ccc; height: 50px;
@@ -31,7 +31,8 @@
             float: right; padding-right: 10px;
             position: relative; top: 12px; }
 
-            .social-icons a { font-size: 24px; }
+            .social-icons a {
+                font-size: 24px; }
             .social-icons a:first-child {
                 display: block; float: left; font-size: 11px;
                 line-height: 1.0em; padding: 4px 5px 0 0;
