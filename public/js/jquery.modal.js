@@ -14,11 +14,11 @@ $.fn.extend({
 
         // create the overlay and append it
         // create the modal container and append it
-        var $overlay = $( '<div id="modal-overlay"></div>' )
+        var $body = $( 'body' )
+          , $overlay = $( '<div id="modal-overlay"></div>' )
           , $container = $( '<div id="modal-container"></div>' );
-        $( 'body' )
-            .append( $overlay )
-            .append( $container );
+        $overlay.append( $container );
+        $body.append( $overlay );
 
         // extend the defaults with passed in options
         options = $.extend( defaults, options );
@@ -53,32 +53,22 @@ $.fn.extend({
             $( this ).click( function ( e ) {
                 // get the target content
                 var modalId = $( this ).data( 'target' );
-
                 // clone the target html and inject it into our
                 // modal content
                 var content = $( modalId ).html();
                 $container.html( content );
-
-                // size the modal
+                // get modal size
                 var modalWidth = $container.outerWidth();
-
-                // show the overlay and fade it to the specified amount
-                $overlay.css({
-                    'display': 'block',
-                    opacity : 0 });
-                $overlay.fadeTo( 200, o.overlay );
-
+                // show the overlay
+                $overlay.show();
+                // hide the scrollbar from the body
+                $body.addClass( 'with-modal' );
                 // set the CSS on the target element
                 $container.css({
-                    'opacity' : 0,
                     'left' : 50 + '%',
                     'margin-left' : -( modalWidth / 2 ) + "px",
                     'top' : o.top + "px"
                 }); // click event
-
-                // show the container and scroll to top of the page
-                $container.fadeTo( 200, 1 );
-                $( window ).scrollTo( 0 );
                 e.preventDefault();
             }); // click event
         }); // return
@@ -88,10 +78,9 @@ $.fn.extend({
          * container and the overlay.
          */
         function closeModal() {
-            $overlay.fadeOut( 200 );
-            $container
-                .html( '' )
-                .css({ 'display' : 'none' });
+            $body.removeClass( 'with-modal' );
+            $overlay.hide();
+            $container.html( '' );
         }
     }
 });

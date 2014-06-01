@@ -1,15 +1,18 @@
 /* Modals
 */
 
+body.with-modal {
+    overflow: hidden; }
+
 #modal-overlay {
     position: fixed; z-index: 99;
-    top: 0px; left: 0px; height: 100%;
-    width: 100%; background: #000;
-    display: none; }
+    top: 0; left: 0; height: 100%;
+    width: 100%; display: none;
+    overflow-y: auto;
+    background: rgba( 0, 0, 0, 0.6 ); }
 
 #modal-container {
-    position: absolute; opacity: 0;
+    position: absolute; margin-bottom: 40px; 
     z-index: 100; width: 920px; padding: 20px;
     background: #f1f1f1; border-radius: 3px;
-    box-shadow: 0 0 25px rgba( 0, 0, 0, 0.5 );
-    margin-bottom: 40px; }
+    box-shadow: 0 0 25px rgba( 0, 0, 0, 0.5 ); }
