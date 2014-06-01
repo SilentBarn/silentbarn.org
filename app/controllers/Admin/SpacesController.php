@@ -111,7 +111,7 @@ class SpacesController extends \Base\Controller
      */
     public function deleteAction( $id = "" )
     {
-        $spaceAction = new \Actions\Users\Space();
+        $spaceAction = new \Actions\Spaces\Space();
         $space = $spaceAction->delete( $id );
 
         $this->redirect = 'admin/spaces';
