@@ -455,4 +455,6 @@ nav{display:none}
 #vignettes .row .block .categories,#vignettes .row .block .date,#vignettes .row .block .description,#vignettes .row .block .title{text-align:left}
 #vignettes .row:nth-child(2) .block:nth-child(2){border-bottom:none!important}
 #footer-wrap{padding:0}
-#footer-wrap footer{padding:5px 15px 0}}
+#footer-wrap footer{padding:5px 15px 0;position:relative;width:auto}
+#footer-wrap .left{float:left;padding-right:180px}
+#footer-wrap .right{float:right;position:absolute;right:15px;top:15px}}
