@@ -13,8 +13,8 @@ class AboutController extends \Base\Controller
 
     public function indexAction()
     {
-        $this->data->pageTitle = "Community";
-        $this->view->pick( 'about/index' );
+        $this->data->pageTitle = "About Silent Barn";
+        $this->view->pick( 'about/contact' );
     }
 
     public function contactAction()
@@ -31,7 +31,14 @@ class AboutController extends \Base\Controller
 
     public function volunteerAction()
     {
+        $this->data->pageTitle = "Volunteering";
         $this->view->pick( 'about/volunteer' );
+    }
+
+    public function rentalsAction()
+    {
+        $this->data->pageTitle = "Rentals";
+        $this->view->pick( 'about/rentals' );
     }
 
     public function chefsAction()
