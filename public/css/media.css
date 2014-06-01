@@ -94,6 +94,9 @@
         width: 100%; border-top: 1px solid #eee;
         padding-top: 15px; }
 
+        #vignettes h3.lead {
+            display: block !important; }
+
         #vignettes .row {
             text-align: center; margin-bottom: 0; }
 
