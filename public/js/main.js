@@ -64,7 +64,7 @@ var MainPage = {
             var docScroll = $document.scrollTop(),
                 windowWidth = $window.width();
 
-            if ( windowWidth <= 320 ) {
+            if ( windowWidth <= 400 ) {
                 $body.removeClass( 'sticky' + pageNavClass )
                     .removeClass( 'shiftlogo' );
                 return;

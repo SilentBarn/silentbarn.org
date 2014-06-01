@@ -6,7 +6,7 @@ return [
         'responseMode' => 'view',
         'modules' => [
             'admin' => 'Admin' ],
-        'assetVersion' => 10,
+        'assetVersion' => 11,
         'assetMode' => 'production' ],
 
     'cache' => [

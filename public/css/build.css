@@ -426,7 +426,7 @@ body.with-modal{overflow:hidden}
 #modal-container{position:absolute;margin-bottom:40px;z-index:100;width:920px;padding:20px;background:#f1f1f1;border-radius:3px;box-shadow:0 0 25px rgba(0,0,0,.5)}
 @media (max-width:1160px){.full-event .side-date{color:#000;width:auto;left:0;text-align:left;top:10px;background:rgba(255,255,255,.66);padding:5px}
 .full-event .side-data .day-name,.full-event .side-data .time{color:#222}}
-@media only screen and (max-width:450px){#header-wrap{border-bottom:1px solid #ccc;height:50px;padding:0;position:relative;width:auto}
+@media only screen and (max-width:320px){#header-wrap{border-bottom:1px solid #ccc;height:50px;padding:0;position:relative;width:auto}
 #header-wrap #logo img.large,#header-wrap #photo-stream{display:none}
 #header-wrap #logo img.small{display:block;float:left;left:8px;position:relative;top:5px}
 header{padding:0;height:auto;width:auto}
