@@ -191,7 +191,21 @@ var MainPage = {
             $callout.find( 'div' ).html( '' );
             $members.find( '.member' ).removeClass( 'callout' );
         });
+    },
+
+    // spaces pages
+    spaces: function () {
+        var $spaces = $( '#spaces' );
+        if ( ! $spaces.length ) {
+            return;
+        }
+
+        $( '.space[rel*=modal]' ).modal({
+            top : 60,
+            closeButton: ".modal-close"
+        });
     }
+
 }; // Page object
 
 MainPage.carousel();
@@ -200,5 +214,6 @@ MainPage.calendar();
 MainPage.loadMore();
 MainPage.showMore();
 MainPage.community();
+MainPage.spaces();
 
 });

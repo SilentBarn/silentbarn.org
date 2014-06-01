@@ -1,0 +1,17 @@
+{
+  "name": "Silent-Barn",
+  "version": "0.4.0",
+  "homepage": "http://silentbarn.org",
+  "authors": [
+    "Mike Gioia <mikegioia@gmail.com>"
+  ],
+  "description": "Silent Barn web site",
+  "main": "public/index.php",
+  "license": "GPLv3",
+  "private": true,
+  "dev-dependencies": {
+    "font-awesome": "*",
+    "vex": "*",
+    "jquery-leanmodal": "*"
+  }
+}

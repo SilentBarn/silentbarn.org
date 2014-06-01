@@ -25,6 +25,8 @@ gulp.task( 'build-css', function () {
         './public/css/typeahead.css',
         './public/css/timepicker.css',
         './public/css/jcrop.css',
+        './public/css/modal.css',
+        './public/css/overwrites.css',
         './public/css/media.css'
     ];
 
@@ -49,7 +51,8 @@ gulp.task( 'build-js-main', function () {
         './public/js/jquery.scrollTo.js',
         './public/js/moment.js',
         './public/js/underscore.js',
-        './public/js/clndr.js'
+        './public/js/clndr.js',
+        './public/js/jquery.modal.js'
     ];
 
     gulp.src( jsFiles )

@@ -1,0 +1,69 @@
+<!-- Spaces list -->
+<div id="spaces" class="clearfix">
+<?php   if ( ! count( $spaces ) ): ?>
+
+    <div class="color-aaa">
+        There are no <?php echo $noneNoun; ?>
+    </div>
+
+<?php   else:
+            $i = 1;
+            foreach ( $spaces as $space ):
+                $image = ( $space->hasImage() )
+                    ? $space->getImagePath( 310 )
+                    : $this->url->getStatic( 'img/heptagon_placeholder_231.png' ); ?>
+
+    <div class="space float-left" rel="leanModal" data-target="#space-<?php echo $i; ?>">
+        <div class="img-wrap">
+            <img src="<?php echo $image; ?>" />
+            <h3 class="name"><?php echo $space->name; ?></h3>
+        </div>
+        <div class="more-info" style="display:none;" id="space-<?php echo $i; ?>">
+            <div class="space-callout clearfix">
+                <!-- Image, email, and website -->
+                <div class="meta-wrap">
+                    <!-- Image -->
+                    <div class="margin-bottom-20">
+                        <img src="<?php echo $image; ?>" />
+                    </div>
+<?php   if ( valid( $space->email, STRING ) ): ?>
+                    <!-- Email -->
+                    <div class="margin-bottom-10 fontsize-14">
+                        <i class="fa fa-envelope margin-right-5 color-aaa"></i>
+                        <a href="mailto:<?php echo $space->email; ?>"><?php echo $space->email; ?></a>
+                    </div>
+<?php   endif;
+        if ( valid( $space->website, STRING ) ): ?>
+                    <!-- Website -->
+                    <div class="margin-bottom-10 fontsize-14">
+                        <i class="fa fa-external-link margin-right-5 color-aaa"></i>
+                        <a href="<?php echo $space->website; ?>" target="_blank"><?php echo $space->website; ?></a>
+                    </div>
+<?php   endif; ?>
+                </div><!-- /meta wrapper -->
+
+                <!-- Long form content -->
+                <div class="content-wrap">
+                    <!-- Name -->
+                    <h1><?php echo $space->name; ?></h1>
+
+                    <!-- Subtitle -->
+<?php   if ( valid( $space->subtitle, STRING ) ): ?>
+                    <h4><?php echo $space->subtitle; ?></h4>
+<?php   endif; ?>
+        
+                    <!-- Bio -->
+                    <div class="padding-top-10 lineheight-24 margin-bottom-20">
+                        <?php echo ( valid( $space->bio, STRING ) ) ? $space->getHtmlBio() : 'Nothing to see here&hellip;'; ?>
+                    </div>
+                </div><!-- space callout -->
+            </div><!-- content wrapper -->
+        </div><!-- /more info -->
+    </div><!-- /space -->
+
+<?php           if ( $i > 3 ):
+                    $i = 1;
+                endif;
+            endforeach;
+        endif; ?>
+</div>

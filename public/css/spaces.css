@@ -12,3 +12,30 @@
     margin: 0 0 10px; }
 .full-space h4 {
     margin: 0 0 10px; }
+
+/* Space blocks */
+#spaces .space {
+    width: 310px; margin-bottom: 5px; cursor: pointer;
+    padding: 5px; position: relative; }
+#spaces .space:hover {
+    background: #F4EFA6; }
+#spaces .space .img-wrap {
+    width: space; height: 310px; overflow: hidden;
+    position: relative; }
+#spaces .space img {
+    width: 310px; min-height: 310px; }
+#spaces .space h3 {
+    margin: 0; position: absolute; bottom: 0px;
+    padding: 5px 12px; left: 0; background: rgba( 0, 0, 0, 0.8 );
+    color: #fff; word-wrap: break-word; max-width: 100%;
+    font-size: 22px; }
+
+/* Callout / modals */
+.space-callout h4 {
+    margin: 0 0 10px; }
+.space-callout .meta-wrap {
+    float: right; }
+.space-callout .meta-wrap img {
+    width: 310px; }
+.space-callout .content-wrap {
+    padding-right: 340px; }
