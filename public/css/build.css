@@ -325,8 +325,8 @@ pre.ascii{font-family:"courier new",monospace;font-size:12px;line-height:100%;co
 .full-space h2,.full-space h4{margin:0 0 10px}
 #spaces .space{width:230px;margin-bottom:5px;cursor:pointer;padding:5px;position:relative}
 #spaces .space:hover{background:#F4EFA6}
-#spaces .space .img-wrap{width:space;height:310px;overflow:hidden;position:relative}
-#spaces .space img{width:310px;min-height:310px}
+#spaces .space .img-wrap{width:230px;height:230px;overflow:hidden;position:relative}
+#spaces .space img{width:230px;min-height:230px}
 #spaces .space h3{margin:0;position:absolute;bottom:0;padding:5px 12px;left:0;background:rgba(0,0,0,.8);color:#fff;word-wrap:break-word;max-width:100%;font-size:22px}
 .space-callout h4{margin:0 0 10px}
 .space-callout .meta-wrap{float:right}
