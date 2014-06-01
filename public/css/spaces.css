@@ -34,8 +34,10 @@
 .space-callout h4 {
     margin: 0 0 10px; }
 .space-callout .meta-wrap {
-    float: right; }
+    float: right; width: 310px; padding-left: 30px; }
 .space-callout .meta-wrap img {
     width: 310px; }
+.space-callout .meta-wrap .row i {
+    position: absolute; left: 0; top: 2px; }
 .space-callout .content-wrap {
     padding-right: 340px; }

@@ -4,6 +4,35 @@
 jQuery( function( $ ) {
 // Page object
 var MainPage = {
+
+    // set the search form
+    search: function () {
+        var $form = $( '#search-form' )
+          , $query = $( '#search-query' )
+          , $submit = $( '#search-submit' );
+
+        $query.on( 'keypress', function ( e ) {
+            if ( e.keyCode == 13 ) {
+                submitSearch();
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        $submit.on( 'click', function() {
+            submitSearch();
+            return false;
+        });
+
+        function submitSearch () {
+            var siteUrl = $query.data( 'siteurl' )
+              , url = 'https://www.google.com/#q=site:' + siteUrl + '+'
+              , query = $query.val().replace( ' ', '+' )
+              , action = url + query;
+            window.location = action;
+        }
+    },
+
     // set up homepage filmroll
     carousel: function () {
         if ( ! $( '#hero-carousel' ).length ) {
@@ -208,6 +237,7 @@ var MainPage = {
 
 }; // Page object
 
+MainPage.search();
 MainPage.carousel();
 MainPage.stickyNav();
 MainPage.calendar();

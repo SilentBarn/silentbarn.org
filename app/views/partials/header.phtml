@@ -76,9 +76,11 @@
                     </ul>
                 </li>
             </ul>
-            <form id="search" method="post" action="">
-                <input type="text" name="query" value="" class="transition-width" placeholder="Search..." />
-                <a href="#">
+            <form id="search" name="search" method="get" action="#" onsubmit="return false;">
+                <input type="text" id="search-query" name="query" value=""
+                    class="transition-width" placeholder="Search..."
+                    data-siteurl="<?php echo $this->url->get( '' ); ?>" />
+                <a href="javascript:;" id="search-submit">
                     <i class="fa fa-search"></i>
                 </a>
             </form>
