@@ -15,7 +15,7 @@ class StewdiosController extends \Base\Controller
     {
         return $this->dispatcher->forward([
             'controller' => 'stewdios',
-            'action' => 'about'
+            'action' => 'living'
         ]);
     }
 
