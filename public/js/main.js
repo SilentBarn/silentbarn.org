@@ -56,11 +56,19 @@ var MainPage = {
         var navOffset = 122,
             logoOffset = 110,
             $document = $( document ),
+            $window = $( window ),
             $body = $( 'body' ),
             pageNavClass = ( $( '#page-nav-wrap' ).length ) ? ' pagenav' : '';
 
         $( document ).bind( 'ready scroll', function () {
-            var docScroll = $document.scrollTop();
+            var docScroll = $document.scrollTop(),
+                windowWidth = $window.width();
+
+            if ( windowWidth <= 320 ) {
+                $body.removeClass( 'sticky' + pageNavClass )
+                    .removeClass( 'shiftlogo' );
+                return;
+            }
 
             if ( docScroll >= navOffset ) {
                 $body.addClass( 'sticky' + pageNavClass )

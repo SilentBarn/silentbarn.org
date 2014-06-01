@@ -8,6 +8,8 @@
     word-break: break-word; }
 .centered-text {
     text-align: center; }
+.hide {
+    display: none; }
 .lefted-text {
     text-align: left; }
 .righted-text {
