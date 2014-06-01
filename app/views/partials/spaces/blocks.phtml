@@ -13,12 +13,12 @@
                     ? $space->getImagePath( 310 )
                     : $this->url->getStatic( 'img/heptagon_placeholder_231.png' ); ?>
 
-    <div class="space float-left" rel="leanModal" data-target="#space-<?php echo $i; ?>">
+    <div class="space float-left" rel="leanModal" data-target="#space-<?php echo $space->id; ?>">
         <div class="img-wrap">
             <img src="<?php echo $image; ?>" />
             <h3 class="name"><?php echo $space->name; ?></h3>
         </div>
-        <div class="more-info" style="display:none;" id="space-<?php echo $i; ?>">
+        <div class="more-info" style="display:none;" id="space-<?php echo $space->id; ?>">
             <div class="space-callout clearfix">
                 <!-- Image, email, and website -->
                 <div class="meta-wrap">
