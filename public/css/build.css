@@ -327,7 +327,7 @@ pre.ascii{font-family:"courier new",monospace;font-size:12px;line-height:100%;co
 #spaces .space:hover{background:#F4EFA6}
 #spaces .space .img-wrap{width:230px;height:230px;overflow:hidden;position:relative}
 #spaces .space img{width:230px;min-height:230px}
-#spaces .space h3{margin:0;position:absolute;bottom:0;padding:5px 12px;left:0;background:rgba(0,0,0,.8);color:#fff;word-wrap:break-word;max-width:100%;font-size:22px}
+#spaces .space h3{margin:0;position:absolute;bottom:0;padding:5px 8px;left:0;background:rgba(0,0,0,.8);color:#fff;word-wrap:break-word;max-width:100%;font-size:20px}
 .space-callout h4{margin:0 0 10px}
 .space-callout .meta-wrap{float:right}
 .space-callout .meta-wrap img{width:310px}

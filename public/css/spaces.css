@@ -26,9 +26,9 @@
     width: 230px; min-height: 230px; }
 #spaces .space h3 {
     margin: 0; position: absolute; bottom: 0px;
-    padding: 5px 12px; left: 0; background: rgba( 0, 0, 0, 0.8 );
+    padding: 5px 8px; left: 0; background: rgba( 0, 0, 0, 0.8 );
     color: #fff; word-wrap: break-word; max-width: 100%;
-    font-size: 22px; }
+    font-size: 20px; }
 
 /* Callout / modals */
 .space-callout h4 {
