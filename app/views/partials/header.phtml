@@ -105,4 +105,15 @@
                 [
                     'page' => $pageNav[ 'page' ]
                 ]);
-        endif; ?>
+        endif;
+
+        // show any messages
+        if ( isset( $notifications ) && is_array( $notifications ) && count( $notifications ) ): ?>
+
+<div id="notif-messages">
+<?php       foreach ( $notifications as $notification ): ?>
+    <div class="message <?php echo key( $notification ); ?>"><?php echo current( $notification ); ?></div>
+<?php       endforeach; ?>
+</div>
+
+<?php   endif; ?>

@@ -157,9 +157,35 @@ class EventsController extends \Base\Controller
         $this->data->events = $jsonEvents;
     }
 
-    public function bookingAction()
+    /**
+     * If $flag = 'thankyou' then show a thank you message
+     * @param string $flag
+     */
+    public function bookingAction( $flag = "" )
     {
+        if ( str_eq( $flag, "thankyou" ) )
+        {
+            $this->data->notifications[] = [
+                'success' => 
+                    "Your inquiry has successfully been sent! We'll ".
+                    "contact you shortly." ];
+        }
+
         $this->data->pageTitle = "Performance Booking";
         $this->view->pick( 'events/booking' );
+    }
+
+    /**
+     * POST request to send an email to the bookings admin
+     */
+    public function bookinginquiryAction()
+    {
+        // read in the post data and send the email out
+        $data = $this->request->getPost();
+        $action = new \Actions\Email();
+        $action->event( $data );
+
+        // redirect to thank you page
+        $this->redirect = "events/booking/thankyou";
     }
 }

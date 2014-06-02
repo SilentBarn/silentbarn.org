@@ -1,5 +1,7 @@
 /* About pages
  */
+
+/* Members */
 #members .member {
     width: 182px; margin-bottom: 5px; cursor: pointer;
     padding: 5px; position: relative; }
@@ -26,6 +28,7 @@
 #members .member.callout .bio a {
     color: #c790ff; }
 
+/* Hover/overlay for members */
 #member-overlay {
     position: fixed; display: none; top: 0; bottom: 0;
     left: 0; right: 0; z-index: 15; cursor: pointer;
@@ -44,3 +47,23 @@
     padding-right: 200px; padding-left: 0; }
 #member-callout .name {
     font-weight: bold; margin-bottom: 10px; }
+
+/* Rentals */
+#panorama {
+    height: 400px; }
+#panorama .wide-wrap {
+    position: absolute; left: 0; right: 0;
+    height: 380px; background-size: cover; }
+#panorama .inner-wrap {
+    width: 960px; margin: 0 auto; }
+#panorama h1 {
+    background: #000; color: #fff; padding: 2px 8px;
+    float: left; margin-top: 5px; }
+
+#rental-thumbs .thumb a {
+    display: block; width: 80px; height: 80px;
+    line-height: 80px; text-align: center;
+    position: relative; }
+#rental-thumbs .thumb i {
+    color: #fff; font-size: 32px; position: absolute;
+    bottom: 2px; left: 5px; text-shadow: 1px 1px 1px #000; }

@@ -55,7 +55,8 @@ class App extends \Lib\Bootstrap\Base
         $loader->registerClasses(
             array(
                 '__' => VENDOR_PATH .'/Underscore.php',
-                'Zebra_Image' => VENDOR_PATH .'/stefangabos/zebra_image/Zebra_Image.php'
+                'Zebra_Image' => VENDOR_PATH .'/stefangabos/zebra_image/Zebra_Image.php',
+                'PHPMailer' => VENDOR_PATH .'/phpmailer/phpmailer/class.phpmailer.php'
             ));
         $loader->register();
 

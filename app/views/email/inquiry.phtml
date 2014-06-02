@@ -1,0 +1,15 @@
+<html>
+<head></head>
+<body>
+    <div style="margin-bottom:20px;">
+        A new inquiry was submitted with the following info:
+    </div>
+    <?php
+    foreach ( $params as $name => $value ): ?>
+    <div style="margin-bottom: 10px;">
+        <strong><?php echo ucwords( $name ); ?>:</strong>
+        <?php echo $value; ?>
+    </div>
+    <?php
+    endforeach; ?>
+</body>

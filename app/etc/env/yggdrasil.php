@@ -33,7 +33,15 @@ return [
         'query' => FALSE ],
 
     'instagram' => [
-        'userId' => '500398575',
-        'mediaUrl' => 'https://api.instagram.com/v1/users/%s/media/recent/?client_id=%s&count=%s',
-        'clientId' => '##INSTAGRAMCLIENTID##'
+        'clientId' => '##INSTAGRAMCLIENTID##' ],
+
+    'mailgun' => [
+        'to' => [
+            'rentals' => '##MAILGUNTORENTALS##',
+            'events' => '##MAILGUNTOEVENTS##',
+            'stewdios' => '##MAILGUNTOSTEWDIOS##' ],
+        'smtp' => [
+            'hostname' => '##MAILGUNHOSTNAME##',
+            'username' => '##MAILGUNUSERNAME##',
+            'password' => '##MAILGUNPASSWORD##' ]
     ]];

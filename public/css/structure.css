@@ -122,6 +122,22 @@ form#search a {
     position: absolute; right: -4px; text-decoration: none;
     top: -1px; color: #999; }
 
+/* Messages
+ */
+#notif-messages {
+    margin: 25px auto 0; width: 960px;
+    padding: 0 25px; }
+#notif-messages .message {
+    margin-bottom: 10px; padding: 10px; color: #fff;
+    border-radius: 3px; }
+#notif-messages .message.success {
+    background: #2ba02b; }
+#notif-messages .message.error {
+    background: #af362b; }
+#notif-messages .message.warning {
+    background: #d6a70e; }
+#notif-messages .message.info {
+    background: #007db6; }
 
 /* Footer
  */

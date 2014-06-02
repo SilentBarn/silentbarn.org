@@ -1,8 +1,8 @@
 {
-    "name" : "mikegioia/silent-barn",
-    "description" : "Silent Barn",
-    "license" : "MIT",
-    "require" : {
+    "name": "mikegioia/silent-barn",
+    "description": "Silent Barn",
+    "license": "MIT",
+    "require": {
         "phalcon/incubator": "dev-master",
         "ircmaxell/password-compat": "dev-master",
         "suin/php-image-resizer": ">=1.0.0",
@@ -10,9 +10,9 @@
         "michelf/php-markdown": "*",
         "nategood/httpful": "*",
         "kilte/pagination": "*",
-        "mailgun/mailgun-php": "*"
+        "phpmailer/phpmailer": "*"
     },
-    "require-dev" : {
+    "require-dev": {
         "phpunit/phpunit": "3.7.*"
     }
 }

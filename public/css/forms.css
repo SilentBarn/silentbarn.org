@@ -1,7 +1,7 @@
 /* Forms
  */
 fieldset label {
-    display: block; margin: 0 0 8px; font-size: 15px; color: #777;
+    display: block; margin: 0 0 5px; font-size: 15px; color: #777;
     padding: 0 0 0 2px; }
 fieldset input[type="text"],
 fieldset input[type="password"],

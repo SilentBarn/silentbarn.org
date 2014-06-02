@@ -35,10 +35,36 @@ class AboutController extends \Base\Controller
         $this->view->pick( 'about/volunteer' );
     }
 
-    public function rentalsAction()
+    /**
+     * If $flag = 'thankyou' then show a thank you message
+     * @param string $flag
+     */
+    public function rentalsAction( $flag = "" )
     {
+        if ( str_eq( $flag, "thankyou" ) )
+        {
+            $this->data->notifications[] = [
+                'success' => 
+                    "Your inquiry has successfully been sent! We'll ".
+                    "contact you shortly." ];
+        }
+
         $this->data->pageTitle = "Rentals";
         $this->view->pick( 'about/rentals' );
+    }
+
+    /**
+     * POST request to send an email to the rentals admin
+     */
+    public function rentalinquiryAction()
+    {
+        // read in the post data and send the email out
+        $data = $this->request->getPost();
+        $action = new \Actions\Email();
+        $action->rental( $data );
+
+        // redirect to thank you page
+        $this->redirect = "about/rentals/thankyou";
     }
 
     public function chefsAction()

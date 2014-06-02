@@ -20,10 +20,10 @@
             <legend>
                 <h2>Performance Booking Inquiry</h2>
             </legend>
-            <form action="" method="post">
+            <form action="<?php echo $this->url->get( 'events/bookinginquiry' ); ?>" method="post">
                 <div class="margin-bottom-20">
                     <label>Name</label>
-                    <input name="email" type="text" value="" class="w90p" placeholder="Your name...">
+                    <input name="name" type="text" value="" class="w90p" placeholder="Your name...">
                 </div>
                 <div class="margin-bottom-20">
                     <label>Email</label>

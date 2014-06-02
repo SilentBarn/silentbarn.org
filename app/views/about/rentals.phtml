@@ -1,8 +1,84 @@
 <!-- Rentals Page -->
 <div class="static page clearfix">
-    <h1 class="margin-bottom-25 font-mono uppercase">Rentals</h1>
 
     <!-- Full width panoramic image -->
-    
-    <!-- Info about rentals -->
+    <div id="panorama" class="margin-bottom-10">
+        <div class="wide-wrap"
+             style="background-image:url('<?php echo $this->url->getStatic( 'img/rentals_panorama_1.jpeg' ); ?>');">
+            <div class="inner-wrap clearfix">
+                <h1 class="margin-bottom-25 font-mono uppercase">Rentals</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Info about rentals and a form -->
+    <div class="clearfix">
+        <!-- Rentals form -->
+        <div class="w47p float-left lineheight-24">
+            <fieldset>
+                <legend>
+                    <h2>Rental Inquiry</h2>
+                </legend>
+                <form action="<?php echo $this->url->get( 'about/rentalinquiry' ); ?>" method="post">
+                    <div class="margin-bottom-20">
+                        <label>Name</label>
+                        <input name="name" type="text" value="" class="w90p" placeholder="Your name...">
+                    </div>
+                    <div class="margin-bottom-20">
+                        <label>Email</label>
+                        <input name="email" type="text" value="" class="w90p" placeholder="Email address...">
+                    </div>
+                    <div class="margin-bottom-20">
+                        <label>Have you visited the Silent Barn before?</label>
+                        <span class="margin-right-10">
+                            <input name="visited" type="radio" value="yes" >&nbsp;Yes
+                        </span>
+                        <span class="margin-right-10">
+                            <input name="visited" type="radio" value="no" >&nbsp;No
+                        </span>
+                    </div>
+                    <div class="margin-bottom-20">
+                        <label>Date(s)</label>
+                        <input name="dates" type="text" value="" class="w90p" placeholder="Dates requested...">
+                    </div>
+                    <div class="margin-bottom-20">
+                        <label>Description</label>
+                        <textarea name="description" class="font-asap w90p h100px" placeholder="Description..."></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" value="Submit" class="round fontsize-16 blue button" />
+                    </div>
+                </form>
+            </fieldset>
+        </div>
+
+        <!-- Info -->
+        <div class="w47p float-right faq lineheight-20">
+            <h3>Silent Barn Rentals</h3>
+            <div class="margin-bottom-20 lineheight-24">
+                Do you need a space to shoot a music video? Hold a meeting?
+                Have a birthday party? Be really loud and run around?
+            </div>
+            <div class="margin-bottom-40 lineheight-24">
+                The Silent Barn is available for rentals on a case by case basis.
+                Please fill out the form below with any inquiries and we'd
+                be happy to get back to you!
+            </div>
+            <h3>Panoramic images of our space</h3>
+            <div id="rental-thumbs" class="clearfix">
+                <div class="thumb float-left margin-right-10">
+                    <a href="https://dl.dropboxusercontent.com/u/80308/SB_May14_Interiors/SBMay2014_Panorama2_small.png" title="Download">
+                        <i class="fa fa-download"></i>
+                        <img src="<?php echo $this->url->getStatic( 'img/rentals_panorama_1_thumb.jpeg' ); ?>" />
+                    </a>
+                </div>
+                <div class="thumb float-left margin-right-10">
+                    <a href="https://dl.dropboxusercontent.com/u/80308/SB_May14_Interiors/SBMay2014_Panorama1_small.png" title="Download">
+                        <i class="fa fa-download"></i>
+                        <img src="<?php echo $this->url->getStatic( 'img/rentals_panorama_2_thumb.jpeg' ); ?>" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
