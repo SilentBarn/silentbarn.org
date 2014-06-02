@@ -60,6 +60,12 @@ form#search{float:right;margin-left:15px;position:relative}
 form#search input{border-color:#d3d3d3 #d3d3d3 #ddd;border-image:none;border-style:solid;border-width:1px;box-shadow:0 1px 3px #d3d3d3 inset;padding:3px 24px 4px 5px;width:120px}
 form#search input:focus{width:200px}
 form#search a{position:absolute;right:-4px;text-decoration:none;top:-1px;color:#999}
+#notif-messages{margin:25px auto 0;width:960px;padding:0 25px}
+#notif-messages .message{margin-bottom:10px;padding:10px;color:#fff;border-radius:3px}
+#notif-messages .message.success{background:#2ba02b}
+#notif-messages .message.error{background:#af362b}
+#notif-messages .message.warning{background:#d6a70e}
+#notif-messages .message.info{background:#007db6}
 #footer-wrap{padding:0 0 20px}
 #footer-wrap footer{width:960px;margin:0 auto;border-top:4px solid #6905cd;padding:5px 0 0}
 #footer-wrap .left{float:left}
@@ -189,7 +195,7 @@ form#search a{position:absolute;right:-4px;text-decoration:none;top:-1px;color:#
 .h150px{height:150px}
 .h200px{height:200px}
 .h250px{height:250px}
-fieldset label{display:block;margin:0 0 8px;font-size:15px;color:#777;padding:0 0 0 2px}
+fieldset label{display:block;margin:0 0 5px;font-size:15px;color:#777;padding:0 0 0 2px}
 fieldset input[type=password],fieldset input[type=text],fieldset textarea{padding:8px 10px;font-size:16px;background-color:#fff;border-color:#d3d3d3 #d3d3d3 #bbb;border-image:none;border-style:solid;border-width:1px;box-shadow:0 1px 3px #d3d3d3;color:#333;border-radius:2px}
 a.button,input.button{border-radius:3px;border-top-width:0;border-left-width:0;border-right-width:0;border-bottom-width:2px;border-style:solid;padding:5px 10px;cursor:pointer;text-decoration:none}
 .button.fontsize-18{padding:8px 14px 7px;border-radius:4px}
@@ -350,6 +356,12 @@ pre.ascii{font-family:"courier new",monospace;font-size:12px;line-height:100%;co
 #member-callout .bio,#member-callout .name{padding-left:200px;color:#ddd}
 #member-callout.right-align .bio,#member-callout.right-align .name{padding-right:200px;padding-left:0}
 #member-callout .name{font-weight:700;margin-bottom:10px}
+#panorama{height:400px}
+#panorama .wide-wrap{position:absolute;left:0;right:0;height:380px;background-size:cover}
+#panorama .inner-wrap{width:960px;margin:0 auto}
+#panorama h1{background:#000;color:#fff;padding:2px 8px;float:left;margin-top:5px}
+#rental-thumbs .thumb a{display:block;width:80px;height:80px;line-height:80px;text-align:center;position:relative}
+#rental-thumbs .thumb i{color:#fff;font-size:32px;position:absolute;bottom:2px;left:5px;text-shadow:1px 1px 1px #000}
 /*!
  * Pikaday
  * Copyright © 2014 David Bushell | BSD & MIT license | http://dbushell.com/
@@ -456,6 +468,6 @@ nav{display:none}
 #vignettes .row .block .categories,#vignettes .row .block .date,#vignettes .row .block .description,#vignettes .row .block .title{text-align:left}
 #vignettes .row:nth-child(2) .block:nth-child(2){border-bottom:none!important}
 #footer-wrap{padding:0}
-#footer-wrap footer{padding:5px 15px 0;position:relative;width:auto}
+#footer-wrap footer{padding:5px 15px 10px;position:relative;width:auto}
 #footer-wrap .left{float:left;padding-right:180px}
 #footer-wrap .right{float:right;position:absolute;right:15px;top:15px}}
