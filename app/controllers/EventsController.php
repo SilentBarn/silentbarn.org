@@ -23,7 +23,6 @@ class EventsController extends \Base\Controller
     {
         // fetch the events for the next two weeks, and the events
         // for the current month's calendar
-        //
         $action = new \Actions\Posts\Event();
         $limit = 7;
         $offset = $this->request->getPost( 'offset' );
@@ -43,7 +42,6 @@ class EventsController extends \Base\Controller
         $this->view->pick( 'events/upcoming' );
 
         // if an offset came in, return the API response
-        //
         if ( valid( $offset ) )
         {
             $this->responseMode = 'api';
@@ -56,39 +54,57 @@ class EventsController extends \Base\Controller
         }
     }
 
-    public function archivesAction()
+    /**
+     * This method can take in various GET parameters:
+     *    query, type, artist, dates
+     * These are used when the form is submitted and will
+     * change the view to show results.
+     *
+     * @param string $flag Will be 'search' to show results
+     */
+    public function archivesAction( $flag = "" )
     {
-        // fetch the last month of events
-        //
-        $action = new \Actions\Posts\Event();
-        $limit = 9;
-        $offset = $this->request->getPost( 'offset' );
-        $offset = ( valid( $offset ) ) ? $offset : 0;
-        $this->data->events = $action->getByDateRange([
-            'categories' => [ EVENTS ],
-            'startDate' => NULL,
-            'endDate' => 'today',
-            'sort' => 'event_date desc',
-            'limit' => $limit,
-            'offset' => $offset ]);
-        $this->data->limit = $limit;
+        // set up global page data
         $this->data->pageNav = [
             'partial' => 'partials/events/nav',
             'page' => 'archives' ];
         $this->data->pageTitle = "Event Archives";
-        $this->view->pick( 'events/archives' );
 
-        // if an offset came in, return the API response
-        //
-        if ( valid( $offset ) )
+        // if we have a query string coming in, perform
+        // the search
+        if ( str_eq( $flag, 'search' ) )
         {
-            $this->responseMode = 'api';
-            $this->data->count = count( $this->data->events );
-            $this->data->html = $this->renderPartial(
-                'partials/events/list_archive', [
-                    'events' => $this->data->events,
-                    'offset' => $offset
-                ]);
+            // fetch the last month of events
+            $action = new \Actions\Posts\Event();
+            $limit = 9;
+            $offset = $this->request->getPost( 'offset' );
+            $offset = ( valid( $offset ) ) ? $offset : 0;
+            $this->data->events = $action->getByDateRange([
+                'categories' => [ EVENTS ],
+                'startDate' => NULL,
+                'endDate' => 'today',
+                'sort' => 'event_date desc',
+                'limit' => $limit,
+                'offset' => $offset ]);
+            $this->data->limit = $limit;
+            $this->view->pick( 'events/archives_results' );
+
+            // if an offset came in, return the API response
+            if ( valid( $offset ) )
+            {
+                $this->responseMode = 'api';
+                $this->data->count = count( $this->data->events );
+                $this->data->html = $this->renderPartial(
+                    'partials/events/list_archive', [
+                        'events' => $this->data->events,
+                        'offset' => $offset
+                    ]);
+            }
+        }
+        // show the intro and form
+        else
+        {
+            $this->view->pick( 'events/archives' );
         }
     }
 
@@ -96,7 +112,6 @@ class EventsController extends \Base\Controller
     {
         // fetch any current exhibitions and 5 of the previous
         // exhibitions.
-        //
         $action = new \Actions\Posts\Event();
         $this->data->currentExhibitions = $action->getByDateRange([
             'categories' => [ EXHIBITIONS ],
@@ -138,7 +153,6 @@ class EventsController extends \Base\Controller
         $date = $this->request->getPost( 'date' );
 
         // get the events for the month by the date given
-        //
         $action = new \Actions\Posts\Event();
         $events = $action->getByMonth(
             $date,

@@ -3,20 +3,38 @@
     <!-- Header -->
     <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Archives</h1>
 
-    <div class="clearfix"> 
-        <!-- Archived events -->
-        <div id="archived">
-<?php   $this->partial(
-            'partials/events/list_archive',
-            [ 'events' => $events ]); ?>
+    <!-- Lead in -->
+    <div class="clearfix margin-bottom-30 ">
+        <img src="<?php echo $this->url->getStatic( 'img/archives.jpg' ); ?>"
+            class="float-left margin-right-20 margin-bottom-20" alt="" width="400" />
+
+        <div class="margin-bottom-20 lineheight-24">
+            Silent Barn began in Queens in 2005 and moved to Brooklyn in
+            2013.
         </div>
-<?php   if ( count( $events ) >= $limit ): ?>
-        <!-- Load More -->
-        <div id="load-more" class="centered-text">
-            <a href="javascript:;" id="load-more-button" data-url="events/archives"
-                data-limit="<?php echo $limit; ?>" data-offset="<?php echo $limit; ?>"
-                data-container="#archived" class="gray button">Load More</a>
+        <div class="margin-bottom-20 lineheight-24">
+            In 2013 alone, we held over 400 public events. You can imagine
+            how many we've hosted since the beginning.
         </div>
-<?php   endif; ?>
+        <div class="margin-bottom-20 lineheight-24">
+            The Silent Barn Archives is a work-in-progress to store every
+            event ever &mbash; concerts, exhibitions, panel discussions.
+            All our past press is being stored here. If it happened under
+            our roof, you can (or will soon) find it here.
+        </div>
+        <div>
+            <a href="#search" class="blue button large">Search the Archives</a>
+        </div>
     </div>
+
+    <!-- Form -->
+    <fieldset name="search">
+        <legend>
+            <h2>Search the Archives</h2>
+        </legend>
+        <form name="search" class="" method="get" action="<?php echo $this->url->get( 'events/archives/search' ); ?>">
+            <!-- Four columns with a field in each column -->
+            
+        </form>
+    </fieldset>
 </div>

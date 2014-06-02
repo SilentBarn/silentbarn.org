@@ -1,0 +1,22 @@
+<!-- Archives Page -->
+<div class="page">
+    <!-- Header -->
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Archives</h1>
+
+    <div class="clearfix"> 
+        <!-- Archived events -->
+        <div id="archived">
+<?php   $this->partial(
+            'partials/events/list_archive',
+            [ 'events' => $events ]); ?>
+        </div>
+<?php   if ( count( $events ) >= $limit ): ?>
+        <!-- Load More -->
+        <div id="load-more" class="centered-text">
+            <a href="javascript:;" id="load-more-button" data-url="events/archives"
+                data-limit="<?php echo $limit; ?>" data-offset="<?php echo $limit; ?>"
+                data-container="#archived" class="gray button">Load More</a>
+        </div>
+<?php   endif; ?>
+    </div>
+</div>
