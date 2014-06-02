@@ -13,7 +13,15 @@
 
 /* Small Screenz */
 @media only screen and (max-width: 400px) {
+    /* Headings */
+    h1 {
+        font-size: 1.5em; }
+    h2 {
+        font-size: 1.25em; }
+    h3 {
+        font-size: 1.0em; }
 
+    /* Header and wrapping */
     #header-wrap {
         border-bottom: 1px solid #ccc; height: 50px;
         padding: 0; position: relative; width: auto; }
@@ -35,7 +43,7 @@
 
             .social-icons a {
                 font-size: 24px; }
-            .social-icons a:first-child {
+            #social-icons a:first-child {
                 display: block; float: left; font-size: 11px;
                 line-height: 1.0em; padding: 4px 5px 0 0;
                 text-align: right; width: 60px; }
@@ -51,9 +59,14 @@
         .mobile-menu-button:hover {
             background: #eee; }
 
+    /* Drop down nav */
     nav {
         display: none; }
 
+    #page-nav-wrap {
+        display: none; }
+
+    /* Home page film roll */
     #hero {
         margin-bottom: 42px; }
 
@@ -92,6 +105,7 @@
             border-radius: 10px !important;
             margin: 0 5px !important; }
 
+    /* Home page vignettes */
     #vignettes {
         width: 100%; border-top: 1px solid #eee;
         padding-top: 15px; }
@@ -125,6 +139,59 @@
         #vignettes .row:nth-child(2) .block:nth-child(2) {
             border-bottom: none !important; }
 
+    /* Regular site pages */
+    .page {
+        width: auto; margin: 8px 8px 30px; }
+
+    /* Events pages */
+    #upcoming {
+        width: 100%; float: none; margin-bottom: 30px; }
+
+        .full-event {
+            margin-right: 0; }
+        .full-event .banner-wrap {
+            height: 175px; }
+
+    #sidebar {
+        width: 100%; float: none; margin-bottom: 30px; }
+
+        #sidebar .calendar-wrap {
+            padding: 0 !important; }
+
+        #sidebar .exhibitions-wrap {
+            padding: 0 !important; }
+
+    /* Post page */
+    #post.page #banner-wrap {
+        width: 100%; height: 175px; }
+
+    /* Performance booking page */
+    .page.booking .w47p {
+        width: 100%; margin-bottom: 30px; float: none; }
+
+    /* Mission */
+    .page.mission img {
+        width: 320px; margin: 0 auto 20px;
+        display: block; float: none; }
+
+    /* Press page */
+    .page.press .w40p {
+        width: 100%; float: none; }
+    .page.press .w60p {
+        width: 100%; float: none; }
+    .page.press .social-icons {
+        margin: -15px 0 30px; }
+    .page.press iframe {
+        width: 100%; }
+    .archive-event {
+        float: none; margin: 0 0 20px !important;
+        width: 100%; }
+    .archive-event:last-child {
+        margin-bottom: 0 !important; }
+    .archive-event .banner-wrap {
+        height: 150px; }
+
+    /* Footer and wrapping */
     #footer-wrap {
         padding: 0; }
 
