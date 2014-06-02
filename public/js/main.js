@@ -87,8 +87,12 @@ var MainPage = {
 
     // mobile stuff
     mobile: function () {
-        $( "#mobile-burger" ).on( 'click', function () {
-            $( '#mobile-nav' ).toggle();
+        var $nav = $( '#mobile-nav' ),
+            $window = $( window );
+
+        $( '#mobile-burger' ).on( 'click', function () {
+            $nav.toggle();
+            $window.scrollTo( 0, 100 );
         });
     },
 
