@@ -1,9 +1,12 @@
 <?php   if ( count( $events ) ):
             foreach ( $events as $event ):
                 $event_date = strtotime( $event->event_date );
-                $imagePath = $event->getImage()->getPath( 960 ); ?>
+                $imagePath = $event->getImage()->getPath( 960 );
+                $imageClass = ( valid( $imagePath, STRING ) )
+                    ? 'with-image'
+                    : 'no-image'; ?>
 
-<div class="full-event padding-bottom-20 margin-bottom-20 position-relative">
+<div class="full-event padding-bottom-20 margin-bottom-20 position-relative <?php echo $imageClass; ?>">
 <?php           if ( ! isset( $suppressSideDate ) ): ?>
     <div class="position-absolute side-date">
         <div class="day-name uppercase font-mono">

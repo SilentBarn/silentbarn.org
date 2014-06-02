@@ -4,6 +4,8 @@
     .full-event .side-date {
         color: #000; width: auto; left: 0px; text-align: left;
         top: 10px; background: rgba( 255,255,255,0.66 ); padding: 5px; }
+    .full-event.no-image .side-date {
+        display: none !important; }
     .full-event .side-data .day-name,
     .full-event .side-data .time {
         color: #222; }
