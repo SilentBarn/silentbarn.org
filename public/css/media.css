@@ -196,13 +196,13 @@
         padding: 0; }
 
         #footer-wrap footer {
-            padding: 5px 15px 10px; position: relative;
+            padding: 5px 8px 10px; position: relative;
             width: auto; }
 
         #footer-wrap .left {
-            float: left; padding-right: 180px; }
+            float: left; padding-right: 175px; }
 
         #footer-wrap .right {
             float: right; position: absolute;
-            right: 15px; top: 15px; }
+            right: 8px; top: 15px; }
 }

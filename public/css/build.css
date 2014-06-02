@@ -495,6 +495,6 @@ header{padding:0;height:auto;width:auto}
 .archive-event:last-child{margin-bottom:0!important}
 .archive-event .banner-wrap{height:150px}
 #footer-wrap{padding:0}
-#footer-wrap footer{padding:5px 15px 10px;position:relative;width:auto}
-#footer-wrap .left{float:left;padding-right:180px}
-#footer-wrap .right{float:right;position:absolute;right:15px;top:15px}}
+#footer-wrap footer{padding:5px 8px 10px;position:relative;width:auto}
+#footer-wrap .left{float:left;padding-right:175px}
+#footer-wrap .right{float:right;position:absolute;right:8px;top:15px}}
