@@ -163,3 +163,12 @@ function date_str( $datetime, $format = DATE_TABLE, $nullOnEmpty = FALSE )
 
     return $timestamp->format( $format );
 }
+
+/**
+ * Cleans a string of text for safe insertion into
+ * an HTML field.
+ */
+function clean_str( $string )
+{
+    return htmlspecialchars( $string );
+}

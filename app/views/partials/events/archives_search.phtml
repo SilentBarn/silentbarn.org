@@ -1,0 +1,68 @@
+
+<?php   // prepare the type param
+        $type = get( $params, 'type', 'events' );
+        $selected = function ( $type, $expected ) {
+            return ( $type == $expected )
+                ? ' selected="selected"'
+                : '';
+        }; ?>
+
+<!-- Form -->
+<fieldset name="search">
+    <legend>
+        <h2>Search the Archives</h2>
+    </legend>
+    <form name="search" method="get" action="<?php echo $this->url->get( 'events/archives/search' ); ?>">
+        <!-- Four columns with a field in each column -->
+        <div class="clearfix position-relative">
+            <div class="w50p float-left">
+                <div class="margin-bottom-20">
+                    <label>Keywords:</label>
+                    <input type="text" class="w80p"
+                           value="<?php echo clean_str( get( $params, 'keywords', '' ) ); ?>"
+                           name="q" placeholder="Search..." />
+                </div>
+                <div class="search-button-wrap">
+                    <a href="javascript:;" id="archives-submit" class="large blue button">Search!</a>
+<?php   if ( $showClear ): ?>
+                    <a class="margin-left-10" href="<?php echo $this->url->get( 'events/archives/search' ); ?>">
+                        Clear
+                    </a>
+<?php   endif; ?>
+                    <input type="submit" class="hide" value="submit" />
+                </div>
+            </div>
+            <div class="w25p float-left">
+                <div class="margin-bottom-20">
+                    <label>Everything after:</label>
+                    <input type="text" class="w80p datepicker"
+                           value="<?php echo clean_str( get( $params, 'date_start', '' ) ); ?>"
+                           name="ds" placeholder="Start date..." />
+                </div>
+                <div class="">
+                    <label>Type:</label>
+                    <select name="t" class="w90p padding-all-5">
+                        <option value="events"<?php echo $selected( $type, 'events' ); ?>>Events &amp; Shows</option>
+                        <option value="exhibitions"<?php echo $selected( $type, 'exhibitions' ); ?>>Exhibitions</option>
+                        <option value="press"<?php echo $selected( $type, 'press' ); ?>>Press</option>
+                        <option value="news"<?php echo $selected( $type, 'news' ); ?>>News</option>
+                    </select>
+                </div>
+            </div>
+            <div class="w25p float-left">
+                <div class="margin-bottom-20">
+                    <label>Everything before:</label>
+                    <input type="text" class="w80p datepicker"
+                           value="<?php echo clean_str( get( $params, 'date_end', '' ) ); ?>"
+                           name="de" placeholder="End date..." />
+                </div>
+                <div class="">
+                    <label>Artist:</label>
+                    <input type="text" class="w80p"
+                           value="<?php echo clean_str( get( $params, 'artist', '' ) ); ?>"
+                           name="a" placeholder="Enter name..." />
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>

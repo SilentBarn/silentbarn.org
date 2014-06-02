@@ -144,6 +144,18 @@ var MainPage = {
         });
     },
 
+    // archives pages
+    archives: function () {
+        var $searchSubmit = $( '#archives-submit' );
+        $searchSubmit.on( 'click', function () {
+            $( this ).closest( 'form' ).submit();
+        })
+
+        $( '.datepicker' ).pikaday({
+            format: 'M/D/YYYY'
+        });
+    },
+
     // load more upcoming events/archives
     loadMore: function () {
         var $loadMore = $( '#load-more' ),
@@ -162,13 +174,18 @@ var MainPage = {
             $container = $( $loadMoreButton.data( 'container' ) );
         // event handler
         $loadMoreButton.on( 'click', function () {
+            // build the data params. take in the query string and
+            // and the offset.
+            var params = {
+                offset: paging.offset
+            };
+            
+            // execute ajax call
             $.ajax({
                 url: window.Environment.apiPath + paging.url,
                 dataType: 'json',
                 type: 'post',
-                data: {
-                    offset: paging.offset
-                },
+                data: params,
                 success: function ( response ) {
                     // error handle
                     if ( ! _.has( response, 'data' ) ) {
@@ -261,6 +278,7 @@ MainPage.carousel();
 MainPage.stickyNav();
 MainPage.mobile();
 MainPage.calendar();
+MainPage.archives();
 MainPage.loadMore();
 MainPage.showMore();
 MainPage.community();

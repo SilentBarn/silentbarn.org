@@ -2,8 +2,9 @@
 
 namespace Db\Sql;
 
-use Phalcon\Mvc\Model\Query;
-use Michelf\Markdown;
+use Phalcon\Mvc\Model\Query,
+    Michelf\Markdown,
+    Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 
 class Posts extends \Base\Model
 {
@@ -98,7 +99,6 @@ class Posts extends \Base\Model
         $bindings = [];
 
         // create our date where clause
-        //
         if ( ! is_null( $options[ 'startDate' ] ) )
         {
             $string = ( $options[ 'ongoing' ] )
@@ -124,7 +124,6 @@ class Posts extends \Base\Model
         }
 
         // create the SQL statement
-        //
         $phql = sprintf(
             "select p.* from \Db\Sql\Posts as p ".
             "inner join \Db\Sql\Relationships as r ".
@@ -146,6 +145,90 @@ class Posts extends \Base\Model
         $query = new Query( $phql, self::getStaticDI() );
 
         return $query->execute( $bindings );
+    }
+
+    /**
+     * Search posts by a variety of params. This executes a raw SQL
+     * command because of the complexity of the query.
+     *
+     * @param array $params
+     * @return \Db\Sql\Posts
+     */
+    static function search( $params )
+    {
+        // initialize arrays
+        $joins = [];
+        $whereClauses = [];
+        $bindings = [];
+
+        // set up date clauses if any came in
+        if ( valid( $params[ 'startDate' ], STRING ) )
+        {
+            $whereClauses[] = sprintf( "p.event_date >= '%s'", $params[ 'startDate' ] );
+        }
+
+        if ( valid( $params[ 'endDate' ], STRING ) )
+        {
+            $whereClauses[] = sprintf( "p.event_date <= '%s'", $params[ 'endDate' ] );
+        }
+
+        // search on keywords
+        if ( valid( $params[ 'keywords' ], STRING ) )
+        {
+            $whereClauses[] = sprintf( "p.title like '%%%s%%'", $params[ 'keywords' ] );
+        }
+
+        // search artists
+        if ( valid( $params[ 'artist' ], STRING ) )
+        {
+            $joins[] = sprintf(
+                "inner join artists as a ".
+                "  on a.id = r.property_id and r.property_type = '%s' ",
+                ARTIST );
+            $whereClauses[] = sprintf(
+                "exists (".
+                "  select * from artists as a ".
+                "  inner join relationships as r2 ".
+                "  on a.id = r2.property_id and r2.property_type = '%s' ".
+                "  where a.slug like '%%%s%%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
+                ARTIST,
+                $params[ 'artist' ],
+                POST );
+        }
+
+        // stringify the where clauses
+        $whereClausesString = ( count( $whereClauses ) )
+            ? "and ". implode( ' and ', $whereClauses )
+            : "";
+
+        // create the SQL statement
+        $sql = sprintf(
+            "select p.* from posts as p ".
+            "inner join relationships as r ".
+            "  on p.id = r.object_id and r.object_type = '%s' ".
+            "inner join categories as c ".
+            "  on c.id = r.property_id and r.property_type = '%s' ".
+            "where c.slug = '%s' ". // cat name
+            "  %s ". // where clauses
+            "  and p.is_deleted = 0 and p.status = 'published' ".
+            "order by p.%s ".
+            "limit %s, %s",
+            POST,
+            CATEGORY,
+            $params[ 'category' ],
+            $whereClausesString,
+            'event_date desc',
+            $params[ 'offset' ],
+            $params[ 'limit' ] );
+
+        // base model
+        $post = new Posts();
+
+        // execute the query
+        return new Resultset(
+            NULL,
+            $post,
+            $post->getReadConnection()->query( $sql ) );
     }
 
     /**
@@ -290,7 +373,6 @@ class Posts extends \Base\Model
     {
         // replace non letter or digits by -, then trim, transliterate
         // utf8 characters, lowercase it, and remove unwanted characters.
-        //
         $slug = preg_replace( '~[^\\pL\d]+~u', '-', $this->title );
         $slug = trim( $slug, '-' );
         $slug = iconv( 'utf-8', 'us-ascii//TRANSLIT', $slug );
@@ -304,7 +386,6 @@ class Posts extends \Base\Model
 
         // check if this slug exists. if so, we need to keep incrementing
         // a counter on the end.
-        //
         $checkSlug = $slug;
         $counter = 1;
         $slugOkay = FALSE;

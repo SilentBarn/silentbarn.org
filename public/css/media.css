@@ -161,6 +161,10 @@
         #sidebar .exhibitions-wrap {
             padding: 0 !important; }
 
+    /* Event archives */
+    #archives-goto-search {
+        display: none; }
+
     /* Post page */
     #post.page #banner-wrap {
         width: 100%; height: 175px; }

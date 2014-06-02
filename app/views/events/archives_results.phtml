@@ -1,9 +1,18 @@
 <!-- Archives Page -->
 <div class="page">
     <!-- Header -->
-    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">Archives</h1>
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-30">
+        Archives <i class="fa fa-angle-double-right color-aaa"></i> Results
+    </h1>
 
-    <div class="clearfix"> 
+    <div class="margin-bottom-30">
+<?php   $this->partial(
+            'partials/events/archives_search', [
+                'params' => $params
+            ]); ?>
+    </div>
+
+    <div class="clearfix padding-top-10"> 
         <!-- Archived events -->
         <div id="archived">
 <?php   $this->partial(

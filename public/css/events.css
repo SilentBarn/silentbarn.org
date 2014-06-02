@@ -41,6 +41,8 @@
     width: 100%; height: 200px; background-size: cover; }
 .static.page .archive-event {
     margin-bottom: 0; }
+.search-button-wrap {
+    position: absolute; bottom: 8px; left: 0; }
 
 
 /* Calendar

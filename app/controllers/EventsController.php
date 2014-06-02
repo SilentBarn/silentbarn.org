@@ -69,24 +69,44 @@ class EventsController extends \Base\Controller
             'partial' => 'partials/events/nav',
             'page' => 'archives' ];
         $this->data->pageTitle = "Event Archives";
+        $queryParams = $this->request->getQuery();
+
+        // only show the 'clear' link when no params came in
+        unset( $queryParams[ '_url' ] );
+        $filteredParams = array_filter(
+            $queryParams,
+            function ( $var ) {
+                return valid( $var, STRING );
+            });
+        $this->data->showClear = count( $filteredParams ) > 0;
 
         // if we have a query string coming in, perform
         // the search
         if ( str_eq( $flag, 'search' ) )
         {
+            // save GET params for the form
+            $params = [
+                'keywords' => get( $queryParams, 'q', '' ),
+                'artist' => get( $queryParams, 'a', '' ),
+                'type' => get( $queryParams, 't', 'events' ),
+                'date_start' => get( $queryParams, 'ds', '' ),
+                'date_end' => get( $queryParams, 'de', '' )];
+
             // fetch the last month of events
             $action = new \Actions\Posts\Event();
             $limit = 9;
-            $offset = $this->request->getPost( 'offset' );
+            $offset = get( $queryParams, 'o' );
             $offset = ( valid( $offset ) ) ? $offset : 0;
-            $this->data->events = $action->getByDateRange([
-                'categories' => [ EVENTS ],
-                'startDate' => NULL,
-                'endDate' => 'today',
-                'sort' => 'event_date desc',
+            $this->data->events = $action->search([
+                'category' => $params[ 'type' ],
+                'artist' => $params[ 'artist' ],
+                'keywords' => $params[ 'keywords' ],
+                'startDate' => $params[ 'date_start' ],
+                'endDate' => $params[ 'date_end' ],
                 'limit' => $limit,
                 'offset' => $offset ]);
             $this->data->limit = $limit;
+            $this->data->params = $params;
             $this->view->pick( 'events/archives_results' );
 
             // if an offset came in, return the API response

@@ -22,19 +22,13 @@
             All our past press is being stored here. If it happened under
             our roof, you can (or will soon) find it here.
         </div>
-        <div>
-            <a href="#search" class="blue button large">Search the Archives</a>
+        <div id="archives-goto-search">
+            <a href="#search" class="gray button">Search the Archives</a>
         </div>
     </div>
 
-    <!-- Form -->
-    <fieldset name="search">
-        <legend>
-            <h2>Search the Archives</h2>
-        </legend>
-        <form name="search" class="" method="get" action="<?php echo $this->url->get( 'events/archives/search' ); ?>">
-            <!-- Four columns with a field in each column -->
-
-        </form>
-    </fieldset>
+<?php   $this->partial(
+            'partials/events/archives_search', [
+                'params' => []
+            ]); ?>
 </div>

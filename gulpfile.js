@@ -49,6 +49,8 @@ gulp.task( 'build-js-main', function () {
         './public/js/jquery.easing-1.3.js',
         './public/js/jquery.filmroll.js',
         './public/js/jquery.scrollTo.js',
+        './public/js/pikaday.js',
+        './public/js/jquery.pikaday.js',
         './public/js/moment.js',
         './public/js/underscore.js',
         './public/js/clndr.js',

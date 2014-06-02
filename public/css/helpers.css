@@ -174,6 +174,8 @@
  */
 .padding-all-1p {
     padding: 1%; }
+.padding-all-5 {
+    padding: 5px; }
 .padding-all-10 {
     padding: 10px; }
 .padding-top-5 {
@@ -255,6 +257,8 @@
     width: 67%; }
 .w75p {
     width: 75%; }
+.w80p {
+    width: 80%; }
 .w90p {
     width: 90%; }
 .w95p {

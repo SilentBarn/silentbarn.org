@@ -14,7 +14,7 @@ class Event extends \Base\Action
     function getByDateRange( $params )
     {
         if ( isset( $params[ 'startDate' ] )
-            && ! valid( $params, 'startDate', DATE ) )
+            && ! valid( $params[ 'startDate' ], DATE ) )
         {
             $params[ 'startDate' ] = date(
                 DATE_DATABASE, 
@@ -22,7 +22,7 @@ class Event extends \Base\Action
         }
 
         if ( isset( $params[ 'endDate' ] )
-            && ! valid( $params, 'endDate', DATE ) )
+            && ! valid( $params[ 'endDate' ], DATE ) )
         {
             $params[ 'endDate' ] = date(
                 DATE_DATABASE, 
@@ -30,6 +30,42 @@ class Event extends \Base\Action
         }
 
         return \Db\Sql\Posts::getByCategoryDateRange( $params );
+    }
+
+    /**
+     * Search all posts by a variety of parameters.
+     *
+     * @param array $params
+     * @return array \Db\Sql\Posts
+     */
+    function search( $params )
+    {
+        $allowedCats = [ EVENTS, EXHIBITIONS, PRESS, NEWS ];
+
+        // check for category, default to events
+        if ( ! in_array( $params[ 'category' ], $allowedCats ) )
+        {
+            $params[ 'category' ] = EVENTS;
+        }
+
+        // prepare our dates
+        if ( isset( $params[ 'startDate' ] )
+            && valid( $params[ 'startDate' ], STRING ) )
+        {
+            $params[ 'startDate' ] = date(
+                DATE_DATABASE, 
+                strtotime( $params[ 'startDate' ] ) );
+        }
+
+        if ( isset( $params[ 'endDate' ] )
+            && valid( $params[ 'endDate' ], STRING ) )
+        {
+            $params[ 'endDate' ] = date(
+                DATE_DATABASE, 
+                strtotime( $params[ 'endDate' ] ) );
+        }
+
+        return \Db\Sql\Posts::search( $params );
     }
 
     /**
