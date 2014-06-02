@@ -101,7 +101,7 @@ ul#menu li:hover ul.sub-menu {
     margin: 0; padding: 0; list-style-position: inside;
     list-style-type: none; }
 #mobile-nav ul li {
-    padding: 8px 5px 0 15px; border-bottom: 1px solid #eee; }
+    padding: 8px 5px 0 20px; border-bottom: 1px solid #eee; }
 #mobile-nav ul ul li:before {
     font-family: 'FontAwesome';
     content: '\f054';
@@ -117,7 +117,7 @@ ul#menu li:hover ul.sub-menu {
 #mobile-nav .sub-menu {
     margin-top: 8px; border-top: 1px solid #eee; }
 #mobile-nav .sub-menu li {
-    padding: 8px 5px 8px 18px; }
+    padding: 8px 5px 8px 25px; }
 #mobile-nav ul ul li:last-child {
     border-bottom: none; }
 

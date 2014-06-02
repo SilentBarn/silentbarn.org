@@ -42,7 +42,7 @@
         .mobile-menu-button {
             border-left: 1px solid #ccc; display: block;
             float: right; font-size: 24px;
-            padding: 11px 9px 10px;
+            padding: 12px 9px 11px 9px;
             text-decoration: none; }
 
         .mobile-search-button:hover,
