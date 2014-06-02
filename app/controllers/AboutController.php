@@ -94,6 +94,9 @@ class AboutController extends \Base\Controller
             'is_deleted = 0 and is_active = 1 and is_gallery = 1',
             'order' => 'name'
         ]);
+        $this->data->pageNav = [
+            'partial' => 'partials/spaces/nav',
+            'page' => 'gallery' ];
         $this->data->pageTitle = "Barn Art";
         $this->view->pick( 'about/gallery' );
     }

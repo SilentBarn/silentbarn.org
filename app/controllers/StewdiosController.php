@@ -26,6 +26,9 @@ class StewdiosController extends \Base\Controller
             'is_deleted = 0 and is_active = 1 and is_residence = 1',
             'order' => 'name'
         ]);
+        $this->data->pageNav = [
+            'partial' => 'partials/spaces/nav',
+            'page' => 'living' ];
         $this->data->pageTitle = "Living Stewdios";
         $this->view->pick( 'stewdios/living' );
     }
@@ -36,6 +39,9 @@ class StewdiosController extends \Base\Controller
             'is_deleted = 0 and is_active = 1 and is_stewdio = 1',
             'order' => 'name'
         ]);
+        $this->data->pageNav = [
+            'partial' => 'partials/spaces/nav',
+            'page' => 'working' ];
         $this->data->pageTitle = "Working Stewdios";
         $this->view->pick( 'stewdios/working' );
     }
