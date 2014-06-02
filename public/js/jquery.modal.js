@@ -28,6 +28,12 @@ $.fn.extend({
         $overlay.on( 'click', function () {
             closeModal();
         });
+        // dont propagate clicks up on this
+        $container.on( 'click', function ( e ) {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+        })
 
         // close the modal when close button is clicked
         if ( options.closeButton ) {
