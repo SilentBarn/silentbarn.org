@@ -1,3 +1,10 @@
+<!-- Mobile navigation -->
+<div id="mobile-nav" style="display:none;">
+    <ul>
+<?php   $this->partial( 'partials/nav' ); ?>
+    </ul>
+</div>
+
 <!-- Header -->
 <div id="header-wrap">
     <header>
@@ -14,7 +21,7 @@
 <?php   $this->partial( 'partials/photostream' ); ?>
 
         <!-- For small screens -->
-        <a href="javascript:;" class="mobile-menu-button hide">
+        <a id="mobile-burger" href="javascript:;" class="mobile-menu-button hide">
             <i class="fa fa-bars"></i>
         </a>
         <!-- hiding for now
@@ -53,40 +60,7 @@
         <!-- Navigation -->
         <nav>
             <ul id="menu">
-                <li>
-                    <a href="<?php echo $this->url->get( 'events' ); ?>">Events</a>
-                    <ul class="sub-menu">
-                        <li><a href="<?php echo $this->url->get( 'events/upcoming' ); ?>">Upcoming</a></li>
-                        <li><a href="<?php echo $this->url->get( 'events/archives' ); ?>">Archives</a></li>
-                        <li><a href="<?php echo $this->url->get( 'events/exhibitions' ); ?>">Exhibitions</a></li>
-                        <li><a href="<?php echo $this->url->get( 'events/booking' ); ?>">Booking</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="<?php echo $this->url->get( 'stewdios/living' ); ?>">Stewdios</a>
-                    <ul class="sub-menu">
-                        <li><a href="<?php echo $this->url->get( 'stewdios/living' ); ?>">Living Stewdios</a></li>
-                        <li><a href="<?php echo $this->url->get( 'stewdios/working' ); ?>">Working Stewdios</a></li>
-                        <li><a href="<?php echo $this->url->get( 'stewdios/apply' ); ?>">Apply</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="<?php echo $this->url->get( 'about' ); ?>">Community</a>
-                    <ul class="sub-menu">
-                        <li><a href="<?php echo $this->url->get( 'about/chefs' ); ?>">Chefs</a></li>
-                        <li><a href="<?php echo $this->url->get( 'about/mission' ); ?>">Mission</a></li>
-                        <li><a href="<?php echo $this->url->get( 'about/press' ); ?>">Press</a></li>
-                        <li><a href="<?php echo $this->url->get( 'about/gallery' ); ?>">Barn Art</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="javascript:;">Get Involved</a>
-                    <ul class="sub-menu">
-                        <li><a href="http://silentbarn.org/donate" target="_blank">Donate</a></li>
-                        <li><a href="<?php echo $this->url->get( 'about/volunteer' ); ?>">Volunteer</a></li>
-                        <li><a href="<?php echo $this->url->get( 'about/contact' ); ?>">Contact</a></li>
-                    </ul>
-                </li>
+<?php           $this->partial( 'partials/nav' ); ?>
             </ul>
             <form id="search" name="search" method="get" action="#" onsubmit="return false;">
                 <input type="text" id="search-query" name="query" value=""

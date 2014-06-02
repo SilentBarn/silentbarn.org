@@ -85,6 +85,13 @@ var MainPage = {
         });
     },
 
+    // mobile stuff
+    mobile: function () {
+        $( "#mobile-burger" ).on( 'click', function () {
+            $( '#mobile-nav' ).toggle();
+        });
+    },
+
     // set up clndr
     calendar: function () {
         var $fullClndr = $( '#full-clndr' );
@@ -248,6 +255,7 @@ var MainPage = {
 MainPage.search();
 MainPage.carousel();
 MainPage.stickyNav();
+MainPage.mobile();
 MainPage.calendar();
 MainPage.loadMore();
 MainPage.showMore();

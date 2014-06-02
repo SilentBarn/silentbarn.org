@@ -93,6 +93,34 @@ ul#menu li ul.sub-menu {
 ul#menu li:hover ul.sub-menu {
     display: block; }
 
+/* Mobile Nav
+ */
+#mobile-nav {
+    background: #fff; font-size: 14px; line-height: 14px; }
+#mobile-nav ul {
+    margin: 0; padding: 0; list-style-position: inside;
+    list-style-type: none; }
+#mobile-nav ul li {
+    padding: 8px 5px 0 15px; border-bottom: 1px solid #eee; }
+#mobile-nav ul ul li:before {
+    font-family: 'FontAwesome';
+    content: '\f054';
+    color: #ccc;
+    margin:0 5px 0 -15px;
+    font-size: 12px; }
+#mobile-nav ul li:before {
+    font-family: 'FontAwesome';
+    content: '\f078';
+    color: #ccc;
+    margin:0 5px 0 -15px;
+    font-size: 12px; }
+#mobile-nav .sub-menu {
+    margin-top: 8px; border-top: 1px solid #eee; }
+#mobile-nav .sub-menu li {
+    padding: 8px 5px 8px 18px; }
+#mobile-nav ul ul li:last-child {
+    border-bottom: none; }
+
 /* Page Nav
  */
 #page-nav-wrap {
