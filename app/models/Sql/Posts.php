@@ -193,7 +193,7 @@ class Posts extends \Base\Model
                 "  select * from artists as a ".
                 "  inner join relationships as r2 ".
                 "  on a.id = r2.property_id and r2.property_type = '%s' ".
-                "  where a.name like '%:artist:%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
+                "  where a.name like '%%:artist:%%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
                 ARTIST,
                 POST );
             $bindings[ 'artist' ] = $params[ 'artist' ];
