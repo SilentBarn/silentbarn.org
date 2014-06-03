@@ -143,6 +143,7 @@ class EventsController extends \Base\Controller
             'ongoing' => TRUE,
             'startDate' => NULL,
             'endDate' => 'today',
+            'sort' => 'event_date desc',
             'limit' => 5 ]);
         $this->data->pageNav = [
             'partial' => 'partials/events/nav',
