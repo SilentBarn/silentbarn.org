@@ -35,11 +35,21 @@ $.fn.extend({
             return false;
         })
 
+        // if close button is specified, create that element
         // close the modal when close button is clicked
         if ( options.closeButton ) {
             // create the close button and append it to the
             // modal
-            $( options.closeButton ).click( function () {
+            var $closeButtonWrap = $( '<div/>', {
+                id: 'modal-close-wrap' });
+            var $closeButton = $( '<a>', {
+                id: "modal-close",
+                href: "javascript:;",
+                html: options.closeButton });
+            $closeButtonWrap.append( $closeButton );
+            $overlay.append( $closeButtonWrap );
+            // attach click event
+            $closeButton.click( function () {
                  closeModal();
             });
         }

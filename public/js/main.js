@@ -284,8 +284,8 @@ var MainPage = {
         }
 
         $( '.space[rel*=modal]' ).modal({
-            top : 60,
-            closeButton: ".modal-close"
+            top : 50,
+            closeButton: '<i class="fa fa-times"></i>'
         });
     },
 
