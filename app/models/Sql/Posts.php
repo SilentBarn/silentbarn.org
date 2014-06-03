@@ -157,46 +157,48 @@ class Posts extends \Base\Model
     static function search( $params )
     {
         // initialize arrays
-        $joins = [];
         $whereClauses = [];
         $bindings = [];
 
         // set up date clauses if any came in
         if ( valid( $params[ 'startDate' ], STRING ) )
         {
-            $whereClauses[] = "p.event_date >= ':startDate:'";
-            $bindings[ 'startDate' ] = $params[ 'startDate' ];
+            //$whereClauses[] = "p.event_date >= ':startDate:'";
+            //$bindings[ 'startDate' ] = $params[ 'startDate' ];
+            $whereClauses[] = "p.event_date >= ?";
+            $bindings[] = $params[ 'startDate' ];
         }
 
         if ( valid( $params[ 'endDate' ], STRING ) )
         {
-            $whereClauses[] = "p.event_date <= ':endDate:'";
-            $bindings[ 'endDate' ] = $params[ 'endDate' ];
+            //$whereClauses[] = "p.event_date <= ':endDate:'";
+            //$bindings[ 'endDate' ] = $params[ 'endDate' ];
+            $whereClauses[] = "p.event_date <= ?";
+            $bindings[] = $params[ 'endDate' ];
         }
 
         // search on keywords
         if ( valid( $params[ 'keywords' ], STRING ) )
         {
-            $whereClauses[] = "p.title like '%:keywords:%'";
-            $bindings[ 'keywords' ] = $params[ 'keywords' ];
+            //$whereClauses[] = "p.title like '%:keywords:%'";
+            //$bindings[ 'keywords' ] = $params[ 'keywords' ];
+            $whereClauses[] = "p.title like ?";
+            $bindings[] = '%'. $params[ 'keywords' ] .'%';
         }
 
         // search artists
         if ( valid( $params[ 'artist' ], STRING ) )
         {
-            $joins[] = sprintf(
-                "inner join artists as a ".
-                "  on a.id = r.property_id and r.property_type = '%s' ",
-                ARTIST );
             $whereClauses[] = sprintf(
                 "exists (".
                 "  select * from artists as a ".
                 "  inner join relationships as r2 ".
                 "  on a.id = r2.property_id and r2.property_type = '%s' ".
-                "  where a.name like '%%:artist:%%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
+                "  where a.name like ? and p.id = r2.object_id and r2.object_type = '%s' ) ",
                 ARTIST,
                 POST );
-            $bindings[ 'artist' ] = $params[ 'artist' ];
+            //$bindings[ 'artist' ] = $params[ 'artist' ];
+            $bindings[] = '%'. $params[ 'artist' ] .'%';
         }
 
         // stringify the where clauses
