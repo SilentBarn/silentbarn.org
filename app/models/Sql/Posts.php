@@ -164,18 +164,21 @@ class Posts extends \Base\Model
         // set up date clauses if any came in
         if ( valid( $params[ 'startDate' ], STRING ) )
         {
-            $whereClauses[] = sprintf( "p.event_date >= '%s'", $params[ 'startDate' ] );
+            $whereClauses[] = "p.event_date >= ':startDate:'";
+            $bindings[ 'startDate' ] = $params[ 'startDate' ];
         }
 
         if ( valid( $params[ 'endDate' ], STRING ) )
         {
-            $whereClauses[] = sprintf( "p.event_date <= '%s'", $params[ 'endDate' ] );
+            $whereClauses[] = "p.event_date <= ':endDate:'";
+            $bindings[ 'endDate' ] = $params[ 'endDate' ];
         }
 
         // search on keywords
         if ( valid( $params[ 'keywords' ], STRING ) )
         {
-            $whereClauses[] = sprintf( "p.title like '%%%s%%'", $params[ 'keywords' ] );
+            $whereClauses[] = "p.title like '%:keywords:%'";
+            $bindings[ 'keywords' ] = $params[ 'keywords' ];
         }
 
         // search artists
@@ -190,10 +193,10 @@ class Posts extends \Base\Model
                 "  select * from artists as a ".
                 "  inner join relationships as r2 ".
                 "  on a.id = r2.property_id and r2.property_type = '%s' ".
-                "  where a.name like '%%%s%%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
+                "  where a.name like '%:artist:%' and p.id = r2.object_id and r2.object_type = '%s' ) ",
                 ARTIST,
-                $params[ 'artist' ],
                 POST );
+            $bindings[ 'artist' ] = $params[ 'artist' ];
         }
 
         // stringify the where clauses
@@ -228,7 +231,10 @@ class Posts extends \Base\Model
         return new Resultset(
             NULL,
             $post,
-            $post->getReadConnection()->query( $sql ) );
+            $post->getReadConnection()->query(
+                $sql,
+                $bindings
+            ));
     }
 
     /**
