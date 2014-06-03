@@ -151,9 +151,12 @@ var MainPage = {
             $( this ).closest( 'form' ).submit();
         })
 
-        $( '.datepicker' ).pikaday({
-            format: 'M/D/YYYY'
-        });
+        var $datepickers = $( '.datepicker' );
+        if ( $datepickers.length ) {
+            $datepickers.pikaday({
+                format: 'M/D/YYYY'
+            });
+        }
     },
 
     // load more upcoming events/archives
