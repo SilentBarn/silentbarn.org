@@ -147,21 +147,36 @@ var MainPage = {
     // archives pages
     archives: function () {
         var $searchSubmit = $( '#archives-submit' );
+
+        if ( ! $searchSubmit.length ) {
+            return;
+        }
+
+        var $form = $searchSubmit.closest( 'form' );
+
+        // when the button is pressed, submit the form
         $searchSubmit.on( 'click', function () {
-            $( this ).closest( 'form' ).submit();
+            $form.submit();
         })
 
-        var $datepickers = $( '.datepicker' );
-        if ( $datepickers.length ) {
-            $datepickers.pikaday({
-                format: 'M/D/YYYY'
-            });
-        }
+        // when enter key is pressed
+        $form.find( 'input[type="text"]' ).keypress( function( e ) {
+            if ( e.which == 13 ) {
+                event.preventDefault();
+                $form.submit();
+            }
+        });
+
+        // date pickers for the dates
+        $( '.datepicker' ).pikaday({
+            format: 'M/D/YYYY'
+        });
     },
 
     // load more upcoming events/archives
     loadMore: function () {
-        var $loadMore = $( '#load-more' ),
+        var self = this,
+            $loadMore = $( '#load-more' ),
             $loadMoreButton = $( '#load-more-button' );
 
         if ( ! $loadMoreButton.length ) {
@@ -179,15 +194,15 @@ var MainPage = {
         $loadMoreButton.on( 'click', function () {
             // build the data params. take in the query string and
             // and the offset.
-            var params = {
-                offset: paging.offset
-            };
-            
+            var params = _.extend(
+                self._getQueryParams(), {
+                    o: paging.offset
+                });
             // execute ajax call
             $.ajax({
                 url: window.Environment.apiPath + paging.url,
                 dataType: 'json',
-                type: 'post',
+                type: 'get',
                 data: params,
                 success: function ( response ) {
                     // error handle
@@ -272,6 +287,27 @@ var MainPage = {
             top : 60,
             closeButton: ".modal-close"
         });
+    },
+
+    // get arguments from query string
+    _getQueryParams: function () {
+        var args = document.location.search.substring( 1 ).split( '&' ),
+            argsParsed = {};
+
+        for ( var i = 0; i < args.length; i++ ) {
+            arg = unescape( args[ i ] );
+            if ( ! arg.trim().length ) continue;
+
+            if ( arg.indexOf( '=' ) == -1 ) {
+                argsParsed[ arg.trim() ] = true;
+            }
+            else {
+                var kvp = arg.split( '=' );
+                argsParsed[ kvp[ 0 ].trim() ] = kvp[ 1 ].trim();
+            }
+        }
+
+        return argsParsed;
     }
 
 }; // Page object
