@@ -76,10 +76,12 @@ class Instagram extends \Base\Library
 
         // if it's older than an hour, update the photos
         if ( ! $setting->created_at
-            || strtotime( $setting->created_at ) - $oneHourAgo > 3600 )
+            || abs( strtotime( $setting->created_at ) - $oneHourAgo ) > 3600 )
         {
             $photos = self::getMedia( 4 );
             $setting->value = serialize( $photos );
+            $timestamp = new \DateTime();
+            $setting->created_at = $timestamp->format( DATE_DATABASE );
             $setting->save();
         }
 
