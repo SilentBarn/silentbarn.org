@@ -25,7 +25,7 @@ class EventsController extends \Base\Controller
         // for the current month's calendar
         $action = new \Actions\Posts\Event();
         $limit = 7;
-        $offset = $this->request->getPost( 'offset' );
+        $offset = $this->request->getQuery( 'o' );
         $offset = ( valid( $offset ) ) ? $offset : 0;
         $this->data->upcomingEvents = $action->getByDateRange([
             'limit' => $limit,
