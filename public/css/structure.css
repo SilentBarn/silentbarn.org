@@ -138,7 +138,7 @@ body.sticky #page-nav-wrap {
 /* Search
  */
 form#search {
-    float: right; margin-left: 15px; position: relative; top: 2px; }
+    float: right; margin-left: 15px; position: relative; top: 1px; }
 form#search input {
     border-color: #d3d3d3 #d3d3d3 #ddd; border-image: none;
     border-style: solid; border-width: 1px;
