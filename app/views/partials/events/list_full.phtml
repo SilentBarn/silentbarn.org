@@ -52,8 +52,13 @@
     </div>
 <?php           if ( $event->external_url ): ?>
     <div class="external-url margin-top-15">
-        <i class="fa fa-facebook-square"></i>
+<?php               if ( $event->urlIsFacebook() ): ?>
+        <i class="fontsize-13 fa fa-facebook-square"></i>
         <a class="fontsize-13" target="_blank" href="<?php echo $event->external_url; ?>">View Facebook Event</a>
+<?php               else: ?>
+        <i class="fontsize-13 color-999 fa fa-external-link-square"></i>
+        <a class="fontsize-13" target="_blank" href="<?php echo $event->external_url; ?>"><?php echo $event->external_url; ?></a>
+<?php               endif; ?>
     </div>
 <?php           endif; ?>
 </div>

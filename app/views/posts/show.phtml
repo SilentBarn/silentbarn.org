@@ -28,8 +28,13 @@
     <!-- External URL -->
 <?php   if ( $post->external_url ): ?>
     <div class="external-url margin-bottom-5 padded-top-5">
-        <i class="fa fa-facebook-square"></i>
+<?php       if ( $post->urlIsFacebook() ): ?>
+        <i class="fontsize-13 fa fa-facebook-square"></i>
         <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
+<?php       else: ?>
+        <i class="fontsize-13 color-999 fa fa-external-link-square"></i>
+        <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>"><?php echo $post->external_url; ?></a>
+<?php       endif; ?>
     </div>
 <?php   endif; ?>
 

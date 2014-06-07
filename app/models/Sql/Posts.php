@@ -502,4 +502,12 @@ class Posts extends \Base\Model
 
         return $string;
     }
+
+    /**
+     * Determines if the external link is a facebook url
+     */
+    function urlIsFacebook()
+    {
+        return strstr( $this->external_url, "facebook.com" );
+    }
 }
