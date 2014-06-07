@@ -30,7 +30,7 @@ class ArticlesController extends \Base\Controller
 
         // get all of the posts
         $this->view->pick( 'admin/articles/index' );
-        $this->view->posts = \Db\Sql\Posts::getActive( $limit, $offset );
+        $this->view->posts = \Db\Sql\Posts::getAll( $limit, $offset );
         $this->view->backPage = '';
         $this->view->buttons = [ 'newArticle' ];
 

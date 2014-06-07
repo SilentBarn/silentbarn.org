@@ -42,7 +42,19 @@ class Posts extends \Base\Model
     }
 
     /**
-     * Get all active posts (not deleted)
+     * Get all posts (not deleted)
+     */
+    static function getAll( $limit = 25, $offset = 0 )
+    {
+        return \Db\Sql\Posts::query()
+            ->where( 'is_deleted = 0' )
+            ->order( 'created_at desc' )
+            ->limit( $limit, $offset )
+            ->execute();
+    }
+
+    /**
+     * Get all active posts (not deleted and published)
      */
     static function getActive( $limit = 25, $offset = 0 )
     {
