@@ -100,4 +100,10 @@ class AboutController extends \Base\Controller
         $this->data->pageTitle = "Barn Art";
         $this->view->pick( 'about/gallery' );
     }
+
+    public function donateAction()
+    {
+        $this->data->pageTitle = "Donate!";
+        $this->view->pick( 'about/donate' );
+    }
 }
