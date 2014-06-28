@@ -152,6 +152,7 @@ class Image extends \Base\Action
     function saveUrlToPost( $postId, $url )
     {
         $file = new MockFile();
+        $util = $this->getService( 'util' );
 
         if ( ! $file->download( $url ) )
         {
