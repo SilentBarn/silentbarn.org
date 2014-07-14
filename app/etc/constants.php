@@ -40,6 +40,7 @@ define( 'DATE_MONTH_TIME', 'M j, g:ia' );
 define( 'DATE_MONTH_TIME_YEAR', 'M j, Y g:ia' );
 define( 'DATE_YEAR_MONTH_SLUG', 'Y/m' );
 define( 'DATE_CALENDAR', 'Y/m/n' );
+define( 'DATE_YEAR_MONTH_DAY', 'Y-m-d' );
 define( 'DATE_DB_EMPTY', '0000-00-00 00:00:00' );
 
 // object types
