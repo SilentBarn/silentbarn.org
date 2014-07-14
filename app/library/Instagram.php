@@ -44,7 +44,7 @@ class Instagram extends \Base\Library
             $photos[] = new \Base\Object([
                 'link' => $item->link,
                 'image' => $item->images->thumbnail->url,
-                'title' => $item->caption->text ]);
+                'title' => get( $item->caption, 'text', '' ) ]);
         }
 
         return $photos;
