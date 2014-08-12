@@ -50,4 +50,9 @@ class StewdiosController extends \Base\Controller
     {
         $this->view->pick( 'stewdios/apply' );
     }
+
+    public function airswapAction()
+    {
+        $this->view->pick( 'stewdios/airswap' );
+    }
 }
