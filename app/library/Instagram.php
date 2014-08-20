@@ -26,7 +26,7 @@ class Instagram extends \Base\Library
         try
         {
             $response = Request::get( $url )
-                ->timeout( 5 )
+                ->timeout( 15 )
                 ->send();
 
             if ( ! $response->hasBody()
