@@ -23,15 +23,22 @@ class Instagram extends \Base\Library
             $count );
 
         // get the response
-        $response = Request::get( $url )
-            ->timeout( 5 )
-            ->send();
-
-        if ( ! $response->hasBody()
-            || $response->hasErrors()
-            || ! get( $response->body, 'data' ) )
+        try
         {
-            return FALSE;
+            $response = Request::get( $url )
+                ->timeout( 5 )
+                ->send();
+
+            if ( ! $response->hasBody()
+                || $response->hasErrors()
+                || ! get( $response->body, 'data' ) )
+            {
+                return array();
+            }
+        }
+        catch ( \Exception $e )
+        {
+            return array();
         }
 
         // iterate through the data and prepare an array of
