@@ -386,6 +386,9 @@ class Posts extends \Base\Model
         // get html from markdown
         $html = Markdown::defaultTransform( $this->body );
 
+        // process any newlines
+        $html = str_replace( '#NL#', '<br>', $html );
+
         // process any youtube videos
         $youtubeEmbed = sprintf(
             '<iframe width="%s" height="%s" src="%s/%s?rel=0" '.
