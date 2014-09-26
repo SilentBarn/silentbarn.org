@@ -469,6 +469,64 @@ class Posts extends \Base\Model
     }
 
     /**
+     * Get the event date. if the event is ongoing (i.e. has an
+     * end date) and now() is later than the start date, display
+     * today's date as the event date. if now() is later than the
+     * ending date use the ending date.
+     */
+    function getEventTime()
+    {
+        $now = gmmktime( 0, 0, 0 );
+        $startTime = strtotime( $this->event_date );
+
+        if ( ! $startTime || ! $this->event_date )
+        {
+            return NULL;
+        }
+
+        if ( valid( $this->event_date_end, STRING ) )
+        {
+            $endTime = strtotime( $this->event_date_end );
+
+            if ( $now <= $startTime )
+            {
+                return $startTime;
+            }
+
+            if ( $now >= $endTime )
+            {
+                return $endTime;
+            }
+
+            return $now;
+        }
+
+        return $startTime;
+    }
+
+    /**
+     * Returns the number of days the event spans
+     */
+    function getDaySpan()
+    {
+        if ( ! $this->event_date )
+        {
+            return 0;
+        }
+
+        if ( ! $this->event_date_end )
+        {
+            return 1;
+        }
+
+        $endTime = strtotime( $this->event_date_end );
+        $startTime = strtotime( $this->event_date );
+        $daySeconds = 60 * 60 * 24;
+
+        return floor( ( $endTime - $startTime ) / $daySeconds ) + 1;
+    }
+
+    /**
      * Generate a short date string for the event's start and end date
      */
     function getShortDate( $html = TRUE, $defaultToPostDate = FALSE )

@@ -41,6 +41,7 @@ class EventsController extends \Base\Controller
         $this->data->upcomingEvents = $action->getByDateRange([
             'limit' => $limit,
             'offset' => $offset,
+            'ongoing' => TRUE,
             'startDate' => $dateTime->format( DATE_YEAR_MONTH_DAY ),
             'categories' => [ EVENTS ] ]);
         $this->data->calendarEvents = $action->getByMonth(

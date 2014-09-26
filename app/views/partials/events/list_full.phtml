@@ -1,6 +1,6 @@
 <?php   if ( count( $events ) ):
             foreach ( $events as $event ):
-                $event_date = strtotime( $event->event_date );
+                $event_date = $event->getEventTime();
                 $imagePath = $event->getImage()->getPath( 960 );
                 $imageClass = ( valid( $imagePath, STRING ) )
                     ? 'with-image'
