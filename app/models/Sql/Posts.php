@@ -48,7 +48,7 @@ class Posts extends \Base\Model
     {
         return \Db\Sql\Posts::query()
             ->where( 'is_deleted = 0' )
-            ->order( 'created_at desc' )
+            ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
             ->execute();
     }
@@ -61,7 +61,7 @@ class Posts extends \Base\Model
         return \Db\Sql\Posts::query()
             ->where( 'is_deleted = 0' )
             ->where( 'status = "published"' )
-            ->order( 'created_at desc' )
+            ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
             ->execute();
     }
@@ -79,7 +79,7 @@ class Posts extends \Base\Model
             ->where( 'is_deleted = 0' )
             ->andWhere( "status = 'published'" )
             ->andWhere( "homepage_location = :location:" )
-            ->order( 'event_date desc, post_date desc' )
+            ->orderBy( 'event_date desc, post_date desc' )
             ->limit( $limit )
             ->bind([
                 'location' => $location ])

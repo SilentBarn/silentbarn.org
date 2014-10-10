@@ -12,11 +12,9 @@ include APP_PATH . '/library/Bootstrap/Base.php';
 include APP_PATH . '/library/Bootstrap/App.php';
 
 // run the application
-//
 try
 {
     // bootstrap the application
-    //
     $bootstrap = new \Lib\Bootstrap\App([
         'router', 'url', 'cookies', 'session',
         'profiler', 'db', 'mongo', 'collectionManager',

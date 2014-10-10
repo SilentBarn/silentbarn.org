@@ -53,7 +53,7 @@ var MainPage = {
 
     // sticky nav on scroll
     stickyNav: function () {
-        var navOffset = 122,
+        var navOffset = 120,
             logoOffset = 110,
             $document = $( document ),
             $window = $( window ),
@@ -205,6 +205,8 @@ var MainPage = {
                 type: 'get',
                 data: params,
                 success: function ( response ) {
+                    console.log( 'here' );
+                    console.log( response );
                     // error handle
                     if ( ! _.has( response, 'data' ) ) {
                         return;

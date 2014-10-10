@@ -46,11 +46,12 @@ class EventsController extends \Base\Controller
         {
             $this->responseMode = 'api';
             $this->data->count = count( $this->data->upcomingEvents );
-            $this->data->html = $this->renderPartial(
+            $html = $this->renderPartial(
                 'partials/events/list_full', [
                     'events' => $this->data->upcomingEvents,
                     'offset' => $offset
                 ]);
+            $this->data->html = utf8_encode( $html ); 
         }
     }
 

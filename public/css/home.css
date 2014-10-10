@@ -10,6 +10,8 @@
     -moz-transition: opacity 1s ease-in-out;
     -o-transition: opacity 1s ease-in-out;
     transition: opacity 1s ease-in-out; }
+.hero-carousel div.slide img {
+    min-width: 100%; min-height: 100%; }
 .hero-carousel div.slide a.link-overlay {
     position: absolute; top: 0; bottom: 0; left: 0; right: 0;
     z-index: 1; }
