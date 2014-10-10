@@ -383,7 +383,50 @@ class Posts extends \Base\Model
      */
     function getHtmlBody()
     {
-        return Markdown::defaultTransform( nl2br( $this->body ) );
+        // get html from markdown
+        $html = Markdown::defaultTransform( $this->body );
+
+        // process any newlines
+        $html = str_replace( '#NL#', '<br>', $html );
+
+        // process any youtube videos
+        $youtubeEmbed = sprintf(
+            '<iframe width="%s" height="%s" src="%s/%s?rel=0" '.
+                'frameborder="0" allowfullscreen></iframe>',
+            '670',
+            '380',
+            '//www.youtube.com/embed',
+            '$1' ); // preg variable of video ID
+        $html = preg_replace( "/\[\#youtube:(.*?)\]/", $youtubeEmbed, $html );
+
+        // process any vimeo videos
+        $vimeoEmbed = sprintf(
+            '<iframe src="%s/%s?%s" width="%s" height="%s"' .
+                'frameborder="0" allowfullscreen></iframe>',
+            '//player.vimeo.com/video',
+            '$1', // preg variable of video ID
+            'title=0&portrait=0&badge=0',
+            '670',
+            '380' );
+        $html = preg_replace( "/\[\#vimeo:(.*?)\]/", $vimeoEmbed, $html );
+
+        // process any soundcloud links
+        $soundcloudEmbed = sprintf(
+            '<iframe width="%s" height="%s" scrolling="no" frameborder="no" '.
+                'src="%s/%s%s"></iframe>',
+            '100%',
+            '166',
+            'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks',
+            '$1', // preg variable of cloud ID
+            '&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true' );
+        $html = preg_replace( "/\[\#soundcloud:(.*?)\]/", $soundcloudEmbed, $html );
+
+        // process any images
+        $img = '<img src="$1" alt="" title="" />';
+        $html = preg_replace( "/\[\#image:(.*?)\]/", $img, $html );
+
+        return $html;
+        //return Markdown::defaultTransform( nl2br( $this->body ) );
     }
 
     /**
@@ -423,6 +466,64 @@ class Posts extends \Base\Model
         while ( ! $slugOkay );
 
         return $slug;
+    }
+
+    /**
+     * Get the event date. if the event is ongoing (i.e. has an
+     * end date) and now() is later than the start date, display
+     * today's date as the event date. if now() is later than the
+     * ending date use the ending date.
+     */
+    function getEventTime()
+    {
+        $now = gmmktime( 0, 0, 0 );
+        $startTime = strtotime( $this->event_date );
+
+        if ( ! $startTime || ! $this->event_date )
+        {
+            return NULL;
+        }
+
+        if ( valid( $this->event_date_end, STRING ) )
+        {
+            $endTime = strtotime( $this->event_date_end );
+
+            if ( $now <= $startTime )
+            {
+                return $startTime;
+            }
+
+            if ( $now >= $endTime )
+            {
+                return $endTime;
+            }
+
+            return $now;
+        }
+
+        return $startTime;
+    }
+
+    /**
+     * Returns the number of days the event spans
+     */
+    function getDaySpan()
+    {
+        if ( ! $this->event_date )
+        {
+            return 0;
+        }
+
+        if ( ! $this->event_date_end )
+        {
+            return 1;
+        }
+
+        $endTime = strtotime( $this->event_date_end );
+        $startTime = strtotime( $this->event_date );
+        $daySeconds = 60 * 60 * 24;
+
+        return floor( ( $endTime - $startTime ) / $daySeconds ) + 1;
     }
 
     /**

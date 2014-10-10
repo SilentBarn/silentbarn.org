@@ -23,15 +23,22 @@ class Instagram extends \Base\Library
             $count );
 
         // get the response
-        $response = Request::get( $url )
-            ->timeout( 5 )
-            ->send();
-
-        if ( ! $response->hasBody()
-            || $response->hasErrors()
-            || ! get( $response->body, 'data' ) )
+        try
         {
-            return FALSE;
+            $response = Request::get( $url )
+                ->timeout( 15 )
+                ->send();
+
+            if ( ! $response->hasBody()
+                || $response->hasErrors()
+                || ! get( $response->body, 'data' ) )
+            {
+                return array();
+            }
+        }
+        catch ( \Exception $e )
+        {
+            return array();
         }
 
         // iterate through the data and prepare an array of
@@ -44,7 +51,7 @@ class Instagram extends \Base\Library
             $photos[] = new \Base\Object([
                 'link' => $item->link,
                 'image' => $item->images->thumbnail->url,
-                'title' => $item->caption->text ]);
+                'title' => get( $item->caption, 'text', '' ) ]);
         }
 
         return $photos;

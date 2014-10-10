@@ -7,8 +7,11 @@ return [
         'modules' => [
             'admin' => 'Admin' ],
         'assetVersion' => 28,
-        'assetMode' => 'production' ],
-
+        'assetMode' => 'production',
+        'analytics' => [
+            'enabled' => TRUE,
+            'code' => 'UA-37484438-1'
+        ]],
     'cache' => [
         'adapter' => 'redis' ],
 

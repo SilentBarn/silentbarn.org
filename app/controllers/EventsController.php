@@ -21,6 +21,17 @@ class EventsController extends \Base\Controller
 
     public function upcomingAction()
     {
+        // get the EST time
+        $dateTime = new \DateTime();
+        $dateTime->setTimeZone( new \DateTimeZone( 'America/New_York' ) );
+
+        // now, we actually want to show events from yesterday if
+        // it's still earlier than 4am
+        if ( $dateTime->format( 'G' ) <= 4 )
+        {
+            $dateTime->sub( new \DateInterval( 'P1D' ) );
+        }
+
         // fetch the events for the next two weeks, and the events
         // for the current month's calendar
         $action = new \Actions\Posts\Event();
@@ -30,6 +41,8 @@ class EventsController extends \Base\Controller
         $this->data->upcomingEvents = $action->getByDateRange([
             'limit' => $limit,
             'offset' => $offset,
+            'ongoing' => TRUE,
+            'startDate' => $dateTime->format( DATE_YEAR_MONTH_DAY ),
             'categories' => [ EVENTS ] ]);
         $this->data->calendarEvents = $action->getByMonth(
             'today',
@@ -141,7 +154,7 @@ class EventsController extends \Base\Controller
             'startOperand' => '>=' ]);
         $this->data->pastExhibitions = $action->getByDateRange([
             'categories' => [ EXHIBITIONS ],
-            'ongoing' => TRUE,
+            'ongoing' => FALSE,
             'startDate' => NULL,
             'endDate' => 'today',
             'sort' => 'event_date desc',

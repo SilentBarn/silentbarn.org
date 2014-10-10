@@ -4,7 +4,6 @@
     "license": "MIT",
     "require": {
         "phalcon/incubator": "dev-master",
-        "ircmaxell/password-compat": "dev-master",
         "suin/php-image-resizer": ">=1.0.0",
         "stefangabos/zebra_image": "dev-master",
         "michelf/php-markdown": "*",

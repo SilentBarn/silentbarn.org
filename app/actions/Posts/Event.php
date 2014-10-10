@@ -73,23 +73,44 @@ class Event extends \Base\Action
      *
      * @param string $dateString
      * @param array $categories
+     * @param boolean $breakoutOngoing When true, this will create a separate
+     *        event for events that span multiple days. Useful for the calendar.
      * @return array \Db\Sql\Posts
      */
-    function getByMonth( $dateString, $categories )
+    function getByMonth( $dateString, $categories, $breakoutOngoing = TRUE )
     {
         // get the month from the date string
-        //
         $time = strtotime( $dateString );
         $month = date( 'n', $time );
         $year = date( 'Y', $time );
         $startDate = date( DATE_DATABASE, mktime( 0, 0, 0, $month, 1, $year ) );
         $endDate = date( DATE_DATABASE_END_OF_MONTH, $time );
 
-        // return the results
-        //
-        return \Db\Sql\Posts::getByCategoryDateRange([
+        // get the events
+        $events = \Db\Sql\Posts::getByCategoryDateRange([
             'startDate' => $startDate,
             'endDate' => $endDate,
             'categories' => $categories ]);
+
+        // if breakoutOngoing is true, create a duplicate event for events
+        // that span multiple days.
+        if ( $breakoutOngoing )
+        {
+            $breakoutEvents = [];
+
+            foreach ( $events as $event )
+            {
+                for ( $i = 0; $i < $event->getDaySpan(); $i++ )
+                {
+                    $clone = clone $event;
+                    $clone->calendar_time = strtotime( $clone->event_date )
+                        + ( ( 60 * 60 * 24 ) * $i );
+                    $breakoutEvents[] = $clone;
+                }
+            }
+        }
+
+        // return the results
+        return $breakoutEvents;
     }
 }

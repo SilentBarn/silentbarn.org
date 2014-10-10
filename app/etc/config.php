@@ -10,7 +10,11 @@ return [
         'modules' => [
             'api' => 'Api' ],
         'assetVersion' => 1,
-        'assetMode' => 'development' ],
+        'assetMode' => 'development',
+        'analytics' => [
+            'enabled' => FALSE,
+            'code' => ''
+        ]],
 
     'paths' => [
         'baseUri' => 'http://phalcon.dev/',
