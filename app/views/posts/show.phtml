@@ -1,45 +1,64 @@
-<?php   $imagePath = $post->getImage()->getPath( 960 ); ?>
+<?php
+$imagePath = $post->getImage()->getPath( 960 ); ?>
 <!-- Post -->
 <div id="post" class="page">
     <!-- Title -->
     <h1><?php echo $post->title; ?></h1>
 
-    <!-- Banner image -->
-<?php   if ( valid( $imagePath, STRING ) ): ?>
-    <div id="banner-wrap" class="margin-top-20 margin-bottom-20"
-        style="background-image: url( '<?php echo $imagePath; ?>' );"></div>
-<?php   endif; ?>
+    <!-- Two column layout -->
+    <div id="columns" class="clearfix<?php echo ( valid( $imagePath, STRING ) ) ? ' has-image' : ''; ?>">
+        <div class="column float-left">
+            <!-- Event date -->
+            <?php
+            if ( valid( $post->event_date, STRING ) ): ?>
+            <h4 class="margin-bottom-5">
+                <?php echo $post->getShortDate( TRUE ); ?>
+            </h4>
+            <?php
+            endif; ?>
 
-    <!-- Event date -->
-<?php   if ( valid( $post->event_date, STRING ) ): ?>
-    <h4 class="margin-bottom-5">
-        <?php echo $post->getShortDate( TRUE ); ?>
-    </h4>
-<?php   endif; ?>
+            <!-- Event time and location -->
+            <?php
+            if ( valid( $post->event_time, STRING )
+                || valid( $post->location, STRING ) ): ?>
+            <h4 class="margin-top-0 margin-bottom-5">
+                <?php echo $post->getShortTime( TRUE, TRUE, TRUE ); ?>
+            </h4>
+            <?php
+            endif; ?>
 
-    <!-- Event time and location -->
-<?php   if ( valid( $post->event_time, STRING )
-            || valid( $post->location, STRING ) ): ?>
-    <h4 class="margin-top-0 margin-bottom-5">
-        <?php echo $post->getShortTime( TRUE, TRUE, TRUE ); ?>
-    </h4>
-<?php   endif; ?>
+            <!-- External URL -->
+            <?php
+            if ( $post->external_url ): ?>
+            <div class="external-url margin-bottom-5 padded-top-5">
+                <?php
+                if ( $post->urlIsFacebook() ): ?>
+                <i class="fontsize-13 fa fa-facebook-square"></i>
+                <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
+                <?php
+                else: ?>
+                <i class="fontsize-13 color-999 fa fa-external-link-square"></i>
+                <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>"><?php echo $post->external_url; ?></a>
+                <?php
+                endif; ?>
+            </div>
+            <?php
+            endif; ?>
 
-    <!-- External URL -->
-<?php   if ( $post->external_url ): ?>
-    <div class="external-url margin-bottom-5 padded-top-5">
-<?php       if ( $post->urlIsFacebook() ): ?>
-        <i class="fontsize-13 fa fa-facebook-square"></i>
-        <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>">View Facebook Event</a>
-<?php       else: ?>
-        <i class="fontsize-13 color-999 fa fa-external-link-square"></i>
-        <a class="fontsize-13" target="_blank" href="<?php echo $post->external_url; ?>"><?php echo $post->external_url; ?></a>
-<?php       endif; ?>
-    </div>
-<?php   endif; ?>
-
-    <!-- Body content -->
-    <div id="body" class="padding-top-10">
-        <?php echo $post->getHtmlBody(); ?>
+            <!-- Body content -->
+            <div id="body" class="padding-top-10">
+                <?php echo $post->getHtmlBody(); ?>
+            </div>
+        </div>
+        <div class="float-right column">
+            <!-- Banner image -->
+            <?php
+            if ( valid( $imagePath, STRING ) ): ?>
+            <a href="<?php echo $imagePath; ?>">
+                <img id="banner" src="<?php echo $imagePath; ?>" />
+            </a>
+            <?php
+            endif; ?>
+        </div>
     </div>
 </div>

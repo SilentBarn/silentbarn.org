@@ -22,8 +22,24 @@ class File implements \Phalcon\Http\Request\FileInterface
      */
     public function download( $url )
     {
-        // get the path info; set the name
-        $pathinfo = pathinfo( $url );
+        // make sure to remove any GET params or other nonsense
+        // from the end of the string.
+        $pathUrl = $url;
+
+        if ( strpos( $pathUrl, '?' ) !== FALSE )
+        {
+            $pieces = explode( '?', $pathUrl, 2 );
+            $pathUrl = $pieces[ 0 ];
+        }
+
+        if ( strpos( $pathUrl, '#' ) !== FALSE )
+        {
+            $pieces = explode( '#', $pathUrl, 2 );
+            $pathUrl = $pieces[ 0 ];
+        }
+
+        // get the path info; set the name. 
+        $pathinfo = pathinfo( $pathUrl );
         $this->name = $pathinfo[ 'basename' ];
         $this->tempName = "/tmp/{$this->name}";
 
@@ -33,6 +49,7 @@ class File implements \Phalcon\Http\Request\FileInterface
 
         if ( ! in_array( $ext, $valid ) )
         {
+            exit('a');
             return FALSE;
         }
 

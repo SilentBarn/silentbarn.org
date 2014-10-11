@@ -1,7 +1,5 @@
 /* Posts
  */
-#post.page #banner-wrap {
-    overflow: hidden; width: 960px; height: 420px; background-size: cover; }
 #post.page #body {
     line-height: 150%; }
 #post span.price {
@@ -10,3 +8,7 @@ div.external-url a {
     vertical-align: middle; }
 div.external-url i.fa-facebook-square {
     color: #3b5998; vertical-align: middle; }
+#post .column {
+    width: 48%; }
+#post #banner {
+    width: 100%; margin-top: 20px; }
