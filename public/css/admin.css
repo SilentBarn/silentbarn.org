@@ -24,7 +24,10 @@ a {
 /* Heading Nav
  */
 h2.with-nav {
-    border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+    border-bottom: 1px solid #ddd; padding-bottom: 6px;
+    position: relative; }
+h2.with-nav .nav-scroller {
+    white-space: nowrap; width: calc( 100% - 40px ); }
 h2.with-nav span {
     padding: 10px 16px 8px; margin-right: 20px; border: 1px solid #ddd;
     border-radius: 4px 4px 0 0; border-bottom: 0; line-height: 1px;
@@ -33,6 +36,8 @@ h2.with-nav a {
     font-weight: normal; text-decoration: none; margin-right: 20px; }
 h2.with-nav a:hover {
     text-decoration: underline; }
+h2.with-nav .filter-link {
+    position: absolute; top: 0; right: 0; margin: 0; }
 
 
 /* Messages
