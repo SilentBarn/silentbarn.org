@@ -266,7 +266,7 @@ table tr:last-child td{border-bottom-color:#ddd}
 #vignettes .block .date{font-size:12px;text-transform:uppercase;color:#999;margin-bottom:10px}
 #vignettes .block .description{font-size:14px;line-height:20px;color:#666}
 #auth.page{width:600px;margin-bottom:100px}
-#post.page #body{line-height:150%}
+#post.page #body{line-height:150%;word-wrap:break-word}
 #post span.price{margin-right:5px;background:#ddd;padding:2px 5px}
 div.external-url a{vertical-align:middle}
 div.external-url i.fa-facebook-square{color:#3b5998;vertical-align:middle}
