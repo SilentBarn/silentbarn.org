@@ -224,11 +224,15 @@ var AdminPage = {
             $this.hide();
             $this.next().show().find( 'input' ).focus();
         });
+
+        // Show formatting help
+        $( '#show-formatting-help' ).on( 'click', function () {
+            $( '#formatting-help' ).toggle();
+        });
     }
 };
 
 // call our page functions
-//
 AdminPage.datepickers();
 AdminPage.timepickers();
 AdminPage.imagePreview();
