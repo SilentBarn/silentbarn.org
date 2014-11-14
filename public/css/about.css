@@ -69,7 +69,7 @@
     bottom: 2px; left: 5px; text-shadow: 1px 1px 1px #000; }
 
 /* Memberships */
-#memberships {
+#memberships .top-shelf {
     padding-right: 310px; }
 #memberships img {
     position: absolute; right: 0; }
