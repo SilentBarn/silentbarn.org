@@ -291,6 +291,16 @@ var MainPage = {
         });
     },
 
+    // memberships page
+    memberships: function () {
+        $( '.donate-submit' ).on( 'click', function () {
+            var $this = $( this )
+              , target = $this.data( 'target' )
+              , $form = $( target );
+            $form.submit();
+        });
+    },
+
     // get arguments from query string
     _getQueryParams: function () {
         var args = document.location.search.substring( 1 ).split( '&' ),
@@ -324,5 +334,6 @@ MainPage.loadMore();
 MainPage.showMore();
 MainPage.community();
 MainPage.spaces();
+MainPage.memberships();
 
 });
