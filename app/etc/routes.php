@@ -61,4 +61,12 @@ $router->add(
         'action' => 'donate'
     ]);
 
+// memberships
+$router->add(
+    "/memberships", [
+        'namespace' => 'Controllers',
+        'controller' => 'about',
+        'action' => 'memberships'
+    ]);
+
 return $router;

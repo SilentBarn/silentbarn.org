@@ -67,3 +67,16 @@
 #rental-thumbs .thumb i {
     color: #fff; font-size: 32px; position: absolute;
     bottom: 2px; left: 5px; text-shadow: 1px 1px 1px #000; }
+
+/* Memberships */
+#memberships {
+    padding-right: 310px; }
+#memberships img {
+    position: absolute; right: 0; }
+#memberships a.donate {
+    display: inline-block; padding: 10px 15px; text-align: center;
+    font-size: 20px; border-bottom-width: 4px; border-radius: 5px; }
+#memberships a.donate span {
+    display: block; margin-bottom: 5px; font-size: 24px; }
+#memberships a em.note {
+    bottom: -25px; right: 5px; color: #666; font-size: 13px; }

@@ -106,4 +106,10 @@ class AboutController extends \Base\Controller
         $this->data->pageTitle = "Donate!";
         $this->view->pick( 'about/donate' );
     }
+
+    public function membershipsAction()
+    {
+        $this->data->pageTitle = "Silent Memberships";
+        $this->view->pick( 'about/memberships' );
+    }
 }
