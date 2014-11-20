@@ -68,5 +68,11 @@ $router->add(
         'controller' => 'about',
         'action' => 'memberships'
     ]);
+$router->add(
+    "/membership", [
+        'namespace' => 'Controllers',
+        'controller' => 'about',
+        'action' => 'memberships'
+    ]);
 
 return $router;
