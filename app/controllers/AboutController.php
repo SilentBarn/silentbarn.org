@@ -112,4 +112,10 @@ class AboutController extends \Base\Controller
         $this->data->pageTitle = "Silent Memberships";
         $this->view->pick( 'about/memberships' );
     }
+
+    public function saferspacesAction()
+    {
+        $this->data->pageTitle = "Safer Spaces Policy";
+        $this->view->pick( 'about/saferspaces' );
+    }
 }
