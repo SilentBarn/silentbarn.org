@@ -14,6 +14,7 @@
                 <th>Gallery?</th>
                 <th>Pic?</th>
                 <th>Active?</th>
+                <th>Archived?</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,6 +24,9 @@
             $no = '<span class="color-ccc">No</span>';
             foreach ( $spaces as $space ):
                 $inactive = ( $space->is_active )
+                    ? ''
+                    : ' color-ccc';
+                $archived = ( $space->is_archived )
                     ? ''
                     : ' color-ccc'; ?>
 
@@ -35,6 +39,7 @@
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_gallery ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->hasImage() ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_active ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $space->is_archived ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>">
                     <a class="" href="<?php echo $this->url->get( 'admin/spaces/edit/'. $space->id ); ?>">Edit</a>
                 </td>

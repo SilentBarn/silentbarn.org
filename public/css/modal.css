@@ -19,10 +19,11 @@ body.with-modal {
 
 #modal-close-wrap {
     width: 960px; position: absolute;
-    z-index: 101; margin-left: -480px;
-    text-align: right; left: 50%; }
+    z-index: 101; margin-left: -495px;
+    text-align: right; left: 50%;
+    top: 55px; }
 
 #modal-close {
-    font-size: 32px; color: #fff;
+    font-size: 32px; color: #999;
     text-decoration: none;
-    text-shadow: 0 1px 0 #000; }
+    text-shadow: 0 1px 0 #fff; }

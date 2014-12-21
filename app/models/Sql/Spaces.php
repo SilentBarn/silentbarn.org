@@ -17,6 +17,7 @@ class Spaces extends \Base\Model
     public $is_stewdio;
     public $is_gallery;
     public $is_active;
+    public $is_archived;
     public $is_deleted;
     public $created_at;
 

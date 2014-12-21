@@ -2,30 +2,30 @@
  */
 
 /* Members */
-#members .member {
+.members .member {
     width: 182px; margin-bottom: 5px; cursor: pointer;
     padding: 5px; position: relative; }
-#members .member:hover {
+.members .member:hover {
     background: #F4EFA6; }
-#members .member .img-wrap {
+.members .member .img-wrap {
     width: 182px; height: 182px; overflow: hidden;
     position: relative; }
-#members .member img {
+.members .member img {
     width: 182px; min-height: 182px; }
-#members .member.callout {
+.members .member.callout {
     cursor: default; }
-#members .member.callout .img-wrap {
+.members .member.callout .img-wrap {
     z-index: 30; }
-#members .member h3 {
+.members .member h3 {
     margin: 0; position: absolute; bottom: 0px;
     padding: 3px 8px; left: 0; background: rgba( 0, 0, 0, 0.8 );
     color: #fff; word-wrap: break-word; max-width: 100%;
     font-size: 16px; }
-#members .member.callout .img-wrap h3 {
+.members .member.callout .img-wrap h3 {
     display: none; }
-#members .member .bio {
+.members .member .bio {
     font-size: 14px; line-height: 20px; }
-#members .member.callout .bio a {
+.members .member.callout .bio a {
     color: #c790ff; }
 
 /* Hover/overlay for members */

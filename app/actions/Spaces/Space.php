@@ -17,6 +17,7 @@ class Space extends \Base\Action
         $space->initialize();
         $space->is_deleted = 0;
         $space->is_active = 1;
+        $space->is_archived = 0;
 
         if ( ! $this->save( $space ) )
         {
@@ -62,6 +63,7 @@ class Space extends \Base\Action
         $space->is_stewdio = ( get( $data, 'is_stewdio' ) ) ? 1 : 0;
         $space->is_gallery = ( get( $data, 'is_gallery' ) ) ? 1 : 0;
         $space->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
+        $space->is_archived = ( get( $data, 'is_archived' ) ) ? 1 : 0;
 
         if ( ! $this->save( $space ) )
         {

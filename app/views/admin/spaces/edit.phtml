@@ -40,6 +40,12 @@
                         <?php echo ( $space->is_active ) ? ' checked="checked"' : ''; ?> />
                     <span>Show on website</span>
                 </div>
+                <div class="margin-bottom-20">
+                    <label>Arhived?</label>
+                    <input type="checkbox" name="is_archived" value="1"
+                        <?php echo ( $space->is_archived ) ? ' checked="checked"' : ''; ?> />
+                    <span>Show in archive section</span>
+                </div>
                 <div>
                     <label>Type</label>
                     <div class="margin-bottom-5">

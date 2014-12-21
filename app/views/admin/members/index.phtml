@@ -13,6 +13,7 @@
                 <th>Resident?</th>
                 <th>Stewdio?</th>
                 <th>Pic?</th>
+                <th>Archived?</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -22,6 +23,9 @@
             $no = '<span class="color-ccc">No</span>';
             foreach ( $members as $member ):
                 $inactive = ( $member->is_active )
+                    ? ''
+                    : ' color-ccc';
+                $archived = ( $member->is_archived )
                     ? ''
                     : ' color-ccc'; ?>
 
@@ -33,6 +37,7 @@
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_resident ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_stewdio ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->hasImage() ) ? $yes : $no; ?></td>
+                <td class="centered-text<?php echo $inactive; ?>"><?php echo ( $member->is_archived ) ? $yes : $no; ?></td>
                 <td class="centered-text<?php echo $inactive; ?>">
                     <a class="" href="<?php echo $this->url->get( 'admin/members/edit/'. $member->id ); ?>">Edit</a>
                 </td>

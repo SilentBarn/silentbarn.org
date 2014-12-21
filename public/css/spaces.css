@@ -14,17 +14,17 @@
     margin: 0 0 10px; }
 
 /* Space blocks */
-#spaces .space {
+.spaces .space {
     width: 230px; margin-bottom: 5px; cursor: pointer;
     padding: 5px; position: relative; }
-#spaces .space:hover {
+.spaces .space:hover {
     background: #F4EFA6; }
-#spaces .space .img-wrap {
+.spaces .space .img-wrap {
     width: 230px; height: 230px; overflow: hidden;
     position: relative; }
-#spaces .space img {
+.spaces .space img {
     width: 230px; min-height: 230px; }
-#spaces .space h3 {
+.spaces .space h3 {
     margin: 0; position: absolute; bottom: 0px;
     padding: 5px 8px; left: 0; background: rgba( 0, 0, 0, 0.8 );
     color: #fff; word-wrap: break-word; max-width: 100%;
@@ -34,7 +34,8 @@
 .space-callout h4 {
     margin: 0 0 10px; }
 .space-callout .meta-wrap {
-    float: right; width: 310px; padding-left: 30px; }
+    float: right; width: 310px; padding-left: 30px;
+    padding-top: 35px; }
 .space-callout .meta-wrap img {
     width: 310px; }
 .space-callout .meta-wrap .row i {

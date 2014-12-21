@@ -238,7 +238,7 @@ var MainPage = {
 
     // chefs page
     community: function () {
-        var $members = $( '#members' );
+        var $members = $( '.members' );
         if ( ! $members.length ) {
             return;
         }
@@ -280,7 +280,7 @@ var MainPage = {
 
     // spaces pages
     spaces: function () {
-        var $spaces = $( '#spaces' );
+        var $spaces = $( '.spaces' );
         if ( ! $spaces.length ) {
             return;
         }

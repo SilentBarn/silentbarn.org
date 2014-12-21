@@ -20,6 +20,8 @@ class Member extends \Base\Action
         $member->initialize();
         $member->is_deleted = 0;
         $member->is_active = 1;
+        $member->is_archived = 0;
+
         // save a temporary email
         $member->email = $authAction->generateRandomToken();
 
@@ -94,6 +96,7 @@ class Member extends \Base\Action
         $member->is_resident = ( get( $data, 'is_resident' ) ) ? 1 : 0;
         $member->is_stewdio = ( get( $data, 'is_stewdio' ) ) ? 1 : 0;
         $member->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
+        $member->is_archived = ( get( $data, 'is_archived' ) ) ? 1 : 0;
 
         if ( ! $this->save( $member ) )
         {
