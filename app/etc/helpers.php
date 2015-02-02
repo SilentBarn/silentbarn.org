@@ -172,3 +172,23 @@ function clean_str( $string )
 {
     return htmlspecialchars( $string );
 }
+
+/**
+ * Returns First L. style name
+ */
+function short_name( $string )
+{
+    $pieces = explode( " ", $string );
+
+    if ( ! $pieces )
+    {
+        return "N/A";
+    }
+
+    if ( count( $pieces ) === 1 )
+    {
+        return trim( $pieces[ 0 ] );
+    }
+
+    return $pieces[ 0 ] ." ". substr( $pieces[ 1 ], 0, 1 ) .".";
+}

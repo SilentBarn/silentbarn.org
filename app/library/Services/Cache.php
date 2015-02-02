@@ -9,6 +9,8 @@ namespace Lib\Services;
  */
 class Cache extends \Base\Service
 {
+    private $store = [];
+
     /**
      * Return the data if the key exists. if not, run the callback and
      * set the key to the callback's response.
@@ -38,5 +40,17 @@ class Cache extends \Base\Service
         // @TODO if save failed, log error
 
         return $content;
+    }
+
+    public function getLocal( $keyName )
+    {
+        return ( isset( $this->store[ $keyName ] ) )
+            ? $this->store[ $keyName ]
+            : NULL;
+    }
+
+    public function setLocal( $keyName, $value )
+    {
+        $this->store[ $keyName ] = $value;
     }
 }

@@ -31,6 +31,7 @@ class Posts extends \Base\Model
     private $images;
     private $image;
     private $categories;
+    private $author;
 
     function initialize()
     {
@@ -39,6 +40,8 @@ class Posts extends \Base\Model
 
         $this->images = NULL;
         $this->image = NULL;
+        $this->categories = NULL;
+        $this->author = NULL;
     }
 
     /**
@@ -427,6 +430,41 @@ class Posts extends \Base\Model
 
         return $html;
         //return Markdown::defaultTransform( nl2br( $this->body ) );
+    }
+
+    /**
+     * Get the user object that posted this
+     */
+    function getAuthor()
+    {
+        if ( ! is_null( $this->author ) )
+        {
+            return $this->author;
+        }
+
+        if ( ! $this->user_id )
+        {
+            return FALSE;
+        }
+
+        $cache = $this->getService( 'cache' );
+        $keyName = 'user:'. $this->user_id;
+
+        if ( $cache->getLocal( $keyName ) )
+        {
+            $this->author = $cache->getLocal( $keyName );
+            return $this->author;
+        }
+
+        $this->author = \Db\Sql\Users::findFirst([
+            'id = :id:',
+            'bind' => [
+                'id' => $this->user_id ]
+            ]);
+        $this->author = $this->author->toArray();
+        $cache->setLocal( $keyName, $this->author );
+
+        return $this->author;
     }
 
     /**

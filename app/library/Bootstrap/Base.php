@@ -45,7 +45,6 @@ abstract class Base
     public function run( $args = array() )
     {
         // initialize our required services
-        //
         $this->initConfig();
         $this->initLoader();
 
@@ -208,7 +207,6 @@ abstract class Base
             'db',
             function () use ( $config, $profiler ) {
                 // set up the database adapter
-                //
                 $adapter = new DbAdapter(
                     array(
                         'host' => $config->database->host,
@@ -223,7 +221,6 @@ abstract class Base
                     $eventsManager = new \Phalcon\Events\Manager();
 
                     // listen to all the database events
-                    //
                     $eventsManager->attach(
                         'db',
                         function ( $event, $connection ) use ( $profiler ) {
@@ -284,7 +281,6 @@ abstract class Base
             'dataCache',
             function () use ( $config ) {
                 // create a Data frontend and set a default lifetime to 1 hour
-                //
                 $frontend = new \Phalcon\Cache\Frontend\Data(
                     array(
                         'lifetime' => 3600
@@ -292,14 +288,12 @@ abstract class Base
 
                 if ( $config->session->adapter === 'redis' ):
                     // connect to redis
-                    //
                     $redis = new Redis();
                     $redis->connect(
                         $config->redis->cache->host,
                         $config->redis->cache->port );
 
                     // create the cache passing the connection
-                    //
                     return new \Phalcon\Cache\Backend\Redis(
                         $frontend,
                         array(
