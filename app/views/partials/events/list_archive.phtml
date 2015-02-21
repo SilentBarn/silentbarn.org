@@ -3,7 +3,7 @@
             $i = 0;
             foreach ( $events as $event ):
                 $eventDate = strtotime( $event->event_date );
-                $imagePath = $event->getImage()->getPath( 310 );
+                $imagePath = $event->getImage()->getImagePath( 310 );
                 if ( ! valid( $imagePath, STRING ) ):
                     $imagePath = $this->url->getStatic( 'img/heptagon_placeholder.png' );
                 endif;

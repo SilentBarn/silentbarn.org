@@ -136,6 +136,7 @@
                     </div>
                 </div>
                 <div class="clearfix">
+<?php   if ( int_eq( $this->auth->getUserObj()->access_homepage, 1 ) ): ?>
                     <div class="float-left w33p">
                         <label>Display on Homepage?</label>
                         <div class="margin-bottom-5">
@@ -154,7 +155,8 @@
                             <em>None</em>
                         </div>
                     </div>
-                    <div class="float-right w67p">
+<?php   endif; ?>
+                    <div class="float-left w67p">
                         <!-- External URL -->
                         <div class="margin-bottom-20">
                             <label>Facebook/External URL</label>
@@ -198,7 +200,7 @@
             </fieldset>
 
             <!-- Images -->
-            <fieldset>
+            <fieldset class="margin-bottom-40">
                 <legend>
                     <h2>Photos</h2>
                 </legend>
@@ -229,10 +231,35 @@
                         endif; ?>
                     </div>
                     <div class="float-right clearfix" id="image-preview-wrap">
-                        <img id="image-preview" src="<?php echo $image->getPath(); ?>"
+                        <img id="image-preview" src="<?php echo $image->getImagePath(); ?>"
                             style="<?php echo ( valid( $image->id ) ) ? '' : 'display:none;'; ?>" />
                         <div id="image-none" style="<?php echo ( valid( $image->id ) ) ? 'display:none;' : ''; ?>">No image</div>
                     </div>
+                </div>
+            </fieldset>
+
+            <!-- Media -->
+            <fieldset>
+                <legend>
+                    <h2>Media</h2>
+                </legend>
+                <div class="clearfix">
+                    <?php
+                    $audio = $post->getAudio();
+                    if ( valid( $audio->id ) ): ?>
+                    <div class="margin-bottom-5"><?php echo substr( $image->filename_orig, 0, 32 ); ?></div>
+                    <div class="margin-bottom-5"><?php echo human_bytes( $image->size ); ?></div>
+                    <div class="margin-bottom-5"><?php echo $image->mime_type; ?></div>
+                    <div class="margin-bottom-25">Uploaded on <?php echo date_str( $image->created_at, DATE_DAY_NAME_YEAR ); ?></div>
+                    NEED REMOVE LINK
+                    <?php
+                    else: ?>
+                    <a href="javascript:;" class="fontsize-13" id="add-audio">Add an audio file</a>
+                    <div style="display:none;">
+                        <input name="audio" type="file" id="audio-input" />
+                    </div>
+                    <?php
+                    endif; ?>
                 </div>
             </fieldset>
         </div><!-- /left-col -->
@@ -248,7 +275,7 @@
             $selected = FALSE;
             $catPicked = FALSE;
             foreach ( $categories as $category ):
-                $selected = in_array( $category->slug, $postCategories );
+                $selected = in_array( $category->slug, $postCategories ) || count( $userCats ) === 1;
                 $catPicked = $catPicked || $selected;
                 if ( $this->auth->getUserObj()->canAccessCategory( $category->id ) ): ?>
                 <div class="margin-bottom-5">
@@ -323,7 +350,7 @@
                 <div class="clearfix position-relative">
                     <!-- Floated left -->
                     <div id="image-crop-wrap">
-                        <img id="image-crop" src="<?php echo $image->getPath(); ?>" />
+                        <img id="image-crop" src="<?php echo $image->getImagePath(); ?>" />
                     </div>
                     <!-- Floated right -->
                     <div id="image-crop-tools">

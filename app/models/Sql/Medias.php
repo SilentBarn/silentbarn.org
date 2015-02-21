@@ -4,7 +4,7 @@ namespace Db\Sql;
 
 use Phalcon\Mvc\Model\Query;
 
-class Images extends \Base\Model
+class Medias extends \Base\Model
 {
     public $id;
     public $post_id;
@@ -20,7 +20,7 @@ class Images extends \Base\Model
 
     function initialize()
     {
-        $this->setSource( 'images' );
+        $this->setSource( 'medias' );
         $this->addBehavior( 'timestamp' );
     }
 
@@ -30,7 +30,7 @@ class Images extends \Base\Model
      * @param integer $size 960 or 310
      * @return string
      */
-    function getPath( $size = 960 )
+    function getImagePath( $size = 960 )
     {
         if ( ! valid( $this->filename, STRING ) )
         {
@@ -49,7 +49,7 @@ class Images extends \Base\Model
     }
 
     /**
-     * Get the file path for the image.
+     * Get the file path for the media.
      *
      * @param integer $size (optional)
      * @return string
@@ -76,16 +76,26 @@ class Images extends \Base\Model
     }
 
     /**
-     * Delete an image by post ID
+     * Delete a media item by post ID and type
      *
      * @param integer $postId
      * @return boolean
      */
-    static function deleteByPost( $postId )
+    static function deleteByPost( $postId, $type )
     {
-        $phql = "update \Db\Sql\Images set is_deleted = 1 where post_id = :postId:";
+        $phql =
+            "update \Db\Sql\Medias set is_deleted = 1 ".
+            "where post_id = :postId: and type = :type:";
         $query = new Query( $phql, self::getStaticDI() );
 
         return $query->execute([ 'postId' => $postId ]);
+    }
+
+    static function deleteById( $mediaId )
+    {
+        $phql = "update \Db\Sql\Medias set is_deleted = 1 where id = :mediaId:";
+        $query = new Query( $phql, self::getStaticDI() );
+
+        return $query->execute([ 'mediaId' => $mediaId ]);
     }
 }

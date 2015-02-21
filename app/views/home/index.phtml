@@ -3,7 +3,7 @@
     <div id="hero-carousel" class="hero-carousel">
 <?php   foreach ( $heroPosts as $heroPost ): ?>
         <div class="slide">
-            <img src="<?php echo $heroPost->getImage()->getPath(); ?>" />
+            <img src="<?php echo $heroPost->getImage()->getImagePath(); ?>" />
             <div class="blurb">
                 <div class="clearfix">
                     <h1>
@@ -74,7 +74,7 @@
         <div class="block">
             <div class="img-wrap margin-bottom-10">
                 <a href="<?php echo $boxPost->getPath(); ?>">
-                    <img src="<?php echo $boxPost->getImage()->getPath( 310 ); ?>" />
+                    <img src="<?php echo $boxPost->getImage()->getImagePath( 310 ); ?>" />
                 </a>
             </div>
             <div class="categories font-mono">

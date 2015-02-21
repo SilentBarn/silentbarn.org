@@ -200,7 +200,7 @@ class EventsController extends \Base\Controller
                 'title' => str_replace( "'", "\'", $event->title ), 
                 'date' => date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ),
                 'url' => $event->getPath(),
-                'image' => $event->getImage()->getPath( 310 ) ];
+                'image' => $event->getImage()->getImagePath( 310 ) ];
         }
 
         $this->data->events = $jsonEvents;

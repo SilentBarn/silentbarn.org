@@ -87,6 +87,7 @@ class ArticlesController extends \Base\Controller
         $this->view->post = $post;
         $this->view->postCategories = map( $post->getCategories()->toArray(), 'slug' );
         $this->view->categories = \Db\Sql\Categories::find();
+        $this->view->userCats = $this->auth->getUserObj()->getCategoryAccess();
         $this->view->tags = \Db\Sql\Tags::find();
         $this->view->artists = \Db\Sql\Artists::find();
         $this->view->backPage = 'admin/articles';

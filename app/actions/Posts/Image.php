@@ -3,7 +3,7 @@
 namespace Actions\Posts;
 
 use \Suin\ImageResizer\ImageResizer,
-    \Db\Sql\Images as Images,
+    \Db\Sql\Medias as Medias,
     \Lib\Mocks\File as MockFile;
 
 class Image extends \Base\Action
@@ -47,7 +47,7 @@ class Image extends \Base\Action
      */
     public function deleteByPost( $postId )
     {
-        return Images::deleteByPost( $postId );
+        return Medias::deleteByPost( $postId, MEDIA_IMAGE );
     }
 
     /**
@@ -74,7 +74,6 @@ class Image extends \Base\Action
         foreach ( $files as $file )
         {
             // check the width is > 960
-            //
             $tempName = $file->getTempName();
             $ext = pathinfo( $file->getName(), PATHINFO_EXTENSION );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
@@ -88,13 +87,11 @@ class Image extends \Base\Action
             }
 
             // generate the file hash and path
-            //
             $yearPath = date( DATE_YEAR_MONTH_SLUG );
             $authAction = new \Actions\Users\Auth();
             $fileToken = $authAction->generateRandomToken();
 
             // save the temporary image to the media directory
-            //
             $fullPath = $config->paths->media .'/'. $yearPath;
             $fileName = $fileToken .'.'. $ext;
             $fileName960 = $fileToken .'_960.'. $ext;
@@ -103,7 +100,6 @@ class Image extends \Base\Action
             $file->moveTo( $fullPath .'/'. $fileName );
 
             // copy a 960px and a 310px wide version
-            //
             @copy( $fullPath .'/'. $fileName, $fullPath .'/'. $fileName960 );
             @copy( $fullPath .'/'. $fileName, $fullPath .'/'. $fileName310 );
 
@@ -121,11 +117,11 @@ class Image extends \Base\Action
             }
 
             // save the record out to the database
-            //
-            $image = new Images();
+            $image = new Medias();
             $image->initialize();
             $image->user_id = $this->getService( 'auth' )->getUserId();
             $image->post_id = $postId;
+            $image->type = MEDIA_IMAGE;
             $image->filename = $fileToken;
             $image->filename_orig = $file->getName();
             $image->ext = $ext;

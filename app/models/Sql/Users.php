@@ -90,6 +90,11 @@ class Users extends \Base\Model
      */
     public function getCategoryAccess()
     {
+        if ( ! is_null( get( $this->settings, self::CATEGORY_ACCESS, NULL ) ) )
+        {
+            return $this->settings[ self::CATEGORY_ACCESS ];
+        }
+
         $setting = \Db\Sql\Settings::get(
             $this->id,
             USER,
@@ -106,6 +111,6 @@ class Users extends \Base\Model
             $setting->key = self::CATEGORY_ACCESS;
         }
 
-        return $setting;
+        return $this->settings[ self::CATEGORY_ACCESS ];
     }
 }

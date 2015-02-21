@@ -1,7 +1,7 @@
 <?php   if ( count( $events ) ):
             foreach ( $events as $event ):
                 $event_date = $event->getEventTime();
-                $imagePath = $event->getImage()->getPath( 960 );
+                $imagePath = $event->getImage()->getImagePath( 960 );
                 $imageClass = ( valid( $imagePath, STRING ) )
                     ? 'with-image'
                     : 'no-image'; ?>

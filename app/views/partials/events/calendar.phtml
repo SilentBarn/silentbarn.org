@@ -46,7 +46,7 @@
                 title: '<?php echo str_replace( "'", "\'", $title ); ?>', 
                 date: '<?php echo date( DATE_DAY_NAME_YEAR, $event->calendar_time ); ?>',
                 url: '<?php echo $event->getPath(); ?>',
-                image: '<?php echo $event->getImage()->getPath( 310 ); ?>'
+                image: '<?php echo $event->getImage()->getImagePath( 310 ); ?>'
             }<?php echo ++$i < $total ? ',' : ''; ?>
 
 <?php   endforeach; ?>

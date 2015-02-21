@@ -30,6 +30,7 @@ class Posts extends \Base\Model
 
     private $images;
     private $image;
+    private $audio;
     private $categories;
     private $author;
 
@@ -279,10 +280,13 @@ class Posts extends \Base\Model
             return $this->images;
         }
 
-        $this->images = \Db\Sql\Images::query()
+        $this->images = \Db\Sql\Medias::query()
             ->where( 'post_id = :postId:' )
+            ->andWhere( 'type = :type:' )
             ->andWhere( 'is_deleted = 0' )
-            ->bind([ 'postId' => $this->id ])
+            ->bind([
+                'postId' => $this->id,
+                'type' => MEDIA_IMAGE ])
             ->execute();
 
         return $this->images;
@@ -298,18 +302,44 @@ class Posts extends \Base\Model
             return $this->image;
         }
 
-        $this->image = \Db\Sql\Images::findFirst([
-            'post_id = :postId: and is_deleted = 0',
+        $this->image = \Db\Sql\Medias::findFirst([
+            'post_id = :postId: and is_deleted = 0 and type = :type:',
             'bind' => [
-                'postId' => $this->id ]
+                'postId' => $this->id,
+                'type' => MEDIA_IMAGE ]
             ]);
 
         if ( ! $this->image )
         {
-            $this->image = new \Db\Sql\Images();
+            $this->image = new \Db\Sql\Medias();
         }
 
         return $this->image;
+    }
+
+    /**
+     * Returns an audio file for the post
+     */
+    function getAudio()
+    {
+        if ( ! is_null( $this->audio ) )
+        {
+            return $this->audio;
+        }
+
+        $this->audio = \Db\Sql\Medias::findFirst([
+            'post_id = :postId: and is_deleted = 0 and type = :type:',
+            'bind' => [
+                'postId' => $this->id,
+                'type' => MEDIA_AUDIO ]
+            ]);
+
+        if ( ! $this->audio )
+        {
+            $this->audio = new \Db\Sql\Medias();
+        }
+
+        return $this->audio;
     }
 
     /**
