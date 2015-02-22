@@ -31,7 +31,7 @@ if ( count( $events ) ):
                 : read_more( strip_tags( $event->getHtmlBody() ), 140 ); ?>
         </div>
         <div class="player">
-            <audio src="<?php echo $event->getAudio()->getAudioPath(); ?>" preload="auto" />
+            <audio src="<?php echo $event->getAudio()->getAudioPath(); ?>" preload="metadata" />
         </div>
     </div>
 </div>
