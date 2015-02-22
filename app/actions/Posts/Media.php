@@ -67,6 +67,7 @@ class Media extends \Base\Action
         $endDate = date( DATE_DATABASE_END_OF_MONTH, $time );
 
         // get the events
+        $calendarPosts = [];
         $posts = \Db\Sql\Posts::search([
             'startDate' => $startDate,
             'endDate' => $endDate,
@@ -76,8 +77,15 @@ class Media extends \Base\Action
             'categories' => [ MEDIA ]
         ]);
 
+        foreach ( $posts as $post )
+        {
+            $clone = clone $post;
+            $clone->calendar_time = strtotime( $post->post_date );
+            $calendarPosts[] = $clone;
+        }
+
         // return the results
-        return $posts;
+        return $calendarPosts;
     }
 
     /**

@@ -78,6 +78,8 @@ class ArticlesController extends \Base\Controller
      */
     public function editAction( $postId = "" )
     {
+        ini_set( 'upload_max_filesize', '100M' );
+
         if ( ! valid( $postId, INT ) )
         {
             return $this->quit( "No post ID specified", INFO, 'admin/articles' );
