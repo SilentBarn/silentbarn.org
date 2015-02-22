@@ -132,7 +132,7 @@ abstract class Base
 
                 // if asset versioning is enabled for this profile, use
                 // that in the static URI
-                if ( $config->app->assetMode == 'production' ):
+                if ( $config->app->assetMode === 'production' ):
                     $url->setStaticBaseUri(
                         sprintf(
                             $config->paths->assetUri,

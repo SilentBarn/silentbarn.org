@@ -11,7 +11,7 @@
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link href="http://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet" type="text/css">
 
-<?php   if ( $this->config->app->assetMode == 'production' ): ?>
+<?php   if ( $this->config->app->assetMode === 'production' ): ?>
         <link rel="stylesheet" href="<?php echo $this->url->getStatic( 'css/build.css' ); ?>">
 <?php   else: ?>
         <link rel="stylesheet" href="<?php echo $this->url->getStatic( 'css/app.css' ); ?>">
@@ -26,7 +26,7 @@
         </div>
 
         <!-- JavaScripts -->
-<?php   if ( $this->config->app->assetMode == 'production' ): ?>
+<?php   if ( $this->config->app->assetMode === 'production' ): ?>
         <script src="<?php echo $this->url->getStatic( 'js/dist/admin.js' ); ?>"></script>
 <?php   else: ?>
         <script src="<?php echo $this->url->getStatic( 'js/jquery.js' ); ?>"></script>
