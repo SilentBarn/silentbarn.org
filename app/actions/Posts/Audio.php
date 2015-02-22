@@ -5,39 +5,8 @@ namespace Actions\Posts;
 use \Db\Sql\Medias as Medias,
     \Lib\Mocks\File as MockFile;
 
-class Media extends \Base\Action
+class Audio extends \Actions\Posts\Media
 {
-    /**
-     * Check the files array for any errors
-     */
-    public function checkFilesArrayErrors( $key = 'audio' )
-    {
-        $util = $this->getService( 'util' );
-
-        switch ( $_FILES[ $key ][ 'error' ] )
-        {
-            case UPLOAD_ERR_OK:
-                break;
-            case UPLOAD_ERR_NO_FILE:
-                break;
-            case UPLOAD_ERR_INI_SIZE:
-                $iniSize = ini_get( 'upload_max_filesize' );
-                $util->addMessage(
-                    "Sorry, the filesize was larger than $iniSize.",
-                    ERROR );
-                break;
-            case UPLOAD_ERR_FORM_SIZE:
-                $util->addMessage(
-                    "Sorry, the filesize was larger than what your browser allows.",
-                    ERROR );
-                break;
-            default:
-                $util->addMessage(
-                    "Something went wrong uploading that file :(",
-                    ERROR );
-        }
-    }
-
     /**
      * Marks a specific media item as deleted.
      *
@@ -61,10 +30,9 @@ class Media extends \Base\Action
         $util = $this->getService( 'util' );
         $config = $this->getService( 'config' );
 
-        if ( ! is_array( $files )
-            || ! count( $files ) )
+        if ( ! is_array( $files ) || ! count( $files ) )
         {
-            $util->addMessage( "No files were uploaded.", INFO );
+            $util->addMessage( "No audio files were uploaded.", INFO );
             return FALSE;
         }
 
@@ -83,20 +51,20 @@ class Media extends \Base\Action
             $file->moveTo( $fullPath .'/'. $fileName );
 
             // save the record out to the database
-            $image = new Medias();
-            $image->initialize();
-            $image->user_id = $this->getService( 'auth' )->getUserId();
-            $image->post_id = $postId;
-            $image->type = MEDIA_AUDIO;
-            $image->filename = $fileToken;
-            $image->filename_orig = $file->getName();
-            $image->ext = $ext;
-            $image->date_path = $yearPath;
-            $image->size = $file->getSize();
-            $image->mime_type = $file->getRealType();
-            $image->is_deleted = 0;
+            $audio = new Medias();
+            $audio->initialize();
+            $audio->user_id = $this->getService( 'auth' )->getUserId();
+            $audio->post_id = $postId;
+            $audio->type = MEDIA_AUDIO;
+            $audio->filename = $fileToken;
+            $audio->filename_orig = $file->getName();
+            $audio->ext = $ext;
+            $audio->date_path = $yearPath;
+            $audio->size = $file->getSize();
+            $audio->mime_type = $file->getRealType();
+            $audio->is_deleted = 0;
 
-            if ( ! $image->save() )
+            if ( ! $audio->save() )
             {
                 $util->addMessage( 'There was a problem saving the audio file.', ERROR );
                 return FALSE;

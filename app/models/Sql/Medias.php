@@ -88,7 +88,21 @@ class Medias extends \Base\Model
             "where post_id = :postId: and type = :type:";
         $query = new Query( $phql, self::getStaticDI() );
 
-        return $query->execute([ 'postId' => $postId ]);
+        return $query->execute([
+            'postId' => $postId,
+            'type' => $type ]);
+    }
+
+    static function undeleteByPost( $postId, $type )
+    {
+        $phql =
+            "update \Db\Sql\Medias set is_deleted = 0 ".
+            "where post_id = :postId: and type = :type:";
+        $query = new Query( $phql, self::getStaticDI() );
+
+        return $query->execute([
+            'postId' => $postId,
+            'type' => $type ]);
     }
 
     static function deleteById( $mediaId )

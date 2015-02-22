@@ -247,15 +247,18 @@
                     <?php
                     $audio = $post->getAudio();
                     if ( valid( $audio->id ) ): ?>
-                    <div class="margin-bottom-5"><?php echo substr( $image->filename_orig, 0, 32 ); ?></div>
-                    <div class="margin-bottom-5"><?php echo human_bytes( $image->size ); ?></div>
-                    <div class="margin-bottom-5"><?php echo $image->mime_type; ?></div>
-                    <div class="margin-bottom-25">Uploaded on <?php echo date_str( $image->created_at, DATE_DAY_NAME_YEAR ); ?></div>
-                    NEED REMOVE LINK
+                    <div class="margin-bottom-5"><?php echo substr( $audio->filename_orig, 0, 32 ); ?></div>
+                    <div class="margin-bottom-5"><?php echo human_bytes( $audio->size ); ?></div>
+                    <div class="margin-bottom-5"><?php echo $audio->mime_type; ?></div>
+                    <div class="margin-bottom-25">Uploaded on <?php echo date_str( $audio->created_at, DATE_DAY_NAME_YEAR ); ?></div>
+                    <a class="float-right fontsize-13" href="<?php echo $this->url->get( 'admin/articles/deletemedia/'. $post->id .'/'. $audio->id ); ?>">
+                        Remove this file
+                    </a>
                     <?php
                     else: ?>
                     <a href="javascript:;" class="fontsize-13" id="add-audio">Add an audio file</a>
                     <div style="display:none;">
+                        <label>Select an audio file</label>
                         <input name="audio" type="file" id="audio-input" />
                     </div>
                     <?php

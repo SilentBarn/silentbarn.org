@@ -6,39 +6,8 @@ use \Suin\ImageResizer\ImageResizer,
     \Db\Sql\Medias as Medias,
     \Lib\Mocks\File as MockFile;
 
-class Image extends \Base\Action
+class Image extends \Actions\Posts\Media
 {
-    /**
-     * Check the files array for any errors
-     */
-    public function checkFilesArrayErrors( $key = 'image' )
-    {
-        $util = $this->getService( 'util' );
-
-        switch ( $_FILES[ $key ][ 'error' ] )
-        {
-            case UPLOAD_ERR_OK:
-                break;
-            case UPLOAD_ERR_NO_FILE:
-                break;
-            case UPLOAD_ERR_INI_SIZE:
-                $iniSize = ini_get( 'upload_max_filesize' );
-                $util->addMessage(
-                    "Sorry, the filesize was larger than $iniSize.",
-                    ERROR );
-                break;
-            case UPLOAD_ERR_FORM_SIZE:
-                $util->addMessage(
-                    "Sorry, the filesize was larger than what your browser allows.",
-                    ERROR );
-                break;
-            default:
-                $util->addMessage(
-                    "Something went wrong uploading that image :(",
-                    ERROR );
-        }
-    }
-
     /**
      * Marks all of a given post's photos as deleted. This
      * is usually called before the upload.
@@ -48,6 +17,11 @@ class Image extends \Base\Action
     public function deleteByPost( $postId )
     {
         return Medias::deleteByPost( $postId, MEDIA_IMAGE );
+    }
+
+    public function undeleteByPost( $postId )
+    {
+        return Medias::undeleteByPost( $postId, MEDIA_IMAGE );
     }
 
     /**
@@ -64,8 +38,7 @@ class Image extends \Base\Action
         $util = $this->getService( 'util' );
         $config = $this->getService( 'config' );
 
-        if ( ! is_array( $files )
-            || ! count( $files ) )
+        if ( ! is_array( $files ) || ! count( $files ) )
         {
             $util->addMessage( "No photos were uploaded.", INFO );
             return FALSE;
@@ -73,9 +46,19 @@ class Image extends \Base\Action
 
         foreach ( $files as $file )
         {
+            // check extension is valid
+            $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
+
+            if ( ! in_array( $ext, [ 'png', 'gif', 'jpg', 'jpeg' ] ) )
+            {
+                $util->addMessage(
+                    "Please upload images with png, gif, jpg, of jpeg extensions.",
+                    INFO );
+                return FALSE;
+            }
+
             // check the width is > 960
             $tempName = $file->getTempName();
-            $ext = pathinfo( $file->getName(), PATHINFO_EXTENSION );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
             if ( $width < 310 || $height < 310 )
@@ -366,7 +349,7 @@ class Image extends \Base\Action
      */
     function crop( $image, $coords )
     {
-        if ( ! $image || ! valid( $image->id ) )
+        if ( ! $image || ! valid( $image->id ) || ! isset( $coords[ 'crop_x1' ] ) )
         {
             return FALSE;
         }

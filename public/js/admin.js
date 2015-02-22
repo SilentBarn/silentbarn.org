@@ -92,13 +92,11 @@ var AdminPage = {
     // post actions: save/delete
     postActions: function () {
         // save button
-        //
         $( '#save-object' ).on( 'click', function () {
             $( 'form#edit-form' ).submit();
         });
 
         // delete button
-        //
         $( '#delete-object' ).on( 'click', function () {
             var $this = $( this );
             $this.hide();
@@ -121,7 +119,6 @@ var AdminPage = {
         }
 
         // callback to add a new autocomplete slug
-        //
         var saveSlug = _.throttle( function ( event, suggestion ) {
             var $elt = $( event.currentTarget );
             var fieldName = $elt.data( 'field' );
@@ -145,7 +142,6 @@ var AdminPage = {
         }, 1000, { trailing : false } );
 
         // set up the tag typeahead autocomplete
-        //
         var tagSource = new Bloodhound({
             datumTokenizer: function( d ) {
                 return Bloodhound.tokenizers.whitespace( d.name );
@@ -169,7 +165,6 @@ var AdminPage = {
         });
 
         // set up the artist typeahead autocomplete
-        //
         var artistSource = new Bloodhound({
             datumTokenizer: function( d ) {
                 return Bloodhound.tokenizers.whitespace( d.name );
@@ -193,7 +188,6 @@ var AdminPage = {
         });
 
         // delete a slug event
-        //
         $( '#admin.page' ).on( 'click', 'i.remove-slug', function () {
             $( this ).closest( 'span' ).remove();
         });
@@ -228,6 +222,11 @@ var AdminPage = {
         // Show formatting help
         $( '#show-formatting-help' ).on( 'click', function () {
             $( '#formatting-help' ).toggle();
+        });
+
+        // Show audio file
+        $( '#add-audio' ).on( 'click', function () {
+            $( this ).hide().next().show();
         });
     }
 };

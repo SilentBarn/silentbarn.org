@@ -128,27 +128,51 @@ class ArticlesController extends \Base\Controller
             $post,
             $this->request->getPost( 'artists' ));
 
-        // check for $_FILES errors
+        // check for image file errors
         $imageAction = new \Actions\Posts\Image();
-        $imageAction->checkFilesArrayErrors();
+        $imageSuccess = TRUE;
 
-        // save any images and do the resizing
-        if ( $this->request->hasFiles() == TRUE )
+        if ( $imageAction->hasFiles( 'image' ) )
         {
-            $imageAction->deleteByPost( $post->id );
-            $imageAction->saveToPost( $post->id, $this->request->getUploadedFiles() );
+            // save any images and do the resizing
+            if ( $imageAction->checkFilesArrayErrors( 'image' )
+                && $this->request->hasFiles() )
+            {
+                $imageAction->deleteByPost( $post->id );
+                $imageSuccess = $imageAction->saveToPost(
+                    $post->id,
+                    $this->request->getUploadedFiles() );
+            }
         }
         // check if a URL came in
         elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) )
         {
             $imageAction->deleteByPost( $post->id );
-            $imageAction->saveUrlToPost( $post->id, $this->request->getPost( 'image_url' ) );
+            $imageSuccess = $imageAction->saveUrlToPost(
+                $post->id,
+                $this->request->getPost( 'image_url' ) );
         }
         // if resize coordinates came in, resize the existing image
-        else
+        elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) )
         {
-            // data contains coordinate params
             $imageAction->crop( $post->getImage(), $data );
+        }
+
+        if ( ! $imageSuccess )
+        {
+            $imageAction->undeleteByPost( $post->id );
+        }
+
+        // check for audio file errors
+        $audioAction = new \Actions\Posts\Audio();
+
+        if ( $audioAction->hasFiles( 'audio' )
+            && $audioAction->checkFilesArrayErrors( 'audio' )
+            && $this->request->hasFiles() )
+        {
+            $audioAction->saveToPost(
+                $post->id,
+                $this->request->getUploadedFiles() );
         }
 
         // redirect
@@ -164,5 +188,16 @@ class ArticlesController extends \Base\Controller
         $post = $postAction->delete( $id );
 
         $this->redirect = 'admin/articles';
+    }
+
+    /**
+     * Delete a media file
+     */
+    public function deleteMediaAction( $postId = "", $id = "" )
+    {
+        $mediaAction = new \Actions\Posts\Media();
+        $mediaAction->delete( $id );
+
+        $this->redirect = "admin/articles/edit/{$postId}";
     }
 }
