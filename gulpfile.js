@@ -54,7 +54,7 @@ gulp.task( 'build-js-main', function () {
         './public/js/moment.js',
         './public/js/underscore.js',
         './public/js/clndr.js',
-        './public/js/jquery.modal.js'
+        './public/js/jquery.modal.js',
         './public/js/audio.js'
     ];
 
