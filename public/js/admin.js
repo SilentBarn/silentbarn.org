@@ -226,7 +226,16 @@ var AdminPage = {
 
         // Show audio file
         $( '#add-audio' ).on( 'click', function () {
-            $( this ).hide().next().show();
+            $( this ).hide().next().show().find( 'input' ).click();
+        });
+
+        $( '#clear-audio' ).on( 'click', function () {
+            $( this ).prev().val( '' );
+        });
+
+        // Show author
+        $( '#add-author' ).on( 'click', function () {
+            $( this ).hide().next().show().find( 'input' ).focus();
         });
     }
 };

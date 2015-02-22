@@ -58,6 +58,7 @@ class Post extends \Base\Action
         // apply the data params to the post and save it
         $post->title = $filter->sanitize( get( $data, 'title' ), 'striptags' );
         $post->body = $filter->sanitize( get( $data, 'body' ), 'striptags' );
+        $post->display_name = $filter->sanitize( get( $data, 'display_name' ), 'striptags' );
         $post->location = $filter->sanitize( get( $data, 'location' ), 'striptags' );
         $post->price = $filter->sanitize( get( $data, 'price' ), 'striptags' );
         $post->external_url = $filter->sanitize( get( $data, 'external_url' ), 'striptags' );

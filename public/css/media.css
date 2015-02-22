@@ -12,7 +12,7 @@
 }
 
 /* Small Screenz */
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 980px) {
     /* Headings */
     h1 {
         font-size: 1.5em; }
@@ -72,21 +72,21 @@
 
     #hero-carousel,
     .film_roll_wrapper {
-        height: 220px !important; width: auto; }
+        height: 320px !important; width: auto; }
 
         .hero-carousel div.slide,
         .hero-carousel div.slide img {
-            height: 220px !important;
-            width: 320px !important; }
+            height: 320px !important;
+            width: 420px !important; }
 
         .hero-carousel .blurb h1 {
             font-size: 20px; line-height: 20px;
-            max-width: 290px; padding: 10px; }
+            max-width: 390px; padding: 10px; }
         .hero-carousel .blurb p {
             display: none; }
 
     #hero-nav {
-        position: absolute; top: 225px; width: 100%;
+        position: absolute; top: 325px; width: 100%;
         box-sizing: border-box; }
 
         #hero-nav #carousel-prev {
@@ -95,9 +95,8 @@
             float: right; position: relative; left: -5px; }
 
     .film_roll_pager {
-        width: 180px; position: absolute;
-        top: 233px; z-index: 3; left: 50%;
-        margin-left: -90px; }
+        position: absolute; top: 333px; z-index: 3;
+        left: 50%; margin-left: -90px; }
 
         .film_roll_pager a {
             width: 10px !important;
@@ -209,4 +208,33 @@
         #footer-wrap .right {
             float: right; position: absolute;
             right: 8px; top: 15px; }
+}
+
+@media only screen and (max-width: 400px) {
+    #hero-carousel,
+    .film_roll_wrapper {
+        height: 220px !important; width: auto; }
+
+        .hero-carousel div.slide,
+        .hero-carousel div.slide img {
+            height: 220px !important;
+            width: 320px !important; }
+
+        .hero-carousel .blurb h1 {
+            font-size: 20px; line-height: 20px;
+            max-width: 290px; padding: 10px; }
+        .hero-carousel .blurb p {
+            display: none; }
+
+    #hero-nav {
+        position: absolute; top: 225px; width: 100%;
+        box-sizing: border-box; }
+
+        #hero-nav #carousel-prev {
+            float: left; position: relative; right: -5px; }
+        #hero-nav #carousel-next {
+            float: right; position: relative; left: -5px; }
+
+    .film_roll_pager {
+        top: 233px; }
 }

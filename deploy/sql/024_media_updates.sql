@@ -15,3 +15,6 @@ INSERT INTO  `silentbarn`.`categories` (
 VALUES (
 NULL ,  'media',  'Media', NOW( )
 );
+
+ALTER TABLE  `silentbarn`.`posts` ADD  `display_name` VARCHAR( 128 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL AFTER  `body` ;
+ALTER TABLE  `silentbarn`.`medias` ADD INDEX (  `type` ) ;

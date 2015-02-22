@@ -86,7 +86,6 @@ function valid( $mixed, $expected_type = INT )
     {
         // check if date is of form YYYY-MM-DD HH:MM:SS and that it
         // is not 0000-00-00 00:00:00.
-        //
         if ( strlen( $mixed ) === 19
             && ! str_eq( $mixed, '0000-00-00 00:00:00' ) )
         {
@@ -94,16 +93,24 @@ function valid( $mixed, $expected_type = INT )
         }
 
         // check for MM/DD/YYYY type dates
-        //
         $parts = explode( "/", $mixed );
 
         return count( $parts ) === 3
             && checkdate( $parts[ 0 ], $parts[ 1 ], $parts[ 2 ] );
     }
+    elseif ( $expected_type === VECTOR )
+    {
+        return is_array( $mixed )
+            && count( array_filter( $mixed ) ) > 0;
+    }
     elseif ( $expected_type === OBJECT )
     {
+        if ( ! is_object( $mixed ) )
+        {
+            return FALSE;
+        }
+
         // iterate through object and check if there are any properties
-        //
         foreach ( $mixed as $property )
         {
             if ( $property )
@@ -191,4 +198,25 @@ function short_name( $string )
     }
 
     return $pieces[ 0 ] ." ". substr( $pieces[ 1 ], 0, 1 ) .".";
+}
+
+/**
+ * Returns a 'read more' excerpt for text
+ */
+function read_more( $text, $length )
+{
+    if ( strlen( $text ) <= $length )
+    {
+        return $text;
+    }
+
+    return sprintf(
+        '%s<span>&nbsp;[<a href="%s" class="%s">%s&hellip;</a>]</span>'.
+        '<span class="%s">%s</span>',
+        substr( $text, 0, $length ),
+        "javascript:;",
+        "read-more",
+        "more",
+        "more-text",
+        substr( $text, $length, strlen( $text ) - $length ) );
 }

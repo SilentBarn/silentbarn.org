@@ -5,6 +5,7 @@ define( 'INT', 'int' );
 define( 'STRING', 'string' );
 define( 'DATE', 'date' );
 define( 'OBJECT', 'object' );
+define( 'VECTOR', 'vector' );
 
 // responses
 define( 'SUCCESS', 'success' );

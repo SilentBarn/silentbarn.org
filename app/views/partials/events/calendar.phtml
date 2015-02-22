@@ -1,4 +1,4 @@
-<div id="full-clndr" class="cal clearfix">
+<div id="full-clndr" class="cal clearfix" data-endpoint="<?php echo ( isset( $eventEndpoint ) ) ? $eventEndpoint : 'events/getbymonth'; ?>">
     <script type="text/template" id="full-clndr-template">
         <div class="clndr-grid">
             <div class="clndr-controls">
@@ -18,9 +18,9 @@
             </div>
         </div>
         <div class="event-listing">
-            <div class="event-listing-title font-mono">Events This Month</div>
+            <div class="event-listing-title font-mono"><?php echo ( isset( $eventLabel ) ) ? ucfirst( $eventLabel ) : 'Events'; ?> This Month</div>
             <% if ( ! eventsThisMonth.length ) { %>
-                <div class="no-events fontsize-14">No events for <%= month %> <%= year %></div>
+                <div class="no-events fontsize-14">No <?php echo ( isset( $eventLabel ) ) ? $eventLabel : 'events'; ?> for <%= month %> <%= year %></div>
             <% } else { %>
             <%     _.each( eventsThisMonth, function( event ) { %>
                 <div class="event-item margin-bottom-15">

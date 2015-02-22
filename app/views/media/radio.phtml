@@ -1,0 +1,52 @@
+<!-- Radio Page -->
+<div class="page">
+    <!-- Header -->
+    <h1 class="font-mono uppercase padding-top-10 margin-bottom-10">Silent Radio</h1>
+
+    <div class="clearfix">
+        <!-- Banner info -->
+        <div class="banner-message with-image border margin-bottom-40 clearfix">
+            <img src="<?php echo $this->url->getStatic( 'img/radio_160w.png' ); ?>" alt="" width="160" class="float-right margin-left-30 move-up" />
+            <p class="fontsize-14 lineheight-24">
+                Hosted by Mike Nigro, Silent Radio is both a program review of the Silent Barn's
+                recent events and an auditory extension of the venue’s aesthetic. Equal parts
+                entertaining, informative, and confounding, Silent Radio aims to evoke the free
+                flowing, collaborative atmosphere found at the Silent Barn.
+                <span><a href="javascript:;" class="show-more" data-target="#radio-about-more">Read more about Mike</a>.</span>
+            </p>
+            <p id="radio-about-more" class="fontsize-14 lineheight-24 margin-top-25" style="display:none;">
+                Mike Nigro is an active musician and has been a supporter of regional, independent
+                music and art since he was a teenager. He lives in Brooklyn, New York where he runs
+                the record label Oxtail Recordings.
+            </p>
+        </div>
+        <!-- Recent posts -->
+        <div id="upcoming" class="events w67p float-left">
+            <div id="upcoming-wrap">
+<?php   $this->partial(
+            'partials/media/audio_list_full',
+            [ 'events' => $posts ]); ?>
+            </div>
+<?php   if ( count( $posts ) >= $limit ): ?>
+            <!-- Load More -->
+            <div id="load-more" class="centered-text">
+                <a href="javascript:;" id="load-more-button" data-url="media/radio"
+                    data-limit="<?php echo $limit; ?>" data-offset="<?php echo $limit; ?>"
+                    data-container="#upcoming-wrap" class="gray button">Load More</a>
+            </div>
+<?php   endif; ?>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar" class="w33p float-right">
+            <div class="calendar-wrap padding-left-20">
+<?php   $this->partial(
+            'partials/events/calendar', [
+                'events' => $calendarEvents,
+                'eventLabel' => 'podcasts',
+                'eventEndpoint' => 'media/getradiobymonth'
+            ]); ?>
+            </div>
+        </div>
+    </div>
+</div>

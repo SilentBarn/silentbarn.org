@@ -49,6 +49,38 @@ class Media extends \Base\Action
     }
 
     /**
+     * Get events for a particular month.
+     *
+     * @param string $dateString
+     * @param array $categories
+     * @param boolean $breakoutOngoing When true, this will create a separate
+     *        event for events that span multiple days. Useful for the calendar.
+     * @return array \Db\Sql\Posts
+     */
+    function getByMonth( $dateString, $mediaTypes )
+    {
+        // get the month from the date string
+        $time = strtotime( $dateString );
+        $month = date( 'n', $time );
+        $year = date( 'Y', $time );
+        $startDate = date( DATE_DATABASE, mktime( 0, 0, 0, $month, 1, $year ) );
+        $endDate = date( DATE_DATABASE_END_OF_MONTH, $time );
+
+        // get the events
+        $posts = \Db\Sql\Posts::search([
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'dateField' => 'post_date',
+            'media' => $mediaTypes,
+            'isDeleted' => 0,
+            'categories' => [ MEDIA ]
+        ]);
+
+        // return the results
+        return $posts;
+    }
+
+    /**
      * Deletes a media item, i.e. marks it is_deleted
      */
     public function delete( $id )

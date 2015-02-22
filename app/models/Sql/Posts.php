@@ -14,6 +14,7 @@ class Posts extends \Base\Model
     public $slug;
     public $excerpt;
     public $body;
+    public $display_name;
     public $location;
     public $price;
     public $external_url;
@@ -176,29 +177,24 @@ class Posts extends \Base\Model
         // initialize arrays
         $whereClauses = [];
         $bindings = [];
+        $dateField = get( $params, 'dateField', 'event_date' );
 
         // set up date clauses if any came in
         if ( valid( get( $params, 'startDate' ), STRING ) )
         {
-            //$whereClauses[] = "p.event_date >= ':startDate:'";
-            //$bindings[ 'startDate' ] = $params[ 'startDate' ];
-            $whereClauses[] = "p.event_date >= ?";
-            $bindings[] = $params[ 'startDate' ];
+            $whereClauses[] = "p.{$dateField} >= '". $params[ 'startDate' ] ."'";
+            //$bindings[] = $params[ 'startDate' ];
         }
 
         if ( valid( get( $params, 'endDate' ), STRING ) )
         {
-            //$whereClauses[] = "p.event_date <= ':endDate:'";
-            //$bindings[ 'endDate' ] = $params[ 'endDate' ];
-            $whereClauses[] = "p.event_date <= ?";
-            $bindings[] = $params[ 'endDate' ];
+            $whereClauses[] = "p.{$dateField} <= '". $params[ 'endDate' ] ."'";
+            //$bindings[] = $params[ 'endDate' ];
         }
 
         // search on keywords
         if ( valid( get( $params, 'keywords' ), STRING ) )
         {
-            //$whereClauses[] = "p.title like '%:keywords:%'";
-            //$bindings[ 'keywords' ] = $params[ 'keywords' ];
             $whereClauses[] = "p.title like ?";
             $bindings[] = '%'. $params[ 'keywords' ] .'%';
         }
@@ -214,8 +210,17 @@ class Posts extends \Base\Model
                 "  where a.name like ? and p.id = r2.object_id and r2.object_type = '%s' ) ",
                 ARTIST,
                 POST );
-            //$bindings[ 'artist' ] = $params[ 'artist' ];
             $bindings[] = '%'. $params[ 'artist' ] .'%';
+        }
+
+        // search posts that have a specific media type (like audio)
+        if ( valid( get( $params, 'media' ), VECTOR ) )
+        {
+            $whereClauses[] = sprintf(
+                "exists (".
+                "  select 1 from medias as m ".
+                "  where m.type in ('%s') and m.post_id = p.id ) ",
+                implode( "','", $params[ 'media' ] ));
         }
 
         if ( isset( $params[ 'isDeleted' ] ) )
@@ -230,8 +235,17 @@ class Posts extends \Base\Model
 
         // stringify the where clauses
         $whereClausesString = ( count( $whereClauses ) )
-            ? " and " . implode( ' and ', $whereClauses )
+            ? " and (" . implode( ' and ', $whereClauses ) ." )"
             : "";
+
+        // check if we want to also find any of a user's posts
+        if ( isset( $params[ 'userIds' ] )
+            && valid( $params[ 'userIds' ], VECTOR ) )
+        {
+            $whereClausesString .= sprintf(
+                " or p.user_id in (%s)",
+                implode( ",", $params[ 'userIds' ] ));
+        }
 
         // optionally can get the count
         if ( get( $params, 'count' ) === TRUE )
@@ -242,8 +256,15 @@ class Posts extends \Base\Model
         else
         {
             $select = "p.*";
-            $limit = sprintf( "limit %s, %s", $params[ 'offset' ], $params[ 'limit' ] );
+            $limit = ( isset( $params[ 'limit' ] ) )
+                ? sprintf( "limit %s, %s", $params[ 'offset' ], $params[ 'limit' ] )
+                : "";
         }
+
+        // get the sorting
+        $orderBy = ( isset( $params[ 'orderBy' ] ) )
+            ? $params[ 'orderBy' ]
+            : "{$dateField} desc";
 
         // create the SQL statement
         $sql = sprintf(
@@ -261,7 +282,7 @@ class Posts extends \Base\Model
             CATEGORY,
             implode( "','", $params[ 'categories' ] ),
             $whereClausesString,
-            'event_date desc',
+            $orderBy,
             $limit );
 
         // base model

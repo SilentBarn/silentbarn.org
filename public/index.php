@@ -1,7 +1,6 @@
 <?php
 
 // set up the environment
-//
 date_default_timezone_set( 'UTC' );
 define( 'APP_PATH', __DIR__ . '/../app' );
 define( 'VENDOR_PATH', __DIR__ .'/../vendor' );

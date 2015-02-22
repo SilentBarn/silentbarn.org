@@ -48,6 +48,23 @@ class Medias extends \Base\Model
             $this->ext );
     }
 
+    function getAudioPath()
+    {
+        if ( ! valid( $this->filename, STRING ) )
+        {
+            return '';
+        }
+
+        $config = $this->getService( 'config' );
+
+        return sprintf(
+            "%s%s/%s.%s",
+            $config->paths->mediaPublic,
+            $this->date_path,
+            $this->filename,
+            $this->ext );
+    }
+
     /**
      * Get the file path for the media.
      *

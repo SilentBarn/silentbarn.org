@@ -37,7 +37,9 @@ class ArticlesController extends \Base\Controller
             'isDeleted' => 0,
             'categories' => $categories,
             'limit' => $limit,
-            'offset' => $offset
+            'offset' => $offset,
+            'orderBy' => 'id desc',
+            'userIds' => [ $this->auth->userId ]
         ]);
         $this->view->backPage = '';
         $this->view->buttons = [ 'newArticle' ];
@@ -46,6 +48,7 @@ class ArticlesController extends \Base\Controller
         $totalPosts = \Db\Sql\Posts::search([
             'isDeleted' => 0,
             'categories' => $categories,
+            'userIds' => [ $this->auth->userId ],
             'count' => TRUE
         ]);
 

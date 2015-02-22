@@ -114,7 +114,7 @@ var MainPage = {
 
             $overlay.fadeIn( 250 );
             $.ajax({
-                url: window.Environment.apiPath + 'events/getbymonth',
+                url: window.Environment.apiPath + $fullClndr.data( 'endpoint' ),
                 data: {
                     date: date
                 },
@@ -234,6 +234,10 @@ var MainPage = {
             $target.show();
             $this.parent().hide();
         });
+
+        $( 'a.read-more' ).on( 'click', function () {
+            $( this ).parent().hide().next().show();
+        });
     },
 
     // chefs page
@@ -301,6 +305,19 @@ var MainPage = {
         });
     },
 
+    // radio page
+    radio: function () {
+        if ( ! $( 'audio' ).length ) {
+            return;
+        }
+
+        audiojs.events.ready( function () {
+            var as = audiojs.createAll({
+                css: false
+            });
+        });
+    },
+
     // get arguments from query string
     _getQueryParams: function () {
         var args = document.location.search.substring( 1 ).split( '&' ),
@@ -335,5 +352,6 @@ MainPage.showMore();
 MainPage.community();
 MainPage.spaces();
 MainPage.memberships();
+MainPage.radio();
 
 });

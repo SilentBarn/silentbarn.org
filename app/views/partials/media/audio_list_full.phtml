@@ -1,0 +1,46 @@
+<?php
+if ( count( $events ) ):
+    foreach ( $events as $event ):
+        $imagePath = $event->getImage()->getImagePath( 310 ); ?>
+
+<div class="media-event padding-bottom-20 margin-bottom-20 position-relative">
+    <?php
+    if ( valid( $imagePath, STRING ) ): ?>
+    <a class="blocked media-image margin-bottom-15" href="<?php echo $event->getPath(); ?>">
+        <img src="<?php echo $imagePath; ?>" alt="" width="220" />
+        <span class="caption"><?php echo $event->display_name; ?></span>
+    </a>
+    <?php
+    else: ?>
+    <a class="blocked media-image margin-bottom-15" href="<?php echo $event->getPath(); ?>">
+        <img src="<?php echo $this->url->getStatic( 'img/heptagon_placeholder.png' ); ?>" width="220" />
+        <span class="caption"><?php echo $event->display_name; ?></span>
+    </a>
+    <?php
+    endif; ?>
+    <h2 class="font-mono uppercase margin-bottom-10">
+        <a href="<?php echo $event->getPath(); ?>" class="color-333 hover-underline"><?php echo $event->title; ?></a>
+    </h2>
+    <div class="date fontsize-15 color-999">
+        Aired <?php echo $event->getShortDate( TRUE, TRUE ); ?>
+    </div>
+    <div class="body margin-top-10 lineheight-24">
+        <div class="excerpt margin-bottom-20">
+            <?php echo ( strlen( $event->excerpt ) )
+                ? read_more( $event->excerpt, 140 )
+                : read_more( strip_tags( $event->getHtmlBody() ), 140 ); ?>
+        </div>
+        <div class="player">
+            <audio src="<?php echo $event->getAudio()->getAudioPath(); ?>" preload="auto" />
+        </div>
+    </div>
+</div>
+
+    <?php
+    endforeach;
+else: ?>
+<div class="color-aaa">
+    There are no <?php echo ( isset( $offset ) && $offset ) ? 'more ' : ''; ?>podcasts
+</div>
+<?php
+endif; ?>

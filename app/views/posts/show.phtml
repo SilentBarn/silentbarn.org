@@ -1,5 +1,6 @@
 <?php
-$imagePath = $post->getImage()->getImagePath( 960 ); ?>
+$imagePath = $post->getImage()->getImagePath( 960 );
+$audioPath = $post->getAudio()->getAudioPath(); ?>
 <!-- Post -->
 <div id="post" class="page">
     <!-- Title -->
@@ -49,6 +50,25 @@ $imagePath = $post->getImage()->getImagePath( 960 ); ?>
             <div id="body" class="padding-top-10">
                 <?php echo $post->getHtmlBody(); ?>
             </div>
+            <?php
+            if ( valid( $audioPath, STRING ) ): ?>
+            <div class="player margin-top-30 margin-bottom-20">
+                <audio src="<?php echo $audioPath; ?>" preload="auto" />
+            </div>
+            <?php
+            endif;
+            if ( valid( $post->post_date, STRING ) ): ?>
+            <div class="color-999 fontsize-15 margin-bottom-5">
+                Aired <?php echo $post->getShortDate( TRUE, TRUE ); ?>
+            </div>
+            <?php
+            endif;
+            if ( valid( $post->display_name, STRING ) ): ?>
+            <div class="color-999 fontsize-15">
+                Hosted by <?php echo $post->display_name; ?>
+            </div>
+            <?php
+            endif; ?>
         </div>
         <div class="float-right column">
             <!-- Banner image -->

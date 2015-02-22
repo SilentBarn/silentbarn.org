@@ -35,16 +35,33 @@
                         <?php
                         $this->partial( 'partials/admin/markdown' ); ?>
                     </div>
-                    <label>Status</label>
-                    <div class="margin-bottom-5">
-                        <input type="radio" name="status" value="draft"
-                            <?php echo ( $post->status == 'draft' ) ? ' checked="checked"' : ''; ?> />
-                        <span>Draft</span>
+                    <div class="float-left margin-right-30">
+                        <label>Status</label>
+                        <div class="margin-bottom-5">
+                            <input type="radio" name="status" value="draft"
+                                <?php echo ( $post->status == 'draft' ) ? ' checked="checked"' : ''; ?> />
+                            <span>Draft</span>
+                        </div>
+                        <div>
+                            <input type="radio" name="status" value="published"
+                                <?php echo ( $post->status == 'published' ) ? ' checked="checked"' : ''; ?> />
+                            <span>Published</span>
+                        </div>
                     </div>
-                    <div>
-                        <input type="radio" name="status" value="published"
-                            <?php echo ( $post->status == 'published' ) ? ' checked="checked"' : ''; ?> />
-                        <span>Published</span>
+                    <div class="float-left">
+                    <?php
+                    if ( valid( $post->display_name, STRING ) ): ?>
+                        <label>Author</label>
+                        <input name="display_name" value="<?php echo $post->display_name; ?>" type="text" class="w200px" />
+                    <?php
+                    else: ?>
+                        <a href="javascript:;" id="add-author" class="fontsize-13">Set author</a>
+                        <div style="display:none;">
+                            <label>Author</label>
+                            <input name="display_name" value="" type="text" class="w200px" />
+                        </div>
+                    <?php
+                    endif; ?>
                     </div>
                 </div>
             </fieldset>
@@ -136,7 +153,8 @@
                     </div>
                 </div>
                 <div class="clearfix">
-<?php   if ( int_eq( $this->auth->getUserObj()->access_homepage, 1 ) ): ?>
+                    <?php
+                    if ( int_eq( $this->auth->getUserObj()->access_homepage, 1 ) ): ?>
                     <div class="float-left w33p">
                         <label>Display on Homepage?</label>
                         <div class="margin-bottom-5">
@@ -155,7 +173,8 @@
                             <em>None</em>
                         </div>
                     </div>
-<?php   endif; ?>
+                    <?php
+                    endif; ?>
                     <div class="float-left w67p">
                         <!-- External URL -->
                         <div class="margin-bottom-20">
@@ -205,7 +224,7 @@
                     <h2>Photos</h2>
                 </legend>
                 <div class="clearfix">
-                    <div class="float-left">
+                    <div id="image-preview-meta" class="float-left">
                         <?php
                         $image = $post->getImage();
                         if ( valid( $image->id ) ): ?>
@@ -260,6 +279,7 @@
                     <div style="display:none;">
                         <label>Select an audio file</label>
                         <input name="audio" type="file" id="audio-input" />
+                        <a href="javascript:;" class="fontsize-13" id="clear-audio">Clear file</a>
                     </div>
                     <?php
                     endif; ?>
