@@ -368,9 +368,9 @@ pre.ascii{font-family:"courier new",monospace;font-size:12px;line-height:100%;co
 .audiojs .time strong{padding:0 0 0 2px;font-weight:400}
 .audiojs .error-message{display:none;margin:0 10px;height:36px;padding-left:8px;width:auto;overflow:hidden;line-height:36px;white-space:nowrap;color:#777;text-overflow:ellipsis;-o-text-overflow:ellipsis;-icab-text-overflow:ellipsis;-khtml-text-overflow:ellipsis;-moz-text-overflow:ellipsis;-webkit-text-overflow:ellipsis}
 .audiojs .error-message a{color:#777;text-decoration:none;padding-bottom:1px;border-bottom:1px solid #aaa;white-space:wrap}
-.audiojs .loading:before,.audiojs .play:before{content:'\f04b';font-size:22px;color:#999;font-family:Font-Awesome;position:relative;top:4px;left:4px}
-.audiojs .error:before{content:'\f071';font-size:20px;color:#999;font-family:Font-Awesome;position:relative;top:4px;left:3px}
-.audiojs .pause:before{content:'\f04c';font-size:22px;color:#999;font-family:Font-Awesome;position:relative;top:4px;left:4px}
+.audiojs .loading:before,.audiojs .play:before{content:'\f04b';font-size:22px;color:#999;font-family:FontAwesome;position:relative;top:4px;left:4px}
+.audiojs .error:before{content:'\f071';font-size:20px;color:#999;font-family:FontAwesome;position:relative;top:4px;left:3px}
+.audiojs .pause:before{content:'\f04c';font-size:22px;color:#999;font-family:FontAwesome;position:relative;top:4px;left:4px}
 .playing .error,.playing .loading,.playing .play{display:none}
 .playing .pause{display:block}
 .loading .error,.loading .pause,.loading .play{display:none}

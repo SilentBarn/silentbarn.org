@@ -186,19 +186,19 @@ pre.ascii {
             border-bottom: 1px solid #aaa; white-space: wrap; }
     .audiojs .play:before {
         content: '\f04b'; font-size: 22px; color: #999;
-        font-family: 'Font-Awesome'; position: relative; top: 4px;
+        font-family: 'FontAwesome'; position: relative; top: 4px;
         left: 4px; }
     .audiojs .loading:before {
         content: '\f04b'; font-size: 22px; color: #999;
-        font-family: 'Font-Awesome'; position: relative; top: 4px;
+        font-family: 'FontAwesome'; position: relative; top: 4px;
         left: 4px; }
     .audiojs .error:before {
         content: '\f071'; font-size: 20px; color: #999;
-        font-family: 'Font-Awesome'; position: relative; top: 4px;
+        font-family: 'FontAwesome'; position: relative; top: 4px;
         left: 3px; }
     .audiojs .pause:before {
         content: '\f04c'; font-size: 22px; color: #999;
-        font-family: 'Font-Awesome'; position: relative; top: 4px;
+        font-family: 'FontAwesome'; position: relative; top: 4px;
         left: 4px; }
     .playing .play,
     .playing .loading,
