@@ -28,14 +28,27 @@ class ArticlesController extends \Base\Controller
         $limit = 25;
         $offset = abs( ( $currentPage - 1 ) * $limit );
 
+        // search on the categories the user can access
+        $categories = $this->auth->getUserObj()->getCategories();
+
         // get all of the posts
         $this->view->pick( 'admin/articles/index' );
-        $this->view->posts = \Db\Sql\Posts::getAll( $limit, $offset );
+        $this->view->posts = \Db\Sql\Posts::search([
+            'isDeleted' => 0,
+            'categories' => $categories,
+            'limit' => $limit,
+            'offset' => $offset
+        ]);
         $this->view->backPage = '';
         $this->view->buttons = [ 'newArticle' ];
 
         // set up the pagination
-        $totalPosts = \Db\Sql\Posts::count( 'is_deleted = 0' );
+        $totalPosts = \Db\Sql\Posts::search([
+            'isDeleted' => 0,
+            'categories' => $categories,
+            'count' => TRUE
+        ]);
+
         $pagination = new Pagination(
             $totalPosts,
             $currentPage,

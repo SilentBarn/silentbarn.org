@@ -40,12 +40,12 @@ class Event extends \Base\Action
      */
     function search( $params )
     {
-        $allowedCats = [ EVENTS, EXHIBITIONS, PRESS, NEWS ];
+        $allowedCats = [ EVENTS, EXHIBITIONS, PRESS, NEWS, MEDIA ];
 
-        // check for category, default to events
-        if ( ! in_array( $params[ 'category' ], $allowedCats ) )
+        // check for categories, default to events
+        if ( ! array_intersect( $params[ 'categories' ], $allowedCats ) )
         {
-            $params[ 'category' ] = EVENTS;
+            $params[ 'categories' ] = [ EVENTS ];
         }
 
         // prepare our dates

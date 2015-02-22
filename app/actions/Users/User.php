@@ -127,7 +127,7 @@ class User extends \Base\Action
         $user->access_homepage = ( get( $data, 'access_homepage' ) ) ? 1 : 0;
 
         // read in the article category permissions and set those too
-        $category_access = $user->getCategoryAccess();
+        $category_access = $user->getCategoryAccess( TRUE );
         $category_access->object_id = $user->id;
         $category_access->object_type = USER;
         $category_access->value = serialize(

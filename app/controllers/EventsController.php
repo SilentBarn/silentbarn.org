@@ -112,11 +112,13 @@ class EventsController extends \Base\Controller
             $offset = get( $queryParams, 'o' );
             $offset = ( valid( $offset ) ) ? $offset : 0;
             $this->data->events = $action->search([
-                'category' => $params[ 'type' ],
+                'categories' => [ $params[ 'type' ] ],
                 'artist' => $params[ 'artist' ],
                 'keywords' => $params[ 'keywords' ],
                 'startDate' => $params[ 'date_start' ],
                 'endDate' => $params[ 'date_end' ],
+                'isDeleted' => 0,
+                'status' => PUBLISHED,
                 'limit' => $limit,
                 'offset' => $offset ]);
             $this->data->limit = $limit;

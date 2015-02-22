@@ -64,7 +64,7 @@ class Posts extends \Base\Model
     {
         return \Db\Sql\Posts::query()
             ->where( 'is_deleted = 0' )
-            ->where( 'status = "published"' )
+            ->where( 'status = "'. PUBLISHED .'"' )
             ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
             ->execute();
@@ -81,7 +81,7 @@ class Posts extends \Base\Model
     {
         return \Db\Sql\Posts::query()
             ->where( 'is_deleted = 0' )
-            ->andWhere( "status = 'published'" )
+            ->andWhere( "status = '". PUBLISHED ."'" )
             ->andWhere( "homepage_location = :location:" )
             ->orderBy( 'event_date desc, post_date desc' )
             ->limit( $limit )
@@ -148,13 +148,14 @@ class Posts extends \Base\Model
             "  on c.id = r.property_id and r.property_type = '%s' ".
             "where c.slug in ('%s') ".
             "  and ( %s ) ".
-            "  and p.is_deleted = 0 and p.status = 'published' ".
+            "  and p.is_deleted = 0 and p.status = '%s' ".
             "order by p.%s ".
             "limit %s, %s",
             POST,
             CATEGORY,
             implode( ',', $options[ 'categories' ] ),
             implode( ' and ', $dateWhereClauses ),
+            PUBLISHED,
             $options[ 'sort' ],
             $options[ 'offset' ],
             $options[ 'limit' ] );
@@ -177,7 +178,7 @@ class Posts extends \Base\Model
         $bindings = [];
 
         // set up date clauses if any came in
-        if ( valid( $params[ 'startDate' ], STRING ) )
+        if ( valid( get( $params, 'startDate' ), STRING ) )
         {
             //$whereClauses[] = "p.event_date >= ':startDate:'";
             //$bindings[ 'startDate' ] = $params[ 'startDate' ];
@@ -185,7 +186,7 @@ class Posts extends \Base\Model
             $bindings[] = $params[ 'startDate' ];
         }
 
-        if ( valid( $params[ 'endDate' ], STRING ) )
+        if ( valid( get( $params, 'endDate' ), STRING ) )
         {
             //$whereClauses[] = "p.event_date <= ':endDate:'";
             //$bindings[ 'endDate' ] = $params[ 'endDate' ];
@@ -194,7 +195,7 @@ class Posts extends \Base\Model
         }
 
         // search on keywords
-        if ( valid( $params[ 'keywords' ], STRING ) )
+        if ( valid( get( $params, 'keywords' ), STRING ) )
         {
             //$whereClauses[] = "p.title like '%:keywords:%'";
             //$bindings[ 'keywords' ] = $params[ 'keywords' ];
@@ -203,7 +204,7 @@ class Posts extends \Base\Model
         }
 
         // search artists
-        if ( valid( $params[ 'artist' ], STRING ) )
+        if ( valid( get( $params, 'artist' ), STRING ) )
         {
             $whereClauses[] = sprintf(
                 "exists (".
@@ -217,42 +218,72 @@ class Posts extends \Base\Model
             $bindings[] = '%'. $params[ 'artist' ] .'%';
         }
 
+        if ( isset( $params[ 'isDeleted' ] ) )
+        {
+            $whereClauses[] = "p.is_deleted = ". $params[ 'isDeleted' ];
+        }
+
+        if ( isset( $params[ 'status' ] ) )
+        {
+            $whereClauses[] = "p.status = ". $params[ 'status' ];
+        }
+
         // stringify the where clauses
         $whereClausesString = ( count( $whereClauses ) )
-            ? "and ". implode( ' and ', $whereClauses )
+            ? " and " . implode( ' and ', $whereClauses )
             : "";
+
+        // optionally can get the count
+        if ( get( $params, 'count' ) === TRUE )
+        {
+            $select = "count(1) as count";
+            $limit = "";
+        }
+        else
+        {
+            $select = "p.*";
+            $limit = sprintf( "limit %s, %s", $params[ 'offset' ], $params[ 'limit' ] );
+        }
 
         // create the SQL statement
         $sql = sprintf(
-            "select p.* from posts as p ".
+            "select %s from posts as p ".
             "inner join relationships as r ".
             "  on p.id = r.object_id and r.object_type = '%s' ".
             "inner join categories as c ".
             "  on c.id = r.property_id and r.property_type = '%s' ".
-            "where c.slug = '%s' ". // cat name
+            "where c.slug in ('%s') ". // cat names
             "  %s ". // where clauses
-            "  and p.is_deleted = 0 and p.status = 'published' ".
             "order by p.%s ".
-            "limit %s, %s",
+            "%s", // limit
+            $select,
             POST,
             CATEGORY,
-            $params[ 'category' ],
+            implode( "','", $params[ 'categories' ] ),
             $whereClausesString,
             'event_date desc',
-            $params[ 'offset' ],
-            $params[ 'limit' ] );
+            $limit );
 
         // base model
         $post = new Posts();
 
         // execute the query
-        return new Resultset(
+        $results = new Resultset(
             NULL,
             $post,
             $post->getReadConnection()->query(
                 $sql,
                 $bindings
             ));
+
+        if ( get( $params, 'count' ) === TRUE )
+        {
+            $array = $results->toArray();
+
+            return get( array_shift( $array ), 'count', 0 );
+        }
+
+        return $results;
     }
 
     /**

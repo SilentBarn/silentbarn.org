@@ -56,3 +56,7 @@ define( 'EVENTS' , 'events' );
 define( 'EXHIBITIONS', 'exhibitions' );
 define( 'PRESS', 'press' );
 define( 'NEWS', 'news' );
+define( 'MEDIA', 'media' );
+
+// posts
+define( 'PUBLISHED', 'published' );

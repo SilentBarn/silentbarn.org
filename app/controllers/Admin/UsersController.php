@@ -10,7 +10,6 @@ class UsersController extends \Base\Controller
         $this->view->setMainView( 'admin' );
 
         // check if they have access
-        //
         if ( ! $this->auth->user[ 'access_users' ] )
         {
             return $this->quit( "You don't have access to users!", INFO, 'admin/articles' );
@@ -25,7 +24,6 @@ class UsersController extends \Base\Controller
     public function indexAction()
     {
         // get all of the posts
-        //
         $this->view->pick( 'admin/users/index' );
         $this->view->users = \Db\Sql\Users::find([ 'is_deleted = 0' ]);
         $this->view->backPage = '';
@@ -37,13 +35,9 @@ class UsersController extends \Base\Controller
      */
     public function newAction()
     {
-        // create the user
-        //
         $action = new \Actions\Users\User();
         $userId = $action->create();
 
-        // redirect
-        //
         $this->redirect = "admin/users/edit/$userId";
     }
 
@@ -78,7 +72,6 @@ class UsersController extends \Base\Controller
     public function saveAction()
     {
         // edit the user
-        //
         $data = $this->request->getPost();
         $userAction = new \Actions\Users\User();
         $user = $userAction->edit( $data );
@@ -91,8 +84,6 @@ class UsersController extends \Base\Controller
                 : $this->quit( "", INFO, 'admin/users' );
         }
 
-        // redirect
-        //
         $this->redirect = "admin/users/edit/{$user->id}";
     }
 

@@ -12,6 +12,7 @@ class Users extends \Base\Model
     public $access_members;
     public $access_press;
     public $access_spaces;
+    public $access_media;
     public $access_homepage;
     public $is_deleted;
     public $created_at;
@@ -88,9 +89,10 @@ class Users extends \Base\Model
      *
      * @return \Db\Sql\Settings object
      */
-    public function getCategoryAccess()
+    public function getCategoryAccess( $fullObject = FALSE )
     {
-        if ( ! is_null( get( $this->settings, self::CATEGORY_ACCESS, NULL ) ) )
+        if ( ! is_null( get( $this->settings, self::CATEGORY_ACCESS, NULL ) )
+            && ! $fullObject )
         {
             return $this->settings[ self::CATEGORY_ACCESS ];
         }
@@ -102,7 +104,7 @@ class Users extends \Base\Model
             [ 'first' => TRUE ] );
         $this->settings[ self::CATEGORY_ACCESS ] = ( $setting )
             ? unserialize( $setting->value )
-            : array();
+            : [];
 
         if ( ! $setting )
         {
@@ -111,6 +113,30 @@ class Users extends \Base\Model
             $setting->key = self::CATEGORY_ACCESS;
         }
 
-        return $this->settings[ self::CATEGORY_ACCESS ];
+        return ( $fullObject )
+            ? $setting
+            : $this->settings[ self::CATEGORY_ACCESS ];
+    }
+
+    /**
+     * Get the category slugs for the categories that this
+     * user can access. This can return slugs or names.
+     */
+    public function getCategories( $key = "slug" )
+    {
+        $access = $this->getCategoryAccess();
+        $categories = \Db\Sql\Categories::find();
+        $return = [];
+
+        foreach ( $categories as $category )
+        {
+            if ( isset( $access[ $category->id ] )
+                && int_eq( $access[ $category->id ], 1 ) )
+            {
+                $return[] = $category->$key;
+            }
+        }
+
+        return $return;
     }
 }
