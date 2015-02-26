@@ -14,7 +14,11 @@ if ( count( $events ) ):
     else: ?>
     <a class="blocked media-image margin-bottom-15" href="<?php echo $event->getPath(); ?>">
         <img src="<?php echo $this->url->getStatic( 'img/heptagon_placeholder.png' ); ?>" width="220" />
+        <?php
+        if ( valid( $event->display_name, STRING ) ): ?>
         <span class="caption"><?php echo $event->display_name; ?></span>
+        <?php
+        endif; ?>
     </a>
     <?php
     endif; ?>
