@@ -54,6 +54,11 @@
                             <?php echo ( $user->access_homepage ) ? ' checked="checked"' : ''; ?> />
                         <span>Can set posts to homepage</span>
                     </div>
+                    <div class="margin-bottom-5">
+                        <input type="checkbox" name="access_publish" value="1"
+                            <?php echo ( $user->access_publish ) ? ' checked="checked"' : ''; ?> />
+                        <span>Can set publish articles</span>
+                    </div>
                 </div>
             </fieldset>
 

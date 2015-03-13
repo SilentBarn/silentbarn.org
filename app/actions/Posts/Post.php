@@ -18,7 +18,7 @@ class Post extends \Base\Action
         $post->initialize();
         $post->user_id = $auth->getUserId();
         $post->is_deleted = 0;
-        $post->status = 'draft';
+        $post->status = DRAFT;
 
         if ( ! $this->save( $post ) )
         {
@@ -38,6 +38,7 @@ class Post extends \Base\Action
     {
         $util = $this->getService( 'util' );
         $filter = $this->getService( 'filter' );
+        $auth = $this->getService( 'auth' );
 
         // check the post ID and verify that this post exists
         if ( ! isset( $data[ 'id' ] )
@@ -90,11 +91,21 @@ class Post extends \Base\Action
         $filter->add(
             'status',
             function ( $value ) {
-                return ( in_array( $value, [ 'draft', 'published' ] ) )
+                return ( in_array( $value, [ DRAFT, PUBLISHED ] ) )
                     ? $value
                     : 'draft';
             });
-        $post->status = $filter->sanitize( get( $data, 'status' ), 'status' );
+        $status = $filter->sanitize( get( $data, 'status' ), 'status' );
+
+        // check if the user can mark posts as published
+        if ( $post->status === DRAFT
+            && $status === PUBLISHED 
+            && ! int_eq( 1, $auth->getUserObj()->access_publish ) )
+        {
+            $status = DRAFT;
+        }
+
+        $post->status = $status;
 
         // set up homepage loc filter
         $filter->add(

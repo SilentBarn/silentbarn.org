@@ -61,3 +61,4 @@ define( 'MEDIA', 'media' );
 
 // posts
 define( 'PUBLISHED', 'published' );
+define( 'DRAFT', 'draft' );
