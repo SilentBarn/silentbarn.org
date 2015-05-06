@@ -42,11 +42,15 @@
                                 <?php echo ( $post->status == 'draft' ) ? ' checked="checked"' : ''; ?> />
                             <span>Draft</span>
                         </div>
+                        <?php
+                        if ( int_eq( 1, $this->auth->getUserObj()->access_publish ) ): ?>
                         <div>
                             <input type="radio" name="status" value="published"
                                 <?php echo ( $post->status == 'published' ) ? ' checked="checked"' : ''; ?> />
                             <span>Published</span>
                         </div>
+                        <?php
+                        endif; ?>
                     </div>
                     <div class="float-left">
                     <?php
