@@ -52,7 +52,7 @@
         .mobile-menu-button {
             border-left: 1px solid #ccc; display: block;
             float: right; font-size: 24px;
-            padding: 12px 9px 11px 9px;
+            padding: 11px 9px 10px;
             text-decoration: none; }
 
         .mobile-search-button:hover,
@@ -210,6 +210,13 @@
             right: 8px; top: 15px; }
 }
 
+@media only screen and (max-width: 680px) {
+    #columns .column {
+        width: 100%;
+        float: none;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     #hero-carousel,
     .film_roll_wrapper {
@@ -237,4 +244,14 @@
 
     .film_roll_pager {
         top: 233px; }
+
+    blockquote {
+        margin: 0 2em;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    blockquote {
+        margin: 0;
+    }
 }

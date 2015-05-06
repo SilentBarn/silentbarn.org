@@ -8,7 +8,7 @@ $audioPath = $post->getAudio()->getAudioPath(); ?>
 
     <!-- Two column layout -->
     <div id="columns" class="clearfix<?php echo ( valid( $imagePath, STRING ) ) ? ' has-image' : ''; ?>">
-        <div class="column float-left">
+        <div class="<?php echo ( valid( $imagePath, STRING ) ) ? 'column float-left' : ''; ?>">
             <!-- Event date -->
             <?php
             if ( valid( $post->event_date, STRING ) ): ?>
@@ -70,15 +70,15 @@ $audioPath = $post->getAudio()->getAudioPath(); ?>
             <?php
             endif; ?>
         </div>
+        <?php
+        if ( valid( $imagePath, STRING ) ): ?>
         <div class="float-right column">
             <!-- Banner image -->
-            <?php
-            if ( valid( $imagePath, STRING ) ): ?>
             <a href="<?php echo $imagePath; ?>">
                 <img id="banner" src="<?php echo $imagePath; ?>" />
             </a>
-            <?php
-            endif; ?>
         </div>
+        <?php
+        endif; ?>
     </div>
 </div>

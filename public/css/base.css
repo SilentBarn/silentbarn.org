@@ -17,6 +17,11 @@ fieldset {
 fieldset legend h2 {
     font-family: 'Share Tech Mono', monospace; text-transform: uppercase;
     font-size: 18px; padding: 5px 10px; background: #e1e1e1; }
+blockquote {
+    margin: 0 2em; border-left: 4px solid #e1e1e1;
+    padding-left: 1em; }
+blockquote blockquote {
+    margin: 0; border: none; padding: 0; }
 
 /* Base
  */

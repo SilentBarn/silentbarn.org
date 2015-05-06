@@ -318,6 +318,13 @@ var MainPage = {
         });
     },
 
+    // submit paypal forms
+    paypal: function () {
+        $( 'a.submit-paypal' ).on( 'click', function () {
+            $( this ).next().submit();
+        })
+    },
+
     // get arguments from query string
     _getQueryParams: function () {
         var args = document.location.search.substring( 1 ).split( '&' ),
@@ -353,5 +360,6 @@ MainPage.community();
 MainPage.spaces();
 MainPage.memberships();
 MainPage.radio();
+MainPage.paypal();
 
 });
