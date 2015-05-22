@@ -113,6 +113,12 @@ class AboutController extends \Base\Controller
         $this->view->pick( 'about/memberships' );
     }
 
+    public function thankyouAction()
+    {
+        $this->data->pageTitle = "Thank You!";
+        $this->view->pick( 'about/thankyou' );
+    }
+
     public function saferspacesAction()
     {
         $this->data->pageTitle = "Safer Spaces Policy";
