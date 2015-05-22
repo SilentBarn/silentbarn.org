@@ -103,3 +103,5 @@ blockquote.block cite {
 .block-col .col-2,
 .block-col .col-3 {
     width: 30%; }
+.darken-on-hover:hover .color-999 {
+    color: #333 !important; }
