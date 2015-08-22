@@ -7,6 +7,8 @@ a {
 #admin.page {
     width: auto; margin: auto; padding: 50px 25px 25px;
     max-width: 1400px; }
+#admin.page.editor {
+    padding-bottom: 15px; }
 
 /* Header
  */
@@ -95,6 +97,12 @@ span.tag i.remove-slug {
 #image-crop-tools {
     position: absolute; right: 0; top: 0;
     width: 220px; }
+
+/* Ace Editor
+ */
+#editor {
+    border: 1px solid #ddd; border-top: none;
+    box-sizing: border-box; font-size: 16px; }
 
 /* Footer
  */

@@ -21,21 +21,6 @@ class Pages extends \Base\Model
         $this->addBehavior( 'timestamp' );
     }
 
-    /**
-     * Return a page by name
-     *
-     * @param string $name
-     * @return \Db\Sql\Page
-     */
-    static function getByName( $name )
-    {
-        return \Db\Sql\Pages::findFirst([
-            'name = :name:',
-            'bind' => [
-                'name' => $name ]
-            ]);
-    }
-
     function getContentVar( $key )
     {
         if ( is_null( $this->unserializedContent ) )

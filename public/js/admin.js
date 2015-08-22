@@ -89,7 +89,7 @@ var AdminPage = {
         })
     },
 
-    // post actions: save/delete
+    // Post actions: save/delete
     postActions: function () {
         // save button
         $( '#save-object' ).on( 'click', function () {
@@ -112,7 +112,7 @@ var AdminPage = {
         });
     },
 
-    // artist, tag, grant slug handlers
+    // Artist, tag, grant slug handlers
     slugs: function () {
         if ( ! $( '#tag-ac' ).length ) {
             return;
@@ -193,7 +193,7 @@ var AdminPage = {
         });
     },
 
-    // show the end event date/time inputs, location input
+    // Show the end event date/time inputs, location input
     meta: function () {
         $( '#set-event-end-date' ).on( 'click', function () {
             var $this = $( this );
@@ -237,6 +237,82 @@ var AdminPage = {
         $( '#add-author' ).on( 'click', function () {
             $( this ).hide().next().show().find( 'input' ).focus();
         });
+    },
+
+    // Page content editors
+    pageEditor: function () {
+        if ( ! $( '#editor' ).length ) {
+            return;
+        }
+
+        var $admin = $( '#admin' ),
+            $editor = $( '#editor' ),
+            $preview = $( '#preview' ),
+            editor = ace.edit( "editor" ),
+            newHeight, previewClick, editorClick;
+
+        // Create the Ace Editor
+        editor.setTheme( "ace/theme/chrome" );
+        editor.setHighlightActiveLine( false );
+        editor.getSession().setMode( "ace/mode/html" );
+        document.getElementById( 'editor' ).style.fontSize='16px';
+
+        // Kill the footer
+        $( '#admin-footer' ).hide();
+
+        // Resize editor to be full height of the page
+        newHeight = $( window ).height()
+            - $editor.offset().top
+            - 15; // padding
+        newHeight = newHeight 
+        $editor.css( 'height', newHeight );
+
+        // Save the editor HTML when save button is clicked
+        $( '#save-object' ).on( 'click', function () {
+            $( '#editor-content' ).val( editor.getValue() );
+            $( '#editor-form' ).submit();
+        });
+
+        // Live preview mode renders the HTML, changes nav tabs
+        previewClick = function () {
+            var $modeEditor = $( '#mode-editor' ),
+                $modePreview = $( '#mode-preview' );
+            var $newSpan = $( '<span>', {
+                'id': 'mode-preview',
+                'text': 'Preview'
+            });
+            var $newLink = $( '<a>', {
+                'id': 'mode-editor',
+                'text': 'Editor',
+                'href': 'javascript:;'
+            });
+            $modePreview.replaceWith( $newSpan );
+            $modeEditor.replaceWith( $newLink );
+            $editor.hide();
+            $preview.html( editor.getValue() ).show();
+        };
+
+        // Editor mode renders Ace editor, changes nav tabs
+        editorClick = function () {
+            var $modeEditor = $( '#mode-editor' ),
+                $modePreview = $( '#mode-preview' );
+            var $newSpan = $( '<span>', {
+                'id': 'mode-editor',
+                'text': 'Editor'
+            });
+            var $newLink = $( '<a>', {
+                'id': 'mode-preview',
+                'text': 'Preview',
+                'href': 'javascript:;'
+            });
+            $modeEditor.replaceWith( $newSpan );
+            $modePreview.replaceWith( $newLink );
+            $preview.hide();
+            $editor.show();
+        };
+
+        $admin.on( 'click', '#mode-editor', editorClick );
+        $admin.on( 'click', '#mode-preview', previewClick );
     }
 };
 
@@ -248,5 +324,6 @@ AdminPage.imageCrop();
 AdminPage.postActions();
 AdminPage.slugs();
 AdminPage.meta();
+AdminPage.pageEditor();
 
 });

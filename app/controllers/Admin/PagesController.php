@@ -43,7 +43,7 @@ class PagesController extends \Base\Controller
             return $this->quit( "No page specified", INFO, 'admin/pages' );
         }
 
-        $page = \Db\Sql\Pages::findByName( $name );
+        $page = \Db\Sql\Pages::findFirstByName( $name );
 
         if ( ! $page )
         {
