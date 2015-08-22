@@ -52,6 +52,17 @@
     <a href="<?php echo $this->url->get( 'admin/spaces' ); ?>">Spaces</a>
             <?php
             endif;
+        endif;
+
+        // Pages
+        if ( $this->auth->user[ 'access_pages' ] ):
+            if ( $adminNavPage == 'pages' ): ?>
+    <span>Pages</span>
+            <?php
+            else: ?>
+    <a href="<?php echo $this->url->get( 'admin/pages' ); ?>">Pages</a>
+            <?php
+            endif;
         endif; ?>
     </div>
     <?php 

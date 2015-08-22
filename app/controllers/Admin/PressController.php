@@ -9,8 +9,7 @@ class PressController extends \Base\Controller
         $this->checkLoggedIn = TRUE;
         $this->view->setMainView( 'admin' );
 
-        // check if they have access
-        //
+        // Check if they have access
         if ( ! $this->auth->user[ 'access_press' ] )
         {
             return $this->quit( "You don't have access to press!", INFO, 'admin/articles' );
@@ -24,8 +23,7 @@ class PressController extends \Base\Controller
      */
     public function indexAction()
     {
-        // get all of the posts
-        //
+        // Get all of the posts
         $this->view->pick( 'admin/press/index' );
         $this->view->pageContent = \Db\Sql\Pages::findFirstByName( 'press' );
         $this->view->backPage = 'admin/articles';
@@ -37,14 +35,12 @@ class PressController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the page content
-        //
+        // Edit the page content
         $data = $this->request->getPost();
         $pressAction = new \Actions\Pages\Press();
         $page = $pressAction->edit( $data );
 
-        // redirect
-        //
+        // Redirect
         $this->redirect = "admin/press";
     }
 }

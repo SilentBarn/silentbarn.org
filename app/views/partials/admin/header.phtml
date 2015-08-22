@@ -10,46 +10,64 @@
                 <i class="fa fa-long-arrow-left"></i>
                 Back
             </a>
-<?php   if ( isset( $buttons ) ):
-            foreach ( $buttons as $button ):
-                if ( $button == 'newArticle' ): ?>
+<?php
+if ( isset( $buttons ) ):
+    foreach ( $buttons as $button ):
+        if ( $button == 'newArticle' ): ?>
             <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/articles/new' ); ?>">New Article</a>
-<?php           endif;
-                if ( $button == 'saveArticle' ): ?>
+        <?php
+        endif;
+        if ( $button == 'saveArticle' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Article</a>
-<?php           endif;
-                if ( $button == 'newUser' ): ?>
+        <?php
+        endif;
+        if ( $button == 'newUser' ): ?>
             <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/users/new' ); ?>">New User</a>
-<?php           endif;
-                if ( $button == 'saveUser' ): ?>
+        <?php
+        endif;
+        if ( $button == 'saveUser' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save User</a>
-<?php           endif;
-                if ( $button == 'newMember' ): ?>
+        <?php
+        endif;
+        if ( $button == 'newMember' ): ?>
             <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/members/new' ); ?>">New Member</a>
-<?php           endif;
-                if ( $button == 'saveMember' ): ?>
+        <?php
+        endif;
+        if ( $button == 'saveMember' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Member</a>
-<?php           endif;
-                if ( $button == 'savePress' ): ?>
+        <?php
+        endif;
+        if ( $button == 'savePress' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Press</a>
-<?php           endif;
-                if ( $button == 'newSpace' ): ?>
+        <?php
+        endif;
+        if ( $button == 'newSpace' ): ?>
             <a class="blue button fontsize-18 margin-left-10" href="<?php echo $this->url->get( 'admin/spaces/new' ); ?>">New Space</a>
-<?php           endif;
-                if ( $button == 'saveSpace' ): ?>
+        <?php
+        endif;
+        if ( $button == 'saveSpace' ): ?>
             <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Space</a>
-<?php           endif;
-            endforeach;
-        endif; ?>
+        <?php
+        endif;
+        if ( $button == 'savePage' ): ?>
+            <a class="green button fontsize-18 margin-left-10" href="javascript:;" id="save-object">Save Page</a>
+        <?php
+        endif;
+    endforeach;
+endif; ?>
         </div>
     </header>
 </div>
 
 <!-- Messages -->
-<?php   if ( $flashMessages ): ?>
+<?php
+if ( $flashMessages ): ?>
 <div id="admin-messages">
-<?php       foreach ( $flashMessages as $message ): ?>
+    <?php
+    foreach ( $flashMessages as $message ): ?>
     <div class="message <?php echo key( $message ); ?>"><?php echo current( $message ); ?></div>
-<?php       endforeach; ?>
+    <?php
+    endforeach; ?>
 </div>
-<?php   endif; ?>
+<?php
+endif; ?>

@@ -20,7 +20,7 @@ class ArticlesController extends \Base\Controller
      */
     public function indexAction()
     {
-        // get the curent page
+        // Get the curent page
         $currentPage = $this->request->getQuery( 'page' );
         $currentPage = ( valid( $currentPage ) )
             ? abs( $currentPage )
@@ -28,10 +28,10 @@ class ArticlesController extends \Base\Controller
         $limit = 25;
         $offset = abs( ( $currentPage - 1 ) * $limit );
 
-        // search on the categories the user can access
+        // Search on the categories the user can access
         $categories = $this->auth->getUserObj()->getCategories();
 
-        // get all of the posts
+        // Get all of the posts
         $this->view->pick( 'admin/articles/index' );
         $this->view->posts = \Db\Sql\Posts::search([
             'isDeleted' => 0,
@@ -44,7 +44,7 @@ class ArticlesController extends \Base\Controller
         $this->view->backPage = '';
         $this->view->buttons = [ 'newArticle' ];
 
-        // set up the pagination
+        // Set up the pagination
         $totalPosts = \Db\Sql\Posts::search([
             'isDeleted' => 0,
             'categories' => $categories,
@@ -65,11 +65,10 @@ class ArticlesController extends \Base\Controller
      */
     public function newAction()
     {
-        // create the post
+        // Create the post
         $action = new \Actions\Posts\Post();
         $postId = $action->create();
 
-        // redirect
         $this->redirect = "admin/articles/edit/$postId";
     }
 
@@ -92,7 +91,7 @@ class ArticlesController extends \Base\Controller
             return $this->quit( "That post doesn't exist!", INFO, 'admin/articles' );
         }
 
-        // check if the user can access this post's category
+        // Check if the user can access this post's category
         if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) )
         {
             return $this->quit( 
@@ -118,7 +117,6 @@ class ArticlesController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the post
         $data = $this->request->getPost();
         $postAction = new \Actions\Posts\Post();
         $post = $postAction->edit( $data );
@@ -128,31 +126,31 @@ class ArticlesController extends \Base\Controller
             return $this->quit( "", INFO, 'admin/articles' );
         }
 
-        // save any categories
+        // Save any categories
         $categoryAction = new \Actions\Posts\Category();
         $categoryAction->saveToPost(
             $post,
             $this->request->getPost( 'categories' ));
 
-        // save any tags
+        // Save any tags
         $tagAction = new \Actions\Posts\Tag();
         $tagAction->saveToPost(
             $post,
             $this->request->getPost( 'tags' ));
 
-        // save any artists
+        // Save any artists
         $artistAction = new \Actions\Posts\Artist();
         $artistAction->saveToPost(
             $post,
             $this->request->getPost( 'artists' ));
 
-        // check for image file errors
+        // Check for image file errors
         $imageAction = new \Actions\Posts\Image();
         $imageSuccess = TRUE;
 
         if ( $imageAction->hasFiles( 'image' ) )
         {
-            // save any images and do the resizing
+            // Save any images and do the resizing
             if ( $imageAction->checkFilesArrayErrors( 'image' )
                 && $this->request->hasFiles() )
             {
@@ -162,7 +160,7 @@ class ArticlesController extends \Base\Controller
                     $this->request->getUploadedFiles() );
             }
         }
-        // check if a URL came in
+        // Check if a URL came in
         elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) )
         {
             $imageAction->deleteByPost( $post->id );
@@ -170,7 +168,7 @@ class ArticlesController extends \Base\Controller
                 $post->id,
                 $this->request->getPost( 'image_url' ) );
         }
-        // if resize coordinates came in, resize the existing image
+        // If resize coordinates came in, resize the existing image
         elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) )
         {
             $imageAction->crop( $post->getImage(), $data );
@@ -181,7 +179,7 @@ class ArticlesController extends \Base\Controller
             $imageAction->undeleteByPost( $post->id );
         }
 
-        // check for audio file errors
+        // Check for audio file errors
         $audioAction = new \Actions\Posts\Audio();
 
         if ( $audioAction->hasFiles( 'audio' )
@@ -193,7 +191,6 @@ class ArticlesController extends \Base\Controller
                 $this->request->getUploadedFiles() );
         }
 
-        // redirect
         $this->redirect = "admin/articles/edit/{$post->id}";
     }
 

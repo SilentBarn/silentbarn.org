@@ -9,6 +9,7 @@ class Pages extends \Base\Model
     public $id;
     public $name;
     public $content;
+    public $owner_id;
     public $created_at;
     public $modified_at;
 
@@ -18,6 +19,21 @@ class Pages extends \Base\Model
     {
         $this->setSource( 'pages' );
         $this->addBehavior( 'timestamp' );
+    }
+
+    /**
+     * Return a page by name
+     *
+     * @param string $name
+     * @return \Db\Sql\Page
+     */
+    static function getByName( $name )
+    {
+        return \Db\Sql\Pages::findFirst([
+            'name = :name:',
+            'bind' => [
+                'name' => $name ]
+            ]);
     }
 
     function getContentVar( $key )
@@ -32,11 +48,11 @@ class Pages extends \Base\Model
 
     function getHtmlVar( $key )
     {
-        // get the content in html
+        // Get the content in html
         $content = Markdown::defaultTransform(
             $this->getContentVar( $key ) );
 
-        // process any icons. these take the form [#icon:name] and
+        // Process any icons. These take the form [#icon:name] and
         // should be replaced with font icon tags.
         return preg_replace(
             "/\[\#icon:(.*?)\]/",

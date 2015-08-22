@@ -50,6 +50,11 @@
                         <span>Can access Spaces</span>
                     </div>
                     <div class="margin-bottom-5">
+                        <input type="checkbox" name="access_pages" value="1"
+                            <?php echo ( $user->access_pages ) ? ' checked="checked"' : ''; ?> />
+                        <span>Can access Pages</span>
+                    </div>
+                    <div class="margin-bottom-5">
                         <input type="checkbox" name="access_homepage" value="1"
                             <?php echo ( $user->access_homepage ) ? ' checked="checked"' : ''; ?> />
                         <span>Can set posts to homepage</span>

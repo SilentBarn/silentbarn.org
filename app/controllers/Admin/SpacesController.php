@@ -9,8 +9,7 @@ class SpacesController extends \Base\Controller
         $this->checkLoggedIn = TRUE;
         $this->view->setMainView( 'admin' );
 
-        // check if they have access
-        //
+        // Check if they have access
         if ( ! $this->auth->user[ 'access_spaces' ] )
         {
             return $this->quit( "You don't have access to spaces!", INFO, 'admin/articles' );
@@ -24,8 +23,7 @@ class SpacesController extends \Base\Controller
      */
     public function indexAction()
     {
-        // get all of the posts
-        //
+        // Get all of the posts
         $this->view->pick( 'admin/spaces/index' );
         $this->data->spaces = \Db\Sql\Spaces::find([
             'is_deleted = 0',
@@ -40,13 +38,10 @@ class SpacesController extends \Base\Controller
      */
     public function newAction()
     {
-        // create the space
-        //
+        // Create the space
         $action = new \Actions\Spaces\Space();
         $spaceId = $action->create();
 
-        // redirect
-        //
         $this->redirect = "admin/spaces/edit/$spaceId";
     }
 
@@ -79,7 +74,7 @@ class SpacesController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the space
+        // Edit the space
         $data = $this->request->getPost();
         $spaceAction = new \Actions\Spaces\Space();
         $space = $spaceAction->edit( $data );
@@ -92,7 +87,7 @@ class SpacesController extends \Base\Controller
                 : $this->quit( "", INFO, 'admin/spaces' );
         }
 
-        // check for $_FILES errors
+        // Check for $_FILES errors
         $imageAction = new \Actions\Posts\Image();
         $imageAction->checkFilesArrayErrors();
 
@@ -102,7 +97,6 @@ class SpacesController extends \Base\Controller
             $imageAction->saveToSpace( $space, $this->request->getUploadedFiles() );
         }
 
-        // redirect
         $this->redirect = "admin/spaces/edit/{$space->id}";
     }
 

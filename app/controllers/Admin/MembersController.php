@@ -9,8 +9,7 @@ class MembersController extends \Base\Controller
         $this->checkLoggedIn = TRUE;
         $this->view->setMainView( 'admin' );
 
-        // check if they have access
-        //
+        // Check if they have access
         if ( ! $this->auth->user[ 'access_members' ] )
         {
             return $this->quit( "You don't have access to members!", INFO, 'admin/articles' );
@@ -24,8 +23,7 @@ class MembersController extends \Base\Controller
      */
     public function indexAction()
     {
-        // get all of the posts
-        //
+        // Get all of the posts
         $this->view->pick( 'admin/members/index' );
         $this->data->members = \Db\Sql\Members::find([
             'is_deleted = 0',
@@ -40,13 +38,10 @@ class MembersController extends \Base\Controller
      */
     public function newAction()
     {
-        // create the member
-        //
+        // Create the member
         $action = new \Actions\Users\Member();
         $memberId = $action->create();
 
-        // redirect
-        //
         $this->redirect = "admin/members/edit/$memberId";
     }
 
@@ -79,8 +74,7 @@ class MembersController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the member
-        //
+        // Edit the member
         $data = $this->request->getPost();
         $memberAction = new \Actions\Users\Member();
         $member = $memberAction->edit( $data );
@@ -93,8 +87,7 @@ class MembersController extends \Base\Controller
                 : $this->quit( "", INFO, 'admin/members' );
         }
 
-        // check for $_FILES errors
-        //
+        // Check for $_FILES errors
         $imageAction = new \Actions\Posts\Image();
         $imageAction->checkFilesArrayErrors();
 
@@ -104,8 +97,6 @@ class MembersController extends \Base\Controller
             $imageAction->saveToMember( $member, $this->request->getUploadedFiles() );
         }
 
-        // redirect
-        //
         $this->redirect = "admin/members/edit/{$member->id}";
     }
 

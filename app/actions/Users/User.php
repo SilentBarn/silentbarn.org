@@ -19,7 +19,7 @@ class User extends \Base\Action
         $user = new Users();
         $user->initialize();
         $user->is_deleted = 0;
-        // save a temporary email
+        // Save a temporary email
         $user->email = $authAction->generateRandomToken();
 
         if ( ! $this->save( $user ) )
@@ -27,7 +27,7 @@ class User extends \Base\Action
             return FALSE;
         }
 
-        // set a human readable email
+        // Set a human readable email
         $user->email = "user_". $user->id ."@". $config->paths->hostname;
 
         if ( ! $this->save( $user ) )
@@ -49,7 +49,7 @@ class User extends \Base\Action
         $util = $this->getService( 'util' );
         $filter = $this->getService( 'filter' );
 
-        // check the user ID and verify that this user exists
+        // Check the user ID and verify that this user exists
         if ( ! isset( $data[ 'id' ] )
             || ! valid( $data[ 'id' ], INT ) )
         {
@@ -65,7 +65,7 @@ class User extends \Base\Action
             return FALSE;
         }
 
-        // check for an email
+        // Check for an email
         if ( ! isset( $data[ 'email' ] )
             || ! valid( $data[ 'email' ], STRING ) )
         {
@@ -73,7 +73,7 @@ class User extends \Base\Action
             return FALSE;
         }
 
-        // check if new email already exists and isn't the same
+        // Check if new email already exists and isn't the same
         $emailUser = Users::findFirstByEmail( $data[ 'email' ] );
 
         if ( $emailUser
@@ -83,8 +83,8 @@ class User extends \Base\Action
             return FALSE;
         }
 
-        // if a password came in, make sure it's at least 6 characters long.
-        // if so, hash it and update the user object.
+        // If a password came in, make sure it's at least 6 characters long.
+        // If so, hash it and update the user object.
         if ( isset( $data[ 'password' ] )
             && valid( $data[ 'password' ], STRING ) )
         {
@@ -97,7 +97,7 @@ class User extends \Base\Action
             $authAction = new \Actions\Users\Auth();
             $user->password = $authAction->hashPassword( $data[ 'password' ] );
         }
-        // if no password came in, check if the user has one
+        // If no password came in, check if the user has one
         else
         {
             if ( ! valid( $user->password, STRING ) )
@@ -110,7 +110,7 @@ class User extends \Base\Action
         $user->name = $filter->sanitize( get( $data, 'name' ), 'striptags' );
         $user->email = $filter->sanitize( get( $data, 'email' ), 'striptags' );
 
-        // add any of the permissions; unset the access_users permission
+        // Add any of the permissions; unset the access_users permission
         // if the edited user is the same as the logged in one.
         if ( int_eq( $user->id, $this->auth->userId ) )
         {
@@ -126,6 +126,7 @@ class User extends \Base\Action
         $user->access_spaces = ( get( $data, 'access_spaces' ) ) ? 1 : 0;
         $user->access_homepage = ( get( $data, 'access_homepage' ) ) ? 1 : 0;
         $user->access_publish = ( get( $data, 'access_publish' ) ) ? 1 : 0;
+        $user->access_pages = ( get( $data, 'access_pages' ) ) ? 1 : 0;
 
         // read in the article category permissions and set those too
         $category_access = $user->getCategoryAccess( TRUE );

@@ -9,7 +9,7 @@ class UsersController extends \Base\Controller
         $this->checkLoggedIn = TRUE;
         $this->view->setMainView( 'admin' );
 
-        // check if they have access
+        // Check if they have access
         if ( ! $this->auth->user[ 'access_users' ] )
         {
             return $this->quit( "You don't have access to users!", INFO, 'admin/articles' );
@@ -71,7 +71,7 @@ class UsersController extends \Base\Controller
      */
     public function saveAction()
     {
-        // edit the user
+        // Edit the user
         $data = $this->request->getPost();
         $userAction = new \Actions\Users\User();
         $user = $userAction->edit( $data );

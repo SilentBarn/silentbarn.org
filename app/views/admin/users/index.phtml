@@ -13,6 +13,7 @@
                 <th>Members?</th>
                 <th>Press?</th>
                 <th>Spaces?</th>
+                <th>Pages?</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                 <td class="centered-text"><?php echo ( $user->access_members ) ? $yes : $no; ?></td>
                 <td class="centered-text"><?php echo ( $user->access_press ) ? $yes : $no; ?></td>
                 <td class="centered-text"><?php echo ( $user->access_spaces ) ? $yes : $no; ?></td>
+                <td class="centered-text"><?php echo ( $user->access_pages ) ? $yes : $no; ?></td>
                 <td class="centered-text">
                     <a class="" href="<?php echo $this->url->get( 'admin/users/edit/'. $user->id ); ?>">Edit</a>
                 </td>
