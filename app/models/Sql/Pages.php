@@ -13,12 +13,47 @@ class Pages extends \Base\Model
     public $created_at;
     public $modified_at;
 
+    private $owner;
     private $unserializedContent;
 
     function initialize()
     {
         $this->setSource( 'pages' );
         $this->addBehavior( 'timestamp' );
+    }
+
+    static function getEditablePages()
+    {
+        return \Db\Sql\Pages::query()
+            ->inWhere( 'name', [ 'donate' ] )
+            ->orderBy( 'name asc' )
+            ->execute();
+    }
+
+    function getOwner()
+    {
+        if ( ! is_null( $this->owner ) )
+        {
+            return $this->owner;
+        }
+
+        if ( ! valid ( $this->owner_id ) )
+        {
+            return new \Db\Sql\Users();
+        }
+
+        $this->owner = \Db\Sql\Users::findFirst([
+            'id = :id:',
+            'bind' => [
+                'id' => $this->owner_id ]
+            ]);
+
+        if ( ! $this->owner )
+        {
+            $this->owner = new \Db\Sql\Users();
+        }
+
+        return $this->owner;
     }
 
     function getContentVar( $key )

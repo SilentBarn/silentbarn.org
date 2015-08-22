@@ -26,9 +26,7 @@ class PagesController extends \Base\Controller
         // Get all of the posts
         $this->view->pick( 'admin/pages/index' );
         // @TODO get list of authorized pages for the user
-        $this->data->pages = [
-            'donate' => "Donate"
-        ];
+        $this->data->pages = \Db\Sql\Pages::getEditablePages();
         $this->view->backPage = 'admin/articles';
         $this->view->buttons = [];
     }

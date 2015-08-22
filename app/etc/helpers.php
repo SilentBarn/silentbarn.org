@@ -159,14 +159,24 @@ function map( $objects, $key = 'id', $listify = FALSE )
 /**
  * Outputs a date formatted string
  */
-function date_str( $datetime, $format = DATE_TABLE, $nullOnEmpty = FALSE )
+function date_str( $datetime, $format = DATE_TABLE, $nullOnEmpty = FALSE, $local = FALSE )
 {
     if ( ! $datetime && $nullOnEmpty )
     {
         return NULL;
     }
 
-    $timestamp = new \DateTime( $datetime );
+    if ( $local )
+    {
+        $timestamp = new \DateTime(
+            $datetime,
+            new DateTimeZone( 'UTC' ) );
+        $timestamp->setTimezone( new DateTimeZone( 'America/New_York' ) );
+    }
+    else
+    {
+        $timestamp = new \DateTime( $datetime );
+    }
 
     return $timestamp->format( $format );
 }

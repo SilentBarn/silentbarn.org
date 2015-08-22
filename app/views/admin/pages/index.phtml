@@ -15,15 +15,15 @@
         </thead>
         <tbody>
         <?php
-        foreach ( $pages as $index => $label ): ?>
+        foreach ( $pages as $page ): ?>
             <tr>
                 <td>
-                    <a href="<?php echo $this->url->get( 'admin/pages/edit/'. $index ); ?>"><?php echo $label; ?></a>
+                    <a href="<?php echo $this->url->get( 'admin/pages/edit/'. $page->name ); ?>"><?php echo $page->label; ?></a>
                 </td>
-                <td></td>
-                <td></td>
+                <td><?php echo $page->getOwner()->name; ?></td>
+                <td><?php echo date_str( $page->modified_at, DATE_MONTH_TIME_YEAR, FALSE, TRUE ); ?></td>
                 <td class="centered-text">
-                    <a href="<?php echo $this->url->get( 'admin/pages/edit/'. $index ); ?>">Edit</a>
+                    <a href="<?php echo $this->url->get( 'admin/pages/edit/'. $page->name ); ?>">Edit</a>
                 </td>
             </tr>
 
