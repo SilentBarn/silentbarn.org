@@ -11,13 +11,23 @@
     <!-- Edit form -->
     <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/pages/save' ); ?>" method="post">
         <!-- Code Editor -->
-        <div class="margin-bottom-40">
-
-        </div><!-- /code editor -->
+        <div id="editor" class="margin-bottom-40" style="height:400px"></div>
     </form><!-- /edit form -->
 
     <!-- Preview Mode -->
     <div class="margin-bottom-40" id="preview" style="display:none;">
 
     </div>
+
+    <!-- Load the Ace Editor -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/ace.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/mode-html.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/theme-twilight.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/theme-chrome.js" type="text/javascript"></script>
+    <script>
+        var editor = ace.edit( "editor" );
+        editor.setTheme( "ace/theme/chrome" );
+        editor.getSession().setMode( "ace/mode/html" );
+        document.getElementById( 'editor' ).style.fontSize='16px';
+    </script>
 </div>
