@@ -41,6 +41,8 @@ body.sticky #header-wrap #photo-stream {
     display: none; }
 body.sticky #header-wrap #social-icons {
     display: none; }
+body.sticky #header-wrap #announcement {
+    display: none; }
 body.sticky #header-wrap #logo {
     height: 40px; }
 #header-wrap #logo img.small {
@@ -53,6 +55,10 @@ body.shiftlogo #header-wrap header #logo img.small {
     top: 5px; }
 #header-wrap header #logo a {
     text-decoration: none; }
+#header-wrap #announcement {
+    position: absolute; left: 200px; top: 20px; }
+#header-wrap #announcement h3 {
+    background: yellow; font-style: italic; }
 
 /* Nav
  */

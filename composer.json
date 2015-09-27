@@ -3,7 +3,7 @@
     "description": "Silent Barn",
     "license": "MIT",
     "require": {
-        "phalcon/incubator": "dev-master",
+        "phalcon/incubator": "1.3.5",
         "suin/php-image-resizer": ">=1.0.0",
         "stefangabos/zebra_image": "dev-master",
         "michelf/php-markdown": "*",
