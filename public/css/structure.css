@@ -173,6 +173,11 @@ form#search a {
 #notif-messages .message.info {
     background: #007db6; }
 
+/* General UI
+ */
+.announcement {
+    padding: 20px; background: #F4EFA6; box-shadow: 8px 8px 0 #e1e1e1; }
+
 /* Footer
  */
 #footer-wrap {
