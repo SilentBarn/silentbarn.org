@@ -104,7 +104,19 @@ class AboutController extends \Base\Controller
     public function donateAction()
     {
         $this->data->pageTitle = "Donate!";
-        $this->view->pick( 'about/donate' );
+
+        // Try to get content from database
+        $page = \Db\Sql\Pages::findFirstByName( 'donate' );
+
+        if ( ! $page || ! valid( $page, STRING ) )
+        {
+            $this->data->page = $page;
+            $this->view->pick( 'partials/page' );
+        }
+        else
+        {
+            $this->view->pick( 'about/donate' );
+        }
     }
 
     public function membershipsAction()
