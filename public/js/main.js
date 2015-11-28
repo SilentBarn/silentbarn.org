@@ -349,7 +349,7 @@ var MainPage = {
 }; // Page object
 
 MainPage.search();
-MainPage.carousel();
+//MainPage.carousel();
 MainPage.stickyNav();
 MainPage.mobile();
 MainPage.calendar();

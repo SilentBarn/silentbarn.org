@@ -1,40 +1,85 @@
 /* Elements
  */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
 body {
+    margin: 0;
+    padding: 0;
+    color: #555;
+    font-size: 16px;
+    padding-top: 5rem;
     font-family: Asap, Segoe, "Segoe UI", Optima, Arial, sans-serif;
-    font-size: 16px; margin: 0; padding: 0; color: #555; }
+}
+body.with-pagenav {
+    padding-top: 7rem;
+}
 h1, h2, h3 {
-    font-weight: normal; margin: 0 0 10px; }
+    font-weight: normal;
+    margin: 0 0 0.625rem;
+}
 p {
-    line-height: 1.5em; }
+    line-height: 1.5rem;
+}
 a {
-    color: #333; }
+    color: #333;
+}
 a:hover {
-    color: #6905cd; }
+    color: #6905cd;
+}
 fieldset {
-    border: none; padding: 15px; background: #f1f1f1; border-radius: 2px;
-    box-shadow: 0px 1px 2px #aaa; }
+    border: none;
+    padding: 1rem;
+    background: #f1f1f1;
+    border-radius: 0.125rem;
+    box-shadow: 0 0.0625rem 0.125rem #aaa;
+}
 fieldset legend h2 {
-    font-family: 'Share Tech Mono', monospace; text-transform: uppercase;
-    font-size: 18px; padding: 5px 10px; background: #e1e1e1; }
+    font-size: 1.125rem;
+    background: #e1e1e1;
+    text-transform: uppercase;
+    padding: 0.33rem 0.625rem;
+    font-family: 'Share Tech Mono', monospace;
+}
 blockquote {
-    margin: 0 2em; border-left: 4px solid #e1e1e1;
-    padding-left: 1em; }
+    margin: 0 2rem;
+    padding-left: 1rem;
+    border-left: 0.25rem solid #e1e1e1;
+}
 blockquote blockquote {
-    margin: 0; border: none; padding: 0; }
+    margin: 0;
+    border: none;
+    padding: 0;
+}
 
 /* Base
  */
 .page {
-    margin: 25px auto 60px; width: 960px; }
+    width: 56rem;
+    margin: 1.5rem auto 3.75rem;
+}
 .error-page {
-    margin: 25px auto 120px; width: 960px; }
+    width: 56rem;
+    margin: 1.5rem auto 7.5rem;
+}
 .page h3 {
-    font-weight: bold; margin-bottom: 10px;
-    padding: 0; }
+    padding: 0;
+    font-weight: bold;
+    margin-bottom: 0.625rem;
+}
 .page.static h4 {
-    font-weight: normal; margin: 0 0 10px; }
+    font-weight: normal;
+    margin: 0 0 0.625rem;
+}
 .page.static h4 i {
-    position: relative; top: 1px; margin-right: 5px; }
+    top: 0.0625rem;
+    position: relative;
+    margin-right: 0.3125rem;
+}
 .page.static p {
-    margin: 0 0 20px; padding: 0; }
+    padding: 0;
+    margin: 0 0 1.25rem;
+}
