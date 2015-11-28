@@ -87,3 +87,9 @@ gulp.task( 'build-js-admin', function () {
       .pipe( gulp.dest( './public/js/dist/' ) );
 
 });
+
+gulp.task( 'default', [
+    'build-css',
+    'build-js-main',
+    'build-js-admin'
+]);
