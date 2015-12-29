@@ -170,29 +170,18 @@ header nav a {
 
 /* Footer
  */
-#footer-wrap {
-    padding: 0 0 20px;
-}
 #footer-wrap footer {
-    width: 960px;
-    margin: 0 auto;
-    border-top: 4px solid #6905cd;
-    padding: 5px 0 0;
-}
+    border-top: 0.0625rem solid #ccc; }
 #footer-wrap .left {
     float: left; }
-#footer-wrap .name {
-    color: #6905cd; font-size: 32px; font-variant: small-caps; }
-#footer-wrap .address {
-    color: #666; font-size: 13px; margin: 5px 0; }
-#footer-wrap .legal {
-    color: #aaa; font-size: 11px; font-style: italic; }
-#footer-wrap .links {
-    margin-top: 5px; }
-#footer-wrap .links a {
-    color: #999; font-size: 11px; }
 #footer-wrap .right {
     float: right; }
+#footer-wrap .address a {
+    color: #999; text-decoration: none;
+    font-size: 0.925rem; }
+#footer-wrap .links a {
+    color: #999; font-size: 0.925rem;
+    margin-left: 0.5rem; }
 
 /*
 Mobile Nav

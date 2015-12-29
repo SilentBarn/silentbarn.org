@@ -1,21 +1,18 @@
 <!-- #footer -->
 <div id="footer-wrap">
-    <footer class="clearfix">
+    <footer class="padding-top-20 padding-bottom-20 padding-left-10 padding-right-10 clearfix">
         <div class="left">
-            <div class="font-mono name">Silent Barn</div>
-            <div class="font-monp address">603 Bushwick Ave, New York, NY 11206</div>
-            <div class="font-mono legal">&copy; <?php echo date( 'Y' ); ?> Silent Barn, LLC. All Rights Reserved</div>
-            <div class="font-mono links">
+            <div class="address">
+                <a href="http://goo.gl/maps/BaP2o">603 Bushwick Ave, New York, NY 11206</a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="links">
                 <a href="http://cookbook.silentbarn.org/index.php/Main_Page">Wiki</a>
                 <a href="<?php echo $this->url->get( 'about/rentals' ); ?>">Rentals</a>
                 <a href="<?php echo $this->url->get( 'admin' ); ?>">Site Admin</a>
                 <a href="<?php echo $this->url->get( 'events/ascii' ); ?>">Ascii</a>
             </div>
-        </div>
-        <div class="right">
-            <a href="http://goo.gl/maps/BaP2o">
-                <img src="<?php echo $this->url->getStatic( 'img/map.png' ); ?>" width="160" />
-            </a>
         </div>
     </footer>
 </div>

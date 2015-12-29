@@ -15,7 +15,6 @@ class IndexController extends \Base\Controller
     {
         $this->view->headerClass = 'home';
         $this->view->pick( 'home/index' );
-        $this->view->boxPosts = \Db\Sql\Posts::getByLocation( 'boxes', 5 );
-        $this->view->heroPosts = \Db\Sql\Posts::getByLocation( 'hero', 10 );
+        $this->view->posts = \Db\Sql\Posts::getByLocation( 'boxes', 5 );
     }
 }

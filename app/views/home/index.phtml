@@ -1,105 +1,45 @@
-<!-- Hero/Carousel -->
-<div id="hero" class="hero">
-    <div id="hero-carousel" class="hero-carousel">
-<?php   foreach ( $heroPosts as $heroPost ): ?>
-        <div class="slide">
-            <img src="<?php echo $heroPost->getImage()->getImagePath(); ?>" />
-            <div class="blurb">
-                <div class="clearfix">
-                    <h1>
-                        <span><?php echo ( strlen( $heroPost->title ) > 96 ) ? substr( $heroPost->title, 0, 96 ) . "&hellip;" : $heroPost->title; ?></span>
-                    </h1>
-                </div>
-<?php       if ( valid( $heroPost->excerpt, STRING ) ): ?>
-                <div class="clearfix">
-                    <p><?php echo $heroPost->excerpt; ?></p>
-                </div>
-<?php       endif; ?>
-            </div>
-            <a href="<?php echo $heroPost->getPath(); ?>" class="link-overlay"></a>
-        </div>
-<?php   endforeach; ?>
-    </div>
-    <div id="hero-nav" class="clearfix">
-        <a href="javascript:;" id="carousel-next" class="transition-bg">&rarr;</a>
-        <a href="javascript:;" id="carousel-prev" class="transition-bg">&larr;</a>
-    </div>
+<!-- Hero -->
+<div id="hero" class="hero clearfix">
+<?php
+$i = 0;
+foreach ( $posts as $post ):
+    $class = ( $i === 0 ) ? 'major' : 'minor';
+    if ( $i >= 1 && $i <= 2):
+        $class .= ' bottom-border';
+    elseif ( $i >= 3 || $i <= 4 ):
+        $class .= ' top-border';
+    endif;
+    $i++; ?>
+    <a class="<?php echo $class; ?> box img-wrap"
+        style="background-image:url('<?php echo $post->getImage()->getImagePath(); ?>');"
+        href="<?php echo $post->getPath(); ?>">
+        <h1>
+            <span>
+                <?php echo ( strlen( $post->title ) > 96 ) ? substr( $post->title, 0, 96 ) . "&hellip;" : $post->title; ?>
+            </span>
+        </h1>
+    </a>
+<?php
+endforeach; ?>
 </div>
 
-<!-- Vignettes -->
-<div id="vignettes">
-    <!-- Mobile header -->
-    <h3 class="lead centered-text margin-bottom-10 font-mono uppercase" style="display:none;">
-        Upcoming @ Silent Barn
-    </h3>
-
-<?php   $boxCount = count( $boxPosts );
-        for ( $boxIter = 1; $boxIter <= 6; $boxIter++ ): //$boxPosts as $boxPost ):
-            if ( ( $boxIter - 1 ) % 3 == 0 ): ?>
-    <div class="row clearfix">
-<?php       endif;
-            // heptagon is placed in spot 6
-            if ( $boxIter > 5 ): ?>
-
-        <div class="block clearfix heptagon">
-            <img src="<?php echo $this->url->getStatic( 'img/heptagon_yellow.png' ); ?>" alt="Heptagon" />
-            <?php /*
-            <h2 class="mono">Upcoming Events</h2>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Show title goes here -- Advaita playing</a>
-                </h3>
-            </div>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Dec 3: New time to go up Party Mansion playing live at the excalibur</a>
-                </h3>
-            </div>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Some more text here that's short</a>
-                </h3>
-            </div>
-            */ ?>
+<!-- Sign up for mailing list -->
+<div id="cta" class="clearfix">
+    <div class="box">
+        <h1 class="centered-text uppercase font-sans">
+            Support the Barn
+        </h1>
+        <div class="centered-text">
+            <a class="green button" href="javascript:;">Donate Today :)</a>
         </div>
-
-<?php       // pad blank boxes
-            elseif ( $boxIter > $boxCount && $boxIter <= 5 ): ?>
-
-        <div class="block">&nbsp;</div>
-
-<?php       else:
-                $boxPost = $boxPosts[ $boxIter - 1 ]; ?>
-
-        <div class="block">
-            <div class="img-wrap margin-bottom-10">
-                <a href="<?php echo $boxPost->getPath(); ?>">
-                    <img src="<?php echo $boxPost->getImage()->getImagePath( 310 ); ?>" />
-                </a>
-            </div>
-            <div class="categories font-mono">
-                <span><?php echo map( $boxPost->getCategories()->toArray(), 'name', TRUE ); ?></span>
-            </div>
-            <h3 class="title uppercase font-mono">
-                <a href="<?php echo $boxPost->getPath(); ?>"><?php echo $boxPost->title; ?></a>
-            </h3>
-            <div class="date font-mono">
-                <!-- Posted: <?php echo date_str( $boxPost->post_date, DATE_DAY_NAME ); ?> -->
-                <?php echo $boxPost->getShortDate( TRUE, TRUE ); ?>
-            </div>
-            <div class="description">
-<?php           if ( valid( $boxPost->excerpt, STRING ) ): ?>
-                <?php echo $boxPost->excerpt; ?>
-<?php           else:
-                    $body = strip_tags( $boxPost->getHtmlBody() ); ?>
-                <?php echo ( strlen( $body ) > 150 ) ? substr( $body, 0, 150 ) . "&hellip;" : $body; ?>
-<?php           endif; ?>
-            </div>
-        </div><!-- /block -->
-
-<?php       endif;
-            if ( ( $boxIter - 1 ) % 3 == 2 ): ?>
-    </div><!-- /row -->
-<?php       endif;
-        endfor; ?>
-</div><!-- /vignettes -->
+    </div>
+    <div class="box">
+        <h1 class="centered-text uppercase font-sans">
+            Signup for our Newsletter
+        </h1>
+        <div class="centered-text">
+            <input type="text" name="email" value="" placeholder="Your email" />
+            <a class="blue button" href="javascript:;">Sign Up</a>
+        </div>
+    </div>
+</div>
