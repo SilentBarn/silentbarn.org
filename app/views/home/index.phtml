@@ -2,6 +2,16 @@
 <div id="hero" class="hero clearfix">
 <?php
 $i = 0;
+$categories = [
+    'Sound', 'Community', 'Art', 'News', 'Projects'
+];
+$titles = [
+    'Shorter sample title for Project',
+    'New Community Involvement 2016',
+    'Barn Art &mdash; Year in Review',
+    'Fundraising and how you can help!',
+    'Projects something test title a little longer'
+];
 foreach ( $posts as $post ):
     $class = ( $i === 0 ) ? 'major' : 'minor';
     if ( $i >= 1 && $i <= 2):
@@ -14,9 +24,8 @@ foreach ( $posts as $post ):
         style="background-image:url('<?php echo $post->getImage()->getImagePath(); ?>');"
         href="<?php echo $post->getPath(); ?>">
         <h1>
-            <span>
-                <?php echo ( strlen( $post->title ) > 96 ) ? substr( $post->title, 0, 96 ) . "&hellip;" : $post->title; ?>
-            </span>
+            <span class="badge"><?php echo $categories[ $i-1 ]; ?></span>
+            <span><?php echo $titles[ $i-1 ]; ?></span>
         </h1>
     </a>
 <?php

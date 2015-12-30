@@ -214,7 +214,8 @@ table.md td{background-color:#fff}
 #hero .minor.box{width:33.333%;height:50%;border-left:4px solid #fff}
 #hero .minor.box.top-border{border-top:2px solid #fff}
 #hero .minor.box.bottom-border{border-bottom:2px solid #fff}
-#hero .box h1{position:absolute;bottom:0;background-color:rgba(0,0,0,.5);color:#fff;font-size:1.33rem;margin-bottom:0;padding:.5rem}
+#hero .box h1{position:absolute;bottom:0;background-color:rgba(0,0,0,.5);color:#fff;font-size:1.33rem;margin-bottom:0;text-shadow:1px 1px 0 #111;padding:1.25rem .5rem .35rem}
+#hero .box span.badge{display:inline-block;font-size:.75rem;color:#fff;background-color:rgba(0,0,0,.75);padding:.15rem .5rem;position:absolute;top:0;left:0}
 #cta{background-clip:padding-box;-webkit-background-clip:padding-box;border-top:.5rem solid rgba(200,200,200,.5)}
 #cta .box{float:left;width:50%;padding:2.25rem 0 3rem}
 #cta .box:last-child{border-left:1px solid #ccc}
