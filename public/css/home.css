@@ -1,7 +1,7 @@
 /* Carousel
  */
 #hero {
-    position: relative; height: 30rem; }
+    position: relative; height: 33rem; }
 #hero .major {
     width: 33.333%; float: left; }
 #hero .box {
@@ -23,13 +23,13 @@
     background-color: rgba( 0, 0, 0, 0.5 );
     color: #fff; font-size: 1.33rem;
     margin-bottom: 0; text-shadow: 1px 1px 0 #111;
-    padding: 1.25rem 0.5rem 0.35rem; }
+    padding: 0.35rem 0.5rem; width: 100%; }
 #hero .box span.badge {
     display: inline-block;
     font-size: 0.75rem; color: #fff;
     background-color: rgba( 0, 0, 0, 0.75 );
     padding: 0.15rem 0.5rem;
-    position: absolute; top: 0;
+    position: absolute; top: -1.15rem;
     left: 0; }
 
 #cta {
