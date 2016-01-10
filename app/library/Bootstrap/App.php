@@ -50,7 +50,7 @@ class App extends \Lib\Bootstrap\Base
                 'Suin' => VENDOR_PATH .'/suin/php-image-resizer/Source/Suin/',
                 'Michelf' => VENDOR_PATH .'/michelf/php-markdown/Michelf/',
                 'Httpful' => VENDOR_PATH .'/nategood/httpful/src/Httpful/',
-                'Kilte' => VENDOR_PATH .'/kilte/pagination/src/Kilte/'
+                'Kilte\Pagination' => VENDOR_PATH .'/kilte/pagination/source/'
             ));
         $loader->registerClasses(
             array(
