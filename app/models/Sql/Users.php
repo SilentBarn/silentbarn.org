@@ -13,6 +13,7 @@ class Users extends \Base\Model
     public $access_press;
     public $access_spaces;
     public $access_media;
+    public $access_pages;
     public $access_homepage;
     public $access_publish;
     public $is_deleted;
