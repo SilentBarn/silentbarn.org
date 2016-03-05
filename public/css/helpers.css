@@ -10,10 +10,6 @@
     text-align: center; }
 .hide {
     display: none; }
-.lefted-text {
-    text-align: left; }
-.righted-text {
-    text-align: right; }
 .clearboth {
     clear: both; }
 .clearfix:before,
@@ -25,6 +21,12 @@
     float: left; }
 .float-right {
     float: right; }
+.inline-blocked {
+    display: inline-block; }
+.lefted-text {
+    text-align: left; }
+.righted-text {
+    text-align: right; }
 .position-relative {
     position: relative; }
 .position-absolute {

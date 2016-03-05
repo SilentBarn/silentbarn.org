@@ -105,6 +105,7 @@ class AboutController extends \Base\Controller
     {
         $this->data->pageTitle = "Donate!";
 
+        /*
         // Try to get content from database
         $page = \Db\Sql\Pages::findFirstByName( 'donate' );
 
@@ -117,11 +118,14 @@ class AboutController extends \Base\Controller
         {
             $this->view->pick( 'about/donate' );
         }
+        */
+
+        $this->view->pick( 'about/donate' );
     }
 
     public function membershipsAction()
     {
-        $this->data->pageTitle = "Silent Memberships";
+        $this->data->pageTitle = "Memberships";
         $this->view->pick( 'about/memberships' );
     }
 
