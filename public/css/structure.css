@@ -18,7 +18,7 @@ header {
 body.sticky #header-wrap header {
     display: block; height: 40px; }
 #photo-stream {
-    position: absolute; top: 10px; right: 0; height: 80px; }
+    position: relative; top: 5px; height: 80px; float: right; }
 #photo-stream a {
     text-decoration: none; display: inline-block; margin-left: 2px; }
 #social-icons {
@@ -37,11 +37,10 @@ body.sticky #header-wrap header {
     color: #517fa4; }
 .social-icons a.youtube {
     color: #bb0000; }   
-body.sticky #header-wrap #photo-stream {
-    display: none; }
-body.sticky #header-wrap #social-icons {
-    display: none; }
-body.sticky #header-wrap #announcement {
+body.sticky #header-wrap #photo-stream,
+body.sticky #header-wrap #social-icons,
+body.sticky #header-wrap #announcement,
+body.sticky #header-wrap #support-barn {
     display: none; }
 body.sticky #header-wrap #logo {
     height: 40px; }
@@ -59,6 +58,13 @@ body.shiftlogo #header-wrap header #logo img.small {
     position: absolute; left: 200px; top: 20px; }
 #header-wrap #announcement h3 {
     background: yellow; font-style: italic; }
+#header-wrap #support-barn {
+    float: right; margin-right: 15px; position: relative;
+    top: 5px; }
+#header-wrap #support-barn .message {
+    margin-bottom: 3px; }
+#header-wrap #support-barn a {
+    padding: 0.15em 0.5em; float: right; }
 
 /* Nav
  */
