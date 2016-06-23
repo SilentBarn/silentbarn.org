@@ -35,6 +35,12 @@ class AboutController extends \Base\Controller
         $this->view->pick( 'about/volunteer' );
     }
 
+    public function jobsAction()
+    {
+        $this->data->pageTitle = "Jobs";
+        $this->view->pick( 'about/jobs' );
+    }
+
     /**
      * If $flag = 'thankyou' then show a thank you message
      * @param string $flag
