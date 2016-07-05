@@ -15,12 +15,11 @@ class Space extends \Base\Action
     {
         $space = new Spaces();
         $space->initialize();
-        $space->is_deleted = 0;
         $space->is_active = 1;
+        $space->is_deleted = 0;
         $space->is_archived = 0;
 
-        if ( ! $this->save( $space ) )
-        {
+        if ( ! $this->save( $space ) ) {
             return FALSE;
         }
 
@@ -38,7 +37,7 @@ class Space extends \Base\Action
         $util = $this->getService( 'util' );
         $filter = $this->getService( 'filter' );
 
-        // check the space ID and verify that this space exists
+        // Check the space ID and verify that this space exists
         if ( ! isset( $data[ 'id' ] )
             || ! valid( $data[ 'id' ], INT ) )
         {
@@ -48,25 +47,23 @@ class Space extends \Base\Action
 
         $space = Spaces::findFirst( $data[ 'id' ] );
 
-        if ( ! $space )
-        {
+        if ( ! $space ) {
             $util->addMessage( "That space couldn't be found.", INFO );
             return FALSE;
         }
 
-        $space->name = $filter->sanitize( get( $data, 'name' ), 'striptags' );
-        $space->subtitle = $filter->sanitize( get( $data, 'subtitle' ), 'striptags' );
-        $space->email = $filter->sanitize( get( $data, 'email' ), 'striptags' );
-        $space->website = $filter->sanitize( get( $data, 'website' ), 'striptags' );
-        $space->bio = $filter->sanitize( get( $data, 'bio' ), 'striptags' );
-        $space->is_residence = ( get( $data, 'is_residence' ) ) ? 1 : 0;
+        $space->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
         $space->is_stewdio = ( get( $data, 'is_stewdio' ) ) ? 1 : 0;
         $space->is_gallery = ( get( $data, 'is_gallery' ) ) ? 1 : 0;
-        $space->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
         $space->is_archived = ( get( $data, 'is_archived' ) ) ? 1 : 0;
+        $space->is_residence = ( get( $data, 'is_residence' ) ) ? 1 : 0;
+        $space->bio = $filter->sanitize( get( $data, 'bio' ), 'striptags' );
+        $space->name = $filter->sanitize( get( $data, 'name' ), 'striptags' );
+        $space->email = $filter->sanitize( get( $data, 'email' ), 'striptags' );
+        $space->website = $filter->sanitize( get( $data, 'website' ), 'striptags' );
+        $space->subtitle = $filter->sanitize( get( $data, 'subtitle' ), 'striptags' );
 
-        if ( ! $this->save( $space ) )
-        {
+        if ( ! $this->save( $space ) ) {
             return FALSE;
         }
 
@@ -81,8 +78,7 @@ class Space extends \Base\Action
         $util = $this->getService( 'util' );
         $space = Spaces::findFirst( $id );
 
-        if ( ! $space )
-        {
+        if ( ! $space ) {
             $util->addMessage( "That space couldn't be found.", INFO );
             return FALSE;
         }
@@ -100,15 +96,13 @@ class Space extends \Base\Action
      */
     private function save( &$space )
     {
-        if ( $space->save() == FALSE )
-        {
+        if ( $space->save() == FALSE ) {
             $util = $this->getService( 'util' );
             $util->addMessage(
                 "There was a problem saving your space.",
                 INFO );
 
-            foreach ( $space->getMessages() as $message )
-            {
+            foreach ( $space->getMessages() as $message ) {
                 $util->addMessage( $message, ERROR );
             }
 

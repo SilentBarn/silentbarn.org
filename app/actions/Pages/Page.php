@@ -18,8 +18,7 @@ class Page extends \Base\Action
         $util = $this->getService( 'util' );
         $page = \Db\Sql\Pages::findFirstByName( $name );
 
-        if ( ! $page )
-        {
+        if ( ! $page ) {
             $util->addMessage(
                 "The ". $name . " page could not be found.",
                 INFO );
@@ -28,8 +27,7 @@ class Page extends \Base\Action
 
         $page->content = get( $data, 'content', '' );
 
-        if ( ! $this->save( $page ) )
-        {
+        if ( ! $this->save( $page ) ) {
             return FALSE;
         }
 
@@ -44,15 +42,13 @@ class Page extends \Base\Action
      */
     private function save( &$page )
     {
-        if ( $page->save() == FALSE )
-        {
+        if ( $page->save() == FALSE ) {
             $util = $this->getService( 'util' );
             $util->addMessage(
                 "There was a problem saving your page content.",
                 INFO );
 
-            foreach ( $page->getMessages() as $message )
-            {
+            foreach ( $page->getMessages() as $message ) {
                 $util->addMessage( $message, ERROR );
             }
 

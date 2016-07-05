@@ -88,9 +88,17 @@ span.tag {
 span.tag i.remove-slug {
     margin-left: 10px; cursor: pointer; }
 
+/* Homepage
+ */
+.days li:not(:last-child) {
+    margin-bottom: 0.5em; }
+.days span {
+    display: inline-block; width: 2em; }
+.days input[type="text"] {
+    width: calc(100% - 5em); }
+
 /* Cropper
  */
-
 #image-crop-wrap {
     box-sizing: border-box; padding-right: 220px;
     width: 100%; }

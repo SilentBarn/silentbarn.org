@@ -2,9 +2,9 @@
 
 namespace Db\Sql;
 
-use Phalcon\Mvc\Model\Query,
-    Michelf\Markdown,
-    Phalcon\Mvc\Model\Resultset\Simple as Resultset;
+use Michelf\Markdown
+  , Phalcon\Mvc\Model\Query
+  , Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 
 class Posts extends \Base\Model
 {
@@ -40,10 +40,10 @@ class Posts extends \Base\Model
         $this->setSource( 'posts' );
         $this->addBehavior( 'timestamp' );
 
-        $this->images = NULL;
         $this->image = NULL;
-        $this->categories = NULL;
+        $this->images = NULL;
         $this->author = NULL;
+        $this->categories = NULL;
     }
 
     /**
@@ -56,6 +56,52 @@ class Posts extends \Base\Model
             ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
             ->execute();
+    }
+
+    /**
+     * Get all posts (not deleted) and indexes them by category.
+     * @return array
+     */
+    static function getAllWithCategory( $options = [] )
+    {
+        $return = [];
+        $orderBy = get( $options, 'sort', 'created_at desc' );
+        $select = "p.id, p.title, c.slug as category_slug, c.name as category";
+        $limit = ( isset( $options[ 'limit' ] ) )
+            ? sprintf( "limit %s, %s", $options[ 'offset' ], $options[ 'limit' ] )
+            : "";
+        // Create the SQL statement
+        $sql = sprintf(
+            "select %s from posts as p ".
+            "inner join relationships as r ".
+            "  on p.id = r.object_id and r.object_type = '%s' ".
+            "inner join categories as c ".
+            "  on c.id = r.property_id and r.property_type = '%s' ".
+            "  and p.is_deleted = 0 and p.status = '%s' ".
+            "order by p.%s ".
+            "%s", // limit
+            $select,
+            POST,
+            CATEGORY,
+            PUBLISHED,
+            $orderBy,
+            $limit );
+
+        $results = (new \Db\Sql\Posts)->getReadConnection()->query( $sql );
+        $results->setFetchMode( \Phalcon\Db::FETCH_ASSOC );
+        $results = $results->fetchAll( $results );
+
+        foreach ( $results as $result ) {
+            $slug = $result[ 'category_slug' ];
+
+            if ( ! isset( $return[ $slug ] ) ) {
+                $return[ $slug ] = [];
+            }
+
+            $return[ $slug ][] = $result;
+        }
+
+        return $return;
     }
 
     /**
@@ -101,23 +147,23 @@ class Posts extends \Base\Model
      */
     static function getByCategoryDateRange( $params = array() )
     {
-        $defaults = [
-            'categories' => [ EVENTS, EXHIBITIONS ],
-            'startDate' => date( DATE_DATABASE, mktime( 0, 0, 0 ) ),
-            'endDate' => NULL,
-            'startOperand' => '>=',
-            'endOperand' => '<=',
-            'ongoing' => FALSE,
-            'sort' => 'event_date asc',
-            'limit' => 9999,
-            'offset' => 0 ];
-        $options = array_merge( $defaults, $params );
-        $dateWhereClauses = [];
         $bindings = [];
+        $dateWhereClauses = [];
+        $defaults = [
+            'offset' => 0,
+            'limit' => 9999,
+            'endDate' => NULL,
+            'ongoing' => FALSE,
+            'endOperand' => '<=',
+            'startOperand' => '>=',
+            'sort' => 'event_date asc',
+            'categories' => [ EVENTS, EXHIBITIONS ],
+            'startDate' => date( DATE_DATABASE, mktime( 0, 0, 0 ) )
+        ];
+        $options = array_merge( $defaults, $params );
 
-        // create our date where clause
-        if ( ! is_null( $options[ 'startDate' ] ) )
-        {
+        // Create our date where clause
+        if ( ! is_null( $options[ 'startDate' ] ) ) {
             $string = ( $options[ 'ongoing' ] )
                 ? "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )"
                 : "( p.event_date %s :startDate: )";
@@ -128,8 +174,7 @@ class Posts extends \Base\Model
             $bindings[ 'startDate' ] = $options[ 'startDate' ];
         }
 
-        if ( ! is_null( $options[ 'endDate' ] ) )
-        {
+        if ( ! is_null( $options[ 'endDate' ] ) ) {
             $string = ( $options[ 'ongoing' ] )
                 ? "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )"
                 : "( p.event_date_end %s :endDate: or p.event_date_end is null )";
@@ -140,7 +185,7 @@ class Posts extends \Base\Model
             $bindings[ 'endDate' ] = $options[ 'endDate' ];
         }
 
-        // create the SQL statement
+        // Create the SQL statement
         $phql = sprintf(
             "select p.* from \Db\Sql\Posts as p ".
             "inner join \Db\Sql\Relationships as r ".
@@ -399,8 +444,7 @@ class Posts extends \Base\Model
      */
     function getCategories()
     {
-        if ( ! is_null( $this->categories ) )
-        {
+        if ( ! is_null( $this->categories ) ) {
             return $this->categories;
         }
         
@@ -417,8 +461,7 @@ class Posts extends \Base\Model
     {
         $ids = [];
 
-        foreach ( $this->getCategories() as $category )
-        {
+        foreach ( $this->getCategories() as $category ) {
             $ids[] = $category->id;
         }
 

@@ -12,12 +12,12 @@ class Email extends \Base\Action
      */
     public function rental( $data )
     {
-        // load our services
+        // Load our services
         $filter = $this->getService( 'filter' );
         $view = $this->getService( 'view' );
         $config = $this->getService( 'config' );
 
-        // read in email fields
+        // Read in email fields
         $emailInfo = [
             'name' => $filter->sanitize( get( $data, 'name' ), 'striptags' ),
             'email' => $filter->sanitize( get( $data, 'email' ), 'striptags' ),
@@ -25,7 +25,7 @@ class Email extends \Base\Action
             'dates' => $filter->sanitize( get( $data, 'dates' ), 'striptags' ),
             'description' => nl2br( $filter->sanitize( get( $data, 'description' ), 'striptags' ) )];
 
-        // load the data into the view and render the html
+        // Load the data into the view and render the html
         $html = $view->getRender(
             'email', 'inquiry', [
                 'params' => $emailInfo,
@@ -48,18 +48,18 @@ class Email extends \Base\Action
      */
     public function event( $data )
     {
-        // load our services
+        // Load our services
         $filter = $this->getService( 'filter' );
         $view = $this->getService( 'view' );
         $config = $this->getService( 'config' );
 
-        // read in email fields
+        // Read in email fields
         $emailInfo = [
             'name' => $filter->sanitize( get( $data, 'name' ), 'striptags' ),
             'email' => $filter->sanitize( get( $data, 'email' ), 'striptags' ),
             'message' => nl2br( $filter->sanitize( get( $data, 'message' ), 'striptags' ) )];
 
-        // load the data into the view and render the html
+        // Load the data into the view and render the html
         $html = $view->getRender(
             'email', 'inquiry', [
                 'params' => $emailInfo,

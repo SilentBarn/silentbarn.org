@@ -79,21 +79,18 @@ class ArticlesController extends \Base\Controller
     {
         ini_set( 'upload_max_filesize', '100M' );
 
-        if ( ! valid( $postId, INT ) )
-        {
+        if ( ! valid( $postId, INT ) ) {
             return $this->quit( "No post ID specified", INFO, 'admin/articles' );
         }
 
         $post = \Db\Sql\Posts::findFirst( $postId );
 
-        if ( ! $post )
-        {
+        if ( ! $post ) {
             return $this->quit( "That post doesn't exist!", INFO, 'admin/articles' );
         }
 
         // Check if the user can access this post's category
-        if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) )
-        {
+        if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) ) {
             return $this->quit( 
                 "You're not allowed to edit that article.",
                 INFO,

@@ -1,0 +1,65 @@
+
+<div id="admin" class="page">
+    <!-- Edit form -->
+    <form id="edit-form" class="clearfix" action="<?php echo $this->url->get( 'admin/homepage/save' ); ?>" method="post">
+        <!-- Left col -->
+        <div class="left-col float-left">
+            <!-- Top Slider -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>Top Slider</h2>
+                </legend>
+                <div class="margin-bottom-20">
+                </div>
+            </fieldset>
+
+            <!-- Content Boxes -->
+            <fieldset class="margin-bottom-40">
+                <legend>
+                    <h2>Content Boxes</h2>
+                </legend>
+                <ol>
+                <?php
+                foreach ( $boxes as $label => $category ): ?>
+                    <li class="margin-bottom-20">
+                        <h3><?php echo $label; ?></h3>
+                        <select name="boxes[<?php echo $category; ?>]" class="padding-all-5 w90p">
+                    <?php
+                    if ( ! isset( $posts[ $category ] ) ): ?>
+                        <option value="">You have no <?php echo $label; ?> articles published!</option>
+                    <?php
+                    else:
+                        foreach ( $posts[ $category ] as $post ): ?>
+                        <option value="<?php echo $post[ 'id' ]; ?>">[<?php echo $post[ 'id' ]; ?>]: <?php echo $post[ 'title' ]; ?></option>
+                        <?php
+                        endforeach;
+                    endif; ?>
+                        </select>
+                    </li>
+                <?php
+                endforeach; ?>
+                </ol>
+            </fieldset>
+        </div><!-- / Left col -->
+
+        <!-- Right col -->
+        <div class="right-col float-right">
+            <!-- Categories -->
+            <fieldset class="margin-bottom-20">
+                <legend>
+                    <h2>Cafe Hours</h2>
+                </legend>
+                <ul class="days">
+                <?php
+                foreach ( $cafeDays as $day => $hours ): ?>
+                    <li>
+                        <span><?php echo $days[ $day ]; ?>:</span>
+                        <input type="text" name="<?php echo $day; ?>" class="" value="<?php echo $hours; ?>" />
+                    </li>
+                <?php
+                endforeach; ?>
+                </ul>
+            </fieldset>
+        </div><!-- /Right col -->
+    </form><!-- /edit form -->
+</div>

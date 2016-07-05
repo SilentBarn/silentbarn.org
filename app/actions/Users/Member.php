@@ -22,19 +22,17 @@ class Member extends \Base\Action
         $member->is_active = 1;
         $member->is_archived = 0;
 
-        // save a temporary email
+        // Save a temporary email
         $member->email = $authAction->generateRandomToken();
 
-        if ( ! $this->save( $member ) )
-        {
+        if ( ! $this->save( $member ) ) {
             return FALSE;
         }
 
-        // set a human readable email
+        // Set a human readable email
         $member->email = "member_". $member->id ."@". $config->paths->hostname;
 
-        if ( ! $this->save( $member ) )
-        {
+        if ( ! $this->save( $member ) ) {
             return FALSE;
         }
 
@@ -52,8 +50,7 @@ class Member extends \Base\Action
         $util = $this->getService( 'util' );
         $filter = $this->getService( 'filter' );
 
-        // check the member ID and verify that this member exists
-        //
+        // Check the member ID and verify that this member exists
         if ( ! isset( $data[ 'id' ] )
             || ! valid( $data[ 'id' ], INT ) )
         {
@@ -63,14 +60,12 @@ class Member extends \Base\Action
 
         $member = Members::findFirst( $data[ 'id' ] );
 
-        if ( ! $member )
-        {
+        if ( ! $member ) {
             $util->addMessage( "That member couldn't be found.", INFO );
             return FALSE;
         }
 
-        // check for an email
-        //
+        // Check for an email
         if ( ! isset( $data[ 'email' ] )
             || ! valid( $data[ 'email' ], STRING ) )
         {
@@ -78,8 +73,7 @@ class Member extends \Base\Action
             return FALSE;
         }
 
-        // check if new email already exists and isn't the same
-        //
+        // Check if new email already exists and isn't the same
         $emailMember = Members::findFirstByEmail( $data[ 'email' ] );
 
         if ( $emailMember
@@ -98,8 +92,7 @@ class Member extends \Base\Action
         $member->is_active = ( get( $data, 'is_active' ) ) ? 1 : 0;
         $member->is_archived = ( get( $data, 'is_archived' ) ) ? 1 : 0;
 
-        if ( ! $this->save( $member ) )
-        {
+        if ( ! $this->save( $member ) ) {
             return FALSE;
         }
 
@@ -114,8 +107,7 @@ class Member extends \Base\Action
         $util = $this->getService( 'util' );
         $member = Members::findFirst( $id );
 
-        if ( ! $member )
-        {
+        if ( ! $member ) {
             $util->addMessage( "That member couldn't be found.", INFO );
             return FALSE;
         }
@@ -133,15 +125,13 @@ class Member extends \Base\Action
      */
     private function save( &$member )
     {
-        if ( $member->save() == FALSE )
-        {
+        if ( $member->save() == FALSE ) {
             $util = $this->getService( 'util' );
             $util->addMessage(
                 "There was a problem saving your member.",
                 INFO );
 
-            foreach ( $member->getMessages() as $message )
-            {
+            foreach ( $member->getMessages() as $message ) {
                 $util->addMessage( $message, ERROR );
             }
 

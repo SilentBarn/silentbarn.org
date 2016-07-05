@@ -7,7 +7,7 @@ use \Db\Sql\Users as Users;
 class User extends \Base\Action
 {
     /**
-     * Creates a new blank user
+     * Creates a new blank user.
      *
      * @return integer User ID
      */
@@ -22,16 +22,14 @@ class User extends \Base\Action
         // Save a temporary email
         $user->email = $authAction->generateRandomToken();
 
-        if ( ! $this->save( $user ) )
-        {
+        if ( ! $this->save( $user ) ) {
             return FALSE;
         }
 
         // Set a human readable email
         $user->email = "user_". $user->id ."@". $config->paths->hostname;
 
-        if ( ! $this->save( $user ) )
-        {
+        if ( ! $this->save( $user ) ) {
             return FALSE;
         }
 
@@ -39,7 +37,7 @@ class User extends \Base\Action
     }
 
     /**
-     * Saves a user
+     * Saves a user.
      *
      * @param array $data
      * @return boolean
@@ -59,8 +57,7 @@ class User extends \Base\Action
 
         $user = Users::findFirst( $data[ 'id' ] );
 
-        if ( ! $user )
-        {
+        if ( ! $user ) {
             $util->addMessage( "That user couldn't be found.", INFO );
             return FALSE;
         }
@@ -88,8 +85,7 @@ class User extends \Base\Action
         if ( isset( $data[ 'password' ] )
             && valid( $data[ 'password' ], STRING ) )
         {
-            if ( strlen( trim( $data[ 'password' ] ) ) < 6 )
-            {
+            if ( strlen( trim( $data[ 'password' ] ) ) < 6 ) {
                 $util->addMessage( "Passwords need to be at least 6 characters.", INFO );
                 return FALSE;
             }
@@ -98,10 +94,8 @@ class User extends \Base\Action
             $user->password = $authAction->hashPassword( $data[ 'password' ] );
         }
         // If no password came in, check if the user has one
-        else
-        {
-            if ( ! valid( $user->password, STRING ) )
-            {
+        else {
+            if ( ! valid( $user->password, STRING ) ) {
                 $util->addMessage( "Please set a password for this user!", INFO );
                 return FALSE;
             }
@@ -112,28 +106,26 @@ class User extends \Base\Action
 
         // Add any of the permissions; unset the access_users permission
         // if the edited user is the same as the logged in one.
-        if ( int_eq( $user->id, $this->auth->userId ) )
-        {
+        if ( int_eq( $user->id, $this->auth->userId ) ) {
             unset( $data[ 'access_users' ] );
         }
-        else
-        {
+        else {
             $user->access_users = ( get( $data, 'access_users' ) ) ? 1 : 0;
         }
 
-        $user->access_members = ( get( $data, 'access_members' ) ) ? 1 : 0;
         $user->access_press = ( get( $data, 'access_press' ) ) ? 1 : 0;
-        $user->access_spaces = ( get( $data, 'access_spaces' ) ) ? 1 : 0;
-        $user->access_homepage = ( get( $data, 'access_homepage' ) ) ? 1 : 0;
-        $user->access_publish = ( get( $data, 'access_publish' ) ) ? 1 : 0;
         $user->access_pages = ( get( $data, 'access_pages' ) ) ? 1 : 0;
+        $user->access_spaces = ( get( $data, 'access_spaces' ) ) ? 1 : 0;
+        $user->access_members = ( get( $data, 'access_members' ) ) ? 1 : 0;
+        $user->access_publish = ( get( $data, 'access_publish' ) ) ? 1 : 0;
+        $user->access_homepage = ( get( $data, 'access_homepage' ) ) ? 1 : 0;
 
         // read in the article category permissions and set those too
         $category_access = $user->getCategoryAccess( TRUE );
-        $category_access->object_id = $user->id;
         $category_access->object_type = USER;
+        $category_access->object_id = $user->id;
         $category_access->value = serialize(
-            get( $data, 'category_access', array() ));
+            get( $data, 'category_access', [] ));
 
         if ( ! $this->save( $category_access )
             || ! $this->save( $user ) )
@@ -152,8 +144,7 @@ class User extends \Base\Action
         $util = $this->getService( 'util' );
         $user = Users::findFirst( $id );
 
-        if ( ! $user )
-        {
+        if ( ! $user ) {
             $util->addMessage( "That user couldn't be found.", INFO );
             return FALSE;
         }
@@ -171,15 +162,13 @@ class User extends \Base\Action
      */
     private function save( &$user )
     {
-        if ( $user->save() == FALSE )
-        {
+        if ( $user->save() == FALSE ) {
             $util = $this->getService( 'util' );
             $util->addMessage(
                 "There was a problem saving your user.",
                 INFO );
 
-            foreach ( $user->getMessages() as $message )
-            {
+            foreach ( $user->getMessages() as $message ) {
                 $util->addMessage( $message, ERROR );
             }
 

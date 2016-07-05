@@ -23,7 +23,6 @@ class PagesController extends \Base\Controller
      */
     public function indexAction()
     {
-        // Get all of the posts
         $this->view->pick( 'admin/pages/index' );
         // @TODO get list of authorized pages for the user
         $this->data->pages = \Db\Sql\Pages::getEditablePages();

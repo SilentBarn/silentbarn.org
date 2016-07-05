@@ -26,29 +26,24 @@ class Auth extends \Base\Action
                 'exists' => array()
             ));
 
-        if ( ! $validate->run( $params ) )
-        {
+        if ( ! $validate->run( $params ) ) {
             return FALSE;
         }
 
-        // authorize the email/password combo
-        //
+        // Authorize the email/password combo
         $user = $this->authorizeLogin(
             $params[ 'email' ],
             $params[ 'password' ] );
 
-        if ( ! valid( get( $user, 'id' ) ) )
-        {
+        if ( ! valid( get( $user, 'id' ) ) ) {
             return FALSE;
         }
 
-        // save the session data
-        //
+        // Save the session data
         $this->getService( 'session' )->set( 'user_id', $user->id );
         $this->getService( 'auth' )->load( $user->id );
 
-        // write out the cookie token
-        //
+        // Write out the cookie token
         return self::createToken( $user->id );
     }
 
@@ -61,8 +56,7 @@ class Auth extends \Base\Action
      */
     public function authorizeLogin( $email, $password )
     {
-        // check if the email exists
-        //
+        // Check if the email exists
         $util = $this->getService( 'util' );
         $user = \Db\Sql\Users::findByEmail( $email )->getFirst();
 
@@ -73,13 +67,11 @@ class Auth extends \Base\Action
             return FALSE;
         }
 
-        // hash the plaintext password and compare it against the
+        // Hash the plaintext password and compare it against the
         // database password.
-        //
         $security = $this->getService( 'security' );
 
-        if ( ! $security->checkHash( $password, $user->password ) )
-        {
+        if ( ! $security->checkHash( $password, $user->password ) ) {
             $util->addMessage( 'Email and password do not match', ERROR );
             return FALSE;
         }
@@ -94,9 +86,7 @@ class Auth extends \Base\Action
      */
     public function hashPassword( $password )
     {
-        $security = $this->getService( 'security' );
-
-        return $security->hash( $password );
+        return $this->getService( 'security' )->hash( $password );
     }
 
     /**
@@ -108,31 +98,25 @@ class Auth extends \Base\Action
     {
         $cookies = $this->getService( 'cookies' );
 
-        // read the cookie, check if the token belongs to a user
-        //
-        if ( ! $cookies->has( 'token' ) )
-        {
+        // Read the cookie, check if the token belongs to a user
+        if ( ! $cookies->has( 'token' ) ) {
             return FALSE;
         }
 
         $token = $cookies->get( 'token' );
 
-        if ( ! valid( $token->getValue(), STRING ) )
-        {
+        if ( ! valid( $token->getValue(), STRING ) ) {
             return FALSE;
         }
 
-        // try to get the user by token
-        //
+        // Try to get the user by token
         $user = \Db\Sql\Users::getByToken( $token );
 
-        if ( ! $user || ! valid( $user->id ) )
-        {
+        if ( ! $user || ! valid( $user->id ) ) {
             return FALSE;
         }
 
-        // save the session data
-        //
+        // Save the session data
         $session = $this->getService( 'session' );
         $session->set( 'user_id', $user->id );
 
@@ -153,8 +137,7 @@ class Auth extends \Base\Action
         $cookies = $this->getService( 'cookies' );
         $util = $this->getService( 'util' );
 
-        // set the cookie
-        //
+        // Set the cookie
         $token = $this->generateRandomToken();
         $cookieSet = $cookies->set(
             'token',
@@ -165,14 +148,12 @@ class Auth extends \Base\Action
             $config->paths->hostname,
             $config->cookies->httpOnly );
 
-        if ( ! $cookieSet )
-        {
+        if ( ! $cookieSet ) {
             $util->addMessage( 'Failed to save login cookie', ERROR );
             return FALSE;
         }
 
-        // save the user setting 'cookie_token'
-        //
+        // Save the user setting 'cookie_token'
         $setting = new \Db\Sql\Settings();
         $settingSaved = $setting->save(
             array(
@@ -182,8 +163,7 @@ class Auth extends \Base\Action
                 'value' => $token
             ));
 
-        if ( ! $settingSaved )
-        {
+        if ( ! $settingSaved ) {
             $util->addMessage( 'Failed to save login token', ERROR );
             return FALSE;
         }
@@ -209,10 +189,9 @@ class Auth extends \Base\Action
         $setting = \Db\Sql\Settings::get(
             $userId,
             'user',
-            $config->settings->cookieToken,
-            array(
+            $config->settings->cookieToken, [
                 'first' => TRUE
-            ));
+            ]);
 
         return ( $setting
             && $setting->delete()
@@ -228,7 +207,6 @@ class Auth extends \Base\Action
     {
         $session = $this->getService( 'session' );
         $session->remove( 'user_id' );
-
         $auth = $this->getService( 'auth' );
         $auth->destroy();
 
@@ -251,8 +229,7 @@ class Auth extends \Base\Action
         $code_alphabet .= "0123456789";
         $alphabet_length = strlen( $code_alphabet );
 
-        for( $i = 0; $i < $length; $i++ )
-        {
+        for ( $i = 0; $i < $length; $i++ ) {
             $token .= $code_alphabet[ $this->cryptoRandSecure( 0, $alphabet_length ) ];
         }
 
@@ -266,12 +243,11 @@ class Auth extends \Base\Action
      * @param integer $max
      * @return long
      */
-    public function cryptoRandSecure( $min, $max ) 
+    public function cryptoRandSecure( $min, $max )
     {
         $range = $max - $min;
 
-        if ( $range < 0 )
-        {
+        if ( $range < 0 ) {
             return $min; // not so random...
         }
 
@@ -279,14 +255,13 @@ class Auth extends \Base\Action
         $bytes = (int) ( $log / 8 ) + 1; // length in bytes
         $bits = (int) $log + 1; // length in bits
         $filter = (int) ( 1 << $bits ) - 1; // set all lower bits to 1
-        
-        do 
-        {
+
+        do  {
             $rnd = hexdec( bin2hex( openssl_random_pseudo_bytes( $bytes ) ) );
             $rnd = $rnd & $filter; // discard irrelevant bits
-        } 
+        }
         while ( $rnd >= $range );
-        
+
         return $min + $rnd;
     }
 }

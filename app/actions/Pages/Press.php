@@ -18,20 +18,17 @@ class Press extends \Base\Action
         $filter = $this->getService( 'filter' );
         $page = \Db\Sql\Pages::findFirstByName( 'press' );
 
-        // read in content from admin page
+        // Read in content from admin page
         $content[ 'about' ] = $filter->sanitize( get( $data, 'about' ), 'striptags' );
         $content[ 'video' ] = $filter->sanitize( get( $data, 'video' ), 'striptags' );
 
-        // process the video. this comes in as a URL and we need
-        // to write out an embed object based on the URL that comes
-        // in.
-        if ( strpos( $content[ 'video' ], 'youtube.com' ) )
-        {
-            // get the code
+        // Process the video. this comes in as a URL and we need to
+        // write out an embed object based on the URL that comes in
+        if ( strpos( $content[ 'video' ], 'youtube.com' ) ) {
+            // Get the code
             $pieces = explode( 'watch?v=', $content[ 'video' ] );
 
-            if ( count( $pieces ) < 2 )
-            {
+            if ( count( $pieces ) < 2 ) {
                 $util->addMessage(
                     "You didn't enter a valid YouTube URL",
                     ERROR );
@@ -46,11 +43,9 @@ class Press extends \Base\Action
                 get( $pieces, 1 ));
         }
 
-        // serialize everything
         $page->content = serialize( $content );
 
-        if ( ! $this->save( $page ) )
-        {
+        if ( ! $this->save( $page ) ) {
             return FALSE;
         }
 
@@ -65,15 +60,13 @@ class Press extends \Base\Action
      */
     private function save( &$page )
     {
-        if ( $page->save() == FALSE )
-        {
+        if ( $page->save() == FALSE ) {
             $util = $this->getService( 'util' );
             $util->addMessage(
                 "There was a problem saving your press content.",
                 INFO );
 
-            foreach ( $page->getMessages() as $message )
-            {
+            foreach ( $page->getMessages() as $message ) {
                 $util->addMessage( $message, ERROR );
             }
 
