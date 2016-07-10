@@ -313,6 +313,12 @@ var AdminPage = {
 
         $admin.on( 'click', '#mode-editor', editorClick );
         $admin.on( 'click', '#mode-preview', previewClick );
+    },
+
+    homepage: function () {
+        $( '.page' ).on( 'click', '.remove-post', function () {
+            $( this ).closest( 'li' ).remove();
+        });
     }
 };
 
@@ -325,5 +331,6 @@ AdminPage.postActions();
 AdminPage.slugs();
 AdminPage.meta();
 AdminPage.pageEditor();
+AdminPage.homepage();
 
 });

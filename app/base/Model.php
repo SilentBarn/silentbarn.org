@@ -40,10 +40,8 @@ class Model extends \Phalcon\Mvc\Model
     {
         $di = $this->getDI();
 
-        foreach ( $this->behaviors as $behavior => $active )
-        {
-            if ( $active && $di->has( 'behavior_'. $behavior ) )
-            {
+        foreach ( $this->behaviors as $behavior => $active ) {
+            if ( $active && $di->has( 'behavior_'. $behavior ) ) {
                 $di->get( 'behavior_'. $behavior )->beforeSave( $this );
             }
         }

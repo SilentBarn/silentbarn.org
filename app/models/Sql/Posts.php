@@ -51,7 +51,7 @@ class Posts extends \Base\Model
      */
     static function getAll( $limit = 25, $offset = 0 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
@@ -87,7 +87,7 @@ class Posts extends \Base\Model
             $orderBy,
             $limit );
 
-        $results = (new \Db\Sql\Posts)->getReadConnection()->query( $sql );
+        $results = (new Posts)->getReadConnection()->query( $sql );
         $results->setFetchMode( \Phalcon\Db::FETCH_ASSOC );
         $results = $results->fetchAll( $results );
 
@@ -109,7 +109,7 @@ class Posts extends \Base\Model
      */
     static function getActive( $limit = 25, $offset = 0 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->where( 'status = "'. PUBLISHED .'"' )
             ->orderBy( 'created_at desc' )
@@ -126,7 +126,7 @@ class Posts extends \Base\Model
      */
     static function getByLocation( $location = 'boxes', $limit = 5 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->andWhere( "status = '". PUBLISHED ."'" )
             ->andWhere( "homepage_location = :location:" )
@@ -143,7 +143,7 @@ class Posts extends \Base\Model
      * The results are sorted by oldest first unless specified.
      *
      * @param array $params
-     * @return \Db\Sql\Posts
+     * @return Posts
      */
     static function getByCategoryDateRange( $params = array() )
     {
@@ -187,7 +187,7 @@ class Posts extends \Base\Model
 
         // Create the SQL statement
         $phql = sprintf(
-            "select p.* from \Db\Sql\Posts as p ".
+            "select p.* from Posts as p ".
             "inner join \Db\Sql\Relationships as r ".
             "  on p.id = r.object_id and r.object_type = '%s' ".
             "inner join \Db\Sql\Categories as c ".
@@ -215,7 +215,7 @@ class Posts extends \Base\Model
      * command because of the complexity of the query.
      *
      * @param array $params
-     * @return \Db\Sql\Posts
+     * @return Posts
      */
     static function search( $params )
     {
@@ -360,11 +360,24 @@ class Posts extends \Base\Model
      */
     static function getBySlug( $slug )
     {
-        return \Db\Sql\Posts::findFirst([
+        return Posts::findFirst([
             'slug = :slug:',
             'bind' => [
                 'slug' => $slug ]
             ]);
+    }
+
+    /**
+     * Returns all posts by IDs.
+     *
+     * @param array $ids
+     * @return array \Db\Sql\Post
+     */
+    static function getByIds( $ids )
+    {
+        return Posts::query()
+            ->inWhere( 'id', $ids )
+            ->execute();
     }
 
     /**
@@ -617,7 +630,7 @@ class Posts extends \Base\Model
         $slugOkay = FALSE;
 
         do {
-            $post = \Db\Sql\Posts::getBySlug( $checkSlug );
+            $post = Posts::getBySlug( $checkSlug );
             if ( $post ):
                 $checkSlug = $slug .'-'. $counter;
                 $counter++;
