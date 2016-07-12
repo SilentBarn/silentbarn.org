@@ -19,6 +19,7 @@ class StewdiosController extends \Base\Controller
         ]);
     }
 
+    /*
     public function livingAction()
     {
         // get the residence spaces
@@ -32,6 +33,7 @@ class StewdiosController extends \Base\Controller
         $this->data->pageTitle = "Living Stewdios";
         $this->view->pick( 'stewdios/living' );
     }
+    */
 
     public function workingAction()
     {
