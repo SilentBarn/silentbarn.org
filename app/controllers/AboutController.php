@@ -73,7 +73,6 @@ class AboutController extends \Base\Controller
         $this->redirect = "about/rentals/thankyou";
     }
 
-    /*
     public function chefsAction()
     {
         $this->view->pick( 'about/chefs' );
@@ -83,7 +82,6 @@ class AboutController extends \Base\Controller
             "order" => "name"
         ]);
     }
-    */
 
     public function pressAction()
     {
