@@ -26,6 +26,10 @@ class IndexController extends \Base\Controller
             'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'
         ];
 
+        if ( ! array_filter( $this->view->cafeDays, 'strlen' ) ) {
+            $this->view->cafeDays = NULL;
+        }
+
         // Get all of the posts that are referenced in the homepage
         $posts = [];
         $ids = array_unique(

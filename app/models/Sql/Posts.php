@@ -375,6 +375,10 @@ class Posts extends \Base\Model
      */
     static function getByIds( $ids )
     {
+        if ( ! $ids ) {
+            return [];
+        }
+
         return Posts::query()
             ->inWhere( 'id', $ids )
             ->execute();

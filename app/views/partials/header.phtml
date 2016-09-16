@@ -39,6 +39,8 @@
             </form>
         </div>
 
+    <?php
+    if ( $cafeDays ): ?>
         <div id="cafe-hours">
             <div class="message">
                 <span class="font-mono fontsize-12 uppercase color-999">Cafe Hours</span>
@@ -54,6 +56,8 @@
             endforeach; ?>
             </div>
         </div>
+    <?php
+    endif; ?>
 
         <div id="location">
             <div class="message">
