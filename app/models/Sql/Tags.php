@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Db\Behaviors\Timestamp as Timestampable;
+
 class Tags extends \Base\Model
 {
     public $id;
@@ -12,7 +14,7 @@ class Tags extends \Base\Model
     function initialize()
     {
         $this->setSource( 'tags' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

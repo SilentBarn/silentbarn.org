@@ -2,7 +2,8 @@
 
 namespace Db\Sql;
 
-use Michelf\Markdown;
+use Michelf\Markdown
+  , Db\Behaviors\Timestamp as Timestampable;
 
 class Pages extends \Base\Model
 {
@@ -19,7 +20,7 @@ class Pages extends \Base\Model
     function initialize()
     {
         $this->setSource( 'pages' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     static function getEditablePages()

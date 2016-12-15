@@ -31,6 +31,7 @@ class Model extends \Phalcon\Mvc\Model
      *
      * @param string $behavior
      */
+    /*
     function addBehavior( $behavior )
     {
         $this->behaviors[ $behavior ] = TRUE;
@@ -48,4 +49,5 @@ class Model extends \Phalcon\Mvc\Model
             }
         }
     }
+    */
 }

@@ -2,7 +2,8 @@
 
 namespace Db\Sql;
 
-use Phalcon\Mvc\Model\Query;
+use Phalcon\Mvc\Model\Query
+  , Db\Behaviors\Timestamp as Timestampable;
 
 class Medias extends \Base\Model
 {
@@ -21,7 +22,7 @@ class Medias extends \Base\Model
     function initialize()
     {
         $this->setSource( 'medias' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

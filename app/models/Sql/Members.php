@@ -2,7 +2,8 @@
 
 namespace Db\Sql;
 
-use Michelf\Markdown;
+use Michelf\Markdown
+  , Db\Behaviors\Timestamp as Timestampable;
 
 class Members extends \Base\Model
 {
@@ -21,7 +22,7 @@ class Members extends \Base\Model
     function initialize()
     {
         $this->setSource( 'members' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

@@ -19,20 +19,16 @@ class App extends \Lib\Bootstrap\Base
         parent::run( $args );
 
         // initialize our benchmarks
-        //
         $this->di[ 'util' ]->startBenchmark();
 
         // create the mvc application
-        //
         $application = new Application( $this->di );
 
         // run auth init
-        //
         $this->di[ 'auth' ]->init();
 
         // output the content. our benchmark is finished in the base
         // controller before output is sent.
-        //
         echo $application->handle()->getContent();
     }
 
@@ -69,7 +65,6 @@ class App extends \Lib\Bootstrap\Base
         parent::initConfig();
 
         // set up error reporting
-        //
         $config = $this->di[ 'config' ];
 
         if ( $config->app->errorReporting ):

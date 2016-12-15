@@ -145,8 +145,7 @@ class ArticlesController extends \Base\Controller
         $imageAction = new \Actions\Posts\Image();
         $imageSuccess = TRUE;
 
-        if ( $imageAction->hasFiles( 'image' ) )
-        {
+        if ( $imageAction->hasFiles( 'image' ) ) {
             // Save any images and do the resizing
             if ( $imageAction->checkFilesArrayErrors( 'image' )
                 && $this->request->hasFiles() )
@@ -158,21 +157,18 @@ class ArticlesController extends \Base\Controller
             }
         }
         // Check if a URL came in
-        elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) )
-        {
+        elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) ) {
             $imageAction->deleteByPost( $post->id );
             $imageSuccess = $imageAction->saveUrlToPost(
                 $post->id,
                 $this->request->getPost( 'image_url' ) );
         }
         // If resize coordinates came in, resize the existing image
-        elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) )
-        {
+        elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) ) {
             $imageAction->crop( $post->getImage(), $data );
         }
 
-        if ( ! $imageSuccess )
-        {
+        if ( ! $imageSuccess ) {
             $imageAction->undeleteByPost( $post->id );
         }
 

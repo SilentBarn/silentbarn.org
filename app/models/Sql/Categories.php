@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Db\Behaviors\Timestamp as Timestampable;
+
 class Categories extends \Base\Model
 {
     public $id;
@@ -12,7 +14,7 @@ class Categories extends \Base\Model
     function initialize()
     {
         $this->setSource( 'categories' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

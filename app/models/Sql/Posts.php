@@ -4,6 +4,7 @@ namespace Db\Sql;
 
 use Michelf\Markdown
   , Phalcon\Mvc\Model\Query
+  , Db\Behaviors\Timestamp as Timestampable
   , Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 
 class Posts extends \Base\Model
@@ -38,7 +39,7 @@ class Posts extends \Base\Model
     function initialize()
     {
         $this->setSource( 'posts' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
 
         $this->image = NULL;
         $this->images = NULL;

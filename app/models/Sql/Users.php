@@ -2,6 +2,8 @@
 
 namespace Db\Sql;
 
+use Db\Behaviors\Timestamp as Timestampable;
+
 class Users extends \Base\Model
 {
     public $id;
@@ -22,15 +24,13 @@ class Users extends \Base\Model
     // lazy loaded
     private $settings;
 
-    // const
     const CATEGORY_ACCESS = 'category_access';
 
     function initialize()
     {
-        $this->setSource( 'users' );
-        $this->addBehavior( 'timestamp' );
-
         $this->settings = array();
+        $this->setSource( 'users' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

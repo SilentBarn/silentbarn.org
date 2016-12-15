@@ -11,8 +11,7 @@ include APP_PATH . '/library/Bootstrap/Base.php';
 include APP_PATH . '/library/Bootstrap/App.php';
 
 // run the application
-try
-{
+try {
     // bootstrap the application
     $bootstrap = new \Lib\Bootstrap\App([
         'router', 'url', 'cookies', 'session',
@@ -21,13 +20,11 @@ try
         'util', 'auth', 'validate', 'cache' ]);
     $bootstrap->run();
 }
-catch( \Phalcon\Exception $e )
-{
+catch( \Phalcon\Exception $e ) {
     echo 'PhalconException: ', $e->getMessage(), '<br />';
     echo nl2br( htmlentities( $e->getTraceAsString() ) );
 }
-catch ( PDOException $e )
-{
+catch ( PDOException $e ) {
     echo 'PDOException: ', $e->getMessage(), '<br />';
     echo nl2br( htmlentities( $e->getTraceAsString() ) );
 }
