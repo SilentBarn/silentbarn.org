@@ -17,6 +17,7 @@ class Members extends \Base\Model
     public $is_stewdio;
     public $is_active;
     public $is_deleted;
+    public $is_archived;
     public $created_at;
 
     function initialize()

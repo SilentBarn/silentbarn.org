@@ -35,23 +35,21 @@ class PagesController extends \Base\Controller
      */
     public function editAction( $name = "" )
     {
-        if ( ! valid( $name, STRING ) )
-        {
+        if ( ! valid( $name, STRING ) ) {
             return $this->quit( "No page specified", INFO, 'admin/pages' );
         }
 
         $page = \Db\Sql\Pages::findFirstByName( $name );
 
-        if ( ! $page )
-        {
+        if ( ! $page ) {
             return $this->quit( "That page doesn't exist!", INFO, 'admin/pages' );
         }
 
-        $this->view->pick( 'admin/pages/edit' );
         $this->view->page = $page;
-        $this->view->backPage = 'admin/pages';
-        $this->view->subPage = 'Edit '. $page->label . 'Page';
         $this->view->buttons = [ 'savePage' ];
+        $this->view->backPage = 'admin/pages';
+        $this->view->pick( 'admin/pages/edit' );
+        $this->view->subPage = 'Edit '. $page->label . 'Page';
     }
 
     /**
@@ -65,8 +63,7 @@ class PagesController extends \Base\Controller
         $pageAction = new \Actions\Pages\Page();
         $page = $pageAction->edit( $data );
 
-        if ( ! $page )
-        {
+        if ( ! $page ) {
             return ( valid( $pageName, STRING ) )
                 ? $this->quit( "", INFO, "admin/pages/edit/{$pageName}" )
                 : $this->quit( "", INFO, 'admin/pages' );

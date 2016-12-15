@@ -2,6 +2,9 @@
 
 namespace Controllers\Admin;
 
+use Db\Sql\Pages
+  , Db\Sql\Posts;
+
 class HomepageController extends \Base\Controller
 {
     public function beforeExecuteRoute()
@@ -26,7 +29,7 @@ class HomepageController extends \Base\Controller
     public function indexAction()
     {
         // Load all the posts and bucket them by category
-        $this->view->boxes = [
+        $this->view->boxCategories = [
             "News" => NEWS,
             "Events" => EVENTS,
             "Galleries" => EXHIBITIONS,
@@ -36,19 +39,17 @@ class HomepageController extends \Base\Controller
         $this->view->days = [
             'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'
         ];
-        $this->view->cafeDays = [
-            0 => '9 - 5',
-            1 => 'Closed',
-            2 => 'Closed',
-            3 => '9 - 5',
-            4 => '9 - 5',
-            5 => '9:30 - 2',
-            6 => '11 - 5'
-        ];
-        $this->view->posts =  \Db\Sql\Posts::getAllWithCategory();
-        $this->view->pick( 'admin/homepage/edit' );
+
         $this->view->backPage = 'admin/articles';
         $this->view->buttons = [ 'saveHomepage' ];
+        $this->view->pick( 'admin/homepage/edit' );
+        $this->view->posts = Posts::getAllWithCategory();
+        $page = Pages::findFirstByName( Pages::HOMEPAGE );
+        $this->view->boxes = $page->getContentVar( 'boxes', [] );
+        $this->view->slider = $page->getContentVar( 'slider', [] );
+        $this->view->cafeDays = $page->getContentVar(
+            'cafe_days',
+            array_pad( [], 7, "" ));
     }
 
     /**
@@ -56,19 +57,15 @@ class HomepageController extends \Base\Controller
      */
     public function saveAction()
     {
-        exit( 'todo' );
         // Edit the page
         $data = $this->request->getPost();
-        $pageName = $this->request->getPost( 'name' );
         $pageAction = new \Actions\Pages\Page();
-        $page = $pageAction->edit( $data );
+        $page = $pageAction->editHomepage( $data );
 
         if ( ! $page ) {
-            return ( valid( $pageName, STRING ) )
-                ? $this->quit( "", INFO, "admin/pages/edit/{$pageName}" )
-                : $this->quit( "", INFO, 'admin/pages' );
+            return $this->quit( "", INFO, "admin/homepage" );
         }
 
-        $this->redirect = "admin/pages/edit/{$page->name}";
+        $this->redirect = "admin/homepage";
     }
 }

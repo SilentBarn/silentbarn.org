@@ -1,24 +1,30 @@
 <!-- Hero/Carousel -->
 <div id="hero" class="hero">
     <div id="hero-carousel" class="hero-carousel">
-<?php   foreach ( $heroPosts as $heroPost ): ?>
+    <?php
+    foreach ( $slider as $postId ):
+        if ( $sliderPost = get( $posts, $postId ) ): ?>
         <div class="slide">
-            <img src="<?php echo $heroPost->getImage()->getImagePath(); ?>" />
+            <img src="<?php echo $sliderPost->getImage()->getImagePath(); ?>" />
             <div class="blurb">
                 <div class="clearfix">
                     <h1>
-                        <span><?php echo ( strlen( $heroPost->title ) > 96 ) ? substr( $heroPost->title, 0, 96 ) . "&hellip;" : $heroPost->title; ?></span>
+                        <span><?php echo ( strlen( $sliderPost->title ) > 96 ) ? substr( $sliderPost->title, 0, 96 ) . "&hellip;" : $sliderPost->title; ?></span>
                     </h1>
                 </div>
-<?php       if ( valid( $heroPost->excerpt, STRING ) ): ?>
+            <?php
+            if ( valid( $sliderPost->excerpt, STRING ) ): ?>
                 <div class="clearfix">
-                    <p><?php echo $heroPost->excerpt; ?></p>
+                    <p><?php echo $sliderPost->excerpt; ?></p>
                 </div>
-<?php       endif; ?>
+            <?php
+            endif; ?>
             </div>
-            <a href="<?php echo $heroPost->getPath(); ?>" class="link-overlay"></a>
+            <a href="<?php echo $sliderPost->getPath(); ?>" class="link-overlay"></a>
         </div>
-<?php   endforeach; ?>
+        <?php
+        endif;
+    endforeach; ?>
     </div>
     <div id="hero-nav" class="clearfix">
         <a href="javascript:;" id="carousel-next" class="transition-bg">&rarr;</a>
@@ -33,44 +39,21 @@
         Upcoming @ Silent Barn
     </h3>
 
-<?php   $boxCount = count( $boxPosts );
-        for ( $boxIter = 1; $boxIter <= 6; $boxIter++ ): //$boxPosts as $boxPost ):
-            if ( ( $boxIter - 1 ) % 3 == 0 ): ?>
-    <div class="row clearfix">
-<?php       endif;
-            // heptagon is placed in spot 6
-            if ( $boxIter > 5 ): ?>
+<?php
+$boxIter = 1;
 
-        <div class="block clearfix heptagon">
-            <img src="<?php echo $this->url->getStatic( 'img/heptagon_yellow.png' ); ?>" alt="Heptagon" />
-            <?php /*
-            <h2 class="mono">Upcoming Events</h2>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Show title goes here -- Advaita playing</a>
-                </h3>
-            </div>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Dec 3: New time to go up Party Mansion playing live at the excalibur</a>
-                </h3>
-            </div>
-            <div class="event clearfix">
-                <h3 class="font-mono">
-                    <a href="#">Some more text here that's short</a>
-                </h3>
-            </div>
-            */ ?>
-        </div>
+foreach ( $boxes as $category => $postId ):
+    if ( $boxIter === 1 || $boxIter === 4 ): ?>
+<div class="row clearfix">
+    <?php
+    endif;
 
-<?php       // pad blank boxes
-            elseif ( $boxIter > $boxCount && $boxIter <= 5 ): ?>
+    $boxPost = get( $posts, $postId );
 
+    if ( ! $boxPost ): ?>
         <div class="block">&nbsp;</div>
-
-<?php       else:
-                $boxPost = $boxPosts[ $boxIter - 1 ]; ?>
-
+    <?php
+    else: ?>
         <div class="block">
             <div class="img-wrap margin-bottom-10">
                 <a href="<?php echo $boxPost->getPath(); ?>">
@@ -88,18 +71,29 @@
                 <?php echo $boxPost->getShortDate( TRUE, TRUE ); ?>
             </div>
             <div class="description">
-<?php           if ( valid( $boxPost->excerpt, STRING ) ): ?>
-                <?php echo $boxPost->excerpt; ?>
-<?php           else:
-                    $body = strip_tags( $boxPost->getHtmlBody() ); ?>
-                <?php echo ( strlen( $body ) > 150 ) ? substr( $body, 0, 150 ) . "&hellip;" : $body; ?>
-<?php           endif; ?>
+            <?php
+            if ( valid( $boxPost->excerpt, STRING ) ):
+                echo $boxPost->excerpt;
+            else:
+                $body = strip_tags( $boxPost->getHtmlBody() );
+                echo ( strlen( $body ) > 150 ) ? substr( $body, 0, 150 ) . "&hellip;" : $body;
+            endif; ?>
             </div>
         </div><!-- /block -->
+    <?php
+    endif;
 
-<?php       endif;
-            if ( ( $boxIter - 1 ) % 3 == 2 ): ?>
+    if ( $boxIter === 3 ): ?>
     </div><!-- /row -->
-<?php       endif;
-        endfor; ?>
+    <?php
+    endif;
+
+    $boxIter++;
+endforeach; ?>
+
+    <!-- Heptagon -->
+        <div class="block clearfix heptagon">
+            <img src="<?php echo $this->url->getStatic( 'img/heptagon_yellow.png' ); ?>" alt="Heptagon" />
+        </div>
+    </div><!-- /row -->
 </div><!-- /vignettes -->

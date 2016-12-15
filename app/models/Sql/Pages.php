@@ -17,6 +17,9 @@ class Pages extends \Base\Model
     private $owner;
     private $unserializedContent;
 
+    const DONATE = 'donate';
+    const HOMEPAGE = 'homepage';
+
     function initialize()
     {
         $this->setSource( 'pages' );
@@ -26,20 +29,20 @@ class Pages extends \Base\Model
     static function getEditablePages()
     {
         return \Db\Sql\Pages::query()
-            ->inWhere( 'name', [ 'donate' ] )
+            ->inWhere( 'name', [
+                self::DONATE
+            ])
             ->orderBy( 'name asc' )
             ->execute();
     }
 
     function getOwner()
     {
-        if ( ! is_null( $this->owner ) )
-        {
+        if ( ! is_null( $this->owner ) ) {
             return $this->owner;
         }
 
-        if ( ! valid ( $this->owner_id ) )
-        {
+        if ( ! valid ( $this->owner_id ) ) {
             return new \Db\Sql\Users();
         }
 
@@ -49,22 +52,25 @@ class Pages extends \Base\Model
                 'id' => $this->owner_id ]
             ]);
 
-        if ( ! $this->owner )
-        {
+        if ( ! $this->owner ) {
             $this->owner = new \Db\Sql\Users();
         }
 
         return $this->owner;
     }
 
-    function getContentVar( $key )
+    function getContentVar( $key, $default = '' )
     {
-        if ( is_null( $this->unserializedContent ) )
-        {
-            $this->unserializedContent = unserialize( $this->content );
+        return get( $this->getContent(), $key, $default );
+    }
+
+    function getContent()
+    {
+        if ( is_null( $this->unserializedContent ) ) {
+            $this->unserializedContent = @unserialize( $this->content );
         }
 
-        return get( $this->unserializedContent, $key, '' );
+        return $this->unserializedContent;
     }
 
     function getHtmlVar( $key )
