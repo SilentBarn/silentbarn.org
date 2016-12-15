@@ -188,7 +188,7 @@ class Posts extends \Base\Model
 
         // Create the SQL statement
         $phql = sprintf(
-            "select p.* from Posts as p ".
+            "select p.* from \Db\Sql\Posts as p ".
             "inner join \Db\Sql\Relationships as r ".
             "  on p.id = r.object_id and r.object_type = '%s' ".
             "inner join \Db\Sql\Categories as c ".
@@ -226,28 +226,24 @@ class Posts extends \Base\Model
         $dateField = get( $params, 'dateField', 'event_date' );
 
         // set up date clauses if any came in
-        if ( valid( get( $params, 'startDate' ), STRING ) )
-        {
+        if ( valid( get( $params, 'startDate' ), STRING ) ) {
             $whereClauses[] = "p.{$dateField} >= '". $params[ 'startDate' ] ."'";
             //$bindings[] = $params[ 'startDate' ];
         }
 
-        if ( valid( get( $params, 'endDate' ), STRING ) )
-        {
+        if ( valid( get( $params, 'endDate' ), STRING ) ) {
             $whereClauses[] = "p.{$dateField} <= '". $params[ 'endDate' ] ."'";
             //$bindings[] = $params[ 'endDate' ];
         }
 
         // search on keywords
-        if ( valid( get( $params, 'keywords' ), STRING ) )
-        {
+        if ( valid( get( $params, 'keywords' ), STRING ) ) {
             $whereClauses[] = "p.title like ?";
             $bindings[] = '%'. $params[ 'keywords' ] .'%';
         }
 
         // search artists
-        if ( valid( get( $params, 'artist' ), STRING ) )
-        {
+        if ( valid( get( $params, 'artist' ), STRING ) ) {
             $whereClauses[] = sprintf(
                 "exists (".
                 "  select * from artists as a ".
@@ -260,8 +256,7 @@ class Posts extends \Base\Model
         }
 
         // search posts that have a specific media type (like audio)
-        if ( valid( get( $params, 'media' ), VECTOR ) )
-        {
+        if ( valid( get( $params, 'media' ), VECTOR ) ) {
             $whereClauses[] = sprintf(
                 "exists (".
                 "  select 1 from medias as m ".
@@ -269,13 +264,11 @@ class Posts extends \Base\Model
                 implode( "','", $params[ 'media' ] ));
         }
 
-        if ( isset( $params[ 'isDeleted' ] ) )
-        {
+        if ( isset( $params[ 'isDeleted' ] ) ) {
             $whereClauses[] = "p.is_deleted = ". $params[ 'isDeleted' ];
         }
 
-        if ( isset( $params[ 'status' ] ) )
-        {
+        if ( isset( $params[ 'status' ] ) ) {
             $whereClauses[] = "p.status = ". $params[ 'status' ];
         }
 
@@ -294,13 +287,11 @@ class Posts extends \Base\Model
         }
 
         // optionally can get the count
-        if ( get( $params, 'count' ) === TRUE )
-        {
+        if ( get( $params, 'count' ) === TRUE ) {
             $select = "count(1) as count";
             $limit = "";
         }
-        else
-        {
+        else {
             $select = "p.*";
             $limit = ( isset( $params[ 'limit' ] ) )
                 ? sprintf( "limit %s, %s", $params[ 'offset' ], $params[ 'limit' ] )
@@ -343,8 +334,7 @@ class Posts extends \Base\Model
                 $bindings
             ));
 
-        if ( get( $params, 'count' ) === TRUE )
-        {
+        if ( get( $params, 'count' ) === TRUE ) {
             $array = $results->toArray();
 
             return get( array_shift( $array ), 'count', 0 );
@@ -390,8 +380,7 @@ class Posts extends \Base\Model
      */
     function getImages()
     {
-        if ( ! is_null( $this->images ) )
-        {
+        if ( ! is_null( $this->images ) ) {
             return $this->images;
         }
 
@@ -412,8 +401,7 @@ class Posts extends \Base\Model
      */
     function getImage()
     {
-        if ( ! is_null( $this->image ) )
-        {
+        if ( ! is_null( $this->image ) ) {
             return $this->image;
         }
 
@@ -424,8 +412,7 @@ class Posts extends \Base\Model
                 'type' => MEDIA_IMAGE ]
             ]);
 
-        if ( ! $this->image )
-        {
+        if ( ! $this->image ) {
             $this->image = new \Db\Sql\Medias();
         }
 
@@ -437,8 +424,7 @@ class Posts extends \Base\Model
      */
     function getAudio()
     {
-        if ( ! is_null( $this->audio ) )
-        {
+        if ( ! is_null( $this->audio ) ) {
             return $this->audio;
         }
 
@@ -449,8 +435,7 @@ class Posts extends \Base\Model
                 'type' => MEDIA_AUDIO ]
             ]);
 
-        if ( ! $this->audio )
-        {
+        if ( ! $this->audio ) {
             $this->audio = new \Db\Sql\Medias();
         }
 
@@ -580,21 +565,18 @@ class Posts extends \Base\Model
      */
     function getAuthor()
     {
-        if ( ! is_null( $this->author ) )
-        {
+        if ( ! is_null( $this->author ) ) {
             return $this->author;
         }
 
-        if ( ! $this->user_id )
-        {
+        if ( ! $this->user_id ) {
             return FALSE;
         }
 
         $cache = $this->getService( 'cache' );
         $keyName = 'user:'. $this->user_id;
 
-        if ( $cache->getLocal( $keyName ) )
-        {
+        if ( $cache->getLocal( $keyName ) ) {
             $this->author = $cache->getLocal( $keyName );
             return $this->author;
         }
@@ -623,8 +605,7 @@ class Posts extends \Base\Model
         $slug = strtolower( $slug );
         $slug = preg_replace( '~[^-\w]+~', '', $slug );
 
-        if ( empty( $slug ) )
-        {
+        if ( empty( $slug ) ) {
             return NULL;
         }
 
@@ -660,22 +641,18 @@ class Posts extends \Base\Model
         $now = gmmktime( 0, 0, 0 );
         $startTime = strtotime( $this->event_date );
 
-        if ( ! $startTime || ! $this->event_date )
-        {
+        if ( ! $startTime || ! $this->event_date ) {
             return NULL;
         }
 
-        if ( valid( $this->event_date_end, STRING ) )
-        {
+        if ( valid( $this->event_date_end, STRING ) ) {
             $endTime = strtotime( $this->event_date_end );
 
-            if ( $now <= $startTime )
-            {
+            if ( $now <= $startTime ) {
                 return $startTime;
             }
 
-            if ( $now >= $endTime )
-            {
+            if ( $now >= $endTime ) {
                 return $endTime;
             }
 
@@ -690,13 +667,11 @@ class Posts extends \Base\Model
      */
     function getDaySpan()
     {
-        if ( ! $this->event_date )
-        {
+        if ( ! $this->event_date ) {
             return 0;
         }
 
-        if ( ! $this->event_date_end )
-        {
+        if ( ! $this->event_date_end ) {
             return 1;
         }
 
@@ -712,8 +687,7 @@ class Posts extends \Base\Model
      */
     function getShortDate( $html = TRUE, $defaultToPostDate = FALSE )
     {
-        if ( ! valid( $this->event_date, STRING ) )
-        {
+        if ( ! valid( $this->event_date, STRING ) ) {
             return ( $defaultToPostDate )
                 ? date( DATE_SHORT_DAY_NAME, strtotime( $this->post_date ) )
                 : "";
@@ -725,8 +699,7 @@ class Posts extends \Base\Model
             : DATE_SHORT_DAY_NAME;
         $string = date( $dateFormat, $startTime );
 
-        if ( valid( $this->event_date_end, STRING ) )
-        {
+        if ( valid( $this->event_date_end, STRING ) ) {
             $string .= ( $html ) ? " &ndash; " : ' - ';
             $string .= date( $dateFormat, strtotime( $this->event_date_end ) );
         }
@@ -741,19 +714,16 @@ class Posts extends \Base\Model
     {
         $string = "";
 
-        if ( valid( $this->event_time, STRING ) )
-        {
+        if ( valid( $this->event_time, STRING ) ) {
             $string = ( substr( $this->event_time, 3, 2 ) == '00' )
                 ? date( 'ga', strtotime( $this->event_time ) )
                 : date( 'g:ia', strtotime( $this->event_time ) );
 
-            if ( $html )
-            {
+            if ( $html ) {
                 $string = '<span class="eventtime">'. $string .'</span>';
             }
 
-            if ( valid( $this->event_time_end, STRING ) )
-            {
+            if ( valid( $this->event_time_end, STRING ) ) {
                 $string .= ( $html ) ? " &ndash; " : ' - ';
                 $endTime = ( substr( $this->event_time_end, 3, 2 ) == '00' )
                     ? date( 'ga', strtotime( $this->event_time_end ) )
@@ -765,8 +735,7 @@ class Posts extends \Base\Model
         }
 
         // add location if specified
-        if ( $withLocation && valid( $this->location, STRING ) )
-        {
+        if ( $withLocation && valid( $this->location, STRING ) ) {
             $string = ( $html )
                 ? trim( $string .' @ <span class="location">'. $this->location .'</span>' )
                 : trim( $string ." @ ". $this->location );

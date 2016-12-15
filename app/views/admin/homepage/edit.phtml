@@ -13,16 +13,16 @@
                     <ol>
                 <?php
                 if ( count( $slider ) ):
-                    foreach ( $slider as $sliderPost ): ?>
+                    foreach ( $slider as $sliderPostId ): ?>
                         <li>
-                            <select name="slider[]" class="padding-all-5 w90p margin-bottom-20">
+                            <select name="slider[]" class="padding-all-5 slider-select margin-bottom-20">
                             <?php
-                            if ( ! isset( $posts[ COMMUNITY ] ) ): ?>
+                            if ( ! $postsSlider ): ?>
                                 <option value="">You have no Community articles published!</option>
                             <?php
                             else:
-                                foreach ( $posts[ COMMUNITY ] as $post ):
-                                    $selected = ( $post[ 'id' ] == $sliderPost->id )
+                                foreach ( $postsSlider as $post ):
+                                    $selected = ( $post[ 'id' ] == $sliderPostId )
                                         ? ' selected="selected"'
                                         : ''; ?>
                                 <option value="<?php echo $post[ 'id' ]; ?>"<?php echo $selected; ?>>
@@ -40,17 +40,17 @@
                     endforeach;
                 endif; ?>
                         <li class="template">
-                            <select name="slider[]" class="padding-all-5 w90p">
+                            <select name="slider[]" class="padding-all-5 slider-select">
                             <?php
-                            if ( ! isset( $posts[ COMMUNITY ] ) ): ?>
+                            if ( ! $postsSlider ): ?>
                                 <option value="">You have no Community articles published!</option>
                             <?php
                             else: ?>
                                 <option value="">Select a post...</option>
                                 <?php
-                                foreach ( $posts[ COMMUNITY ] as $post ): ?>
+                                foreach ( $postsSlider as $post ): ?>
                                 <option value="<?php echo $post[ 'id' ]; ?>">
-                                    [<?php echo $post[ 'id' ]; ?>]: <?php echo $post[ 'title' ]; ?>
+                                    [<?php echo $post[ 'id' ]; ?>]: <?php echo truncate_text( $post[ 'title' ], 100 ); ?> [<?php echo $post[ 'category' ]; ?>]
                                 </option>
                                 <?php
                                 endforeach;

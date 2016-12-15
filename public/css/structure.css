@@ -66,8 +66,8 @@ body.shiftlogo #header-wrap header #logo img.small {
 #header-wrap #support-barn a {
     padding: 0.15em 0.5em; float: right; }
 #header-wrap #cafe-hours {
-    float: right; position: relative; margin-right: 25px;
-    top: 5px; max-width: 15em; }
+    float: right; position: relative; top: 5px;
+    max-width: 15em; }
 #header-wrap #cafe-hours .day {
     width: 6em; float: left; font-size: 13px; }
 #header-wrap #cafe-hours .label {

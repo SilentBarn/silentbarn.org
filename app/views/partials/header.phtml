@@ -40,7 +40,7 @@
         </div>
 
     <?php
-    if ( $cafeDays ): ?>
+    if ( isset( $cafeDays ) && $cafeDays ): ?>
         <div id="cafe-hours">
             <div class="message">
                 <span class="font-mono fontsize-12 uppercase color-999">Cafe Hours</span>
@@ -50,7 +50,7 @@
             foreach ( $cafeDays as $dayIdx => $hours ): ?>
                 <span class="day">
                     <span class="label"><?php echo $days[ $dayIdx ]; ?></span>
-                    <span class="hours"><?php echo $hours; ?></span>
+                    <span class="hours"><?php echo $hours ?: "&mdash;"; ?></span>
                 </span>
             <?php
             endforeach; ?>

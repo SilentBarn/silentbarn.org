@@ -230,3 +230,32 @@ function read_more( $text, $length )
         "more-text",
         substr( $text, $length, strlen( $text ) - $length ) );
 }
+
+/**
+ * Truncates text to a length.
+ */
+function truncate_text( $title, $max_chars = 30, $html_title = FALSE, $ending = NULL )
+{
+    $result = substr( $title, 0, $max_chars );
+    $ending = ( is_null( $ending ) )
+        ? ( $html_title ? '&hellip;' : '...' )
+        : $ending;
+    $ending_len = ( $html_title && is_null( $ending ) )
+        ? 3
+        : strlen( $ending );
+
+    if ( $result == $title ) {
+        return $result;
+    }
+
+    $last_space = strrpos( $result, " " );
+
+    if ( $last_space > $max_chars - 10 ) {
+        $result = substr( $result, 0, $last_space ) . $ending;
+    }
+    else {
+        $result = substr( $result, 0, $max_chars - $ending_len ) . $ending;
+    }
+
+    return $result;
+}

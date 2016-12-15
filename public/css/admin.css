@@ -96,6 +96,8 @@ span.tag i.remove-slug {
     display: inline-block; width: 2em; }
 .days input[type="text"] {
     width: calc(100% - 5em); }
+.slider-select {
+    width: calc(100% - 7em); }
 
 /* Cropper
  */
