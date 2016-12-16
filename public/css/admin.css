@@ -78,6 +78,10 @@ h2.with-nav .filter-link {
     width: 100%; float: left; }
 #tag-ac {
     display: block !important; }
+.set-time {
+    margin-top: 0.5em;
+    display: inline-block;
+}
 
 /* Tags and Artists
  */
