@@ -23,11 +23,11 @@ return [
         'persistent' => TRUE ],
 
     'paths' => [
-        'baseUri' => 'http://sanctum.silentbarn.org/',
-        'assetUri' => 'http://sanctum.silentbarn.org/assets/%s/',
+        'baseUri' => 'https://sanctum.silentbarn.org/',
+        'assetUri' => 'https://sanctum.silentbarn.org/assets/%s/',
         'hostname' => 'sanctum.silentbarn.org',
         'media' => '/var/www/sanctum.silentbarn.org/www-data/media',
-        'mediaPublic' => 'http://sanctum.silentbarn.org/media/' ],
+        'mediaPublic' => 'https://sanctum.silentbarn.org/media/' ],
 
     'cookies' => [
         'secure' => FALSE ],
