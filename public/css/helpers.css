@@ -278,6 +278,9 @@
 .w100p {
     width: 100%; }
 
+.mw100px {
+    min-width: 100px; }
+
 /* Heights
  */
 .h50px {

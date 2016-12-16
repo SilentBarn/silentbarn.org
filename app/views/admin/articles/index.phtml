@@ -10,48 +10,52 @@
                 <th class="lefted-text w50p">
                     Title
                 </th>
-                <th class="lefted-text">User</th>
+                <th class="lefted-text mw100px">User</th>
                 <th class="lefted-text">Categories</th>
-                <th class="lefted-text">On HP?</th>
                 <th class="lefted-text">Status</th>
-                <th class="lefted-text">Event Date</th>
-                <th>Actions</th>
+                <th class="lefted-text mw100px">Event Date</th>
+                <th class="mw100px">Actions</th>
             </tr>
         </thead>
         <tbody>
-<?php   if ( count( $posts ) ):
+        <?php
+        if ( count( $posts ) ):
             foreach ( $posts as $post ): ?>
 
             <tr>
                 <td class="centered-text"><?php echo $post->id; ?></td>
                 <td class="w50p"><?php echo ( strlen( $post->title ) > 80 ) ? substr( $post->title, 0, 80 ) . "&hellip;" : $post->title; ?></td>
-                <td><?php echo short_name( get( $post->getAuthor(), 'name', '' ) ); ?></td>
+                <td class="mw100px"><?php echo short_name( get( $post->getAuthor(), 'name', '' ) ); ?></td>
                 <td><?php echo map( $post->getCategories()->toArray(), 'name', TRUE ); ?></td>
-                <td><?php echo ( $post->homepage_location ) ? ucfirst( $post->homepage_location ) : '<span class="color-aaa">No</span>'; ?></td>
                 <td><?php echo ucfirst( $post->status ); ?></td>
-                <td><?php echo date_str( $post->event_date, DATE_TABLE ); ?></td>
-                <td class="centered-text">
-<?php           if ( $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) ): ?>
+                <td class="mw100px"><?php echo date_str( $post->event_date, DATE_TABLE ); ?></td>
+                <td class="centered-text mw100px">
+                <?php
+                if ( $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) ): ?>
                     <a class="margin-right-10" href="<?php echo $this->url->get( 'admin/articles/edit/'. $post->id ); ?>">Edit</a>
-<?php           endif; ?>
+                <?php
+                endif; ?>
                     <a class="" href="<?php echo $post->getPath(); ?>">View</a>
                 </td>
             </tr>
 
-<?php       endforeach;
+            <?php
+            endforeach;
         else: ?>
             <tr>
-                <td class="centered-text" colspan="8">No articles to display!</td>
+                <td class="centered-text" colspan="7">No articles to display!</td>
             </tr>
-<?php   endif; ?>
+        <?php
+        endif; ?>
         </tbody>
     </table>
 
-<?php   if ( count( $pages ) > 1 ):
-            $this->partial(
-                'partials/admin/pagination',
-                [ 'pages' => $pages ]);
-        endif; ?>
+<?php
+if ( count( $pages ) > 1 ):
+    $this->partial(
+        'partials/admin/pagination',
+        [ 'pages' => $pages ]);
+endif; ?>
 
     <div id="ascii" class="padding-top-30 righted-text">
         <a href="<?php echo $this->url->get( 'events/ascii' ); ?>" class="font-mono">View Monthly ASCII Calendar</a>
