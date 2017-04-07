@@ -8,7 +8,7 @@ class AuthController extends \Base\Controller
     {
         $this->checkLoggedIn = FALSE;
 
-        return  parent::beforeExecuteRoute();
+        return parent::beforeExecuteRoute();
     }
 
     /**
@@ -20,8 +20,7 @@ class AuthController extends \Base\Controller
         $email = $this->request->getPost( 'email' );
         $password = $this->request->getPost( 'password' );
 
-        // try to log in with credentials
-        //
+        // Try to log in with credentials
         $this->redirect = 'admin';
         $action = new \Actions\Users\Auth();
         $loggedIn = $action->login(
@@ -30,8 +29,7 @@ class AuthController extends \Base\Controller
                 'password' => $password
             ));
 
-        if ( ! $loggedIn )
-        {
+        if ( ! $loggedIn ) {
             $this->redirect = 'login';
         }
     }

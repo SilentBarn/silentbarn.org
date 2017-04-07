@@ -21,21 +21,20 @@ class EventsController extends \Base\Controller
 
     public function upcomingAction()
     {
-        // get the EST time
+        // Get the EST time
         $dateTime = new \DateTime();
         $dateTime->setTimeZone( new \DateTimeZone( 'America/New_York' ) );
 
-        // now, we actually want to show events from yesterday if
+        // Now, we actually want to show events from yesterday if
         // it's still earlier than 4am
-        if ( $dateTime->format( 'G' ) <= 4 )
-        {
+        if ( $dateTime->format( 'G' ) <= 4 ) {
             $dateTime->sub( new \DateInterval( 'P1D' ) );
         }
 
-        // fetch the events for the next two weeks, and the events
+        // Fetch the events for the next two weeks, and the events
         // for the current month's calendar
-        $action = new \Actions\Posts\Event();
         $limit = 7;
+        $action = new \Actions\Posts\Event();
         $offset = $this->request->getQuery( 'o' );
         $offset = ( valid( $offset ) ) ? $offset : 0;
         $this->data->upcomingEvents = $action->getByDateRange([
@@ -64,7 +63,7 @@ class EventsController extends \Base\Controller
                     'events' => $this->data->upcomingEvents,
                     'offset' => $offset
                 ]);
-            $this->data->html = utf8_encode( $html ); 
+            $this->data->html = utf8_encode( $html );
         }
     }
 
@@ -182,7 +181,7 @@ class EventsController extends \Base\Controller
     }
 
     /**
-     * json call to fetch month's events for calendar
+     * JSON call to fetch month's events for calendar
      */
     public function getbymonthAction()
     {
@@ -196,10 +195,9 @@ class EventsController extends \Base\Controller
             [ EVENTS ]);
         $jsonEvents = array();
 
-        foreach ( $events as $event )
-        {
+        foreach ( $events as $event ) {
             $jsonEvents[] = [
-                'title' => str_replace( "'", "\'", $event->title ), 
+                'title' => str_replace( "'", "\'", $event->title ),
                 'date' => date( DATE_DAY_NAME_YEAR, strtotime( $event->event_date ) ),
                 'url' => $event->getPath(),
                 'image' => $event->getImage()->getImagePath( 310 ) ];
@@ -214,10 +212,9 @@ class EventsController extends \Base\Controller
      */
     public function bookingAction( $flag = "" )
     {
-        if ( str_eq( $flag, "thankyou" ) )
-        {
+        if ( str_eq( $flag, "thankyou" ) ) {
             $this->data->notifications[] = [
-                'success' => 
+                'success' =>
                     "Your inquiry has successfully been sent! We'll ".
                     "contact you shortly." ];
         }

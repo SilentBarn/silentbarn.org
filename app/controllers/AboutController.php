@@ -47,15 +47,15 @@ class AboutController extends \Base\Controller
      */
     public function rentalsAction( $flag = "" )
     {
-        if ( str_eq( $flag, "thankyou" ) )
-        {
+        if ( str_eq( $flag, "thankyou" ) ) {
             $this->data->notifications[] = [
-                'success' => 
+                'success' =>
                     "Your inquiry has successfully been sent! We'll ".
                     "contact you shortly." ];
         }
 
         $this->data->pageTitle = "Rentals";
+        $this->data->recaptchaKey = $this->config->recaptcha->siteKey;
         $this->view->pick( 'about/rentals' );
     }
 
@@ -64,12 +64,16 @@ class AboutController extends \Base\Controller
      */
     public function rentalinquiryAction()
     {
-        // read in the post data and send the email out
+        // Read in the post data and send the email out
         $data = $this->request->getPost();
+
+        // First check the CAPTCHA
+        
+
         $action = new \Actions\Email();
         $action->rental( $data );
 
-        // redirect to thank you page
+        // Redirect to thank you page
         $this->redirect = "about/rentals/thankyou";
     }
 

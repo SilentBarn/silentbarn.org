@@ -10,9 +10,11 @@ class SpacesController extends \Base\Controller
         $this->view->setMainView( 'admin' );
 
         // Check if they have access
-        if ( ! $this->auth->user[ 'access_spaces' ] )
-        {
-            return $this->quit( "You don't have access to spaces!", INFO, 'admin/articles' );
+        if ( ! $this->auth->user[ 'access_spaces' ] ) {
+            return $this->quit(
+                "You don't have access to spaces!",
+                INFO,
+                'admin/articles' );
         }
 
         return parent::beforeExecuteRoute();
@@ -50,16 +52,20 @@ class SpacesController extends \Base\Controller
      */
     public function editAction( $spaceId = "" )
     {
-        if ( ! valid( $spaceId, INT ) )
-        {
-            return $this->quit( "No space ID specified", INFO, 'admin/spaces' );
+        if ( ! valid( $spaceId, INT ) ) {
+            return $this->quit(
+                "No space ID specified",
+                INFO,
+                'admin/spaces' );
         }
 
         $space = \Db\Sql\Spaces::findFirst( $spaceId );
 
-        if ( ! $space )
-        {
-            return $this->quit( "That space doesn't exist!", INFO, 'admin/spaces' );
+        if ( ! $space ) {
+            return $this->quit(
+                "That space doesn't exist!",
+                INFO,
+                'admin/spaces' );
         }
 
         $this->view->pick( 'admin/spaces/edit' );
@@ -80,8 +86,7 @@ class SpacesController extends \Base\Controller
         $space = $spaceAction->edit( $data );
         $spaceId = $this->request->getPost( 'id' );
 
-        if ( ! $space )
-        {
+        if ( ! $space ) {
             return ( valid( $spaceId ) )
                 ? $this->quit( "", INFO, "admin/spaces/edit/{$spaceId}" )
                 : $this->quit( "", INFO, 'admin/spaces' );
@@ -91,8 +96,7 @@ class SpacesController extends \Base\Controller
         $imageAction = new \Actions\Posts\Image();
         $imageAction->checkFilesArrayErrors();
 
-        if ( $this->request->hasFiles() == TRUE )
-        {
+        if ( $this->request->hasFiles() == TRUE ) {
             $imageAction->deleteBySpace( $space );
             $imageAction->saveToSpace( $space, $this->request->getUploadedFiles() );
         }

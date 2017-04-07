@@ -10,9 +10,11 @@ class MembersController extends \Base\Controller
         $this->view->setMainView( 'admin' );
 
         // Check if they have access
-        if ( ! $this->auth->user[ 'access_members' ] )
-        {
-            return $this->quit( "You don't have access to members!", INFO, 'admin/articles' );
+        if ( ! $this->auth->user[ 'access_members' ] ) {
+            return $this->quit(
+                "You don't have access to members!",
+                INFO,
+                'admin/articles' );
         }
 
         return parent::beforeExecuteRoute();
@@ -50,16 +52,20 @@ class MembersController extends \Base\Controller
      */
     public function editAction( $memberId = "" )
     {
-        if ( ! valid( $memberId, INT ) )
-        {
-            return $this->quit( "No member ID specified", INFO, 'admin/members' );
+        if ( ! valid( $memberId, INT ) ) {
+            return $this->quit(
+                "No member ID specified",
+                INFO,
+                'admin/members' );
         }
 
         $member = \Db\Sql\Members::findFirst( $memberId );
 
-        if ( ! $member )
-        {
-            return $this->quit( "That member doesn't exist!", INFO, 'admin/members' );
+        if ( ! $member ) {
+            return $this->quit(
+                "That member doesn't exist!",
+                INFO,
+                'admin/members' );
         }
 
         $this->view->pick( 'admin/members/edit' );
@@ -80,8 +86,7 @@ class MembersController extends \Base\Controller
         $member = $memberAction->edit( $data );
         $memberId = $this->request->getPost( 'id' );
 
-        if ( ! $member )
-        {
+        if ( ! $member ) {
             return ( valid( $memberId ) )
                 ? $this->quit( "", INFO, "admin/members/edit/{$memberId}" )
                 : $this->quit( "", INFO, 'admin/members' );
@@ -91,10 +96,11 @@ class MembersController extends \Base\Controller
         $imageAction = new \Actions\Posts\Image();
         $imageAction->checkFilesArrayErrors();
 
-        if ( $this->request->hasFiles() == TRUE )
-        {
+        if ( $this->request->hasFiles() == TRUE ) {
             $imageAction->deleteByMember( $member );
-            $imageAction->saveToMember( $member, $this->request->getUploadedFiles() );
+            $imageAction->saveToMember(
+                $member,
+                $this->request->getUploadedFiles() );
         }
 
         $this->redirect = "admin/members/edit/{$member->id}";

@@ -10,9 +10,11 @@ class UsersController extends \Base\Controller
         $this->view->setMainView( 'admin' );
 
         // Check if they have access
-        if ( ! $this->auth->user[ 'access_users' ] )
-        {
-            return $this->quit( "You don't have access to users!", INFO, 'admin/articles' );
+        if ( ! $this->auth->user[ 'access_users' ] ) {
+            return $this->quit(
+                "You don't have access to users!",
+                INFO,
+                'admin/articles' );
         }
 
         return parent::beforeExecuteRoute();
@@ -46,15 +48,13 @@ class UsersController extends \Base\Controller
      */
     public function editAction( $userId = "" )
     {
-        if ( ! valid( $userId, INT ) )
-        {
+        if ( ! valid( $userId, INT ) ) {
             return $this->quit( "No user ID specified", INFO, 'admin/users' );
         }
 
         $user = \Db\Sql\Users::findFirst( $userId );
 
-        if ( ! $user )
-        {
+        if ( ! $user ) {
             return $this->quit( "That user doesn't exist!", INFO, 'admin/users' );
         }
 
