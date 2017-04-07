@@ -28,8 +28,6 @@
         </div>
         -->
 
-<?php   $this->partial( 'partials/photostream' ); ?>
-
         <div id="support-barn">
             <div class="message">
                 <span class="font-mono fontsize-12 uppercase color-999">Support the Barn</span>
@@ -39,6 +37,36 @@
                 <input type="hidden" name="cmd" value="_s-xclick">
                 <input type="hidden" name="hosted_button_id" value="V3TCPFJM6MZSS">
             </form>
+        </div>
+
+    <?php
+    if ( isset( $cafeDays ) && $cafeDays ): ?>
+        <div id="cafe-hours">
+            <div class="message">
+                <span class="font-mono fontsize-12 uppercase color-999">Cafe Hours</span>
+            </div>
+            <div class="day-wrap clearfix">
+            <?php
+            foreach ( $cafeDays as $dayIdx => $hours ): ?>
+                <span class="day">
+                    <span class="label"><?php echo $days[ $dayIdx ]; ?></span>
+                    <span class="hours"><?php echo $hours ?: "&mdash;"; ?></span>
+                </span>
+            <?php
+            endforeach; ?>
+            </div>
+        </div>
+    <?php
+    endif; ?>
+
+        <div id="location">
+            <div class="message">
+                <span class="font-mono fontsize-12 uppercase color-999">Location</span>
+            </div>
+            <span class="fontsize-12">
+                603 Bushwick Ave<br>
+                Brooklyn, NY 11206
+            </span>
         </div>
 
         <!-- For small screens -->
@@ -72,7 +100,8 @@
         <!-- Navigation -->
         <nav>
             <ul id="menu">
-<?php           $this->partial( 'partials/nav' ); ?>
+                <?php
+                $this->partial( 'partials/nav' ); ?>
             </ul>
             <form id="search" name="search" method="get" action="#" onsubmit="return false;">
                 <input type="text" id="search-query" name="query" value=""
@@ -85,21 +114,24 @@
         </nav>
     </header>
 </div>
-<?php   if ( isset( $pageNav ) ):
-            $this->partial(
-                $pageNav[ 'partial' ],
-                [
-                    'page' => $pageNav[ 'page' ]
-                ]);
-        endif;
+<?php
+if ( isset( $pageNav ) ):
+    $this->partial(
+        $pageNav[ 'partial' ],
+        [
+            'page' => $pageNav[ 'page' ]
+        ]);
+endif;
 
-        // show any messages
-        if ( isset( $notifications ) && is_array( $notifications ) && count( $notifications ) ): ?>
+// Show any messages
+if ( isset( $notifications ) && is_array( $notifications ) && count( $notifications ) ): ?>
 
 <div id="notif-messages">
-<?php       foreach ( $notifications as $notification ): ?>
+    <?php
+    foreach ( $notifications as $notification ): ?>
     <div class="message <?php echo key( $notification ); ?>"><?php echo current( $notification ); ?></div>
-<?php       endforeach; ?>
+    <?php
+    endforeach; ?>
 </div>
-
-<?php   endif; ?>
+<?php
+endif; ?>

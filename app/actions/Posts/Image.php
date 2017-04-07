@@ -46,11 +46,17 @@ class Image extends \Actions\Posts\Media
 
         foreach ( $files as $file )
         {
+            // ignore error 4s
+            if ( $file->getError() === UPLOAD_ERR_NO_FILE ) {
+                continue;
+            }
+
             // check extension is valid
             $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
 
             if ( ! in_array( $ext, [ 'png', 'gif', 'jpg', 'jpeg' ] ) )
             {
+                var_dump( $ext );exit;
                 $util->addMessage(
                     "Please upload images with png, gif, jpg, of jpeg extensions.",
                     INFO );
@@ -59,6 +65,7 @@ class Image extends \Actions\Posts\Media
 
             // check the width is > 960
             $tempName = $file->getTempName();
+            $mimeType = $file->getRealType();
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
             if ( $width < 310 || $height < 310 )
@@ -110,7 +117,7 @@ class Image extends \Actions\Posts\Media
             $image->ext = $ext;
             $image->date_path = $yearPath;
             $image->size = $file->getSize();
-            $image->mime_type = $file->getRealType();
+            $image->mime_type = $mimeType;
             $image->is_deleted = 0;
 
             if ( ! $image->save() )
@@ -194,7 +201,6 @@ class Image extends \Actions\Posts\Media
         foreach ( $files as $file )
         {
             // check the width is > 310
-            //
             $tempName = $file->getTempName();
             $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
@@ -208,19 +214,16 @@ class Image extends \Actions\Posts\Media
             }
 
             // generate the file hash and path
-            //
             $authAction = new \Actions\Users\Auth();
             $fileToken = $authAction->generateRandomToken();
 
             // save the temporary image to the media directory
-            //
             $fullPath = $config->paths->media .'/members';
             $fileName = $fileToken .'.'. $ext;
             @mkdir( $fullPath, 0755, TRUE );
             $file->moveTo( $fullPath .'/'. $fileName );
 
             // resize the image to 310
-            //
             $resizer310 = new ImageResizer( $fullPath .'/'. $fileName );
 
             if ( ! $resizer310->maxWidth( 310 )->resize() )
@@ -231,7 +234,6 @@ class Image extends \Actions\Posts\Media
             }
 
             // save the record out to the database
-            //
             $member->image_filename = $fileName;
 
             if ( ! $member->save() )
@@ -252,8 +254,7 @@ class Image extends \Actions\Posts\Media
      */
     function deleteBySpace( &$space )
     {
-        if ( ! valid( $space->image_filename, STRING ) )
-        {
+        if ( ! valid( $space->image_filename, STRING ) ) {
             return TRUE;
         }
 
@@ -261,8 +262,7 @@ class Image extends \Actions\Posts\Media
         $util = $this->getService( 'util' );
         $space->image_filename = NULL;
 
-        if ( ! $space->save() )
-        {
+        if ( ! $space->save() ) {
             $util->addMessage( 'There was a problem saving the image.', ERROR );
             return FALSE;
         }
@@ -283,9 +283,7 @@ class Image extends \Actions\Posts\Media
         $util = $this->getService( 'util' );
         $config = $this->getService( 'config' );
 
-        if ( ! is_array( $files )
-            || ! count( $files ) )
-        {
+        if ( ! is_array( $files ) || ! count( $files ) ) {
             $util->addMessage( "No photos were uploaded.", INFO );
             return FALSE;
         }
@@ -297,8 +295,7 @@ class Image extends \Actions\Posts\Media
             $ext = strtolower( pathinfo( $file->getName(), PATHINFO_EXTENSION ) );
             list( $width, $height, $type, $attr ) = getimagesize( $tempName );
 
-            if ( $width < 310 || $height < 310 )
-            {
+            if ( $width < 310 || $height < 310 ) {
                 $util->addMessage(
                     "Please upload square images at least 310px wide and 310px tall.",
                     INFO );
@@ -310,29 +307,24 @@ class Image extends \Actions\Posts\Media
             $fileToken = $authAction->generateRandomToken();
 
             // save the temporary image to the media directory
-            //
             $fullPath = $config->paths->media .'/spaces';
             $fileName = $fileToken .'.'. $ext;
             @mkdir( $fullPath, 0755, TRUE );
             $file->moveTo( $fullPath .'/'. $fileName );
 
             // resize the image to 310
-            //
             $resizer310 = new ImageResizer( $fullPath .'/'. $fileName );
 
-            if ( ! $resizer310->maxWidth( 310 )->resize() )
-            {
+            if ( ! $resizer310->maxWidth( 310 )->resize() ) {
                 @unlink( $fullPath .'/'. $fileName );
                 $util->addMessage( "There was a problem resizing your photo.", ERROR );
                 return FALSE;
             }
 
             // save the record out to the database
-            //
             $space->image_filename = $fileName;
 
-            if ( ! $space->save() )
-            {
+            if ( ! $space->save() ) {
                 $util->addMessage( 'There was a problem saving the image.', ERROR );
                 return FALSE;
             }
@@ -349,8 +341,7 @@ class Image extends \Actions\Posts\Media
      */
     function crop( $image, $coords )
     {
-        if ( ! $image || ! valid( $image->id ) || ! isset( $coords[ 'crop_x1' ] ) )
-        {
+        if ( ! $image || ! valid( $image->id ) || ! isset( $coords[ 'crop_x1' ] ) ) {
             return FALSE;
         }
 
@@ -363,14 +354,12 @@ class Image extends \Actions\Posts\Media
         $x2 = get( $coords, 'crop_x2', 0 );
         $y2 = get( $coords, 'crop_y2', 0 );
 
-        if ( ! valid( $x2 ) || ! valid( $y2 ) )
-        {
+        if ( ! valid( $x2 ) || ! valid( $y2 ) ) {
             return FALSE;
         }
 
         // check if the width or height is < 310
-        if ( $x2 - $x1 < 310 || $y2 - $y1 < 310 )
-        {
+        if ( $x2 - $x1 < 310 || $y2 - $y1 < 310 ) {
             $util->addMessage( "Images must be a minimum of 310px by 310px!", ERROR );
             return FALSE;
         }
@@ -381,10 +370,9 @@ class Image extends \Actions\Posts\Media
         $newImage->target_path = $image->getFilePath( 960 );
 
         // crop the image        
-        if ( ! $newImage->crop( $x1, $y1, $x2, $y2 ) )
-        {
+        if ( ! $newImage->crop( $x1, $y1, $x2, $y2 ) ) {
             $util->addMessage(
-                'There was a problem cropping the image (code: '. $newImage->error .')',
+                "There was a problem cropping the image (code: {$newImage->error})",
                 ERROR );
             return FALSE;
         }

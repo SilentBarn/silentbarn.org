@@ -79,21 +79,18 @@ class ArticlesController extends \Base\Controller
     {
         ini_set( 'upload_max_filesize', '100M' );
 
-        if ( ! valid( $postId, INT ) )
-        {
+        if ( ! valid( $postId, INT ) ) {
             return $this->quit( "No post ID specified", INFO, 'admin/articles' );
         }
 
         $post = \Db\Sql\Posts::findFirst( $postId );
 
-        if ( ! $post )
-        {
+        if ( ! $post ) {
             return $this->quit( "That post doesn't exist!", INFO, 'admin/articles' );
         }
 
         // Check if the user can access this post's category
-        if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) )
-        {
+        if ( ! $this->auth->getUserObj()->canAccessCategory( $post->getCategoryIds() ) ) {
             return $this->quit( 
                 "You're not allowed to edit that article.",
                 INFO,
@@ -148,8 +145,7 @@ class ArticlesController extends \Base\Controller
         $imageAction = new \Actions\Posts\Image();
         $imageSuccess = TRUE;
 
-        if ( $imageAction->hasFiles( 'image' ) )
-        {
+        if ( $imageAction->hasFiles( 'image' ) ) {
             // Save any images and do the resizing
             if ( $imageAction->checkFilesArrayErrors( 'image' )
                 && $this->request->hasFiles() )
@@ -161,21 +157,18 @@ class ArticlesController extends \Base\Controller
             }
         }
         // Check if a URL came in
-        elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) )
-        {
+        elseif ( valid( $this->request->getPost( 'image_url' ), STRING ) ) {
             $imageAction->deleteByPost( $post->id );
             $imageSuccess = $imageAction->saveUrlToPost(
                 $post->id,
                 $this->request->getPost( 'image_url' ) );
         }
         // If resize coordinates came in, resize the existing image
-        elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) )
-        {
+        elseif ( valid( $this->request->getPost( 'crop_x1' ), INT ) ) {
             $imageAction->crop( $post->getImage(), $data );
         }
 
-        if ( ! $imageSuccess )
-        {
+        if ( ! $imageSuccess ) {
             $imageAction->undeleteByPost( $post->id );
         }
 

@@ -158,8 +158,11 @@
                 </div>
                 <div class="clearfix">
                     <?php
+                    // Hiding this for now because the Homepage is controlled in a different
+                    // way. However I'd like to be able to open this again if we have to do
+                    // anything with this setting.
                     if ( int_eq( $this->auth->getUserObj()->access_homepage, 1 ) ): ?>
-                    <div class="float-left w33p">
+                    <div class="float-left w33p" style="display:none;">
                         <label>Display on Homepage?</label>
                         <div class="margin-bottom-5">
                             <input type="radio" name="homepage_location" value="hero"

@@ -10,6 +10,15 @@
         <?php
         endif;
 
+        // Homepage
+        if ( $adminNavPage == 'homepage' ): ?>
+        <span>Homepage</span>
+        <?php
+        else: ?>
+        <a href="<?php echo $this->url->get( 'admin/homepage' ); ?>">Homepage</a>
+        <?php
+        endif;
+
         // Users
         if ( $this->auth->user[ 'access_users' ] ):
             if ( $adminNavPage == 'users' ): ?>

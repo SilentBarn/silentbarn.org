@@ -78,6 +78,10 @@ h2.with-nav .filter-link {
     width: 100%; float: left; }
 #tag-ac {
     display: block !important; }
+.set-time {
+    margin-top: 0.5em;
+    display: inline-block;
+}
 
 /* Tags and Artists
  */
@@ -88,9 +92,19 @@ span.tag {
 span.tag i.remove-slug {
     margin-left: 10px; cursor: pointer; }
 
+/* Homepage
+ */
+.days li:not(:last-child) {
+    margin-bottom: 0.5em; }
+.days span {
+    display: inline-block; width: 2em; }
+.days input[type="text"] {
+    width: calc(100% - 5em); }
+.slider-select {
+    width: calc(100% - 7em); }
+
 /* Cropper
  */
-
 #image-crop-wrap {
     box-sizing: border-box; padding-right: 220px;
     width: 100%; }

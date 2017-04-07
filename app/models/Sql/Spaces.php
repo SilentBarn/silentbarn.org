@@ -2,7 +2,8 @@
 
 namespace Db\Sql;
 
-use Michelf\Markdown;
+use Michelf\Markdown
+  , Db\Behaviors\Timestamp as Timestampable;
 
 class Spaces extends \Base\Model
 {
@@ -24,7 +25,7 @@ class Spaces extends \Base\Model
     function initialize()
     {
         $this->setSource( 'spaces' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

@@ -23,7 +23,6 @@ class PressController extends \Base\Controller
      */
     public function indexAction()
     {
-        // Get all of the posts
         $this->view->pick( 'admin/press/index' );
         $this->view->pageContent = \Db\Sql\Pages::findFirstByName( 'press' );
         $this->view->backPage = 'admin/articles';

@@ -27,15 +27,14 @@ class EventsController extends \Base\Controller
 
         // now, we actually want to show events from yesterday if
         // it's still earlier than 4am
-        if ( $dateTime->format( 'G' ) <= 4 )
-        {
+        if ( $dateTime->format( 'G' ) <= 4 ) {
             $dateTime->sub( new \DateInterval( 'P1D' ) );
         }
 
         // fetch the events for the next two weeks, and the events
         // for the current month's calendar
-        $action = new \Actions\Posts\Event();
         $limit = 7;
+        $action = new \Actions\Posts\Event();
         $offset = $this->request->getQuery( 'o' );
         $offset = ( valid( $offset ) ) ? $offset : 0;
         $this->data->upcomingEvents = $action->getByDateRange([
@@ -55,8 +54,7 @@ class EventsController extends \Base\Controller
         $this->view->pick( 'events/upcoming' );
 
         // if an offset came in, return the API response
-        if ( valid( $offset ) )
-        {
+        if ( valid( $offset ) ) {
             $this->responseMode = 'api';
             $this->data->count = count( $this->data->upcomingEvents );
             $html = $this->renderPartial(

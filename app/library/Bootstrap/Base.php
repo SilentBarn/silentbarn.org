@@ -71,14 +71,12 @@ abstract class Base
     protected function initConfig()
     {
         // read in config arrays
-        //
         $defaultConfig = require( APP_PATH . '/etc/config.php' );
         $localConfig = require( APP_PATH . '/etc/config.local.php' );
 
         // instantiate them into the phalcon config
-        //
         $config = new Config( $defaultConfig );
-        $config->merge( $localConfig );
+        $config->merge( new Config($localConfig) );
 
         $this->di[ 'config' ] = $config;
     }

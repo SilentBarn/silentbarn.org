@@ -2,7 +2,8 @@
 
 namespace Db\Sql;
 
-use Michelf\Markdown;
+use Michelf\Markdown
+  , Db\Behaviors\Timestamp as Timestampable;
 
 class Members extends \Base\Model
 {
@@ -16,12 +17,13 @@ class Members extends \Base\Model
     public $is_stewdio;
     public $is_active;
     public $is_deleted;
+    public $is_archived;
     public $created_at;
 
     function initialize()
     {
         $this->setSource( 'members' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
     }
 
     /**

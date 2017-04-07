@@ -2,9 +2,10 @@
 
 namespace Db\Sql;
 
-use Phalcon\Mvc\Model\Query,
-    Michelf\Markdown,
-    Phalcon\Mvc\Model\Resultset\Simple as Resultset;
+use Michelf\Markdown
+  , Phalcon\Mvc\Model\Query
+  , Db\Behaviors\Timestamp as Timestampable
+  , Phalcon\Mvc\Model\Resultset\Simple as Resultset;
 
 class Posts extends \Base\Model
 {
@@ -38,12 +39,12 @@ class Posts extends \Base\Model
     function initialize()
     {
         $this->setSource( 'posts' );
-        $this->addBehavior( 'timestamp' );
+        $this->addBehavior( new Timestampable() );
 
-        $this->images = NULL;
         $this->image = NULL;
-        $this->categories = NULL;
+        $this->images = NULL;
         $this->author = NULL;
+        $this->categories = NULL;
     }
 
     /**
@@ -51,7 +52,7 @@ class Posts extends \Base\Model
      */
     static function getAll( $limit = 25, $offset = 0 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->orderBy( 'created_at desc' )
             ->limit( $limit, $offset )
@@ -59,11 +60,57 @@ class Posts extends \Base\Model
     }
 
     /**
+     * Get all posts (not deleted) and indexes them by category.
+     * @return array
+     */
+    static function getAllWithCategory( $options = [] )
+    {
+        $return = [];
+        $orderBy = get( $options, 'sort', 'created_at desc' );
+        $select = "p.id, p.title, c.slug as category_slug, c.name as category";
+        $limit = ( isset( $options[ 'limit' ] ) )
+            ? sprintf( "limit %s, %s", $options[ 'offset' ], $options[ 'limit' ] )
+            : "";
+        // Create the SQL statement
+        $sql = sprintf(
+            "select %s from posts as p ".
+            "inner join relationships as r ".
+            "  on p.id = r.object_id and r.object_type = '%s' ".
+            "inner join categories as c ".
+            "  on c.id = r.property_id and r.property_type = '%s' ".
+            "  and p.is_deleted = 0 and p.status = '%s' ".
+            "order by p.%s ".
+            "%s", // limit
+            $select,
+            POST,
+            CATEGORY,
+            PUBLISHED,
+            $orderBy,
+            $limit );
+
+        $results = (new Posts)->getReadConnection()->query( $sql );
+        $results->setFetchMode( \Phalcon\Db::FETCH_ASSOC );
+        $results = $results->fetchAll( $results );
+
+        foreach ( $results as $result ) {
+            $slug = $result[ 'category_slug' ];
+
+            if ( ! isset( $return[ $slug ] ) ) {
+                $return[ $slug ] = [];
+            }
+
+            $return[ $slug ][] = $result;
+        }
+
+        return $return;
+    }
+
+    /**
      * Get all active posts (not deleted and published)
      */
     static function getActive( $limit = 25, $offset = 0 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->where( 'status = "'. PUBLISHED .'"' )
             ->orderBy( 'created_at desc' )
@@ -80,7 +127,7 @@ class Posts extends \Base\Model
      */
     static function getByLocation( $location = 'boxes', $limit = 5 )
     {
-        return \Db\Sql\Posts::query()
+        return Posts::query()
             ->where( 'is_deleted = 0' )
             ->andWhere( "status = '". PUBLISHED ."'" )
             ->andWhere( "homepage_location = :location:" )
@@ -97,27 +144,27 @@ class Posts extends \Base\Model
      * The results are sorted by oldest first unless specified.
      *
      * @param array $params
-     * @return \Db\Sql\Posts
+     * @return Posts
      */
     static function getByCategoryDateRange( $params = array() )
     {
-        $defaults = [
-            'categories' => [ EVENTS, EXHIBITIONS ],
-            'startDate' => date( DATE_DATABASE, mktime( 0, 0, 0 ) ),
-            'endDate' => NULL,
-            'startOperand' => '>=',
-            'endOperand' => '<=',
-            'ongoing' => FALSE,
-            'sort' => 'event_date asc',
-            'limit' => 9999,
-            'offset' => 0 ];
-        $options = array_merge( $defaults, $params );
-        $dateWhereClauses = [];
         $bindings = [];
+        $dateWhereClauses = [];
+        $defaults = [
+            'offset' => 0,
+            'limit' => 9999,
+            'endDate' => NULL,
+            'ongoing' => FALSE,
+            'endOperand' => '<=',
+            'startOperand' => '>=',
+            'sort' => 'event_date asc',
+            'categories' => [ EVENTS, EXHIBITIONS ],
+            'startDate' => date( DATE_DATABASE, mktime( 0, 0, 0 ) )
+        ];
+        $options = array_merge( $defaults, $params );
 
-        // create our date where clause
-        if ( ! is_null( $options[ 'startDate' ] ) )
-        {
+        // Create our date where clause
+        if ( ! is_null( $options[ 'startDate' ] ) ) {
             $string = ( $options[ 'ongoing' ] )
                 ? "( p.event_date %s :startDate: or p.event_date_end %s :startDate: )"
                 : "( p.event_date %s :startDate: )";
@@ -128,8 +175,7 @@ class Posts extends \Base\Model
             $bindings[ 'startDate' ] = $options[ 'startDate' ];
         }
 
-        if ( ! is_null( $options[ 'endDate' ] ) )
-        {
+        if ( ! is_null( $options[ 'endDate' ] ) ) {
             $string = ( $options[ 'ongoing' ] )
                 ? "( p.event_date %s :endDate: or p.event_date_end %s :endDate: )"
                 : "( p.event_date_end %s :endDate: or p.event_date_end is null )";
@@ -140,7 +186,7 @@ class Posts extends \Base\Model
             $bindings[ 'endDate' ] = $options[ 'endDate' ];
         }
 
-        // create the SQL statement
+        // Create the SQL statement
         $phql = sprintf(
             "select p.* from \Db\Sql\Posts as p ".
             "inner join \Db\Sql\Relationships as r ".
@@ -170,7 +216,7 @@ class Posts extends \Base\Model
      * command because of the complexity of the query.
      *
      * @param array $params
-     * @return \Db\Sql\Posts
+     * @return Posts
      */
     static function search( $params )
     {
@@ -180,28 +226,24 @@ class Posts extends \Base\Model
         $dateField = get( $params, 'dateField', 'event_date' );
 
         // set up date clauses if any came in
-        if ( valid( get( $params, 'startDate' ), STRING ) )
-        {
+        if ( valid( get( $params, 'startDate' ), STRING ) ) {
             $whereClauses[] = "p.{$dateField} >= '". $params[ 'startDate' ] ."'";
             //$bindings[] = $params[ 'startDate' ];
         }
 
-        if ( valid( get( $params, 'endDate' ), STRING ) )
-        {
+        if ( valid( get( $params, 'endDate' ), STRING ) ) {
             $whereClauses[] = "p.{$dateField} <= '". $params[ 'endDate' ] ."'";
             //$bindings[] = $params[ 'endDate' ];
         }
 
         // search on keywords
-        if ( valid( get( $params, 'keywords' ), STRING ) )
-        {
+        if ( valid( get( $params, 'keywords' ), STRING ) ) {
             $whereClauses[] = "p.title like ?";
             $bindings[] = '%'. $params[ 'keywords' ] .'%';
         }
 
         // search artists
-        if ( valid( get( $params, 'artist' ), STRING ) )
-        {
+        if ( valid( get( $params, 'artist' ), STRING ) ) {
             $whereClauses[] = sprintf(
                 "exists (".
                 "  select * from artists as a ".
@@ -214,8 +256,7 @@ class Posts extends \Base\Model
         }
 
         // search posts that have a specific media type (like audio)
-        if ( valid( get( $params, 'media' ), VECTOR ) )
-        {
+        if ( valid( get( $params, 'media' ), VECTOR ) ) {
             $whereClauses[] = sprintf(
                 "exists (".
                 "  select 1 from medias as m ".
@@ -223,13 +264,11 @@ class Posts extends \Base\Model
                 implode( "','", $params[ 'media' ] ));
         }
 
-        if ( isset( $params[ 'isDeleted' ] ) )
-        {
+        if ( isset( $params[ 'isDeleted' ] ) ) {
             $whereClauses[] = "p.is_deleted = ". $params[ 'isDeleted' ];
         }
 
-        if ( isset( $params[ 'status' ] ) )
-        {
+        if ( isset( $params[ 'status' ] ) ) {
             $whereClauses[] = "p.status = ". $params[ 'status' ];
         }
 
@@ -248,13 +287,11 @@ class Posts extends \Base\Model
         }
 
         // optionally can get the count
-        if ( get( $params, 'count' ) === TRUE )
-        {
+        if ( get( $params, 'count' ) === TRUE ) {
             $select = "count(1) as count";
             $limit = "";
         }
-        else
-        {
+        else {
             $select = "p.*";
             $limit = ( isset( $params[ 'limit' ] ) )
                 ? sprintf( "limit %s, %s", $params[ 'offset' ], $params[ 'limit' ] )
@@ -297,8 +334,7 @@ class Posts extends \Base\Model
                 $bindings
             ));
 
-        if ( get( $params, 'count' ) === TRUE )
-        {
+        if ( get( $params, 'count' ) === TRUE ) {
             $array = $results->toArray();
 
             return get( array_shift( $array ), 'count', 0 );
@@ -315,7 +351,7 @@ class Posts extends \Base\Model
      */
     static function getBySlug( $slug )
     {
-        return \Db\Sql\Posts::findFirst([
+        return Posts::findFirst([
             'slug = :slug:',
             'bind' => [
                 'slug' => $slug ]
@@ -323,12 +359,28 @@ class Posts extends \Base\Model
     }
 
     /**
+     * Returns all posts by IDs.
+     *
+     * @param array $ids
+     * @return array \Db\Sql\Post
+     */
+    static function getByIds( $ids )
+    {
+        if ( ! $ids ) {
+            return [];
+        }
+
+        return Posts::query()
+            ->inWhere( 'id', $ids )
+            ->execute();
+    }
+
+    /**
      * Returns the images for the post
      */
     function getImages()
     {
-        if ( ! is_null( $this->images ) )
-        {
+        if ( ! is_null( $this->images ) ) {
             return $this->images;
         }
 
@@ -349,8 +401,7 @@ class Posts extends \Base\Model
      */
     function getImage()
     {
-        if ( ! is_null( $this->image ) )
-        {
+        if ( ! is_null( $this->image ) ) {
             return $this->image;
         }
 
@@ -361,8 +412,7 @@ class Posts extends \Base\Model
                 'type' => MEDIA_IMAGE ]
             ]);
 
-        if ( ! $this->image )
-        {
+        if ( ! $this->image ) {
             $this->image = new \Db\Sql\Medias();
         }
 
@@ -374,8 +424,7 @@ class Posts extends \Base\Model
      */
     function getAudio()
     {
-        if ( ! is_null( $this->audio ) )
-        {
+        if ( ! is_null( $this->audio ) ) {
             return $this->audio;
         }
 
@@ -386,8 +435,7 @@ class Posts extends \Base\Model
                 'type' => MEDIA_AUDIO ]
             ]);
 
-        if ( ! $this->audio )
-        {
+        if ( ! $this->audio ) {
             $this->audio = new \Db\Sql\Medias();
         }
 
@@ -399,8 +447,7 @@ class Posts extends \Base\Model
      */
     function getCategories()
     {
-        if ( ! is_null( $this->categories ) )
-        {
+        if ( ! is_null( $this->categories ) ) {
             return $this->categories;
         }
         
@@ -417,8 +464,7 @@ class Posts extends \Base\Model
     {
         $ids = [];
 
-        foreach ( $this->getCategories() as $category )
-        {
+        foreach ( $this->getCategories() as $category ) {
             $ids[] = $category->id;
         }
 
@@ -519,21 +565,18 @@ class Posts extends \Base\Model
      */
     function getAuthor()
     {
-        if ( ! is_null( $this->author ) )
-        {
+        if ( ! is_null( $this->author ) ) {
             return $this->author;
         }
 
-        if ( ! $this->user_id )
-        {
+        if ( ! $this->user_id ) {
             return FALSE;
         }
 
         $cache = $this->getService( 'cache' );
         $keyName = 'user:'. $this->user_id;
 
-        if ( $cache->getLocal( $keyName ) )
-        {
+        if ( $cache->getLocal( $keyName ) ) {
             $this->author = $cache->getLocal( $keyName );
             return $this->author;
         }
@@ -562,8 +605,7 @@ class Posts extends \Base\Model
         $slug = strtolower( $slug );
         $slug = preg_replace( '~[^-\w]+~', '', $slug );
 
-        if ( empty( $slug ) )
-        {
+        if ( empty( $slug ) ) {
             return NULL;
         }
 
@@ -574,7 +616,7 @@ class Posts extends \Base\Model
         $slugOkay = FALSE;
 
         do {
-            $post = \Db\Sql\Posts::getBySlug( $checkSlug );
+            $post = Posts::getBySlug( $checkSlug );
             if ( $post ):
                 $checkSlug = $slug .'-'. $counter;
                 $counter++;
@@ -599,22 +641,18 @@ class Posts extends \Base\Model
         $now = gmmktime( 0, 0, 0 );
         $startTime = strtotime( $this->event_date );
 
-        if ( ! $startTime || ! $this->event_date )
-        {
+        if ( ! $startTime || ! $this->event_date ) {
             return NULL;
         }
 
-        if ( valid( $this->event_date_end, STRING ) )
-        {
+        if ( valid( $this->event_date_end, STRING ) ) {
             $endTime = strtotime( $this->event_date_end );
 
-            if ( $now <= $startTime )
-            {
+            if ( $now <= $startTime ) {
                 return $startTime;
             }
 
-            if ( $now >= $endTime )
-            {
+            if ( $now >= $endTime ) {
                 return $endTime;
             }
 
@@ -629,13 +667,11 @@ class Posts extends \Base\Model
      */
     function getDaySpan()
     {
-        if ( ! $this->event_date )
-        {
+        if ( ! $this->event_date ) {
             return 0;
         }
 
-        if ( ! $this->event_date_end )
-        {
+        if ( ! $this->event_date_end ) {
             return 1;
         }
 
@@ -651,8 +687,7 @@ class Posts extends \Base\Model
      */
     function getShortDate( $html = TRUE, $defaultToPostDate = FALSE )
     {
-        if ( ! valid( $this->event_date, STRING ) )
-        {
+        if ( ! valid( $this->event_date, STRING ) ) {
             return ( $defaultToPostDate )
                 ? date( DATE_SHORT_DAY_NAME, strtotime( $this->post_date ) )
                 : "";
@@ -664,8 +699,7 @@ class Posts extends \Base\Model
             : DATE_SHORT_DAY_NAME;
         $string = date( $dateFormat, $startTime );
 
-        if ( valid( $this->event_date_end, STRING ) )
-        {
+        if ( valid( $this->event_date_end, STRING ) ) {
             $string .= ( $html ) ? " &ndash; " : ' - ';
             $string .= date( $dateFormat, strtotime( $this->event_date_end ) );
         }
@@ -680,19 +714,16 @@ class Posts extends \Base\Model
     {
         $string = "";
 
-        if ( valid( $this->event_time, STRING ) )
-        {
+        if ( valid( $this->event_time, STRING ) ) {
             $string = ( substr( $this->event_time, 3, 2 ) == '00' )
                 ? date( 'ga', strtotime( $this->event_time ) )
                 : date( 'g:ia', strtotime( $this->event_time ) );
 
-            if ( $html )
-            {
+            if ( $html ) {
                 $string = '<span class="eventtime">'. $string .'</span>';
             }
 
-            if ( valid( $this->event_time_end, STRING ) )
-            {
+            if ( valid( $this->event_time_end, STRING ) ) {
                 $string .= ( $html ) ? " &ndash; " : ' - ';
                 $endTime = ( substr( $this->event_time_end, 3, 2 ) == '00' )
                     ? date( 'ga', strtotime( $this->event_time_end ) )
@@ -704,8 +735,7 @@ class Posts extends \Base\Model
         }
 
         // add location if specified
-        if ( $withLocation && valid( $this->location, STRING ) )
-        {
+        if ( $withLocation && valid( $this->location, STRING ) ) {
             $string = ( $html )
                 ? trim( $string .' @ <span class="location">'. $this->location .'</span>' )
                 : trim( $string ." @ ". $this->location );

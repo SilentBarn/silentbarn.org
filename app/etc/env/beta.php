@@ -2,11 +2,11 @@
 
 return [
     'app' => [
-        'environment' => 'yggdrasil',
+        'environment' => 'beta',
         'responseMode' => 'view',
         'modules' => [
             'admin' => 'Admin' ],
-        'assetVersion' => 43,
+        'assetVersion' => 46,
         'assetMode' => 'production',
         'analytics' => [
             'enabled' => TRUE,
@@ -23,11 +23,11 @@ return [
         'persistent' => TRUE ],
 
     'paths' => [
-        'baseUri' => 'http://silentbarn.org/',
-        'assetUri' => 'http://silentbarn.org/assets/%s/',
-        'hostname' => 'silentbarn.org',
-        'media' => '/home/mike/www/barn.shadowmere.net/www-data/media',
-        'mediaPublic' => 'http://silentbarn.org/media/' ],
+        'baseUri' => 'http://beta.silentbarn.org/',
+        'assetUri' => 'http://beta.silentbarn.org/assets/%s/',
+        'hostname' => 'beta.silentbarn.org',
+        'media' => '/home/mike/www/beta.silentbarn.org/www-data/media',
+        'mediaPublic' => 'http://beta.silentbarn.org/media/' ],
 
     'cookies' => [
         'secure' => FALSE ],

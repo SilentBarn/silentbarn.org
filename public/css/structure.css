@@ -40,7 +40,8 @@ body.sticky #header-wrap header {
 body.sticky #header-wrap #photo-stream,
 body.sticky #header-wrap #social-icons,
 body.sticky #header-wrap #announcement,
-body.sticky #header-wrap #support-barn {
+body.sticky #header-wrap #support-barn,
+body.sticky #header-wrap #cafe-hours {
     display: none; }
 body.sticky #header-wrap #logo {
     height: 40px; }
@@ -59,12 +60,21 @@ body.shiftlogo #header-wrap header #logo img.small {
 #header-wrap #announcement h3 {
     background: yellow; font-style: italic; }
 #header-wrap #support-barn {
-    float: right; margin-right: 15px; position: relative;
-    top: 5px; }
+    float: right; position: relative; top: 5px; }
 #header-wrap #support-barn .message {
     margin-bottom: 3px; }
 #header-wrap #support-barn a {
     padding: 0.15em 0.5em; float: right; }
+#header-wrap #cafe-hours {
+    float: right; position: relative; top: 5px;
+    max-width: 15em; }
+#header-wrap #cafe-hours .day {
+    width: 6em; float: left; font-size: 13px; }
+#header-wrap #cafe-hours .label {
+    color: #bbb; display: inline-block; width: 1.75em; }
+#header-wrap #location {
+    float: right; position: relative; margin-right: 45px;
+    top: 5px; }
 
 /* Nav
  */
