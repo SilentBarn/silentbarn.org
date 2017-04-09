@@ -1,7 +1,8 @@
 <!-- Mobile navigation -->
 <div id="mobile-nav" style="display:none;">
     <ul>
-<?php   $this->partial( 'partials/nav' ); ?>
+        <?php
+        $this->partial( 'partials/nav' ); ?>
     </ul>
 </div>
 
@@ -28,7 +29,8 @@
         </div>
         -->
 
-<?php   $this->partial( 'partials/photostream' ); ?>
+        <?php
+        $this->partial( 'partials/photostream' ); ?>
 
         <div id="support-barn">
             <div class="message">
@@ -72,7 +74,8 @@
         <!-- Navigation -->
         <nav>
             <ul id="menu">
-<?php           $this->partial( 'partials/nav' ); ?>
+                <?php
+                $this->partial( 'partials/nav' ); ?>
             </ul>
             <form id="search" name="search" method="get" action="#" onsubmit="return false;">
                 <input type="text" id="search-query" name="query" value=""
@@ -85,21 +88,31 @@
         </nav>
     </header>
 </div>
-<?php   if ( isset( $pageNav ) ):
-            $this->partial(
-                $pageNav[ 'partial' ],
-                [
-                    'page' => $pageNav[ 'page' ]
-                ]);
-        endif;
 
-        // show any messages
-        if ( isset( $notifications ) && is_array( $notifications ) && count( $notifications ) ): ?>
+<?php
+if ( isset( $pageNav ) ):
+    $this->partial(
+        $pageNav[ 'partial' ],
+        [
+            'page' => $pageNav[ 'page' ]
+        ]);
+endif;
+
+// Show any messages
+$notifications = ( isset( $notifications ) && is_array( $notifications ) && count( $notifications ) )
+    ? $notifications
+    : [];
+$notifications = array_merge( $notifications, $flashMessages );
+
+if ( count( $notifications ) ): ?>
 
 <div id="notif-messages">
-<?php       foreach ( $notifications as $notification ): ?>
+    <?php
+    foreach ( $notifications as $notification ): ?>
     <div class="message <?php echo key( $notification ); ?>"><?php echo current( $notification ); ?></div>
-<?php       endforeach; ?>
+    <?php
+    endforeach; ?>
 </div>
 
-<?php   endif; ?>
+<?php
+endif; ?>

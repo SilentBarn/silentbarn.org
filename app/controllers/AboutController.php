@@ -42,8 +42,7 @@ class AboutController extends \Base\Controller
     }
 
     /**
-     * If $flag = 'thankyou' then show a thank you message
-     * @param string $flag
+     * @param string $flag If 'thankyou' then show a thank you message
      */
     public function rentalsAction( $flag = "" )
     {
@@ -67,14 +66,14 @@ class AboutController extends \Base\Controller
         // Read in the post data and send the email out
         $data = $this->request->getPost();
 
-        // First check the CAPTCHA
-        
-
+        // This will check the CAPTCHA
         $action = new \Actions\Email();
-        $action->rental( $data );
+        $success = $action->rental( $data );
 
         // Redirect to thank you page
-        $this->redirect = "about/rentals/thankyou";
+        $this->redirect = ( $success )
+            ? "about/rentals/thankyou"
+            : "about/rentals";
     }
 
     public function chefsAction()
