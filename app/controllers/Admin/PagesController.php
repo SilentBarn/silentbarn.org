@@ -10,9 +10,11 @@ class PagesController extends \Base\Controller
         $this->view->setMainView( 'admin' );
 
         // Check if they have access
-        if ( ! $this->auth->user[ 'access_pages' ] )
-        {
-            return $this->quit( "You don't have access to pages!", INFO, 'admin/articles' );
+        if ( ! $this->auth->user[ 'access_pages' ] ) {
+            return $this->quit(
+                "You don't have access to pages!",
+                INFO,
+                'admin/articles' );
         }
 
         return parent::beforeExecuteRoute();
@@ -66,8 +68,7 @@ class PagesController extends \Base\Controller
         $pageAction = new \Actions\Pages\Page();
         $page = $pageAction->edit( $data );
 
-        if ( ! $page )
-        {
+        if ( ! $page ) {
             return ( valid( $pageName, STRING ) )
                 ? $this->quit( "", INFO, "admin/pages/edit/{$pageName}" )
                 : $this->quit( "", INFO, 'admin/pages' );

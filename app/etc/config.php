@@ -76,12 +76,18 @@ return [
     'settings' => [
         'cookieToken' => 'cookie_token' ],
 
+    'recaptcha' => [
+        'siteKey' => '',
+        'secretKey' => '',
+        'verifyUrl' => 'https://www.google.com/recaptcha/api/siteverify' ],
+
     'instagram' => [
         'userId' => '500398575',
         'mediaUrl' => 'https://api.instagram.com/v1/users/%s/media/recent/?client_id=%s&count=%s',
         'clientId' => '' ],
 
     'mailgun' => [
+        'debug' => FALSE,
         'from' => 'postmaster@silentbarn.com',
         'fromname' => 'Silent Barn Web',
         'to' => [

@@ -12,12 +12,21 @@ class Email extends \Base\Action
      */
     public function rental( $data )
     {
-        // load our services
-        $filter = $this->getService( 'filter' );
+        // Load our services
+        $util = $this->getService( 'util' );
         $view = $this->getService( 'view' );
+        $filter = $this->getService( 'filter' );
         $config = $this->getService( 'config' );
 
-        // read in email fields
+        // Check the ReCAPTCHA
+        $captcha = get( $data, 'g-recaptcha-response' );
+
+        if ( ! $this->verifyCaptcha( $captcha ) ) {
+            $util->addMessage( "We couldn't validate the CAPTCHA!", INFO );
+            return FALSE;
+        }
+
+        // Read in email fields
         $emailInfo = [
             'name' => $filter->sanitize( get( $data, 'name' ), 'striptags' ),
             'email' => $filter->sanitize( get( $data, 'email' ), 'striptags' ),
@@ -25,7 +34,7 @@ class Email extends \Base\Action
             'dates' => $filter->sanitize( get( $data, 'dates' ), 'striptags' ),
             'description' => nl2br( $filter->sanitize( get( $data, 'description' ), 'striptags' ) )];
 
-        // load the data into the view and render the html
+        // Load the data into the view and render the html
         $html = $view->getRender(
             'email', 'inquiry', [
                 'params' => $emailInfo,
@@ -84,15 +93,12 @@ class Email extends \Base\Action
      */
     public function sendEmail( $to, $subject, $html )
     {
-        // get the required services
         $config = $this->getService( 'config' );
 
-        // instantiate new mailer
+        // Set up a new SMTP mailer
         $mailer = new \PHPMailer();
-
-        // set up SMTP
         $mailer->isSMTP();
-        //$mailer->SMTPDebug = 1;
+        $mailer->SMTPDebug = $config->mailgun->debug;
         $mailer->Port = 587;
         $mailer->Host = $config->mailgun->smtp->hostname;
         $mailer->SMTPAuth = TRUE;
@@ -101,17 +107,44 @@ class Email extends \Base\Action
         $mailer->Password = $config->mailgun->smtp->password;
         $mailer->SMTPSecure = 'tls';
 
-        // add from and to fields
+        // Add from and to fields
         $mailer->From = $config->mailgun->from;
         $mailer->FromName = $config->mailgun->fromname;
         $mailer->addAddress( $to );
 
-        // set up html message and subject
+        // Set up html message and subject
         $mailer->WordWrap = 50;
         $mailer->isHTML( TRUE );
         $mailer->Subject = $subject;
         $mailer->Body = $html;
 
         return $mailer->send();
+    }
+
+    private function verifyCaptcha( $userResponse )
+    {
+        $config = $this->getService( 'config' );
+        $data = [
+            'response' => $userResponse,
+            'secret' => $config->recaptcha->secretKey
+        ];
+
+        $ch = curl_init( $config->recaptcha->verifyUrl );
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $data );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, TRUE );
+        $response = curl_exec( $ch );
+        curl_close( $ch );
+
+        $response = @json_decode( $response );
+
+        if ( ! $response
+            || ! isset( $response->success )
+            || ! $response->success )
+        {
+            return FALSE;
+        }
+
+        return TRUE;
     }
 }

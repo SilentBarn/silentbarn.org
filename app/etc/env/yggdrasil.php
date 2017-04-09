@@ -35,6 +35,10 @@ return [
     'profiling' => [
         'query' => FALSE ],
 
+    'recaptcha' => [
+        'siteKey' => '6LcVkRYUAAAAAGFfY3PnCEJ4r0hdlWOYsvnRm6pS',
+        'secretKey' => '##RECAPTCHASECRET##' ],
+
     'instagram' => [
         'clientId' => '##INSTAGRAMCLIENTID##' ],
 

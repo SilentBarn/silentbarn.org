@@ -7,8 +7,7 @@ use Phalcon\Mvc\View,
 
 class Controller extends \Phalcon\Mvc\Controller
 {
-    // response variables
-    //
+    // Response variables
     public $status = SUCCESS;
     public $code = 200;
     public $messages = array();
@@ -29,13 +28,11 @@ class Controller extends \Phalcon\Mvc\Controller
      */
     public function beforeExecuteRoute()
     {
-        if ( is_null( $this->responseMode ) )
-        {
+        if ( is_null( $this->responseMode ) ) {
             $this->responseMode = $this->config->app->responseMode;
         }
 
-        if ( $this->checkLoggedIn )
-        {
+        if ( $this->checkLoggedIn ) {
             return $this->checkLoggedIn();
         }
 
@@ -52,61 +49,49 @@ class Controller extends \Phalcon\Mvc\Controller
     {
         $util = $this->getDI()->getShared( 'util' );
 
-        // pull stored messages and stop the benchmarks
-        //
+        // Pull stored messages and stop the benchmarks
         $this->messages = array_merge(
             $this->messages,
             $util->getMessages() );
 
         $util->stopBenchmark();
 
-        // if we're in API mode, send a JSON response. otherwise
+        // If we're in API mode, send a JSON response. otherwise
         // save the messages to the flashdata and optionally redirect
         // if the redirect is set.
-        //
-        if ( $this->responseMode === 'api' )
-        {
+        if ( $this->responseMode === 'api' ) {
             $response = array(
                 'status' => $this->status,
                 'code' => $this->code,
                 'messages' => $this->messages,
                 'data' => $this->data );
 
-            // if profiling is enabled, pull the benchmark data
-            //
-            if ( $this->config->profiling->system )
-            {
+            // If profiling is enabled, pull the benchmark data
+            if ( $this->config->profiling->system ) {
                 $response[ 'debug' ] = $util->getDebugInfo();
             }
 
             $this->view->disable();
 
-            // set the json headers and store our response in the view
-            //
+            // Set the json headers and store our response in the view
             $this->response->resetHeaders();
             $this->response->setContentType( 'application/json' );
             $this->response->setJsonContent( $response );
             $this->response->send();
         }
-        else
-        {
-            // set any data as view vars
-            //
-            foreach ( $this->data as $varName => $val )
-            {
+        else {
+            // Set any data as view vars
+            foreach ( $this->data as $varName => $val ) {
                 $this->view->$varName = $val;
             }
 
             $util->setFlash( $this->messages );
 
-            if ( ! is_null( $this->redirect ) )
-            {
+            if ( ! is_null( $this->redirect ) ) {
                 return $this->response->redirect( $this->redirect );
             }
-            else
-            {
-                $this->view->flashMessages = $util->getFlash();
-            }
+
+            $this->view->flashMessages = $util->getFlash();
         }
     }
 
@@ -114,10 +99,8 @@ class Controller extends \Phalcon\Mvc\Controller
     {
         $auth = $this->getDI()->getShared( 'auth' );
 
-        if ( ! $auth->isLoggedIn() )
-        {
-            if ( $this->responseMode === 'api' )
-            {
+        if ( ! $auth->isLoggedIn() ) {
+            if ( $this->responseMode === 'api' ) {
                 return $this->dispatcher->forward(
                     array(
                         'namespace' => 'Controllers',
@@ -126,10 +109,8 @@ class Controller extends \Phalcon\Mvc\Controller
                         'params' => array( $this->responseMode )
                     ));
             }
-            else
-            {
-                return $this->response->redirect( 'login' );
-            }
+
+            return $this->response->redirect( 'login' );
         }
 
         return TRUE;
