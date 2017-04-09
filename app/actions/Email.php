@@ -98,7 +98,7 @@ class Email extends \Base\Action
         // Set up a new SMTP mailer
         $mailer = new \PHPMailer();
         $mailer->isSMTP();
-        $mailer->SMTPDebug = $config->mailgun->debug;
+        $mailer->SMTPDebug = ( $config->mailgun->debug ) ? 1 : 0;
         $mailer->Port = 587;
         $mailer->Host = $config->mailgun->smtp->hostname;
         $mailer->SMTPAuth = TRUE;
