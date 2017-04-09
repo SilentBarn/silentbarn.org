@@ -112,7 +112,7 @@ class Email extends \Base\Action
         $mailer->FromName = $config->mailgun->fromname;
         $mailer->addAddress( $to );
 
-        // Aet up html message and subject
+        // Set up html message and subject
         $mailer->WordWrap = 50;
         $mailer->isHTML( TRUE );
         $mailer->Subject = $subject;
