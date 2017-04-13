@@ -110,7 +110,13 @@ class Email extends \Base\Action
         // Add from and to fields
         $mailer->From = $config->mailgun->from;
         $mailer->FromName = $config->mailgun->fromname;
-        $mailer->addAddress( $to );
+
+        // Could be comma separated
+        $tos = explode( ",", $to );
+
+        foreach ( $tos as $to ) {
+            $mailer->addAddress( $to );
+        }
 
         // Set up html message and subject
         $mailer->WordWrap = 50;
