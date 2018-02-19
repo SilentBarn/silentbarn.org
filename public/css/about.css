@@ -105,3 +105,12 @@
     width: 30%; }
 .donate .darken-on-hover:hover .color-999 {
     color: #333 !important; }
+
+/* Mission */
+.mission figure {
+    margin: 0 0 0 2rem;
+}
+
+.mission figcaption {
+    background: #eee; color: #999; padding: 1rem;
+}
