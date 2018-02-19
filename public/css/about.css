@@ -108,9 +108,8 @@
 
 /* Mission */
 .mission figure {
-    margin: 0 0 0 2rem;
-}
-
+    margin: 0 0 0 2rem; }
+.mission figure img {
+    display: block; }
 .mission figcaption {
-    background: #eee; color: #999; padding: 1rem;
-}
+    background: #eee; color: #999; padding: 1rem; }
