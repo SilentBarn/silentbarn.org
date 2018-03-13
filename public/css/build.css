@@ -587,8 +587,7 @@ header{height:auto}
 #footer-wrap .right{float:right;position:absolute;right:8px;top:15px}
 }
 @media only screen and (max-width:680px){#columns .column{width:100%;float:none}
-}
-@media only screen and (max-width:600px){#final-overlay .header-wrap .button{display:inline-block;margin-top:10px}
+#final-overlay .header-wrap .button{display:inline-block;margin-top:10px}
 }
 @media only screen and (max-width:400px){#hero-carousel,.film_roll_wrapper{height:220px!important;width:auto}
 .hero-carousel div.slide,.hero-carousel div.slide img{height:220px!important;width:320px!important}
