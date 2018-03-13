@@ -9,13 +9,10 @@
         position: fixed; top: 0; left: 0; right: 0; bottom: 0;
         background: #fff; z-index: 1000; font-family: 'Lora', serif;
         overflow-y: auto; }
-    #final-overlay .logo-wrap {
-        padding: 30px 0; }
     #final-overlay h1 {
         color: #111; font-size: 28px; font-weight: bold; }
     #final-overlay .content-wrap {
-        margin: 0 auto; padding: 10px 0 20px 0; width: 80%;
-        max-width: 720px; }
+        margin: 0 auto; width: 80%; max-width: 720px; }
     #final-overlay .justified-text {
         text-align: justify; text-justify: inter-word;
         color: #444; font-size: 18px; line-height: 26px; }
@@ -23,10 +20,11 @@
 
 <!-- Overlay -->
 <div id="final-overlay">
-    <div class="logo-wrap centered-text">
-        <img src="<?php echo $this->url->getStatic( 'img/logo_classic_300w.png' ); ?>" width="160" alt="Silent Barn Logo" />
+    <div class="padding-top-30 padding-bottom-30 centered-text">
+        <img src="<?php echo $this->url->getStatic( 'img/logo_classic_300w.png' ); ?>"
+            width="160" alt="Silent Barn Logo" />
     </div>
-    <div class="content-wrap">
+    <div class="content-wrap padding-top-10 padding-bottom-20">
         <h1 class="margin-bottom-20 centered-text">
             A Message from the Silent Barn Collective
         </h1>
@@ -77,9 +75,76 @@
             ELM's full statement
             <a href="http://www.educatedlittlemonsters.org" target="_blank">here</a>.
         </div>
-        <div class="margin-bottom-50 fontsize-18 centered-text">
+        <div class="margin-bottom-40 fontsize-20 bold centered-text">
             <a href="http://bit.ly/ELMFundraiser">
                 Donate now to support the Monster Movement's new community space
+            </a>
+        </div>
+    </div>
+    <!-- Page 2 -->
+    <div class="content-wrap padding-bottom-40">
+        <div class="centered-text">
+            <figure>
+                <img src="<?php echo $this->url->getStatic( 'img/building.png' ); ?>"
+                    width="720" alt="Silent Barn Building" />
+            </figure>
+            <figcaption>
+                Public Art Curation: @color_scenes/@bushwickstreetart<br>
+                Photo: Color Scenes
+            </figcaption>
+        </div>
+        <div class="margin-bottom-25 justified-text">
+            The Silent Barn would like to extend our gratitude to ELM and the Bushwick community,
+            as well as everyone who has ever performed, booked or attended events here; those who
+            have provided generous support via donations or volunteer time; the residents, studio
+            artists, organizations, staff, and collective members whose tireless effort brought our
+            space into existence, and kept it running.
+        </div>
+        <div class="margin-bottom-25 justified-text">
+            Opening an aboveground, up-to-code space in NYC (or anywhere) comes with limitless
+            challenges—financial, structural, emotional. Attempting to run as an open, non-
+            hierarchical, and collectively-directed project only complicated those challenges. How
+            do we all work together? What does it mean to provide a safe(r) space? How can we
+            responsibly serve a neighborhood while contributing to its rapid gentrification? These
+            are some of the ongoing conversations that have arisen or stayed with us during this
+            phase of the Barn. Though we often learned the hard way and in many ways still have
+            more learning to do, this structure fostered perpetual dialogue and growth. In time,
+            we'd love to share as much information and perspective as we can from our time
+            collectively running this space: the ways we succeeded, and where we ran into the most
+            trouble. We encourage future collectives to explore this model further, to continue
+            having these difficult conversations, and to keep investigating non-traditional forms
+            of organization.
+        </div>
+        <div class="margin-bottom-25 justified-text">
+            Since our founding in 2006, Silent Barn has been committed to an art-first, all-ages
+            ethos, prioritizing independent artists, and work that isn't commercially motivated. In
+            our new space, our programming team facilitated events through a collaborative process,
+            platforming voices from a wide range of backgrounds and experiences and prioritizing
+            those who don't always feel comfortable in other spaces. We urge the city to keep these
+            values in mind and start widely supporting small, artist-run community spaces in a
+            material way, because these types of relationships are crucial for NYC's arts landscape.
+        </div>
+        <div class="margin-bottom-25 justified-text">
+            The end of the current location does not mean the end of Silent Barn as an organization,
+            but we will first be taking time to reflect on our experiences at 603 Bushwick Avenue.
+            When we shut these doors for good, the community that has been forged around the Silent
+            Barn will not be gone. Keep an eye out for updates via Silent Barn's
+            <a href="http://bit.ly/1btb3oK">email newsletter</a>
+            and social media pages; find our final events and
+            <a href="https://www.facebook.com/groups/dirtyhandsclub/">volunteer opportunities</a>
+            on our <a href="http://silentbarn.org/">website</a> and
+            <a href="https://www.facebook.com/silentbarn/">Facebook</a>.
+            And please, stand in solidarity with ELM via their
+            <a href="https://withfriends.co/educated_little_monsters/join">fundraiser page</a>,
+            keep up with their work on
+            <a href="https://www.facebook.com/ELMYOUTHGROUP/">Facebook</a> and
+            <a href="https://www.instagram.com/educatedlittlemonsters/">Instagram</a>,
+            or reach out directly to
+            <a href="mailto:MonsterMovementBK@gmail.com">MonsterMovementBK@gmail.com</a>.
+        </div>
+        <div class="fontsize-20 bold centered-text">
+            <a href="<?php echo $this->url->get( '?site=1' ); ?>">
+                Continue to SilentBarn.org
             </a>
         </div>
     </div>

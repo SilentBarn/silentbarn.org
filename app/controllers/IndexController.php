@@ -17,7 +17,7 @@ class IndexController extends \Base\Controller
         $this->view->heroPosts = \Db\Sql\Posts::getByLocation( 'hero', 10 );
 
         // Reverse this in prod mode
-        if ( $this->request->getQuery( 'hide' ) == 1 ) {
+        if ( $this->request->getQuery( 'site' ) == 1 ) {
             $this->view->pick( 'home/final' );
         }
         else {
