@@ -18,13 +18,11 @@ class IndexController extends \Base\Controller
 
         // If a flag came in, render the home page
         if ( $this->request->getQuery( 'site' ) == 1 ) {
-            //$this->view->pick( 'home/index' );
-            $this->view->pick( 'home/final' );
+            $this->view->pick( 'home/index' );
         }
         // By default show the final notice :(
         else {
-            //$this->view->pick( 'home/final' );
-            $this->view->pick( 'home/index' );
+            $this->view->pick( 'home/final' );
         }
     }
 }
