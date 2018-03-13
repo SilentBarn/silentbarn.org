@@ -217,6 +217,11 @@
     }
 }
 
+@media only screen and (max-width: 600px) {
+    #final-overlay .header-wrap .button {
+        display: inline-block; margin-top: 10px; }
+}
+
 @media only screen and (max-width: 400px) {
     #hero-carousel,
     .film_roll_wrapper {
