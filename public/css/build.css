@@ -282,7 +282,8 @@ table.md td{background-color:#fff}
 #final-overlay .content-wrap{margin:0 auto;width:80%;max-width:720px}
 #final-overlay .justified-text{text-align:justify;text-justify:inter-word;color:#444;font-size:18px;line-height:26px}
 #final-overlay figure{margin:0}
-#final-overlay iframe{margin:0 auto;display:block}
+#final-overlay figure img{max-width:100%}
+#final-overlay iframe{margin:0 auto;display:block;max-width:100%}
 #auth.page{width:600px;margin-bottom:100px}
 #post.page #body{line-height:150%;word-wrap:break-word}
 #post span.price{margin-right:5px;background:#ddd;padding:2px 5px}

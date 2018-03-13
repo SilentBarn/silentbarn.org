@@ -107,5 +107,7 @@
     color: #444; font-size: 18px; line-height: 26px; }
 #final-overlay figure {
     margin: 0; }
+#final-overlay figure img {
+    max-width: 100%; }
 #final-overlay iframe {
-    margin: 0 auto; display: block; }
+    margin: 0 auto; display: block; max-width: 100%; }
