@@ -96,6 +96,8 @@
     overflow-y: auto; }
 #final-overlay h1 {
     color: #111; font-size: 28px; font-weight: bold; }
+#final-overlay .action-wrap {
+    position: fixed; top: 20px; right: 20px; }
 #final-overlay .content-wrap {
     margin: 0 auto; width: 80%; max-width: 720px; }
 #final-overlay .justified-text {
