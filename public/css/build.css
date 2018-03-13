@@ -277,6 +277,7 @@ table.md td{background-color:#fff}
 #vignettes .block .description{font-size:14px;line-height:20px;color:#666}
 #final-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:#fff;z-index:1000;font-family:Lora,serif;overflow-y:auto}
 #final-overlay h1{color:#111;font-size:28px;font-weight:700}
+#final-overlay .action-wrap{position:absolute;top:20px;right:15px}
 #final-overlay .content-wrap{margin:0 auto;width:80%;max-width:720px}
 #final-overlay .justified-text{text-align:justify;text-justify:inter-word;color:#444;font-size:18px;line-height:26px}
 #final-overlay figure{margin:0}
