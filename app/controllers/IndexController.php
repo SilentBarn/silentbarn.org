@@ -16,11 +16,14 @@ class IndexController extends \Base\Controller
         $this->view->boxPosts = \Db\Sql\Posts::getByLocation( 'boxes', 5 );
         $this->view->heroPosts = \Db\Sql\Posts::getByLocation( 'hero', 10 );
 
-        // Reverse this in prod mode
+        // If a flag came in, render the home page
         if ( $this->request->getQuery( 'site' ) == 1 ) {
+            //$this->view->pick( 'home/index' );
             $this->view->pick( 'home/final' );
         }
+        // By default show the final notice :(
         else {
+            //$this->view->pick( 'home/final' );
             $this->view->pick( 'home/index' );
         }
     }

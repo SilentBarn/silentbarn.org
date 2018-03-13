@@ -29,17 +29,21 @@ class AboutController extends \Base\Controller
         $this->view->pick( 'about/mission' );
     }
 
+    /* Removed
     public function volunteerAction()
     {
         $this->data->pageTitle = "Volunteering";
         $this->view->pick( 'about/volunteer' );
     }
+    */
 
+    /* Removed
     public function jobsAction()
     {
         $this->data->pageTitle = "Jobs";
         $this->view->pick( 'about/jobs' );
     }
+    */
 
     /**
      * @param string $flag If 'thankyou' then show a thank you message
